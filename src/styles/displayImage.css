@@ -1,0 +1,21 @@
+.imageDiv {
+    align-items: center;
+    width:300px;
+    height: 300px;
+    overflow: hidden;
+    background-position: center center;
+    background-size: 305px 305px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.imageStyle {
+    height: 300px; /*!important;  to override wordpress */
+    width: 300px;
+    object-fit: cover;
+    transition: opacity 0.6s ease;
+}
+
+.imageDiv:hover {
+    opacity: 0.7;
+}
