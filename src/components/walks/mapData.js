@@ -44,35 +44,7 @@ export const grafData = [
     }
   ]
 
-/*
-// for wordpress
 
-export const grafData = [
-  {
-      id: 1,
-      name: 'The Schlachthof',
-      lat: 48.122847,
-      lng: 11.554482,
-      image: '/wp-content/plugins/react-visit/visit/build/images/schlachthof4-hp.jpg'
-  },
-  {
-      id: 2,
-      name: 'Brudermühl Bridge',
-      lat: 48.112684,
-      lng: 11.560598,
-      image: '/wp-content/plugins/react-visit/visit/build/images/Eagle Grafiti 1024px.jpg',
-     // images/Brüdermuhl Grafiti 1024px.jpg',
-             // './]
-  },
-  {
-      id: 3,
-      name: 'Ludwigsbrücke',
-      lat: 48.131438,
-      lng: 11.587447,
-      image: '/wp-content/plugins/react-visit/visit/build/images/IMG_20180330_220107.jpg',
-  }
-]
-*/
 
 
 export const mapStyle = [

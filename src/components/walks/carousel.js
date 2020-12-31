@@ -1,24 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaForward, FaBackward} from 'react-icons/fa';
-import { imageArray } from './mapData';
-import '../styles/carousel.css';
+import { imageArray } from './mapData'; // this needs to be changed to an 
+// array which will be delivered from the store with each project
+import '../../styles/carousel.css';
 
-
-
-/*
-//for wordpress
-const imageArray = [
-    {image: '/wp-content/plugins/react-visit/visit/build/images/schlachthof4-hp.jpg', index: 0},
-    {image: '/wp-content/plugins/react-visit/visit/build/images/Eagle Grafiti 1024px.jpg', index: 1},
-    {image: '/wp-content/plugins/react-visit/visit/build/images/IMG_20180330_220107.jpg', index: 2},
-    {image: '/wp-content/plugins/react-visit/visit/build/images/Brüdermuhl Grafiti 1024px.jpg', index: 3},
-]
-*/
 function Slide({ image, isCurrent, id, }) {
-
     return (
         <img
-
             className='slide'
             aria-hidden={!isCurrent}
             aria-labelledby={id}

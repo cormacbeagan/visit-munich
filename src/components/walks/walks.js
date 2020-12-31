@@ -1,34 +1,34 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import Map from './map';
 import Display from './display';
-import { location, grafData } from './mapData';
+import { location } from './mapData';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux';
 
-
-const zoomLevel = 12;
 
 function Walks(props) {
+    const {projects} = props
     const [ displayData, setDisplayData ] = useState({})
-
     const handleInfo = (id) => {
         if(id) {
-            const index = id -= 1
-            setDisplayData(grafData[index])        
+            const data = projects.find(project => project.id === id)
+            setDisplayData(data)        
         }
     }
 
     return (
             <div style={container}> 
                 <div style={boxes}>
-                    <div style={map}>
+                    <div>
                         <Map
                         handleInfo={handleInfo}
                         location={location}
                         zoomLevel={12}
-                        grafData={grafData}
+                        projects={projects}
                         />
                     </div>
-                    <div>
-                        <h2 style={boxHeading}>Street Art</h2>
+                    <div style={infoBoxes}>
                         <Display 
                             type={'image'}
                             data={displayData}
@@ -44,7 +44,7 @@ function Walks(props) {
 }
 
 const container = {
-    margin: '50px',
+    //margin: '50px',
     maxHeight: '1000px',
     maxWidth: 'cover',
     contain: 'items',
@@ -53,12 +53,14 @@ const container = {
 
 const boxes = {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     align: 'baseline',
 }
 
-const map = {
-
+const infoBoxes = {
+    maxWidth: '200px',
+    display: 'flex',
+    flexDirection: 'column',
 };
 
 const boxHeading = {
@@ -68,7 +70,17 @@ const boxHeading = {
     textAlign: 'center',
   };
 
+  const mapStateToProps = (state) => {
+      return {
+          projects: state.firestore.ordered.projects || state.project.projects
+      }
+  }
+// 
 
-
-export default Walks;
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'projects'}
+    ])
+)(Walks);
 

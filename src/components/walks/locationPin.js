@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {GiMineralHeart} from 'react-icons/gi';
-import '../styles/locationPin.css'
+import '../../styles/locationPin.css'
 
 const LocationPin = ({ text, handleInfo, id }) => {
     const [ hover, setHover ] = useState(false)
@@ -9,7 +9,6 @@ const LocationPin = ({ text, handleInfo, id }) => {
         setHover(!hover)
     }
     const handleClick = () => {
-        console.log(id)
         handleInfo(id)
     }
     return (
@@ -23,6 +22,9 @@ const LocationPin = ({ text, handleInfo, id }) => {
         </div>
     )
 }
+
+// on pin hover the boxes should float in from the left 
+// on pin click the the map should zoom,    //or maybe not - zooming out is annoying with a touch pad
 
 const pin = {
     cursor: 'pointer',

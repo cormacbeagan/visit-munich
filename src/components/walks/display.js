@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import DisplayText from './displayText';
 import DisplayImage from './displayImage';
-import './../styles/display.css';
+import '../../styles/display.css';
 
 function Display({ type, data }) {
 
@@ -17,7 +17,6 @@ function Display({ type, data }) {
         return (
             <div className='display' >
                 <DisplayText
-                    type={type} 
                     data={data}
                 />
             </div>

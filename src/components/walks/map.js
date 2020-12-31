@@ -1,20 +1,19 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin'
-import { mapStyle, grafData } from './mapData';
+import { mapStyle } from './mapData';
 
-const googleToken = Process.env.REACT_APP_GOOGLE_KEY;
+const googleToken = process.env.REACT_APP_GOOGLE_KEY;
 const middle = {
     lat: 48.137200,
     lng: 11.576044,
 }
 
-const Map = ({ location, zoomLevel, handleInfo }) => {
+const Map = ({ location, zoomLevel, handleInfo, projects}) => {
     
 
     return (
         <div>
-            <h2 style={heading}>Grafiti Tour of Munich</h2>
             <div style={mapContainer}>
                 <GoogleMapReact
                     style={map}
@@ -27,7 +26,7 @@ const Map = ({ location, zoomLevel, handleInfo }) => {
                       styles: mapStyle
                     }}
                 >
-                {grafData.map(item => {
+                {projects.map(item => {
                     return (<LocationPin
                       handleInfo={handleInfo}
                       key={item.id}
@@ -53,8 +52,11 @@ const Map = ({ location, zoomLevel, handleInfo }) => {
   };
 
   const mapContainer = {
+      //position: 'fixed',
+      zIndex: '-10',
       height: '618px',
-      width: '618px',
+      width: '100%',
+      textAlign: 'center',
       contain: 'content',  
       boxShadow:'2.8px 2.8px 2.2px rgba(0, 0, 0, 0.034)',
       boxShadow:'5.3px 6.7px 5.3px rgba(0, 0, 0, 0.048)',
@@ -65,7 +67,9 @@ const Map = ({ location, zoomLevel, handleInfo }) => {
     //  border: '3px solid #333',
     //  borderRadius: '8px',
   };
-
+// add a resize on drag property for the bottom border of the map - 
+// https://stackoverflow.com/questions/26233180/resize-a-div-on-border-drag-and-drop-without-adding-extra-markup
+// http://jsfiddle.net/kxr96dzg/1/ 
   const map = {
     width: '400px',
     height: '300px',
