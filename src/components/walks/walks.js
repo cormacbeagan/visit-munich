@@ -19,7 +19,6 @@ function Walks(props) {
 
     return (
             <div style={container}> 
-                <div style={boxes}>
                     <div>
                         <Map
                         handleInfo={handleInfo}
@@ -38,7 +37,6 @@ function Walks(props) {
                             data={displayData}
                             />
                     </div>
-                </div>
             </div>
     )
 }
@@ -46,21 +44,19 @@ function Walks(props) {
 const container = {
     //margin: '50px',
     maxHeight: '1000px',
-    maxWidth: 'cover',
+    width: '320px',
     contain: 'items',
     display: 'contain',
 };
 
-const boxes = {
-    display: 'flex',
-    flexDirection: 'column',
-    align: 'baseline',
-}
+// need to move this css into a walks css file and move it in on locationPin click
+// at the moment the map is being covered by the content from app and the margin from 
+// the boxes
 
 const infoBoxes = {
-    maxWidth: '200px',
-    display: 'flex',
-    flexDirection: 'column',
+    zIndex: '10',
+    width: '320px',
+    display: 'block',
 };
 
 const boxHeading = {

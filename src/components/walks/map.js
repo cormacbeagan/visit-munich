@@ -52,9 +52,9 @@ const Map = ({ location, zoomLevel, handleInfo, projects}) => {
   };
 
   const mapContainer = {
-      //position: 'fixed',
-      zIndex: '-10',
-      height: '618px',
+      position: 'fixed',
+      zIndex: '-1',
+      height: window.innerHeight - 50 + 'px',
       width: '100%',
       textAlign: 'center',
       contain: 'content',  
