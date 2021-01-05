@@ -43,19 +43,12 @@ const Map = ({ location, zoomLevel, handleInfo, projects}) => {
     )
   }
 
-
-  const heading = {
-    fontSize: '1.5rem',
-    padding: '20px',
-    paddingLeft: '10px',
-    textAlign: 'center',
-  };
-
   const mapContainer = {
-      position: 'fixed',
-      zIndex: '-1',
-      height: window.innerHeight - 50 + 'px',
-      width: '100%',
+    height: window.innerHeight - 50 + 'px',
+    width: '100%',
+    marginTop: '-10px',
+    position: 'fixed',
+    zIndex: '1',
       textAlign: 'center',
       contain: 'content',  
       boxShadow:'2.8px 2.8px 2.2px rgba(0, 0, 0, 0.034)',

@@ -15,7 +15,7 @@ function NavBar(props) {
 				<Link style={link} to="/eat">Eat Out</Link>
 				<Link style={link} to="/live">Live Music</Link>
                 <Link style={link} to="/weather">Weather</Link>
-				<Link style={link} to="/walks">Walks</Link>
+				<Link style={link} to="/walks">Walls</Link>
 				{isLoaded(auth) && links}
 		</div>
 		);

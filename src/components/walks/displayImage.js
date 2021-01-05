@@ -6,7 +6,6 @@ const munImage = '/images/IMG_20180330_174450.jpg';
 
 function DisplayImage({ data }) {
     const [ display, setDisplay ] = useState({display: 'none'})
-
     const handleModal = () => {
         setDisplay({display: 'block'})
     }
@@ -19,6 +18,7 @@ function DisplayImage({ data }) {
         <div>
             <div>
                 <Carousel
+                    id={data.id}
                     closeModal={closeModal}
                     data={data}
                     display={display}/>
@@ -31,7 +31,6 @@ function DisplayImage({ data }) {
         </div>
         )
 }
-
 
 
 export default DisplayImage;

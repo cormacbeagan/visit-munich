@@ -54,7 +54,8 @@ const container = {
 // the boxes
 
 const infoBoxes = {
-    zIndex: '10',
+    position: 'absolute',
+    zIndex: '99',
     width: '320px',
     display: 'block',
 };

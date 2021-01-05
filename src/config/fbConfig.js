@@ -1,10 +1,8 @@
   import firebase from 'firebase/app';
   import 'firebase/firestore';
   import 'firebase/auth';
+  import 'firebase/storage';
   
-  
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
     apiKey: "AIzaSyCFFOl9wG5l-DVcM4mpgx2Y-H_pvU00kiA",
     authDomain: "visit-munich.firebaseapp.com",
@@ -17,5 +15,6 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.firestore().settings({timestampsInSnapshots: true });
+  firebase.storage();
 
   export default firebase;

@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaForward, FaBackward} from 'react-icons/fa';
-import { imageArray } from './mapData'; // this needs to be changed to an 
-// array which will be delivered from the store with each project
 import '../../styles/carousel.css';
+let imageArray = [];
 
-function Slide({ image, isCurrent, id, }) {
+
+
+function Slide({ image, isCurrent, label, click }) {
     return (
         <img
             className='slide'
             aria-hidden={!isCurrent}
-            aria-labelledby={id}
+            aria-labelledby={label}
             src={image}
+            onClick={click}
         />
     )
 }
@@ -24,16 +26,30 @@ function ControlButton(props) {
     return <button className='controlButton' {...props} />
 }
 
-function Carousel({ display, closeModal }) {
-    const [ currentIndex, setCurrentIndex ] = useState(2)
+function Carousel(props) {
+    const { display, closeModal, data} = props
+    const [ currentIndex, setCurrentIndex ] = useState(0)
     const [ isPlaying, setIsPlaying ] = useState(false)
     const ref = useRef()
+
+    useEffect(() => {
+        let counter = 0
+        if(data.images){
+            imageArray = data.images.map(image => {
+                const indexedImage = {
+                    index: counter,
+                    image: image,
+                }
+                counter ++;
+                return indexedImage
+            })
+        }
+    }, [data])
 
     useEffect(() => {
         let timeout
         if(isPlaying) {
             timeout = setTimeout(() => {
-                console.log(isPlaying)
                 setCurrentIndex((currentIndex + 1) % imageArray.length)
             }, 3000)
         }
@@ -59,19 +75,23 @@ function Carousel({ display, closeModal }) {
             ref.current.className=''
         }, 300)
     }
-   
-    return (
-        <div className='container' style={display}>
+
+    
+       return (
+           <div className='carousel-container' style={display}>
             <div className='closer' onClick={handleCloser}></div>
             <div ref={ref} className=''>
-                {imageArray.map(item => (
-                <Slide
-                    key={item.index}
-                    id={`image-${item.index}`}
-                    image={item.image}
-                    isCurrent={item.index === currentIndex}
-                />
-            ))}
+                {imageArray.map(item => {
+                    return (
+                      <Slide
+                        key={item.index}
+                        image={item.image}
+                        label={`image-${item.index}`}
+                        isCurrent={item.index === currentIndex}
+                        click={handleForward}
+                      />
+                )
+            })}
             </div>
             <Controls>
                 {isPlaying ? (
@@ -102,4 +122,6 @@ function Carousel({ display, closeModal }) {
     )
 }
 
-export default Carousel;
+
+export default Carousel
+

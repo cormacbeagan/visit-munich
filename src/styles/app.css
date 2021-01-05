@@ -1,5 +1,9 @@
-.content {
-    margin: 40px;
-    z-index: -2;
+body {
+    background-color: #c9c3c3;
+
 }
-/* not hookekd up*/
+
+.app-content {
+    margin: 0px;
+
+}
