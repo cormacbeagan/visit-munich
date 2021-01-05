@@ -17,7 +17,6 @@ function DisplayText({ project }) {
                 <p>Created: {moment(project.createdAt.toDate()).calendar()}</p>
                 <br/>
                 <Link to={'/wall/' + project.id}>Edit</Link>
-                
             </div>
         )
     }else{
@@ -27,7 +26,7 @@ function DisplayText({ project }) {
 
 const boxText = {
     margin: '10px',
-    color: '#333',
+    color: 'white',
 }
 
 export default DisplayText;

@@ -5,8 +5,8 @@ const initState = {
             name: 'The Schlachthof',
             lat: 48.122847,
             lng: 11.554482,
-            image: 'images/schlachthof4-hp.jpg', // needs to be an array
-            images: ['images/schlachthof4-hp.jpg']
+            image: 'images/Easy-schlachthof.jpg',
+            images: ['images/Easy-schlachthof.jpg']
         }
       ]
 }

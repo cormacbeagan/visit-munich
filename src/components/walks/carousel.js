@@ -51,7 +51,7 @@ function Carousel(props) {
         if(isPlaying) {
             timeout = setTimeout(() => {
                 setCurrentIndex((currentIndex + 1) % imageArray.length)
-            }, 3000)
+            }, 2000)
         }
         return () => clearTimeout(timeout)
     })
@@ -72,6 +72,7 @@ function Carousel(props) {
         ref.current.className='slideOut'
         setTimeout(() => {
             closeModal()
+            setCurrentIndex(0)
             ref.current.className=''
         }, 300)
     }

@@ -19,7 +19,6 @@ function DisplayWall(props) {
     if(!auth.uid) return <Redirect to='/signin' />
 
     const handleChange = (e) => {
-        console.log(e)
         if(e.target.files[0]){
             setImageFile(e.target.files[0])
         }
@@ -28,13 +27,11 @@ function DisplayWall(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         uploadImage(imageFile, id)
-        console.log(e)
         input.current.value = null
         
     }
 
     if(project) {
-        console.log(project)
         return (
             <div style={{margin: '20px'}}>
                 <h3>Name: <span style={{color: '#a2616d'}}>{project.name}</span></h3>

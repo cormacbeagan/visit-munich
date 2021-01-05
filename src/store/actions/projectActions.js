@@ -1,3 +1,5 @@
+import imageCompression from 'browser-image-compression';
+
 export const createProject = (project) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore()
@@ -18,6 +20,9 @@ export const createProject = (project) => {
     }
 }
 
+// implement a check to see if new walls are close to existing walls
+// or find out how to merge points into one point on the map
+
 export const uploadImage = (image, id) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
@@ -25,28 +30,39 @@ export const uploadImage = (image, id) => {
         const storage = firebase.storage();
         const project = firestore.collection('projects').doc(id);
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
-
-        uploadTask.on(
-            'state_changed',
-            snapshot => {},
-            error => {
-                console.log(error);
-            },
-            () => {
-                storage
-                .ref('images')
-                .child(image.name)
-                .getDownloadURL()
-                .then(url => {
-                    project.update({
-                        images: firebase.firestore.FieldValue.arrayUnion(url)
+        
+        const options = {
+            maxSizeMB: 3,
+            maxWidthOrHeight: 2000,
+            useWebWorker: true,
+        }
+        imageCompression(image, options).then(compImg => {
+            uploadTask.on(
+                'state_changed',
+                snapshot => {},
+                error => {
+                    console.log(error);
+                },
+                () => {
+                    storage
+                    .ref('images')
+                    .child(compImg.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        project.update({
+                            images: firebase.firestore.FieldValue.arrayUnion(url)
+                        })
+                    }).then(() => {
+                        dispatch({type: 'UPLOAD_SUCCESS'})
+                    }).catch(err => {
+                        dispatch({type: 'UPLOAD_ERROR', err})
                     })
-                }).then(() => {
-                    dispatch({type: 'UPLOAD_SUCCESS'})
-                }).catch(err => {
-                    dispatch({type: 'UPLOAD_ERROR', err})
                 })
             }
         )
     }
 }
+
+//next up alter wall details 
+// and delete photos 
+// delete whole walls 

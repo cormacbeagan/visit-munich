@@ -3,6 +3,7 @@
     width: 294px;
     height: 294px;
     overflow: hidden;
+    background: grey;
     background-position: center center;
     background-size: 305px 305px;
     background-repeat: no-repeat;
@@ -15,6 +16,6 @@
     transition: opacity 0.6s ease;
 }
 
-.imageDiv:hover {
-    opacity: 0.7;
+.imageStyle:hover {
+    opacity: 0.75;
 }

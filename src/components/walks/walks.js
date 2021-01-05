@@ -10,12 +10,27 @@ import { compose } from 'redux';
 function Walks(props) {
     const {projects} = props
     const [ displayData, setDisplayData ] = useState({})
+    const [ slideIn, setSlideIn ] = useState('-350px')
     const handleInfo = (id) => {
         if(id) {
             const data = projects.find(project => project.id === id)
-            setDisplayData(data)        
+            setDisplayData(data)
+            setSlideIn('-30px')
+            setTimeout(setSlideIn('0px'), 300)
         }
     }
+
+    const infoBoxes = {
+        marginLeft: slideIn,
+        position: 'absolute',
+        zIndex: '99',
+        width: '320px',
+        display: 'block',
+        transitionProperty: 'margin-left',
+        transitionDuration: '800ms',
+        transitionTimingFunction: 'cubic-bezier(0, 2.45, 0.29, 0.46)',
+    };
+    
 
     return (
             <div style={container}> 
@@ -53,19 +68,7 @@ const container = {
 // at the moment the map is being covered by the content from app and the margin from 
 // the boxes
 
-const infoBoxes = {
-    position: 'absolute',
-    zIndex: '99',
-    width: '320px',
-    display: 'block',
-};
 
-const boxHeading = {
-    fontSize: '1.5rem',
-    padding: '20px',
-    paddingLeft: '10px',
-    textAlign: 'center',
-  };
 
   const mapStateToProps = (state) => {
       return {
