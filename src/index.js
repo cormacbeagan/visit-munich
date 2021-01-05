@@ -12,6 +12,8 @@ import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, createFirestoreInstance, getFirestore } from 'redux-firestore';
 import fbConfig from './config/fbConfig';
 import firebase from 'firebase/app';
+import { useSelector } from "react-redux";
+import { isLoaded } from "react-redux-firebase";
 
 
 const store = createStore(rootReducer, 
@@ -21,24 +23,44 @@ const store = createStore(rootReducer,
   )    
 );
 
+// cannot get the user profile details attached to the firebase object - should be on the profile key
+const profileProps = {
+  userProfile: "users",
+  useFirestoreForProfile: true,
+  enableRedirectHandling: false,
+  resetBeforeLogin: false,
+};
+
 const rrfProps = {
-  firebase, 
-  config: fbConfig,
+  firebase,
+  config: fbConfig && profileProps,
   dispatch: store.dispatch,
-  createFirestoreInstance
+  createFirestoreInstance,
+}
+
+function AuthIsLoaded({ children }) {
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!isLoaded(auth))
+    return (
+      <div className="center">
+        {" "}
+        <h4>Loading...</h4>
+      </div>
+    );
+  return children;
 }
 
 const target = document.getElementById('root')
-ReactDOM.render(
-
-    <React.StrictMode>
+  ReactDOM.render(
+    <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
-        <Provider store={store}>
+        <AuthIsLoaded>
           <App />
-        </Provider>
+        </AuthIsLoaded>
       </ReactReduxFirebaseProvider>
-    </React.StrictMode>,
-    target)
+    </Provider>
+   ,target)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

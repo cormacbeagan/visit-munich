@@ -7,7 +7,8 @@ import Live from './components/live';
 import Weather from './components/weather';
 import SignIn from './components/auth/signin';
 import SignUp from './components/auth/signup';
-import CreateWall from './components/walks/createWall/createWall';
+import CreateWall from './components/walks/createWall';
+import DisplayWall from './components/walks/wallDetails';
 
 
 function App() {
@@ -49,6 +50,10 @@ function App() {
             <Route
               path="/create"
               render={() => <CreateWall/>}
+            />
+            <Route
+              path="/wall/:id"
+              render={() => <DisplayWall/>}
             />
           </Switch>
         </div>

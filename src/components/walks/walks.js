@@ -71,7 +71,6 @@ const boxHeading = {
           projects: state.firestore.ordered.projects || state.project.projects
       }
   }
-// 
 
 export default compose(
     connect(mapStateToProps),

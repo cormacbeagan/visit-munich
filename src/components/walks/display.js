@@ -17,7 +17,7 @@ function Display({ type, data }) {
         return (
             <div className='display' >
                 <DisplayText
-                    data={data}
+                    project={data}
                 />
             </div>
     )

@@ -5,28 +5,28 @@ const initState = {
             name: 'The Schlachthof',
             lat: 48.122847,
             lng: 11.554482,
-            image: 'images/schlachthof4-hp.jpg', // needs to be an array
+            image: ['images/schlachthof4-hp.jpg'], // needs to be an array
         },
         {
             id: 2,
             name: 'Brudermühl Bridge',
             lat: 48.112684,
             lng: 11.560598,
-            image: 'images/Eagle Grafiti 1024px.jpg',
+            image: ['images/Eagle Grafiti 1024px.jpg'],
         },
         {
             id: 3,
             name: 'Ludwigsbrücke',
             lat: 48.131438,
             lng: 11.587447,
-            image: 'images/IMG_20180330_220107.jpg', 
+            image: ['images/IMG_20180330_220107.jpg'], 
         },
         {
             id: 4,
             name: 'Endzeit',
             lat: 48.097470,
             lng: 11.527639,
-            image: 'images/endzeit-image.jpg'
+            image: ['images/endzeit-image.jpg']
         }
       ]
 }

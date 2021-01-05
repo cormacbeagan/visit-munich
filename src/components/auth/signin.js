@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { signIn } from '../../store/actions/authActions';
 import '../../styles/signform.css'
 
 const initialState = {
@@ -6,20 +9,21 @@ const initialState = {
     password: '',
 }
 
-function SignIn() {
+function SignIn(props) {
+    const { signIn, authError, auth } = props
     const [ formData, setFormData ] = useState(initialState)
+    if(auth.uid) return <Redirect to='/' />
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formData)
-        setFormData(initialState)
+        signIn(formData)
     }
     const handleChange = (e) => {
         setFormData((prev) => ({...prev, [e.target.id]: e.target.value}))
     }
-
-    return (
-      <div style={{padding: '50px', alignContent: 'center'}}>
+        return (
+            <div style={{padding: '50px', alignContent: 'center'}}>
             <form onSubmit={handleSubmit} className="white">
                 <h5 className="grey-text text-darken-3">Sign In</h5>
                 <div className="input-field">
@@ -33,9 +37,25 @@ function SignIn() {
                 <div className="input-field">
                     <button className="btn lighten-1 z-depth-0">Login</button>
                 </div>
+                <div className="red-text center">
+                    {authError ? <p>{authError}</p> : null}
+                </div>
             </form>
         </div>
-    )
+        )
 }
 
-export default SignIn
+const mapStateToProps = (state) => {
+    return {
+        authError: state.auth.authError,
+        auth: state.firebase.auth,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (creds) => dispatch(signIn(creds))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

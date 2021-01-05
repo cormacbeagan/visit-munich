@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { createProject } from '../../../store/actions/projectActions';
+import { Redirect, useHistory } from 'react-router-dom';
+import { createProject } from '../../store/actions/projectActions';
 
 const initialState = {
     name: '',
     description: '',
     lat: '',
     lng: '',
-    image: ''
+    image: '',
 }
 
 function CreateWall(props) {
-    
-    const { createProject } = props
+    const { createProject, auth } = props
     const [ formData, setFormData ] = useState(initialState)
+    const history = useHistory();
+
+    if(!auth.uid) return <Redirect to='/signin' />;
 
     const handleChange = (e) => {
         setFormData((prev) => ({...prev, [e.target.id]: e.target.value}))
@@ -21,9 +24,9 @@ function CreateWall(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        createProject(formData)
-        // this also needs to handle the file submission...      
+        createProject(formData)   
         setFormData(initialState)
+        history.push('/walks')
     }
 
 
@@ -52,14 +55,17 @@ function CreateWall(props) {
                     <input type="text" id="image" onChange={handleChange} value={formData.image} required/>
                 </div>
                 <div className="input-field">
-                    <input type="file" accept="image/*,.pdf" id="file"/>
-                </div>
-                <div className="input-field">
                     <button className="btn grey darken-2 z-depth-0">Create</button>
                 </div>
             </form>
         </div>
     )
+}
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -68,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(CreateWall)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
