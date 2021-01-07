@@ -15,7 +15,6 @@ function Walks(props) {
         if(id) {
             const data = projects.find(project => project.id === id)
             setDisplayData(data)
-            setSlideIn('-30px')
             setTimeout(setSlideIn('0px'), 300)
         }
     }
@@ -28,9 +27,10 @@ function Walks(props) {
         display: 'block',
         transitionProperty: 'margin-left',
         transitionDuration: '800ms',
-        transitionTimingFunction: 'cubic-bezier(0, 2.45, 0.29, 0.46)',
+        transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
     
+    console.log(displayData)
 
     return (
             <div style={container}> 

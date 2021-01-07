@@ -63,6 +63,23 @@ export const uploadImage = (image, id) => {
     }
 }
 
+export const updateProject = (wall, id) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const authId = getState().firebase.auth.uid;
+        const projectToEdit = firestore.collection('projects').doc(id)
+        projectToEdit.set({
+            ...wall,
+            updatedAt: new Date(),
+            updatedBy: authId,
+        }, {merge: true})
+        .then(resp => {
+            console.log(resp)
+        })
+    }
+}
+
 //next up alter wall details 
 // and delete photos 
 // delete whole walls 

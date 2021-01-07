@@ -1,9 +1,14 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect} from 'react';
 import Carousel from './carousel';
 import '../../styles/displayImage.css';
 
 function DisplayImage({ data }) {
     const [ display, setDisplay ] = useState({display: 'none'})
+
+    useEffect(() => {
+        //console.log(data.image)
+    })
+
     const handleModal = () => {
         setDisplay({display: 'block'})
     }
@@ -24,7 +29,7 @@ function DisplayImage({ data }) {
             <div onClick={handleModal} 
                 className='imageDiv'
                 >
-                <img className='imageStyle' src={data.image}/>
+                <img className='imageStyle' src={data.image} alt="Wall Thumbnail"/>
             </div>
         </div>
         )
