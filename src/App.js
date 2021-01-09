@@ -1,14 +1,15 @@
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/NavBar/navBar';
-import Eat from './components/eat';
-import Home from './components/home';
+import Eat from './components/eat/eat';
+import Home from './components/home/home';
 import Walks from './components/walks/walks';
-import Live from './components/live';
-import Weather from './components/weather';
+import Live from './components/live/live';
+import Weather from './components/weather/weather';
 import SignIn from './components/auth/signin';
 import SignUp from './components/auth/signup';
 import CreateWall from './components/walks/createWall';
 import DisplayWall from './components/walks/wallDetails';
+import ConcertListings from './components/live/concertListings';
 import './styles/app.css';
 
 
@@ -55,6 +56,14 @@ function App() {
             <Route
               path="/wall/:id"
               render={() => <DisplayWall/>}
+            />
+            <Route
+              path="/concerts"
+              render={() => <ConcertListings/>}
+            />
+            <Route
+              path="/venue/:id"
+              render={() => <ConcertListings/>}
             />
           </Switch>
         </div>

@@ -11,7 +11,7 @@ function SignedInLinks(props) {
 		<div style={navbar}>
 				<Link style={link} to="/create">Create Wall</Link>
 				<Link onClick={signOut}style={link} to="/">Logout</Link>
-				<Link className='btn btn-floating grey lighten-1' to='/'>{profile.initials}</Link> 
+				<Link className='btn btn-floating indigo darken-4' to='/'>{profile.initials}</Link> 
 			</div>
 		);
 }

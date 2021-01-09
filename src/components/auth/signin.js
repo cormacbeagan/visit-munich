@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../store/actions/authActions';
+import Button from '../universal/button';
 import '../../styles/signform.css'
+
 
 const initialState = {
     email: '',
@@ -24,7 +26,7 @@ function SignIn(props) {
     }
         return (
             <div style={{padding: '50px', alignContent: 'center'}}>
-            <form onSubmit={handleSubmit} className="white">
+            <form onSubmit={handleSubmit} className="">
                 <h5 className="grey-text text-darken-3">Sign In</h5>
                 <div className="input-field">
                     <label htmlFor="email">Email</label>
@@ -35,7 +37,7 @@ function SignIn(props) {
                     <input type="password" id="password" onChange={handleChange}value={formData.password} required/>
                 </div>
                 <div className="input-field">
-                    <button className="btn lighten-1 z-depth-0">Login</button>
+                    <Button children={'login'} />
                 </div>
                 <div className="red-text center">
                     {authError ? <p>{authError}</p> : null}

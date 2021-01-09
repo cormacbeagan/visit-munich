@@ -1,16 +1,19 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import Map from './map';
+import React, { useState } from 'react';
+import Map from '../universal/map';
 import Display from './display';
-import { location } from './mapData';
+import { location } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
+import { mapStyle } from '../universal/mapData';
+
 
 
 function Walks(props) {
     const {projects} = props
     const [ displayData, setDisplayData ] = useState({})
     const [ slideIn, setSlideIn ] = useState('-350px')
+
     const handleInfo = (id) => {
         if(id) {
             const data = projects.find(project => project.id === id)
@@ -30,12 +33,12 @@ function Walks(props) {
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
     
-    console.log(displayData)
-
     return (
             <div style={container}> 
                     <div>
                         <Map
+                        onClick={() => setSlideIn('-350px')}
+                        mapStyle={mapStyle}
                         handleInfo={handleInfo}
                         location={location}
                         zoomLevel={12}

@@ -2,22 +2,19 @@
     height: 300px;
     width: 300px;
     margin: 10px;
-    background-color: #0d125c;
-    border: 3px solid #0d125c;
+    background-color: #333333;
+    border: 3px solid #395f78;
     box-shadow: 0 100px 80px rgba(0, 0, 0, 0.3);
     transition: all 0.08s ease;
 }
 
-.display:hover {
-    transform: scale(1.0);
-}
 
 .display-image {
     height: 300px;
     width: 300px;
     margin: 10px;
     cursor: pointer;
-    border: 3px solid #0d125c;
+    border: 3px solid #395f78;
     box-shadow: 0 100px 80px rgba(0, 0, 0, 0.3);
 
 }

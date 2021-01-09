@@ -3,8 +3,13 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { Redirect } from 'react-router-dom';
-import { uploadImage, updateProject } from '../../store/actions/projectActions';
+import { Redirect, useHistory } from 'react-router-dom';
+import { FaCloudUploadAlt, FaTrashAlt, FaArrowAltCircleUp, FaFileImport } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import Button from '../universal/button';
+import Thumbnail from '../universal/thumbnail';
+
+import { uploadImage, updateProject, deleteImage } from '../../store/actions/projectActions';
 import moment from 'moment'
 
 let idToPass;
@@ -17,32 +22,36 @@ const initialState = {
 }
 
 function DisplayWall(props) {
-    const {project, auth, uploadImage, updateProject} = props;
+    const {project, auth, uploadImage, updateProject, deleteImage} = props;
+    const input = useRef();
+    const history = useHistory();
     let { id } = useParams();
     idToPass = id
     const [ imageFile, setImageFile ] = useState(null)
-    const input = useRef();
     const [ isEditing, setIsEditing ] = useState(false);
     const [ wallData, setWallData ] = useState(initialState)
     const [ editImage, setEditImage ] = useState('')
     const [ isReady, setIsReady ] = useState(false);
+    const [ imageName, setImageName ] = useState(null)
     
     if(!auth.uid) return <Redirect to='/signin' />
 
     const handleEdit = () => {
+        console.log('calling')
         setIsEditing(!isEditing)
         setEditImage(project.image)
     }
     
-    const handleEditThmbnail = (e) => {
+    const handleEditThmbnail = (url) => {
         if(!isEditing) return
-        setEditImage(e.target.currentSrc)
-        setWallData(prev => ({...prev, image: e.target.currentSrc}))
+        setEditImage(url)
+        setWallData(prev => ({...prev, image: url}))
     }
-
+    
     const handleImageFileSelect = (e) => {
         if(e.target.files[0]){
             setImageFile(e.target.files[0])
+            setImageName(e.target.files[0].name)
         }
     }
 
@@ -50,6 +59,7 @@ function DisplayWall(props) {
         e.preventDefault();
         uploadImage(imageFile, id)
         input.current.value = null
+        setImageName(null)
     }
 
     const handleChange = (e) => {
@@ -72,26 +82,35 @@ function DisplayWall(props) {
     }
     
     const uploadUpdate = () => {
-        console.log(wallData)
         updateProject(wallData, id)
         setIsEditing(!isEditing)
 
     }
+
+    const handleImageDelete = (url) => {
+        const doubelCheck = window.confirm('Are you sure you want to delete the image?')
+        if(doubelCheck){
+            deleteImage(url, id)
+        }
+    }
     
     if(project) {
         return (
-            <div style={{margin: '70px'}}>
-            {isEditing ? (
+            <div className="container" style={{margin: '70px auto', padding: '50px', backgroundColor: '#333333', color: '#f3f3f3', boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'}}>
+                <div style={{textAlign: 'right'}}>
+                    <Button onClick={() => history.push('/walks')}children={'Back to Map'}/> 
+                </div>
+              {isEditing ? (
                 <div>
                   {isReady ? (
                   <div>
-                    <h3>Name: <span style={{color: '#a2616d'}}>{wallData.name}</span></h3>
-                    <h6>Description: <span style={{color: '#a2616d'}}>{wallData.description}</span></h6>
+                    <h3>Name: <span style={{color: '#f34a6994'}}>{wallData.name}</span></h3>
+                    <h6>Description: <span style={{color: '##f34a6994'}}>{wallData.description}</span></h6>
                     <p></p>
-                    <p>Latitude: <span style={{color: '#a2616d'}}>{wallData.lat}</span></p>
-                    <p>Longditude: <span style={{color: '#a2616d'}}>{wallData.lng}</span></p>
+                    <p>Latitude: <span style={{color: '##f34a6994'}}>{wallData.lat}</span></p>
+                    <p>Longditude: <span style={{color: '##f34a6994'}}>{wallData.lng}</span></p>
                     <p>Thumbnail</p>
-                    <img style={{width: '80px', height: '80px', overflow: 'hidden'}} src={wallData.image} alt="Wall thumbnail"/>
+                    <Thumbnail src={wallData.image} />
                   </div>
                   ):(
                   <div>
@@ -112,76 +131,113 @@ function DisplayWall(props) {
                         <label className="active" htmlFor="longditude">Longditude: </label>
                     </div>
                     <p>Select thumbnail below</p>
-                    <img style={{width: '80px', height: '80px', overflow: 'hidden'}} src={editImage} alt="Wall thumbnail"/>
+                    <Thumbnail src={editImage} />
                     <br/>
                   </div>
                   )}
-                  {!isReady &&<button className="btn grey darken-2 z-depth-0" onClick={handleReady}>Check</button>}
-                  {isReady && <div><button style={{margin: '5px'}}className="btn grey darken-2 z-depth-0" onClick={uploadUpdate}>Upload</button>
-                  <button className="btn grey darken-2 z-depth-0" onClick={handleReady}>Edit</button></div>}
-
-                <div>
-                    {project.images.map(img => {
-                        return (
-                        <div key={img} style={{display: 'inline'}}>
-                            <img onClick={handleEditThmbnail} style={{width: '80px', height: '80px', overflow: 'hidden', margin: '5px'}} src={img} alt="Wall thumbnail"/>
-                        </div>
-                        )
-                    })}
-                </div>
-                </div>
-                
-                ) : (
-
-                <div>
-                    <h3>Name: <span style={{color: '#a2616d'}}>{project.name}</span></h3>
-                    <h6>Description: <span style={{color: '#a2616d'}}>{project.description}</span></h6>
-                    <p></p>
-                    <p>Latitude: <span style={{color: '#a2616d'}}>{project.lat}</span></p>
-                    <p>Longditude: <span style={{color: '#a2616d'}}>{project.lng}</span></p>
-                    <p>Thumbnail</p>
-                    <img style={{width: '80px', height: '80px', overflow: 'hidden'}} src={project.image} alt="Wall thumbnail"/>
-                    <br/>
-                    <button className="btn grey darken-2 z-depth-0" onClick={handleEdit}>Edit</button>
-                    <br/>
-                    <br/>
-                    <div>
+                    <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
                         {project.images.map(img => {
                             return (
-                            <div key={img} style={{display: 'inline'}}>
-                                <img style={{width: '80px', height: '80px', overflow: 'hidden', margin: '5px'}} src={img} alt="Wall series"/>
+                            <div key={img} style={{position: 'relative', zIndex: '1'}}>
+                                <Thumbnail src={img} />
+                                <div style={{position: 'absolute', top: '20px'}}>
+                                    <button 
+                                        onClick={() => handleEditThmbnail(img)} 
+                                        className="btn transparent z-depth-0">
+                                            <FaArrowAltCircleUp size={24}/>
+                                    </button>
+                                    <button 
+                                        onClick={() => handleImageDelete(img)} 
+                                        className="btn transparent z-depth-0">
+                                            <FaTrashAlt size={24}/>
+                                    </button>
+                                </div>
                             </div>
                             )
                         })}
                     </div>
                 </div>
+                
+                ) : (
+
+                <div>
+                    <h3>Name: <span style={{color: '#f34a6994'}}>{project.name}</span></h3>
+                    <h6>Description: <span style={{color: '#f34a6994'}}>{project.description}</span></h6>
+                    <p>Latitude: <span style={{color: '#f34a6994'}}>{project.lat}</span></p>
+                    <p>Longditude: <span style={{color: '#f34a6994'}}>{project.lng}</span></p>
+                    <div>
+                        <p>Posted by: <span style={{color: '#f34a6994'}}>{`${project.authorFirstName} ${project.authorLastName}`}</span></p>
+                        <p>Posted: <span style={{color: '#f34a6994'}}>{moment(project.createdAt.toDate()).calendar()}</span></p>
+                        {project.updatedAt && <p>Last updated: <span style={{color: '#f34a6994'}}>{moment(project.updatedAt.toDate()).calendar()}</span></p>}
+                    </div>
+                    <Thumbnail src={project.image} />
+                    <br/>
+                    <br/>
+                    <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}} >
+                        {project.images.map(img => {
+                            return (
+                            <div key={img} style={{display: 'inline'}}>
+                                <Thumbnail src={img} />
+                            </div>
+                            )
+                        })}
+                    </div>
+                    
+                </div>
                 )}
-
-
-                <p>Posted by: <span style={{color: '#a2616d'}}>{`${project.authorFirstName} ${project.authorLastName}`}</span></p>
-                <p>Posted: {moment(project.createdAt.toDate()).calendar()}</p>
-                <h6>Add Images</h6>
-                <form  onSubmit={handleImageUpload}>
-                <div className="input-field">
-                    <input ref={input} onChange={handleImageFileSelect} type="file" accept="image/*,.pdf" id="file"/>
+                <div className="row">
+                    <div className="col s12 m4" style={{margin: '30px'}}>
+                        {isEditing && (
+                            <div>
+                            {isReady ? (
+                                <div style={{textAlign: 'center'}}>
+                                    <Button onClick={uploadUpdate} children={'Save'}/>
+                                    <Button onClick={handleReady} children={'Edit'} />
+                                </div>
+                            ) : (
+                                <div style={{textAlign: 'center'}} >
+                                        <Button onClick={handleReady} children={'Check'}/>
+                                </div>
+                            )}
+                            <div style={{textAlign: 'center'}} >
+                                <Button children={'cancel'} onClick={() => setIsEditing(!isEditing)}/>
+                            </div>
+                            </div>
+                        )
+                        }
+                        {!isEditing && 
+                            <div className="" style={{textAlign: 'center'}} >
+                                <Button onClick={handleEdit} children={'Edit'} />
+                            </div>
+                        }
+                    </div>
+                    <div className="col s12 m5 offset-m1">
+                        <h6>Select Image: </h6>
+                        <form  onSubmit={handleImageUpload}>
+                            <div className="input-field" style={{ maxHeight: '75px'}}>
+                                <div style={{display: 'inline', margin: '0px 10px'}}>
+                                    <label htmlFor="file" style={{cursor: 'pointer', color: '#616161'}}>
+                                        <input style={{display: 'none'}} 
+                                        ref={input} 
+                                        onChange={handleImageFileSelect} 
+                                        type="file" accept="image/*,.pdf" id="file"/>
+                                        <FaFileImport size={32} onClick={() => setImageName(null)}/>
+                                    </label>
+                                </div>
+                                {imageFile && <p style={{color: '#113963'}}>{imageName}</p>}
+                            </div>
+                            <div className="input-field">
+                                <Button children={'Upload Image'} />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className="input-field">
-                    <button className="btn grey darken-2 z-depth-0">Upload</button>
-                </div>
-                </form>
             </div>
         )
     } else {
-        return <div>Loading Project...</div>
+        return <h4 className="center">2 secs, just need to make a coffee...</h4>
     }
 }
-
-             //     <div className="input-field">
-             //       <input onChange={handleChange} type="text" id="image"/> {/* need to put a check to make sure that this comes from our storage bucket 
-             //                                       url sonst gibt es porn oä // also if its blank or invalid submit the old one*/}
-             //       <label className="" htmlFor="image">Copy image address from thumbnail below</label>
-             //     </div>
-             
 
     const mapStateToProps = (state) => {
     const projects = state.firestore.data.projects;
@@ -196,6 +252,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         uploadImage: (image, id) => dispatch(uploadImage(image, id)),
         updateProject: (wall, id) => dispatch(updateProject(wall, id)),
+        deleteImage: (image, id) => dispatch(deleteImage(image, id)),
     }
 }
 
@@ -207,3 +264,5 @@ export default compose(
     ])
 )(DisplayWall);
 
+// {isEditing && <Button onClick={handleEdit} children={'Save'} />}
+// 

@@ -25,6 +25,18 @@ const projectReducer = (state = initState, action) => {
         case 'UPLOAD_ERROR':
             console.log('Upload error ', action.err)
             return state;
+        case 'IMAGE_ARRAY_REMOVE_SUCCESS':
+            console.log('Image removed from array')
+            return state;
+        case 'IMAGE_ARRAY_REMOVE_ERROR':
+            console.log('Image array removal error', action.err)
+            return state;
+        case 'IMAGE_STORAGE_DELETE_SUCCESS':
+            console.log('Image removed from storage')
+            return state;
+        case 'IMAGE_STORAGE_DELETE_ERROR':
+            console.log('Image storage delete error', action.err)
+            return state;
         default: 
             return state;
     }

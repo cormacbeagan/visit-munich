@@ -80,6 +80,27 @@ export const updateProject = (wall, id) => {
     }
 }
 
+export const deleteImage = (img, id) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const storage = firebase.storage();
+        const imgStorageRef = storage.refFromURL(img);
+        const projectToEdit = firestore.collection('projects').doc(id);
+        projectToEdit.update({
+            images: firebase.firestore.FieldValue.arrayRemove(img)
+        }).then(() => {
+            dispatch({type: 'IMAGE_ARRAY_REMOVE_SUCCESS'})
+            imgStorageRef.delete().then(() => {
+                dispatch({type: 'IMAGE_STORAGE_DELETE_SUCCESS'})
+            }).catch(err => {
+                dispatch({type: 'IMAGE_STORAGE_DELETE_ERROR', err})
+            })
+        }).catch(err => {
+            dispatch({type: 'IMAGE_ARRAY_REMOVE_ERROR', err})
+        })
+    }
+}
 //next up alter wall details 
 // and delete photos 
 // delete whole walls 
