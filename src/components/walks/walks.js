@@ -67,13 +67,7 @@ const container = {
     display: 'contain',
 };
 
-// need to move this css into a walks css file and move it in on locationPin click
-// at the moment the map is being covered by the content from app and the margin from 
-// the boxes
-
-
-
-  const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
       return {
           projects: state.firestore.ordered.projects || state.project.projects
       }

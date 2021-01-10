@@ -41,7 +41,7 @@ export const uploadImage = (image, id) => {
                 'state_changed',
                 snapshot => {},
                 error => {
-                    console.log(error);
+                    console.log('Error: ', error);
                 },
                 () => {
                     storage
@@ -75,8 +75,8 @@ export const updateProject = (wall, id) => {
             updatedBy: authId,
         }, {merge: true})
         .then(resp => {
-            console.log(resp)
-        })
+            // needs to dispatch a succesful update
+        }) // and an error
     }
 }
 
@@ -101,6 +101,3 @@ export const deleteImage = (img, id) => {
         })
     }
 }
-//next up alter wall details 
-// and delete photos 
-// delete whole walls 

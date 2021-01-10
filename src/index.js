@@ -15,13 +15,12 @@ import { isLoaded } from "react-redux-firebase";
 
 
 const store = createStore(rootReducer, 
-  compose( // for adding multiple "store enhancers"
-    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})), // adding the thunk middleware - with extras
-    reduxFirestore(fbConfig), // sets up the firebase config so that getFirestore etc have access to the firebase config
+  compose(
+    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})), 
+    reduxFirestore(fbConfig), 
   )    
 );
 
-// cannot get the user profile details attached to the firebase object - should be on the profile key
 const profileProps = {
   userProfile: "users",
   useFirestoreForProfile: true,
@@ -63,4 +62,4 @@ const target = document.getElementById('root')
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(console.log);

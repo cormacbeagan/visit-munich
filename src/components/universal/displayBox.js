@@ -1,7 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import DisplayField from './displayField';
-//import DisplayText from './displayText';
-//import DisplayImage from './displayImage';
 import '../../styles/display.css';
 
 function DisplayBox({ data }) {

@@ -42,5 +42,3 @@ export const signUp = (newUser) => {
         })
     }
 }
-
-// can we have admin access so that people who sign up can only post photos

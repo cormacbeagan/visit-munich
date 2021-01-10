@@ -10,7 +10,7 @@
 }
 
 .imageStyle {
-    height: 294px; /*!important;  to override wordpress */
+    height: 294px; 
     width: 294px;
     object-fit: cover;
     transition: opacity 0.6s ease;

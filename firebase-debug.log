@@ -1,0 +1,142 @@
+[debug] [2021-01-10T13:24:58.478Z] ----------------------------------------------------------------------
+[debug] [2021-01-10T13:24:58.480Z] Command:       /home/mac/.nvm/versions/node/v15.3.0/bin/node /home/mac/.nvm/versions/node/v15.3.0/bin/firebase init
+[debug] [2021-01-10T13:24:58.480Z] CLI Version:   9.1.0
+[debug] [2021-01-10T13:24:58.480Z] Platform:      linux
+[debug] [2021-01-10T13:24:58.480Z] Node Version:  v15.3.0
+[debug] [2021-01-10T13:24:58.480Z] Time:          Sun Jan 10 2021 14:24:58 GMT+0100 (Central European Standard Time)
+[debug] [2021-01-10T13:24:58.481Z] ----------------------------------------------------------------------
+[debug] [2021-01-10T13:24:58.481Z] 
+[debug] [2021-01-10T13:24:58.484Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-10T13:24:58.485Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/mac/Projects/mbvisit/visit
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-01-10T13:25:25.265Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-01-10T13:25:25.266Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-01-10T13:25:25.542Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sun, 10 Jan 2021 13:25:25 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:25:25.552Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2021-01-10T13:25:26.048Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:25 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  Using project visit-munich (visit-munich) 
+[info] 
+=== Firestore Setup
+[debug] [2021-01-10T13:25:28.934Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/visit-munich/services/firestore.googleapis.com  
+ 
+[debug] [2021-01-10T13:25:30.012Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:29 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:25:30.013Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/visit-munich  
+ 
+[debug] [2021-01-10T13:25:30.496Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:30 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:25:30.496Z] database_type: CLOUD_FIRESTORE
+[debug] [2021-01-10T13:25:30.497Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-10T13:25:30.498Z] > authorizing via signed-in user
+[debug] [2021-01-10T13:25:30.498Z] [iam] checking project visit-munich for permissions ["firebase.projects.get"]
+[debug] [2021-01-10T13:25:30.499Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/visit-munich:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-01-10T13:25:31.686Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:31 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=654","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2021-01-10T13:25:40.255Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/visit-munich/releases?pageSize=10&pageToken=  
+ 
+[debug] [2021-01-10T13:25:41.956Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:41 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:25:41.957Z] Found ruleset: projects/visit-munich/rulesets/c3fd64aa-49cf-46bc-a31c-efc628890a91
+[debug] [2021-01-10T13:25:41.958Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/visit-munich/rulesets/c3fd64aa-49cf-46bc-a31c-efc628890a91  
+ 
+[debug] [2021-01-10T13:25:44.938Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:25:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:25:44.942Z] Error: EISDIR: illegal operation on a directory, open '/home/mac/Projects/mbvisit/visit/build'
+    at Object.openSync (node:fs:488:3)
+    at Object.writeFileSync (node:fs:1512:35)
+    at Config.writeProjectFile (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/config.js:156:8)
+    at /home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/features/firestore/rules.js:50:27
+    at processTicksAndRejections (node:internal/process/task_queues:93:5)
+    at async Object.doSetup [as firestore] (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/features/firestore/index.js:35:5)
+    at async init (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/index.js:19:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2021-01-10T13:26:21.983Z] ----------------------------------------------------------------------
+[debug] [2021-01-10T13:26:21.985Z] Command:       /home/mac/.nvm/versions/node/v15.3.0/bin/node /home/mac/.nvm/versions/node/v15.3.0/bin/firebase init
+[debug] [2021-01-10T13:26:21.985Z] CLI Version:   9.1.0
+[debug] [2021-01-10T13:26:21.985Z] Platform:      linux
+[debug] [2021-01-10T13:26:21.986Z] Node Version:  v15.3.0
+[debug] [2021-01-10T13:26:21.986Z] Time:          Sun Jan 10 2021 14:26:21 GMT+0100 (Central European Standard Time)
+[debug] [2021-01-10T13:26:21.986Z] ----------------------------------------------------------------------
+[debug] [2021-01-10T13:26:21.986Z] 
+[debug] [2021-01-10T13:26:21.990Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-10T13:26:21.990Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/mac/Projects/mbvisit/visit
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-01-10T13:26:38.517Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2021-01-10T13:26:38.867Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:26:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  Using project visit-munich (visit-munich) 
+[info] 
+=== Firestore Setup
+[debug] [2021-01-10T13:26:40.859Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/visit-munich/services/firestore.googleapis.com  
+ 
+[debug] [2021-01-10T13:26:43.183Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:26:42 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:26:43.185Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/visit-munich  
+ 
+[debug] [2021-01-10T13:26:44.612Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:26:44 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:26:44.613Z] database_type: CLOUD_FIRESTORE
+[debug] [2021-01-10T13:26:44.613Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-10T13:26:44.614Z] > authorizing via signed-in user
+[debug] [2021-01-10T13:26:44.614Z] [iam] checking project visit-munich for permissions ["firebase.projects.get"]
+[debug] [2021-01-10T13:26:44.615Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/visit-munich:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-01-10T13:26:45.450Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:26:45 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=662","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2021-01-10T13:27:00.459Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/visit-munich/releases?pageSize=10&pageToken=  
+ 
+[debug] [2021-01-10T13:27:02.453Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:27:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:27:02.454Z] Found ruleset: projects/visit-munich/rulesets/c3fd64aa-49cf-46bc-a31c-efc628890a91
+[debug] [2021-01-10T13:27:02.455Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/visit-munich/rulesets/c3fd64aa-49cf-46bc-a31c-efc628890a91  
+ 
+[debug] [2021-01-10T13:27:13.960Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 10 Jan 2021 13:27:05 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-10T13:27:13.964Z] Error: EISDIR: illegal operation on a directory, open '/home/mac/Projects/mbvisit/visit/src/config'
+    at Object.openSync (node:fs:488:3)
+    at Object.writeFileSync (node:fs:1512:35)
+    at Config.writeProjectFile (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/config.js:156:8)
+    at /home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/features/firestore/rules.js:50:27
+    at processTicksAndRejections (node:internal/process/task_queues:93:5)
+    at async Object.doSetup [as firestore] (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/features/firestore/index.js:35:5)
+    at async init (/home/mac/.nvm/versions/node/v15.3.0/lib/node_modules/firebase-tools/lib/init/index.js:19:9)
+[error] 
+[error] Error: An unexpected error has occurred.

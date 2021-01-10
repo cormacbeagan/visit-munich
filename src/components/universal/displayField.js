@@ -5,19 +5,13 @@ import Button from '../universal/button';
 
 function DisplayField({ data }) {
     const history = useHistory()
-    console.log(data)
     if(data){
         return (
             <div style={boxText}>
-                <h5 style={{color: '#f24847db'}}>{data.name}</h5>
+                <h5 style={{color: '#f24847db', maxWidth: '220px'}}>{data.name}</h5>
                 <div style={{marginLeft: '-5px'}}>
-                   {/*  <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng},${data.name}`} 
-                    target='_blank'
-                    rel="noreferrer" 
-                    style={{color:'white'}}
-                    >Directions</a>} /> only works when you click the text, need to pass a function to onclick*/}
+                   
                     <br/>
-                    <Button children={'all concerts'} onClick={() => history.push(`/concerts`)}/>
                     <Button children={'venue concerts'} onClick={() => history.push(`/venue/${data.coords}`)}/>
                     <a href={data.uri}
                     target='_blank'
@@ -28,6 +22,13 @@ function DisplayField({ data }) {
                         height="25px" width="25px" 
                         style={{position: 'absolute', top: '30px', right: '30px', cursor: 'pointer'}}/>
                     </a>
+                    <div style={{position: 'absolute', bottom: '30px', left: '20px'}}>
+                    <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng},${data.name}`} 
+                    target='_blank'
+                    rel="noreferrer" 
+                    style={{color:'white'}}
+                    >Directions</a>} />
+                    </div>
                 </div>
             </div>
         )
@@ -43,3 +44,5 @@ const boxText = {
 }
 
 export default DisplayField;
+
+// add a redux connection and list a couple of concerts per venue!!

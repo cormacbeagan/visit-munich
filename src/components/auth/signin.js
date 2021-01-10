@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../store/actions/authActions';
 import Button from '../universal/button';
-import '../../styles/signform.css'
 
 
 const initialState = {

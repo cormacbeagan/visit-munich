@@ -38,6 +38,3 @@ const boxText = {
 }
 
 export default DisplayText;
-
-//
-// 

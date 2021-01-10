@@ -21,7 +21,8 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
                     defaultZoom={zoomLevel}
                     gestureHandling={'greedy'}
                     options={{
-                      styles: mapStyle
+                      styles: mapStyle,
+                      fullscreenControl: false,
                     }}
                 >
                 {projects.map(item => {
@@ -41,8 +42,8 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
   }
 
   const mapContainer = {
-    height: window.innerHeight - 50 + 'px',
-    width: window.innerWidth,
+    height: '100%',
+    width: '100%',
     marginTop: '-10px',
     position: 'fixed',
     zIndex: '1',

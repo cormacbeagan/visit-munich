@@ -10,13 +10,11 @@ function ConcertListings({ data, concerts }) {
     const history = useHistory()
     let { id } = useParams();
     let concertArray;
-    console.log(id)
     if(id) {
         concertArray = concerts.events.filter(concert => `${concert.venue.lat}${concert.venue.lng}` === id)
     } else {
         concertArray = concerts.events
     }
-    console.log(concertArray)
 
     return (
         <div className="container" style={{margin: '70px auto', padding: '50px', backgroundColor: '#333333', color: '#f3f3f3', boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'}}>

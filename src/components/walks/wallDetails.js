@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { FaCloudUploadAlt, FaTrashAlt, FaArrowAltCircleUp, FaFileImport } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaTrashAlt, FaArrowAltCircleUp, FaFileImport } from 'react-icons/fa';
 import Button from '../universal/button';
 import Thumbnail from '../universal/thumbnail';
 
@@ -37,7 +36,6 @@ function DisplayWall(props) {
     if(!auth.uid) return <Redirect to='/signin' />
 
     const handleEdit = () => {
-        console.log('calling')
         setIsEditing(!isEditing)
         setEditImage(project.image)
     }
@@ -263,6 +261,3 @@ export default compose(
         { collection: 'projects' }
     ])
 )(DisplayWall);
-
-// {isEditing && <Button onClick={handleEdit} children={'Save'} />}
-// 

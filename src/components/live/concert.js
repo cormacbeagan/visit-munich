@@ -20,7 +20,7 @@ function Concert({ data }) {
                             <div style={{marginLeft: '10px'}}key={band.id}>
                                 <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
                                 <p style={{color: '#f24847db', fontSize: '18px', margin: '0'}}>{band.displayName}</p>
-                                <a href={band.artist.uri}
+                                <a href={band.artist.uri}    
                                     target='_blank'
                                     rel="noreferrer" >
                                     <img src="/images/sk-badge-pink.png" 
@@ -29,6 +29,16 @@ function Concert({ data }) {
                                     width="20px" 
                                     style={{ margin: '0 8px', cursor: 'pointer'}}/>
                                 </a>
+                                <a href={`https://open.spotify.com/search/${band.displayName}`}     
+                                    target='_blank'
+                                    rel="noreferrer" >
+                                    <img src="/images/Spotify_Icon_RGB_Green.png" 
+                                    alt="Sonkick Logo" 
+                                    height="20px" 
+                                    width="20px" 
+                                    style={{ margin: '0 8px', cursor: 'pointer'}}/>
+                                </a>
+                                
                                 </div>
                             </div>
                         )
@@ -48,14 +58,3 @@ function Concert({ data }) {
     )
 }
 export default Concert;
-
-/*
-                <h6>Description: <span style={{color: '#f34a6994'}}>{data.description}</span></h6>
-                <p>Latitude: <span style={{color: '#f34a6994'}}>{data.lat}</span></p>
-                <p>Longditude: <span style={{color: '#f34a6994'}}>{data.lng}</span></p>
-                <div>
-                    <p>Posted by: <span style={{color: '#f34a6994'}}>{`${data.authorFirstName} ${data.authorLastName}`}</span></p>
-                    <p>Posted: <span style={{color: '#f34a6994'}}>{moment(data.createdAt.toDate()).calendar()}</span></p>
-                    {data.updatedAt && <p>Last updated: <span style={{color: '#f34a6994'}}>{moment(data.updatedAt.toDate()).calendar()}</span></p>}
-                </div>
-                 */

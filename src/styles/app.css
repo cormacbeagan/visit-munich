@@ -1,7 +1,7 @@
 body {
     background-color: #c9c3c3;
     scrollbar-width: thin;
-    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    scrollbar-color:#395f78 #333333;
 }
 
 body::-webkit-scrollbar {
@@ -9,19 +9,22 @@ body::-webkit-scrollbar {
   }
   
 body::-webkit-scrollbar-track {
-    background: var(--scrollbarBG);
+    background: #333333;
   }
   
 body::-webkit-scrollbar-thumb {
-    background-color: var(--thumbBG);
+    background-color: #395f78;
     border-radius: 6px;
-    border: 3px solid var(--scrollbarBG);
+    border: 3px solid #333333;
   }
 
 .app-content {
     margin: 0px;
-
 }
+
+
+
+
 
 form button, form h5{
   margin: 20px 0;
@@ -43,3 +46,4 @@ input[type=date]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #f34a6994 !important;
 }
+
