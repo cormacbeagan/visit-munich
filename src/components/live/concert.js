@@ -6,7 +6,6 @@ import Button from '../universal/button';
 function Concert({ data }) {
     const history = useHistory()
 
-    console.log(data)
     return (  
             <div className=""style={{backgroundColor: '#a7a7a733', minHeight: '80px', width: '90%', margin: '20px auto', padding: '20px', boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)'}}>
                 <h5>Name: <span style={{color: '#f24847db'}}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h5> 
