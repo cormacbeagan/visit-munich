@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import imageCompression from 'browser-image-compression';
+
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -19,6 +21,11 @@ const initialState = {
     lng: '',
     image: '',
 }
+const compressOptions = {
+    maxSizeMB: 1.5,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+}
 
 function DisplayWall(props) {
     const {project, auth, uploadImage, updateProject, deleteImage} = props;
@@ -33,6 +40,7 @@ function DisplayWall(props) {
     const [ isReady, setIsReady ] = useState(false);
     const [ imageName, setImageName ] = useState(null)
     
+
     if(!auth.uid) return <Redirect to='/signin' />
 
     const handleEdit = () => {
@@ -53,11 +61,15 @@ function DisplayWall(props) {
         }
     }
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload = async (e) => {
         e.preventDefault();
-        uploadImage(imageFile, id)
+        console.log(imageFile.size)
+        const compImage = await imageCompression(imageFile, compressOptions)
+        console.log(compImage.size)
+        uploadImage(compImage, id)
         input.current.value = null
         setImageName(null)
+        setImageFile(null)
     }
 
     const handleChange = (e) => {
@@ -66,10 +78,9 @@ function DisplayWall(props) {
 
     const handleReady = (e) => {
         const obj = {}
-
         if(!(wallData.image.match('https://firebasestorage.googleapis.com/v0/b/visit-munich.appspot.com/o/images%'))) {
-            setWallData(prev => ({...prev, image: project.image}))}
-
+            setWallData(prev => ({...prev, image: project.image}))
+        }
         for (let key in wallData) {
             if(wallData[key] === '') {
                 obj[key] = project[key]
@@ -94,19 +105,19 @@ function DisplayWall(props) {
     
     if(project) {
         return (
-            <div className="container" style={{margin: '70px auto', padding: '50px', backgroundColor: '#333333', color: '#f3f3f3', boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'}}>
-                <div style={{textAlign: 'right'}}>
-                    <Button onClick={() => history.push('/walks')}children={'Back to Map'}/> 
+            <div className="container" style={detailsDiv}>
+                <div style={rightBut}>
+                    <Button onClick={() => history.push(`/walks/${idToPass}`)}children={'Back to Map'}/> 
                 </div>
               {isEditing ? (
                 <div>
                   {isReady ? (
                   <div>
-                    <h3>Name: <span style={{color: '#f34a6994'}}>{wallData.name}</span></h3>
-                    <h6>Description: <span style={{color: '##f34a6994'}}>{wallData.description}</span></h6>
+                    <h3>Name: <span style={highlight}>{wallData.name}</span></h3>
+                    <h6>Description: <span style={highlight}>{wallData.description}</span></h6>
                     <p></p>
-                    <p>Latitude: <span style={{color: '##f34a6994'}}>{wallData.lat}</span></p>
-                    <p>Longditude: <span style={{color: '##f34a6994'}}>{wallData.lng}</span></p>
+                    <p>Latitude: <span style={highlight}>{wallData.lat}</span></p>
+                    <p>Longditude: <span style={highlight}>{wallData.lng}</span></p>
                     <p>Thumbnail</p>
                     <Thumbnail src={wallData.image} />
                   </div>
@@ -133,7 +144,7 @@ function DisplayWall(props) {
                     <br/>
                   </div>
                   )}
-                    <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+                    <div style={imageContainer}>
                         {project.images.map(img => {
                             return (
                             <div key={img} style={{position: 'relative', zIndex: '1'}}>
@@ -159,22 +170,22 @@ function DisplayWall(props) {
                 ) : (
 
                 <div>
-                    <h3>Name: <span style={{color: '#f34a6994'}}>{project.name}</span></h3>
-                    <h6>Description: <span style={{color: '#f34a6994'}}>{project.description}</span></h6>
-                    <p>Latitude: <span style={{color: '#f34a6994'}}>{project.lat}</span></p>
-                    <p>Longditude: <span style={{color: '#f34a6994'}}>{project.lng}</span></p>
+                    <h3>Name: <span style={highlight}>{project.name}</span></h3>
+                    <h6>Description: <span style={highlight}>{project.description}</span></h6>
+                    <p>Latitude: <span style={highlight}>{project.lat}</span></p>
+                    <p>Longditude: <span style={highlight}>{project.lng}</span></p>
                     <div>
-                        <p>Posted by: <span style={{color: '#f34a6994'}}>{`${project.authorFirstName} ${project.authorLastName}`}</span></p>
-                        <p>Posted: <span style={{color: '#f34a6994'}}>{moment(project.createdAt.toDate()).calendar()}</span></p>
-                        {project.updatedAt && <p>Last updated: <span style={{color: '#f34a6994'}}>{moment(project.updatedAt.toDate()).calendar()}</span></p>}
+                        <p>Posted by: <span style={highlight}>{`${project.authorFirstName} ${project.authorLastName}`}</span></p>
+                        <p>Posted: <span style={highlight}>{moment(project.createdAt.toDate()).calendar()}</span></p>
+                        {project.updatedAt && <p>Last updated: <span style={highlight}>{moment(project.updatedAt.toDate()).calendar()}</span></p>}
                     </div>
                     <Thumbnail src={project.image} />
                     <br/>
                     <br/>
-                    <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}} >
+                    <div style={imageContainer} >
                         {project.images.map(img => {
                             return (
-                            <div key={img} style={{display: 'inline'}}>
+                            <div key={img}>
                                 <Thumbnail src={img} />
                             </div>
                             )
@@ -184,27 +195,27 @@ function DisplayWall(props) {
                 </div>
                 )}
                 <div className="row">
-                    <div className="col s12 m4" style={{margin: '30px'}}>
+                    <div className="col s12 m4" style={editDiv}>
                         {isEditing && (
                             <div>
                             {isReady ? (
-                                <div style={{textAlign: 'center'}}>
+                                <div style={centerDiv}>
                                     <Button onClick={uploadUpdate} children={'Save'}/>
                                     <Button onClick={handleReady} children={'Edit'} />
                                 </div>
                             ) : (
-                                <div style={{textAlign: 'center'}} >
+                                <div style={centerDiv} >
                                         <Button onClick={handleReady} children={'Check'}/>
                                 </div>
                             )}
-                            <div style={{textAlign: 'center'}} >
+                            <div style={centerDiv} >
                                 <Button children={'cancel'} onClick={() => setIsEditing(!isEditing)}/>
                             </div>
                             </div>
                         )
                         }
                         {!isEditing && 
-                            <div className="" style={{textAlign: 'center'}} >
+                            <div className="" style={centerDiv} >
                                 <Button onClick={handleEdit} children={'Edit'} />
                             </div>
                         }
@@ -212,20 +223,20 @@ function DisplayWall(props) {
                     <div className="col s12 m5 offset-m1">
                         <h6>Select Image: </h6>
                         <form  onSubmit={handleImageUpload}>
-                            <div className="input-field" style={{ maxHeight: '75px'}}>
-                                <div style={{display: 'inline', margin: '0px 10px'}}>
-                                    <label htmlFor="file" style={{cursor: 'pointer', color: '#616161'}}>
-                                        <input style={{display: 'none'}} 
+                            <div className="input-field" style={fileDiv}>
+                                <div style={uploadDiv}>
+                                    <label htmlFor="file" style={uploadLogo}>
+                                        <input style={noDisp} 
                                         ref={input} 
                                         onChange={handleImageFileSelect} 
                                         type="file" accept="image/*,.pdf" id="file"/>
                                         <FaFileImport size={32} onClick={() => setImageName(null)}/>
                                     </label>
                                 </div>
-                                {imageFile && <p style={{color: '#113963'}}>{imageName}</p>}
+                                {imageFile && <p style={highlight}>{imageName}</p>}
                             </div>
                             <div className="input-field">
-                                <Button children={'Upload Image'} />
+                                {imageFile && <Button children={'Upload Image'} />}
                             </div>
                         </form>
                     </div>
@@ -261,3 +272,33 @@ export default compose(
         { collection: 'projects' }
     ])
 )(DisplayWall);
+
+const detailsDiv = {
+    margin: '70px auto', 
+    padding: '50px', 
+    backgroundColor: '#333333', 
+    color: '#f3f3f3', 
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+}
+
+const rightBut = {textAlign: 'right'}
+
+const highlight = {color: '#f34a6994'}
+
+const imageContainer = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'left'}
+
+const editDiv = {margin: '30px'}
+
+const centerDiv = {textAlign: 'center'}
+
+const fileDiv = { maxHeight: '75px'}
+
+const uploadDiv = {display: 'inline', margin: '0px 10px'}
+
+const uploadLogo = {cursor: 'pointer', color: '#616161'}
+
+const noDisp = {
+    display: 'none',
+}
+
+const imgNameStyle = {color: '#113963'}

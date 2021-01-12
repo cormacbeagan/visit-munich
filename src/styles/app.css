@@ -23,11 +23,17 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-
-
-
 form button, form h5{
   margin: 20px 0;
+}
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date] {
+  border-color:#f34a6994;
+  background-color: transparent!important;
+  box-shadow: none;
+  color: #f7abab;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -35,8 +41,10 @@ input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
 input[type=date]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
-  border-color:#f34a6994;
+  border-color:#333333;
+  background-color: transparent!important;
   box-shadow: none;
+  color: #db6379fd;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,
@@ -44,6 +52,6 @@ textarea.materialize-textarea:focus:not([readonly]) + label,
 input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=date]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
-  color: #f34a6994 !important;
+  color: #333333!important;
 }
 

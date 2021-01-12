@@ -26,7 +26,7 @@ function SignUp(props) {
         signUp(formData)
     }
     return (
-            <div style={{padding: '50px', alignContent: 'center'}}>
+            <div style={formStyle}>
                 <form onSubmit={handleSubmit} className="">
                     <h5 className="grey-text text-darken-3">Sign Up</h5>
                     <div className="input-field">
@@ -70,3 +70,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+
+const formStyle = {
+    padding: '50px', 
+    alignContent: 'center'
+}

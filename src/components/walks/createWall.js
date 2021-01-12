@@ -31,7 +31,7 @@ function CreateWall(props) {
 
 
     return (
-      <div style={{padding: '50px', alignContent: 'center'}}>
+      <div style={createDiv}>
             <form onSubmit={handleSubmit} className="">
                 <h5 className="grey-text text-darken-3">Create Wall</h5>
                 <div className="input-field">
@@ -75,3 +75,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
+
+const createDiv = {
+    padding: '50px', 
+    alignContent: 'center'
+}

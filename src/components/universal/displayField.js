@@ -8,9 +8,8 @@ function DisplayField({ data }) {
     if(data){
         return (
             <div style={boxText}>
-                <h5 style={{color: '#f24847db', maxWidth: '220px'}}>{data.name}</h5>
-                <div style={{marginLeft: '-5px'}}>
-                   
+                <h5 style={boxHeading}>{data.name}</h5>
+                <div style={boxDiv}>
                     <br/>
                     <Button children={'venue concerts'} onClick={() => history.push(`/venue/${data.coords}`)}/>
                     <a href={data.uri}
@@ -19,10 +18,10 @@ function DisplayField({ data }) {
                         <img 
                         src="/images/sk-badge-pink.png" 
                         alt="Sonkick Logo" 
-                        height="25px" width="25px" 
-                        style={{position: 'absolute', top: '30px', right: '30px', cursor: 'pointer'}}/>
+                        
+                        style={logoStyle}/>
                     </a>
-                    <div style={{position: 'absolute', bottom: '30px', left: '20px'}}>
+                    <div style={divBottom}>
                     <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng},${data.name}`} 
                     target='_blank'
                     rel="noreferrer" 
@@ -37,12 +36,36 @@ function DisplayField({ data }) {
     }
 }
 
+
+export default DisplayField;
+// add a redux connection and list a couple of concerts per venue!!
+
 const boxText = {
     margin: '10px',
     color: 'white',
     contain: 'items',
 }
 
-export default DisplayField;
+const boxHeading = {
+    color: '#f24847db', 
+    maxWidth: '220px',
+}
 
-// add a redux connection and list a couple of concerts per venue!!
+const boxDiv = {
+    marginLeft: '-5px'
+}
+
+const logoStyle = {
+    height: '25px', 
+    width: '25px', 
+    position: 'absolute', 
+    top: '30px', 
+    right: '30px', 
+    cursor: 'pointer'
+}
+
+const divBottom = {
+    position: 'absolute', 
+    bottom: '30px', 
+    left: '20px'
+}

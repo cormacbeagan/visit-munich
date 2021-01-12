@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
 
 
+
 const initialState = {
     name: '',
     lat: '',
@@ -23,12 +24,26 @@ function Live(props) {
     const [ displayData, setDisplayData ] = useState(initialState);
     const [ slideIn, setSlideIn ] = useState('-350px')
     const [ searching, setSearching ] = useState(true);
+    const [ mapLocation, setMapLocation ] = useState(location)
+    const [ mapZoom, setMapZoom ] = useState(12);
 
     useEffect(() => {
         if(concerts.events[0]){
             setSearching(false)
         }
     }, [concerts])
+
+    useEffect(() => {
+        const loca = window.location.pathname
+        const idArr = loca.match(/\d+/)
+        if(idArr) {
+            const concert = concerts.events.filter(item => item.id == idArr[0])
+            setMapLocation({lat: concert[0].venue.lat, lng: concert[0].venue.lng})
+            setMapZoom(17)
+            window.history.pushState('', '', '/live')
+        }
+    }, [])
+
     const handleInfo = (concertId) => {
         if(concertId) {
             const concert = concerts.venues.filter(item => item.id === concertId)
@@ -37,7 +52,7 @@ function Live(props) {
         }
     }
 
-    const handleSearch = async (dates) => {
+    const handleSearch = (dates) => {
         concertSearch(dates)
     }
 
@@ -54,9 +69,9 @@ function Live(props) {
 
     return (
         <div>
-            <div style={{backgroundColor: '#395f78', height: '100px',  paddingBottom: '40px'}}>
+            <div style={liveStyle}>
             {concerts.events && !searching ? (
-                <div style={{textAlign: 'center', padding: '25px'}}>
+                <div style={buttonDiv}>
                 <Button children={'all concerts'} onClick={() => history.push(`/concerts`)}/>
                 <Button  children={'new dates'} onClick={() => setSearching(true)}/>
                 </div>
@@ -70,8 +85,8 @@ function Live(props) {
                     <Map
                     onClick={() => setSlideIn('-350px')}
                     handleInfo={handleInfo}
-                    location={location}
-                    zoomLevel={12}
+                    location={mapLocation}
+                    zoomLevel={mapZoom}
                     projects={concerts.venues}
                     />
                 </div>
@@ -82,23 +97,17 @@ function Live(props) {
                         />
                 </div>
             </div>
-            <div style={{position: 'absolute', bottom: '0px', right: '50px', zIndex: '99'}}>
-                <h5 style={{color: '#f24847', margin: '0', fontWeight: 'bold'}}>Concerts</h5>
+            <div style={logoDiv}>
+                <h5 style={logoHeading}>Concerts</h5>
                 <img src="/images/by-songkick-pink.svg" 
                     alt="Sonkick Logo"
-                    height="75px" 
-                    width="250px"     
+                    height="50px" 
+                    width="140px"     
                     />
             </div>
         </div>
 )
 }
-const container = {
-maxHeight: '1000px',
-width: '320px',
-contain: 'items',
-display: 'contain',
-};
 
 const mapStateToProps = (state) => {
     return {
@@ -114,3 +123,36 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Live);
+
+const liveStyle = {
+    backgroundColor: '#395f78', 
+    height: '100px',  
+    paddingBottom: '40px'
+}
+
+const container = {
+    maxHeight: '1000px',
+    width: '320px',
+    contain: 'items',
+    display: 'contain',
+    }
+
+const buttonDiv = {
+    textAlign: 'center', 
+    padding: '25px'
+}
+
+const logoDiv = {
+    position: 'absolute', 
+    bottom: '0px', 
+    right: '50px', 
+    zIndex: '99'
+}
+
+const logoHeading = {
+    color: '#f24847', 
+    margin: '0', 
+    fontWeight: 'bold'
+}
+
+

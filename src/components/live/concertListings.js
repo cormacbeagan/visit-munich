@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Button from '../universal/button';
 import Concert from './concert'
-import { useParams } from 'react-router-dom';
+import Input from '../universal/input';
+
 
 
 function ConcertListings({ data, concerts }) {
@@ -17,10 +19,8 @@ function ConcertListings({ data, concerts }) {
     }
 
     return (
-        <div className="container" style={{margin: '70px auto', padding: '50px', backgroundColor: '#333333', color: '#f3f3f3', boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'}}>
-            <div style={{textAlign: 'right'}}>
-                <Button onClick={() => history.push('/live')}children={'Back to Map'}/> 
-            </div>
+        <div className="container" style={containerStyle}>
+           
             <div>
                 {concertArray.map(event => {
                     if(!event) return
@@ -45,3 +45,13 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(ConcertListings);
+
+const containerStyle = {
+    width: '80%', 
+    margin: '50px auto', 
+    padding: '30px', 
+    backgroundColor: '#333333', 
+    color: '#f3f3f3', 
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+}
+

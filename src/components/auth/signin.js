@@ -24,25 +24,25 @@ function SignIn(props) {
         setFormData((prev) => ({...prev, [e.target.id]: e.target.value}))
     }
         return (
-            <div style={{padding: '50px', alignContent: 'center'}}>
-            <form onSubmit={handleSubmit} className="">
-                <h5 className="grey-text text-darken-3">Sign In</h5>
-                <div className="input-field">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" onChange={handleChange} value={formData.email} required/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" onChange={handleChange}value={formData.password} required/>
-                </div>
-                <div className="input-field">
-                    <Button children={'login'} />
-                </div>
-                <div className="red-text center">
-                    {authError ? <p>{authError}</p> : null}
-                </div>
-            </form>
-        </div>
+            <div style={formStyle}>
+                <form onSubmit={handleSubmit} className="">
+                    <h5 className="grey-text text-darken-3">Sign In</h5>
+                    <div className="input-field">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id="email" onChange={handleChange} value={formData.email} required/>
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" onChange={handleChange}value={formData.password} required/>
+                    </div>
+                    <div className="input-field">
+                        <Button children={'login'} />
+                    </div>
+                    <div className="red-text center">
+                        {authError ? <p>{authError}</p> : null}
+                    </div>
+                </form>
+            </div>
         )
 }
 
@@ -60,3 +60,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+const formStyle = {
+    padding: '50px', 
+    alignContent: 'center'
+}

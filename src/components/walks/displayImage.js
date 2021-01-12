@@ -1,10 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import Carousel from './carousel';
-import '../../styles/displayImage.css';
 
 function DisplayImage({ data }) {
     const [ display, setDisplay ] = useState({display: 'none'})
-
+    const [ hover, setHover ] = useState(false)
     useEffect(() => {
         //console.log(data.image)
     })
@@ -27,14 +26,44 @@ function DisplayImage({ data }) {
                     display={display}/>
             </div>
             <div onClick={handleModal} 
-                className='imageDiv'
+                style={imageDiv}
                 >
-                <img className='imageStyle' src={data.image} alt="Wall Thumbnail"/>
+                <img 
+                    onMouseEnter={() => setHover(!hover)}
+                    onMouseLeave={() => setHover(!hover)}
+                    style={hover ? imageHoverStyle : imageStyle} 
+                    src={data.image} 
+                    alt="Wall Thumbnail"/>
             </div>
         </div>
         )
 }
 
-
 export default DisplayImage;
+
+const imageDiv = {
+    alignItems: 'center',
+    width: '294px',
+    height: '294px',
+    overflow: 'hidden',
+    background: 'grey',
+    backgroundPosition: 'center center',
+    backgroundSize: '305px 305px',
+    bagroundRepeat: 'no-repeat',
+}
+
+const imageStyle = {
+    height: '294px',
+    width: '294px',
+    objectFit: 'cover',
+    transition: 'opacity 0.6s ease',
+}
+
+const imageHoverStyle = {
+    height: '294px',
+    width: '294px',
+    objectFit: 'cover',
+    transition: 'opacity 0.6s ease',
+    opacity: '0.75',
+}
 

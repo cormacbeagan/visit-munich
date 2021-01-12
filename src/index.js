@@ -41,7 +41,7 @@ function AuthIsLoaded({ children }) {
     return (
       <div className="center">
         {" "}
-        <h4>Loading...</h4>
+        <h4>2 secs, just need to make a coffee...</h4>
       </div>
     );
   return children;

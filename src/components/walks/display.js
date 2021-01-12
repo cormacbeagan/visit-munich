@@ -1,13 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import DisplayText from './displayText';
 import DisplayImage from './displayImage';
-import '../../styles/display.css';
 
 function Display({ type, data }) {
 
     if(type === 'image') {
         return (
-            <div className='display-image'>
+            <div style={displayDiv}>
                 <DisplayImage 
                     data={data}
                 />
@@ -15,7 +14,7 @@ function Display({ type, data }) {
         )
     } else {
         return (
-            <div className='display' >
+            <div style={displayDiv} >
                 <DisplayText
                     project={data}
                 />
@@ -26,3 +25,12 @@ function Display({ type, data }) {
 
 
 export default Display;
+
+const displayDiv = {
+    height: '300px',
+    width: '300px',
+    margin: '10px',
+    backgroundColor: '#333333',
+    border: '3px solid #395f78',
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+}

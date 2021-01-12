@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment'
+import { connect } from 'react-redux';
 import Button from '../universal/button';
 
-function DisplayText({ project }) {
+function DisplayText({ project, auth }) {
     const history = useHistory()
-
     if(project.authorFirstName){
         return (
             <div style={boxText}>
@@ -22,7 +22,7 @@ function DisplayText({ project }) {
                     rel="noreferrer" 
                     style={{color:'white'}}
                     >Directions</a>} />
-                    <Button onClick={() => history.push(`/wall/${project.id}`)} children={'Edit Wall'} />
+                    {auth.uid && <Button onClick={() => history.push(`/wall/${project.id}`)} children={'Edit Wall'} />}
                 </div>
             </div>
         )
@@ -37,4 +37,12 @@ const boxText = {
     contain: 'items',
 }
 
-export default DisplayText;
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth,
+    }
+}
+
+
+export default connect(mapStateToProps)(DisplayText);

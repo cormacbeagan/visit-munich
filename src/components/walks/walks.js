@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
 import Display from './display';
-import { location } from '../universal/mapData';
+import { location, mapStyle } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
-import { mapStyle } from '../universal/mapData';
 
 
 
@@ -13,6 +12,7 @@ function Walks(props) {
     const {projects} = props
     const [ displayData, setDisplayData ] = useState({})
     const [ slideIn, setSlideIn ] = useState('-350px')
+    const [ idBackPass, setIdBackPass ] = useState(null)
 
     const handleInfo = (id) => {
         if(id) {
@@ -21,6 +21,15 @@ function Walks(props) {
             setTimeout(setSlideIn('0px'), 300)
         }
     }
+
+    useEffect(() => {
+        const regEx = new RegExp('(?<=walks/).*$')
+        const idArr = window.location.pathname.match(regEx)
+        if(idArr) {
+            handleInfo(idArr[0])
+            window.history.pushState('', '', '/walks')
+        }
+    }, [])  
 
     const infoBoxes = {
         marginLeft: slideIn,
@@ -60,7 +69,6 @@ function Walks(props) {
 }
 
 const container = {
-    //margin: '50px',
     maxHeight: '1000px',
     width: '320px',
     contain: 'items',

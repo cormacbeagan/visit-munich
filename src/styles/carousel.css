@@ -1,8 +1,10 @@
+
 .carousel-container {
     align-content: center;
     position: fixed; /* Stay in place */
+    overflow: auto;
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 100px;/* Location of the box */
     left: 0;
     top: 0;
     right: 0;
@@ -11,17 +13,35 @@
     margin-right: auto;
     text-align: center;
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    height: 100%; /*Full height */
+    /*scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color:#395f78 #333333;
+}
+
+.carousel-container::-webkit-scrollbar {
+  width: 11px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background-color: #395f78;
+  border-radius: 6px;
+  border: 3px solid #333333;
 }
 
 .closer {
   width: 100%;
+  min-height: 1000px;
   cursor: not-allowed;
   position: absolute;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
   z-index: 0;
   content: ' ';
   background-color: rgb(0,0,0); /* Fallback color */
@@ -29,7 +49,7 @@
 }
 
 .slide {
-  cursor: grab;
+  cursor: pointer;
   max-width: 80%;
   max-height: 800px;
   opacity: 1;
@@ -41,6 +61,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
+  margin-bottom: 30px;
   transition: opacity 200ms ease;  
 }
 
@@ -97,7 +118,7 @@
     outline: none;
   }
   
-.controlButton button:active {
+button:active {
     position: relative;
     top: 1px;
     left: 1px;

@@ -4,7 +4,7 @@ function Thumbnail(props) {
     const { src } = props
     return (
         <img 
-            style={{width: '80px', height: '80px', overflow: 'hidden', margin: '5px'}}
+            style={thumbStyle}
             src={src} 
             alt="Thumbnail"
             />
@@ -12,3 +12,10 @@ function Thumbnail(props) {
 }
 
 export default Thumbnail;
+
+const thumbStyle = {
+    width: '80px', 
+    height: '80px', 
+    overflow: 'hidden', 
+    margin: '5px'
+}

@@ -29,6 +29,7 @@ const pin = {
 };
 
 const pinIcon = {
+    cursor: 'pointer',
     transform: 'rotate(135deg)',
     height: 'auto',
     width: '24px',
@@ -36,6 +37,7 @@ const pinIcon = {
 };
 
 const pinIconHover = {
+    cursor: 'pointer',
     transform: 'rotate(0deg)',
     height: 'auto',
     width: '45px',
