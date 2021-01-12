@@ -1,12 +1,13 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React from 'react';
 import DisplayField from './displayField';
 
-function DisplayBox({ data }) {
+function DisplayBox({ data, handleVenue }) {
 
         return (
             <div style={displayDiv} >
                 <DisplayField
                     data={data[0]}
+                    handleVenue={handleVenue}
                 />
             </div>
     )

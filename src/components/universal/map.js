@@ -18,7 +18,8 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
                     center={location}
                     bootstrapURLKeys={{ key: googleToken}}
                     defaultCenter={middle}
-                    defaultZoom={zoomLevel}
+                    defaultZoom={12}
+                    zoom={zoomLevel}
                     gestureHandling={'greedy'}
                     options={{
                       styles: mapStyle,

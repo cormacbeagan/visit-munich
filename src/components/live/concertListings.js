@@ -1,32 +1,31 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import Button from '../universal/button';
 import Concert from './concert'
-import Input from '../universal/input';
 
 
+function ConcertListings({ handleBackToMap, concerts, coords }) {
 
-function ConcertListings({ data, concerts }) {
-    const history = useHistory()
-    let { id } = useParams();
     let concertArray;
-    if(id) {
-        concertArray = concerts.events.filter(concert => `${concert.venue.lat}${concert.venue.lng}` === id)
-    } else {
-        concertArray = concerts.events
+        if(coords) {
+            concertArray = concerts.events.filter(concert => `${concert.venue.lat}${concert.venue.lng}` === coords)
+        } else {
+            concertArray = concerts.events
+        }
+
+    const handleBack = (id) => {
+        const event = concerts.events.filter(item => item.id === id)
+        handleBackToMap(event[0])
     }
 
     return (
         <div className="container" style={containerStyle}>
-           
             <div>
                 {concertArray.map(event => {
                     if(!event) return
                     return (
                         <div key={event.id}>
                             <Concert
+                                handleBackToMap={handleBack}
                                 data={event}
                             />
                         </div>

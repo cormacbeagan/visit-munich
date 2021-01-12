@@ -10,6 +10,7 @@ const LocationPin = ({ text, handleInfo, id }) => {
     const handleClick = () => {
         handleInfo(id)
     }
+    
     return (
         <div 
         style={pin}

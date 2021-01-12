@@ -7,7 +7,7 @@ function SignedOutLinks(props) {
 	return (
 			<div style={navbar}>
 				<Link style={link} to="/signin">Login</Link>
-				{/*<Link style={link} to="/signup">Sign Up</Link>*/}
+				<Link style={link} to="/signup">Sign Up</Link>
 			</div>
 		);
 }

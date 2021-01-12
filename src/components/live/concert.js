@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment'
-import { FaExternalLinkAlt} from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import Button from '../universal/button';
 
-function Concert({ data }) {
-    const history = useHistory()
+function Concert({ data, handleBackToMap }) {
     const [ hover, setHover ] = useState(false)
 
-    const handleBackToMap = () => {
-        history.push(`/live/${data.id}`)
+    const handleBack = () => {
+       handleBackToMap(data.id)
     }
 
     return (  
@@ -52,7 +50,7 @@ function Concert({ data }) {
                         target='_blank'
                         rel="noreferrer" 
                         style={linkStyle}
-                        ><div
+                    ><div
                           onMouseEnter={() => setHover(!hover)}
                           onMouseLeave={() => setHover(!hover)} >
                             {!hover ? (
@@ -65,7 +63,7 @@ function Concert({ data }) {
                         </div>
                     </a>
                   }/>
-                    <Button onClick={handleBackToMap}children={'Back to Map'}/>
+                    <Button onClick={handleBack}children={'Back to Map'}/>
                 </div>
             </div>
     )

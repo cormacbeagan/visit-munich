@@ -9,7 +9,6 @@ import SignIn from './components/auth/signin';
 import SignUp from './components/auth/signup';
 import CreateWall from './components/walks/createWall';
 import DisplayWall from './components/walks/wallDetails';
-import ConcertListings from './components/live/concertListings';
 import './styles/app.css';
 
 
@@ -56,14 +55,6 @@ function App() {
             <Route
               path="/wall/:id"
               render={() => <DisplayWall/>}
-            />
-            <Route
-              path="/concerts"
-              render={() => <ConcertListings/>}
-            />
-            <Route
-              path="/venue/:id"
-              render={() => <ConcertListings/>}
             />
           </Switch>
         </div>
