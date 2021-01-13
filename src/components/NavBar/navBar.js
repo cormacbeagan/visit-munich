@@ -40,6 +40,9 @@ export default connect(mapStateToProps)(NavBar);
 
 const navBarStyle = {
 	fontSize: '24px',
+	position: 'fixed',
+	top: '0',
+	width: '100%',
 	display: 'flex',
 	flexDirection: 'row',
 	backgroundColor: '#333333',

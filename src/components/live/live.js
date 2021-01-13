@@ -160,7 +160,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Live);
 
 const liveStyle = {
     backgroundColor: '#395f78', 
-    height: '100px',  
+    height: '90px',  
     paddingBottom: '40px'
 }
 

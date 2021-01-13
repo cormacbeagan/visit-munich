@@ -45,7 +45,6 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
   const mapContainer = {
     height: '100%',
     width: '100%',
-    marginTop: '-10px',
     position: 'fixed',
     zIndex: '1',
   };

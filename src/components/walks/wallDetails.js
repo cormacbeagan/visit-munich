@@ -274,7 +274,9 @@ export default compose(
 )(DisplayWall);
 
 const detailsDiv = {
-    margin: '70px auto', 
+    margin: '50px auto',
+    marginTop: '120px', 
+    width: '80%',
     padding: '50px', 
     backgroundColor: '#333333', 
     color: '#f3f3f3', 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {GiMineralHeart} from 'react-icons/gi';
+import {GiMineralHeart, GiScaleMail} from 'react-icons/gi';
 
 const LocationPin = ({ text, handleInfo, id }) => {
     const [ hover, setHover ] = useState(false)
@@ -13,40 +13,43 @@ const LocationPin = ({ text, handleInfo, id }) => {
     
     return (
         <div 
-        style={pin}
-        onMouseEnter={toggleHover}
-        onMouseLeave={toggleHover}>
-            <GiMineralHeart
-                onClick={handleClick}
-                style={hover ? pinIconHover : pinIcon} />
+            onClick={handleClick}
+            style={hover ? hoverPin : pin}
+            onMouseEnter={toggleHover}
+            onMouseLeave={toggleHover}>
+                
+                <GiMineralHeart
+                    style={pinIcon} />
+                
         </div>
     )
 }
 
+//{hover && text}
 
 const pin = {
+    height: '25px',
+    width: '25px',
     cursor: 'pointer',
     color: '#b81b16',
-};
-
-const pinIcon = {
-    cursor: 'pointer',
     transform: 'rotate(135deg)',
-    height: 'auto',
-    width: '24px',
     transition: 'all 1s ease-in',
+
 };
 
-const pinIconHover = {
+const hoverPin = {
+    height: '25px',
+    width: '25px',
     cursor: 'pointer',
-    transform: 'rotate(0deg)',
-    height: 'auto',
-    width: '45px',
+    color: '#b81b16',
+    transform: 'scale(1.5) rotate(0deg)',
     transition: 'all 0.7s ease-out',
 }
 
-
+const pinIcon = {
+    height: 'auto',
+    width: '24px',
+};
 
 export default LocationPin;
-
 

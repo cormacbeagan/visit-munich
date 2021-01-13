@@ -34,7 +34,7 @@ function Walks(props) {
     const infoBoxes = {
         marginLeft: slideIn,
         position: 'absolute',
-        zIndex: '99',
+        zIndex: '90',
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',
@@ -69,10 +69,10 @@ function Walks(props) {
 }
 
 const container = {
+    height: '100%',
     maxHeight: '1000px',
     width: '320px',
     contain: 'items',
-    display: 'contain',
 };
 
 const mapStateToProps = (state) => {
