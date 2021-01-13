@@ -28,12 +28,15 @@ form button, form h5{
 }
 input[type=text],
 input[type=email],
-input[type=password],
-input[type=date] {
+input[type=password]{
   border-color:#f34a6994;
   background-color: transparent!important;
   box-shadow: none;
   color: #f7abab;
+}
+
+input[type=date] {
+  color: #737e80;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
