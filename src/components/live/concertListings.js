@@ -46,9 +46,10 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(ConcertListings);
 
 const containerStyle = {
-    width: '80%', 
+    width: '90%', 
+    maxWidth: '800px',
     margin: '50px auto', 
-    padding: '30px', 
+    padding: '20px 0px', 
     backgroundColor: '#333333', 
     color: '#f3f3f3', 
     boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'

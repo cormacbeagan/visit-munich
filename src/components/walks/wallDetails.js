@@ -194,8 +194,8 @@ function DisplayWall(props) {
                     
                 </div>
                 )}
-                <div className="row">
-                    <div className="col s12 m4" style={editDiv}>
+                <div style={editContainer}>
+                    <div>
                         {isEditing && (
                             <div>
                             {isReady ? (
@@ -220,8 +220,8 @@ function DisplayWall(props) {
                             </div>
                         }
                     </div>
-                    <div className="col s12 m5 offset-m1">
-                        <h6>Select Image: </h6>
+                    <div>
+                        <h6>Upload Wall Image: </h6>
                         <form  onSubmit={handleImageUpload}>
                             <div className="input-field" style={fileDiv}>
                                 <div style={uploadDiv}>
@@ -276,28 +276,54 @@ export default compose(
 const detailsDiv = {
     margin: '50px auto',
     marginTop: '120px', 
-    width: '80%',
-    padding: '50px', 
+    width: '90%',
+    maxWidth: '1000px',
+    padding: window.innerWidth / 16 + 'px', 
     backgroundColor: '#333333', 
     color: '#f3f3f3', 
     boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
 }
 
-const rightBut = {textAlign: 'right'}
+const rightBut = {
+    textAlign: 'right'
+}
 
-const highlight = {color: '#f34a6994'}
+const highlight = {
+    color: '#f34a6994'
+}
 
-const imageContainer = {display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'left'}
+const imageContainer = {
+    display: 'flex', 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'left'
+}
 
-const editDiv = {margin: '30px'}
+const editContainer = {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-around', 
+    alignItems: 'center',
+    flexWrap: 'wrap'
+}
 
-const centerDiv = {textAlign: 'center'}
+const centerDiv = {
+    textAlign: 'center'
+}
 
-const fileDiv = { maxHeight: '75px'}
+const fileDiv = {
+    maxHeight: '75px'
+}
 
-const uploadDiv = {display: 'inline', margin: '0px 10px'}
+const uploadDiv = {
+    display: 'inline', 
+    margin: '0px 10px'
+}
 
-const uploadLogo = {cursor: 'pointer', color: '#616161'}
+const uploadLogo = {
+    cursor: 'pointer', 
+    color: '#616161'
+}
 
 const noDisp = {
     display: 'none',

@@ -38,7 +38,7 @@ function Walks(props) {
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',
-        transitionDuration: '800ms',
+        transitionDuration: '400ms',
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
     
