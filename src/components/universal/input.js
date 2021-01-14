@@ -58,8 +58,7 @@ function Input({handleSubmit}) {
                     onChange={handleChange} 
                     min={formData.arrival} 
                     max={maxInputDate}
-
-
+                    required
                     />
                 <label className="active">Departure: </label>
               </div>

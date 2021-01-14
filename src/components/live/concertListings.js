@@ -21,15 +21,18 @@ function ConcertListings({ handleBackToMap, concerts, coords }) {
         <div className="container" style={containerStyle}>
             <div>
                 {concertArray.map(event => {
-                    if(!event) return
-                    return (
-                        <div key={event.id}>
-                            <Concert
-                                handleBackToMap={handleBack}
-                                data={event}
-                            />
-                        </div>
-                    )
+                    if(!event) {
+                        return null
+                    } else {
+                        return (
+                            <div key={event.id}>
+                                <Concert
+                                    handleBackToMap={handleBack}
+                                    data={event}
+                                />
+                            </div>
+                        )
+                    }
                 })}
             </div>
         </div>
@@ -49,6 +52,7 @@ const containerStyle = {
     width: '90%', 
     maxWidth: '800px',
     margin: '50px auto', 
+    marginTop: '200px',
     padding: '20px 0px', 
     backgroundColor: '#333333', 
     color: '#f3f3f3', 

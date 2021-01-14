@@ -15,7 +15,7 @@ function Concert({ data, handleBackToMap }) {
                 <h5>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h5> 
                 <p style={{...highlight, ...noMargin}}>{moment(data.start.dateTime || data.start.date).format('DD MMMM YYYY')}</p>
                 <p stlye={noMargin}>Venue: <span style={highlight}>{data.venue.displayName}</span></p>
-                {data.status != 'ok' && <p>Status: <span style={highlight}>{data.status}</span></p>}
+                {data.status !== 'ok' && <p>Status: <span style={highlight}>{data.status}</span></p>}
                 <div style={flexDiv}>
                     <p style={{...bigP, ...noMargin}}>Bands: </p>
                     {data.performance.map(band => {

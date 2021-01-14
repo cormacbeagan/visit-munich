@@ -15,7 +15,7 @@ function NavBar(props) {
 	
 	useEffect(() => {
 		setWidth(window.innerWidth);
-	})
+	}, [])
 
 	useEffect(() => {
 		if(width < 900) {
@@ -36,7 +36,7 @@ function NavBar(props) {
 				<div>
 					<div style={mobileNavStyle}>
 							<Link style={logo} to="/">Home</Link>
-							<a href="javascript:void(0);" onClick={handleMenuOpen}style={bars}><FaBars /></a>
+							<a href="#0" onClick={handleMenuOpen}style={bars}><FaBars /></a>
 					</div>
 					<div>
 						<div style={menuOpen ? mobileLinks : linksClosed} onClick={() => setMenuOpen(false)}>

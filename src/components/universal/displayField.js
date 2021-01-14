@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment'
 import Button from '../universal/button';
 
-function DisplayField({ data, handleVenue }) {
+function DisplayField({ data, handleVenue, bands }) {
     const [displayData, setDisplayData ] = useState()
     useEffect(() => {
         setDisplayData(data)
@@ -13,6 +12,18 @@ function DisplayField({ data, handleVenue }) {
         return (
             <div style={boxText}>
                 <h5 style={boxHeading}>{displayData.name}</h5>
+                {bands && 
+                  <div>
+                    <p style={{margin: '0'}}>Bands: </p>
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left', flexWrap: 'wrap'}}>
+                        {bands.map(band => {
+                            return <p style={{marginTop: '0', marginRight: '12px', marginBottom: '5px', color: '#f24847db'}} key={band}>{band},</p>
+                        })}
+
+                    </div>
+                  </div>
+                }
+
                 <div style={boxDiv}>
                     <br/>
                     <Button children={'venue concerts'} onClick={() => handleVenue(displayData.coords)}/>
@@ -25,7 +36,7 @@ function DisplayField({ data, handleVenue }) {
                         style={logoStyle}/>
                     </a>
                     <div style={divBottom}>
-                    <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng},${displayData.name}`} 
+                    <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`} 
                     target='_blank'
                     rel="noreferrer" 
                     style={{color:'white'}}

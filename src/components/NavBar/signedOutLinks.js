@@ -6,7 +6,7 @@ function SignedOutLinks(props) {
 	const { mobile } = props;
 	
 	return (
-			<div style={navbar}style={mobile ? mobileNavBar : navbar}>
+			<div style={mobile ? mobileNavBar : navbar}>
 				<Link style={link} to="/signin">Login</Link>
 				<Link style={link} to="/signup">Sign Up</Link>
 			</div>

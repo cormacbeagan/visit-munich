@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import imageCompression from 'browser-image-compression';
 
 import { useParams } from 'react-router-dom';
@@ -328,5 +328,3 @@ const uploadLogo = {
 const noDisp = {
     display: 'none',
 }
-
-const imgNameStyle = {color: '#113963'}

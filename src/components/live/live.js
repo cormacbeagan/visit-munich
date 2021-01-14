@@ -26,6 +26,7 @@ function Live(props) {
     const [ mapZoom, setMapZoom ] = useState(12);
     const [ displayMap, setDisplayMap ] = useState(false)
     const [ coords, setCoords ] = useState(null)
+    const [ venueBands, setVenueBands ] = useState(null);
 
     useEffect(() => {
         if(concerts.events[0]){
@@ -33,11 +34,16 @@ function Live(props) {
         }
     }, [concerts])
 
-
-
     const handleInfo = (venueId) => {
         if(venueId) {
             const venue = concerts.venues.filter(item => item.id === venueId)
+            let bands = [];
+            concerts.events.forEach(item => {
+                if(item.venue.id === venueId){
+                    bands.push(item.performance[0].displayName)
+                }
+            })
+            setVenueBands(bands)
             setDisplayData(venue)
             setTimeout(setSlideIn('0px'), 300)
         }
@@ -53,12 +59,14 @@ function Live(props) {
         setCoords(null)
         setSlideIn('-350px')
         setSearching(true)
+        setVenueBands(null)
     }
 
     const handleBackToMap = (event) => {
         setDisplayMap(!displayMap)
         setSlideIn('-350px')
-        setCoords(null)       
+        setCoords(null)
+        setVenueBands(null)    
         if(event) {      
             setMapLocation({lat: event.venue.lat, lng: event.venue.lng})
             setMapZoom(17)
@@ -69,7 +77,8 @@ function Live(props) {
                 coords: `${event.venue.lat}${event.venue.lng}`,
                 uri: event.uri,
             }])
-            setTimeout(setSlideIn('0px'), 300)
+            //setTimeout(setSlideIn('0px'), 300)
+            setSlideIn('0px')
         } else {
             setMapLocation(location)
             setMapZoom(12)
@@ -83,12 +92,13 @@ function Live(props) {
 
     const infoBoxes = {
         marginLeft: slideIn,
+        marginTop: '90px',
         position: 'absolute',
         zIndex: '98',
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',
-        transitionDuration: '800ms',
+        transitionDuration: '400ms',
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
 
@@ -124,6 +134,7 @@ function Live(props) {
                         </div>
                         <div style={infoBoxes}>
                             <DisplayBox
+                                bands={venueBands}
                                 data={displayData}
                                 handleVenue={handleVenue}
                                 />
@@ -159,6 +170,11 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Live);
 
 const liveStyle = {
+    position: 'fixed',
+    top: '80px',
+    left: '0',
+    right: '0',
+    zIndex: '98',
     backgroundColor: '#395f78', 
     height: '90px',  
     paddingBottom: '40px'
@@ -179,7 +195,7 @@ const buttonDiv = {
 const logoDiv = {
     position: 'absolute', 
     bottom: '0px', 
-    right: '50px', 
+    right: '70px', 
     zIndex: '98'
 }
 

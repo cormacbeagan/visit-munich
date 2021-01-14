@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {GiMineralHeart, GiScaleMail} from 'react-icons/gi';
+import {GiMineralHeart} from 'react-icons/gi';
 
 const LocationPin = ({ text, handleInfo, id }) => {
     const [ hover, setHover ] = useState(false)

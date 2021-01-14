@@ -1,11 +1,12 @@
 import React from 'react';
 import DisplayField from './displayField';
 
-function DisplayBox({ data, handleVenue }) {
+function DisplayBox({ data, handleVenue, bands }) {
 
         return (
             <div style={displayDiv} >
                 <DisplayField
+                    bands={bands}
                     data={data[0]}
                     handleVenue={handleVenue}
                 />
