@@ -1,32 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
 import { connect } from 'react-redux';
 import {isLoaded} from 'react-redux-firebase';
+import { FaBars } from 'react-icons/fa';
 
 function NavBar(props) {
 	const { auth, profile } = props;
-	const links = auth.uid ? <SignedInLinks profile={profile}/> : <SignedOutLinks />;
+	const [ smallScreen, setSmallScreen ] = useState(false)
+	const [ width, setWidth ] = useState(0)
+	const [ menuOpen, setMenuOpen ] = useState(false); 
+	const links = auth.uid ? <SignedInLinks mobile={smallScreen} profile={profile}/> : <SignedOutLinks mobile={smallScreen}/>;
+	
+	useEffect(() => {
+		setWidth(window.innerWidth);
+	})
+
+	useEffect(() => {
+		if(width < 900) {
+			setSmallScreen(true)
+		} else {
+			setSmallScreen(false)
+		}
+	}, [width])
+
+	const handleMenuOpen = () => {
+		setMenuOpen(!menuOpen)
+	}
+
 
 	return (
-		<div style={navBarStyle}>
-				<Link style={link} to="/">Home</Link>
-				{/*<Link style={link} to="/eat">Eat Out</Link>*/}
-				<Link style={link} to="/live">Live Music</Link>
-                {/*<Link style={link} to="/weather">Weather</Link>*/}
-				<Link style={link} to="/walks">Walls</Link>
+		<div>
+			{smallScreen ? (
+				<div>
+					<div style={mobileNavStyle}>
+							<Link style={logo} to="/">Home</Link>
+							<a href="javascript:void(0);" onClick={handleMenuOpen}style={bars}><FaBars /></a>
+					</div>
+					<div style={menuOpen ? linksOpen : linksClosed}>
+						<div style={mobileLinks} onClick={() => setMenuOpen(false)}>
+							{/*<Link style={link} to="/eat">Eat Out</Link>*/}
+							<Link style={link} to="/live">Live Music</Link>
+							<Link style={link} to="/weather">Weather</Link>
+							<Link style={link} to="/walks">Walls</Link>
+							{isLoaded(auth) && links}
+						</div>
+					</div>
+				</div>
+			) : (
+				<div style={navBarStyle}>
+					<Link style={link} to="/">Home</Link>
+					{/*<Link style={link} to="/eat">Eat Out</Link>*/}
+					<Link style={link} to="/live">Live Music</Link>
+					<Link style={link} to="/weather">Weather</Link>
+					<Link style={link} to="/walks">Walls</Link>
 				{isLoaded(auth) && links}
+			</div>
+			)}
 		</div>
 		);
-}
-
-
-const link = {
-	color: '#e2e2e2',
-	textDecoration: 'none',
-	fontSize: '1.0em',
-	margin: '1em',
 }
 
 const mapStateToProps = (state) => {
@@ -46,5 +79,63 @@ const navBarStyle = {
 	display: 'flex',
 	flexDirection: 'row',
 	backgroundColor: '#333333',
+	zIndex: '99',
+	borderBottom: '3px solid #395f78'
 }
 
+const link = {
+	color: '#e2e2e2',
+	textDecoration: 'none',
+	fontSize: '1.0em',
+	margin: '1em',
+}
+
+const mobileNavStyle = {
+	width: '100%',
+	height: '80px',
+	fontSize: '24px',
+	position: 'fixed',
+	top: '0',
+	backgroundColor: '#333333',
+	zIndex: '99',
+	borderBottom: '3px solid #395f78'
+}
+
+const logo = {
+	float: 'left',
+	margin: '20px',
+	color: '#e2e2e2',
+}
+
+const bars = {
+	margin: '10px',
+	marginRight: '20px',
+	float: 'right',
+	cursor: 'pointer',
+	color: '#e2e2e2',
+	fontSize: '50px',
+}
+
+const linksClosed = {
+	display: 'none',
+}
+
+const linksOpen = {
+	display: 'block',
+
+}
+
+const mobileLinks = {
+	width: '100%',
+	position: 'fixed',
+	top: '80px',
+	right: '0',
+	backgroundColor: '#333333',
+	display: 'flex',
+	flexDirection: 'column',
+	textAlign: 'right',
+	paddingRight: '10px',
+	fontSize: '24px',
+	zIndex: '99',
+
+} 

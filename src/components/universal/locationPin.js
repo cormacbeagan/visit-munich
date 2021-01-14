@@ -7,12 +7,14 @@ const LocationPin = ({ text, handleInfo, id }) => {
     const toggleHover = () => {
         setHover(!hover)
     }
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault()
         handleInfo(id)
     }
     
     return (
         <div 
+            onTouchEnd={handleClick}
             onClick={handleClick}
             style={hover ? hoverPin : pin}
             onMouseEnter={toggleHover}

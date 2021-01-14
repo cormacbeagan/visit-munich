@@ -12,7 +12,6 @@ function Walks(props) {
     const {projects} = props
     const [ displayData, setDisplayData ] = useState({})
     const [ slideIn, setSlideIn ] = useState('-350px')
-    const [ idBackPass, setIdBackPass ] = useState(null)
 
     const handleInfo = (id) => {
         if(id) {
@@ -33,6 +32,7 @@ function Walks(props) {
 
     const infoBoxes = {
         marginLeft: slideIn,
+        marginTop: '10px',
         position: 'absolute',
         zIndex: '90',
         width: '320px',

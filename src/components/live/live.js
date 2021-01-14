@@ -84,7 +84,7 @@ function Live(props) {
     const infoBoxes = {
         marginLeft: slideIn,
         position: 'absolute',
-        zIndex: '99',
+        zIndex: '98',
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',
