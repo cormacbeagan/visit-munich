@@ -180,7 +180,7 @@ const logoDiv = {
     position: 'absolute', 
     bottom: '0px', 
     right: '50px', 
-    zIndex: '99'
+    zIndex: '98'
 }
 
 const logoHeading = {

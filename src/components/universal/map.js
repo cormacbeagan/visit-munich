@@ -43,7 +43,7 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
   }
 
   const mapContainer = {
-    height: '100%',
+    height: window.innerHeight - 80 + 'px',
     width: '100%',
     position: 'fixed',
     zIndex: '1',

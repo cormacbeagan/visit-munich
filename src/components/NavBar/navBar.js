@@ -38,8 +38,8 @@ function NavBar(props) {
 							<Link style={logo} to="/">Home</Link>
 							<a href="javascript:void(0);" onClick={handleMenuOpen}style={bars}><FaBars /></a>
 					</div>
-					<div style={menuOpen ? linksOpen : linksClosed}>
-						<div style={mobileLinks} onClick={() => setMenuOpen(false)}>
+					<div>
+						<div style={menuOpen ? mobileLinks : linksClosed} onClick={() => setMenuOpen(false)}>
 							{/*<Link style={link} to="/eat">Eat Out</Link>*/}
 							<Link style={link} to="/live">Live Music</Link>
 							<Link style={link} to="/weather">Weather</Link>
@@ -117,19 +117,10 @@ const bars = {
 }
 
 const linksClosed = {
-	display: 'none',
-}
-
-const linksOpen = {
-	display: 'block',
-
-}
-
-const mobileLinks = {
 	width: '100%',
 	position: 'fixed',
 	top: '80px',
-	right: '0',
+	right: window.innerWidth +'px',
 	backgroundColor: '#333333',
 	display: 'flex',
 	flexDirection: 'column',
@@ -137,5 +128,25 @@ const mobileLinks = {
 	paddingRight: '10px',
 	fontSize: '24px',
 	zIndex: '99',
+	transform: 'scale(0.75)',
+	transition: 'all 400ms cubic-bezier(0.29,-0.15, 0.02, 1.02)'
+}
 
+const mobileLinks = {
+	width: window.innerWidth +6 +'px',
+	height: window.innerHeight + 'px',
+	overflow: 'scroll',
+	position: 'fixed',
+	top: '80px',
+	right: '0px',
+	backgroundColor: '#333333',
+	display: 'flex',
+	flexDirection: 'column',
+	textAlign: 'right',
+	paddingRight: '10px',
+	fontSize: '24px',
+	zIndex: '99',
+	borderLeft: '6px solid #395f78',
+	transform: 'scale(1)',
+	transition: 'all 500ms cubic-bezier(0.49, 0.8, 0.26, 1.34)'
 } 
