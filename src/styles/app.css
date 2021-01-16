@@ -1,3 +1,7 @@
+html {
+  margin: 0;
+}
+
 body {
     background-color: #c9c3c3;
     scrollbar-width: thin;
@@ -36,10 +40,11 @@ input[type=password]{
   box-shadow: none;
   color: #f7abab;
 }
-
+/*
 input[type=date] {
   color: #737e80;
 }
+*/
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
@@ -50,11 +55,13 @@ textarea.materialize-textarea:focus:not([readonly]){
   box-shadow: none;
   color: #db6379fd;
 }
+/*
 
 input[type=date]:not(.browser-default):focus:not([readonly]) {
   background-color: transparent!important;
 
 }
+*/
 
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,

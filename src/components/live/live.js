@@ -177,8 +177,7 @@ const liveStyle = {
     right: '0',
     zIndex: '98',
     backgroundColor: '#395f78', 
-    height: '90px',  
-    paddingBottom: '40px'
+    height: '70px',  
 }
 
 const container = {
@@ -190,7 +189,7 @@ const container = {
 
 const buttonDiv = {
     textAlign: 'center', 
-    padding: '25px'
+    padding: '10px'
 }
 
 const logoDiv = {

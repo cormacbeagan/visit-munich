@@ -12,7 +12,7 @@ function Concert({ data, handleBackToMap }) {
 
     return (  
             <div style={containerStyle}>
-                <h5>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h5> 
+                <h3>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h3> 
                 <p style={{...highlight, ...noMargin}}>{moment(data.start.dateTime || data.start.date).format('DD MMMM YYYY')}</p>
                 <p stlye={noMargin}>Venue: <span style={highlight}>{data.venue.displayName}</span></p>
                 {data.status !== 'ok' && <p>Status: <span style={highlight}>{data.status}</span></p>}
@@ -44,25 +44,25 @@ function Concert({ data, handleBackToMap }) {
                     })}
                 </div>
                 <div style={btnDiv}>
-                <Button 
-                  children={
-                    <a href={data.uri} 
-                        target='_blank'
-                        rel="noreferrer" 
-                        style={linkStyle}
-                    ><div
-                          onMouseEnter={() => setHover(!hover)}
-                          onMouseLeave={() => setHover(!hover)} >
-                            {!hover ? (
-                                <div>Details  <FaExternalLinkAlt /></div>
-                                ) : (
-                                <img src="/images/by-songkick-pink.svg" 
-                                            alt="Sonkick Logo" 
-                                            style={skButton}/>
-                            )}
-                        </div>
-                    </a>
-                  }/>
+                    <Button 
+                    children={
+                        <a href={data.uri} 
+                            target='_blank'
+                            rel="noreferrer" 
+                            style={linkStyle}
+                            onMouseEnter={() => setHover(!hover)}
+                            onMouseLeave={() => setHover(!hover)} >
+                            <div style={linkStyle}>
+                                {!hover ? (
+                                    <p style={noMargin}>Details</p>
+                                    ) : (
+                                    <img src="/images/by-songkick-pink.svg" 
+                                                alt="Sonkick Logo" 
+                                                style={skButton}/>
+                                )}
+                            </div>
+                        </a>
+                    }/>
                     <Button onClick={handleBack}children={'Back to Map'}/>
                 </div>
             </div>
@@ -78,6 +78,7 @@ const containerStyle = {
     margin: '20px auto', 
     padding: '20px', 
     boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+    color: '#e2e2e2',
 }
 
 const highlight = {
@@ -106,10 +107,10 @@ const smallLogo = {
 }
 
 const skButton = {
-    marginTop: '7px',
+    marginBottom: '-11px',
+    left: '20px',
     height: '25px',
     width: '75px',
-    position: 'aboslute', 
     cursor: 'pointer'
 } 
 
@@ -122,6 +123,7 @@ const btnDiv = {
 }
 
 const linkStyle = {
-    color: 'white', 
-    marginBottom: '10px',
+    color: '#e2e2e2',
+    width: '75px',
+    maxHeight: '18px',
 }

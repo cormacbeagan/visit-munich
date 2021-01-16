@@ -50,6 +50,7 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
     height: window.innerHeight - 80 + 'px',
     width: '100%',
     position: 'fixed',
+    left: '0',
     zIndex: '1',
   };
 

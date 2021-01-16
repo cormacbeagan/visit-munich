@@ -1,7 +1,7 @@
 
 .MyDatePicker {
-    float: left;
     position: relative;
+    height: 35px;
 }
 
 .MyDatePicker * { 
@@ -21,11 +21,12 @@ input[type="date"]::-webkit-input-placeholder{
 }
 
 .mdp-input {
-    float: left;
+    margin-top: 7px;
     width: 150px;
     height: 35px;
     overflow: hidden;
     border-radius: 20px;
+
 }
 
 .mdp-input input:focus {
@@ -33,22 +34,27 @@ input[type="date"]::-webkit-input-placeholder{
 }
 
 .mdp-input input {
-    width: 125%;
-    background: #f5f5f5;
+    width: 100%;
+    background: #63849a94;
     border: none;
     height: 35px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-size: 11px;
+    font-size: 15px;
     cursor: pointer;
+    color: #333333db;
+    font-family: Roboto, Arial, sans-serif;
+    font-weight: 550;
 }
+
+/* dates box */
 
 .mdp-container {
     float: left;
     position: absolute;
     top: 40px;
-    width: 320px;
+    width: 250px;
     min-height: 350px;
     background: #333;
     box-shadow: 10px 10px 40px rgba(0,0,0,0.2);
@@ -68,9 +74,12 @@ input[type="date"]::-webkit-input-placeholder{
 
 
 .mdpc-head {
-    float: left;
     width: 100%;
     height: 53px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .mdpc-body {
@@ -82,7 +91,7 @@ input[type="date"]::-webkit-input-placeholder{
 /* controls */
 
 .mdpch-button {
-    float: left;
+    /*float: left;*/
     width: 45px;
     height: 100%;
     box-sizing: border-box;
@@ -99,7 +108,7 @@ input[type="date"]::-webkit-input-placeholder{
 }
 
 .mdpchb-inner {
-    float: left;
+    /*float: left;*/
     height: 35px;
     width: 35px;
     background: #395f78;
@@ -120,7 +129,8 @@ input[type="date"]::-webkit-input-placeholder{
 .mdpchbi-left-arrow,
 .mdpchbi-left-arrows {
     display: block;
-    float: left;
+    /*float: left;*/
+
     width: 6px;
     height: 6px;
     border-left: 2px solid #888;
@@ -216,7 +226,7 @@ input[type="date"]::-webkit-input-placeholder{
 .cc-month {
     height: 30px;
     width: 100%;
-    font-family: Roboto;
+    font-family: Arial;
     font-size: 16px;
     line-height: 30px;
     color: #666;

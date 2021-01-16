@@ -11,7 +11,7 @@ function SignedInLinks(props) {
 		<div style={mobile ? mobileNavBar : navbar}>
 			<Link style={link} to="/create">Create Wall</Link>
 			<Link onClick={signOut} style={link} to="/">Logout</Link>
-			{!mobile && <Link className='btn btn-floating indigo darken-4' style={linkIn} to='/'>{profile.initials}</Link>}
+			{!mobile && <Link style={linkIn} to='/'>{profile.initials}</Link>}
 		</div>
 	);
 }
@@ -48,6 +48,12 @@ const link = {
 }
 
 const linkIn = {
-	margin: '1em',
-	marginTop: '20px',
+	marginTop: '14px',
+	padding: '12px',
+	height: '24px',
+	borderRadius: '100%',
+	fontSize: '20px',
+	textDecoration: 'none',
+	background: '#51748b',
+	color: '#333333',
 }

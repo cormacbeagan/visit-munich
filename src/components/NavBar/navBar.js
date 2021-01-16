@@ -74,13 +74,14 @@ export default connect(mapStateToProps)(NavBar);
 const navBarStyle = {
 	fontSize: '24px',
 	position: 'fixed',
+	left: '0',
 	top: '0',
 	width: '100%',
 	display: 'flex',
 	flexDirection: 'row',
 	backgroundColor: '#333333',
 	zIndex: '99',
-	borderBottom: '3px solid #395f78'
+	borderBottom: '4px solid #395f78'
 }
 
 const link = {
@@ -95,6 +96,7 @@ const mobileNavStyle = {
 	height: '80px',
 	fontSize: '24px',
 	position: 'fixed',
+	left: '0',
 	top: '0',
 	backgroundColor: '#333333',
 	zIndex: '99',
@@ -105,6 +107,8 @@ const logo = {
 	float: 'left',
 	margin: '20px',
 	color: '#e2e2e2',
+	textDecoration: 'none',
+
 }
 
 const bars = {

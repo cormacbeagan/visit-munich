@@ -43,8 +43,8 @@ export default DisplayImage;
 
 const imageDiv = {
     alignItems: 'center',
-    width: '294px',
-    height: '294px',
+    width: '300px',
+    height: '300px',
     overflow: 'hidden',
     background: 'grey',
     backgroundPosition: 'center center',
@@ -53,17 +53,17 @@ const imageDiv = {
 }
 
 const imageStyle = {
-    height: '294px',
-    width: '294px',
+    height: '300px',
+    width: '300px',
     objectFit: 'cover',
     transition: 'opacity 0.6s ease',
 }
 
 const imageHoverStyle = {
-    height: '294px',
-    width: '294px',
+    height: '302px',
+    width: '302px',
     objectFit: 'cover',
-    transition: 'opacity 0.6s ease',
+    transition: 'all 400ms ease',
     opacity: '0.75',
 }
 

@@ -11,13 +11,13 @@ function DisplayField({ data, handleVenue, bands }) {
     if(displayData){
         return (
             <div style={boxText}>
-                <h5 style={boxHeading}>{displayData.name}</h5>
+                <h3 style={boxHeading}>{displayData.name}</h3>
                 {bands && 
                   <div>
-                    <p style={{margin: '0'}}>Bands: </p>
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'left', flexWrap: 'wrap'}}>
+                    <p style={label}>Bands: </p>
+                    <div style={bandFlex}>
                         {bands.map(band => {
-                            return <p style={{marginTop: '0', marginRight: '12px', marginBottom: '5px', color: '#f24847db'}} key={band}>{band},</p>
+                            return <p style={bandStyle} key={band}>{band},</p>
                         })}
 
                     </div>
@@ -81,4 +81,23 @@ const divBottom = {
     position: 'absolute', 
     bottom: '30px', 
     left: '20px'
+}
+
+const label = {
+    margin: '0',
+    color: '#e2e2e2',
+}
+
+const bandFlex = {
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'left', 
+    flexWrap: 'wrap'
+}
+
+const bandStyle = {
+    marginTop: '0', 
+    marginRight: '12px', 
+    marginBottom: '5px', 
+    color: '#f24847db'
 }

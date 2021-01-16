@@ -29,7 +29,7 @@ function DatePicker({ onChange, id, preselected, float }) {
     }
 
     useEffect(() => {
-        if(preselected && !picked){
+        if(preselected && !picked && !showDatePicker){
             div.current.click()
         }
     })
@@ -238,8 +238,8 @@ function DatePicker({ onChange, id, preselected, float }) {
 const containerClass = `mdp-container ${float}`
 /* jsx display */
     return (
-        <div className='MyDatePicker' >
-            <div className='mdp-input' ref={div} id={id} onClick={addBackDrop}>
+        <div className='MyDatePicker' ref={div}>
+            <div className='mdp-input' id={id} onClick={addBackDrop}>
                 <input type='date' ref={input} onChange={updateDateFromInput} onClick={(e) => e.preventDefault()}/>
             </div>
             {showDatePicker ? (
