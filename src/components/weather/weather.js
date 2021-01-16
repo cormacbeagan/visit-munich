@@ -1,14 +1,19 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import DateForm from '../universal/dateForm';
 
 function Weather(props) {
 
+    const handleDates = (dates) => {
+        console.log(dates)
+    }
+
     return (
-        <Fragment>
             <div>
-                <h2>The weather during your time in Munich</h2>
+                <DateForm handleDates={handleDates}/>
+                <h2 style={{marginTop: '200px', padding: '50px'}}>The weather during your time in Munich</h2>
             </div>
-        </Fragment>
     )
 }
 
 export default Weather;
+

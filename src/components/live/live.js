@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import Input from '../universal/input';
 import DisplayBox from '../universal/displayBox';
 import Button from '../universal/button';
+import DateForm from '../universal/dateForm';
+
 import ConcertListings from './concertListings';
 import { location } from '../universal/mapData';
 import { connect } from 'react-redux';
@@ -111,7 +112,7 @@ function Live(props) {
                     <Button  children={'new dates'} onClick={handleNewSearch}/>
                 </div>
             ) : (
-                <Input handleSubmit={handleSearch}/>
+                <DateForm handleDates={handleSearch}/>
             )
             }
             </div>

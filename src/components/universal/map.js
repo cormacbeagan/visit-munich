@@ -1,4 +1,5 @@
 import React from 'react';
+import uniqid from 'uniqid'
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin'
 const googleToken = process.env.REACT_APP_GOOGLE_KEY;
@@ -27,6 +28,9 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
                     }}
                 >
                 {projects.map(item => {
+                  if (item.id === null){
+                    item.id = uniqid();
+                  }
                     return (<LocationPin
                       handleInfo={handleInfo}
                       key={item.id}

@@ -5,9 +5,15 @@ const munichId = '28549'
 
 export const concertSearch = (dates) => {
     return (dispatch, getState) => {
+        const arrival = new Date(dates.arrival.getTime() - (dates.arrival.getTimezoneOffset() * 60000))
+        .toISOString()
+        .split('T')[0];
+        const departure = new Date(dates.departure.getTime() - (dates.departure.getTimezoneOffset() * 60000))
+        .toISOString()
+        .split('T')[0];
         const config = {
             method: 'get', 
-            url: `https://api.songkick.com/api/3.0/metro_areas/${munichId}/calendar.json?apikey=${songKickKey}&min_date=${dates.arrival}&max_date=${dates.departure}`,
+            url: `https://api.songkick.com/api/3.0/metro_areas/${munichId}/calendar.json?apikey=${songKickKey}&min_date=${arrival}&max_date=${departure}`,
         }
             axios(config).then(resp => {
                 const dataArray = resp.data.resultsPage.results.event;

@@ -2,6 +2,7 @@ body {
     background-color: #c9c3c3;
     scrollbar-width: thin;
     scrollbar-color:#395f78 #333333;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body::-webkit-scrollbar {
@@ -43,13 +44,18 @@ input[type=date] {
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
-input[type=date]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
   border-color:#333333;
   background-color: transparent!important;
   box-shadow: none;
   color: #db6379fd;
 }
+
+input[type=date]:not(.browser-default):focus:not([readonly]) {
+  background-color: transparent!important;
+
+}
+
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label,
