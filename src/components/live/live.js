@@ -21,7 +21,7 @@ const initialState = {
 function Live(props) {
     const { concerts, concertSearch } = props;
     const [ displayData, setDisplayData ] = useState(initialState);
-    const [ slideIn, setSlideIn ] = useState('-350px')
+    const [ slideIn, setSlideIn ] = useState('-350')
     const [ searching, setSearching ] = useState(true);
     const [ mapLocation, setMapLocation ] = useState(location)
     const [ mapZoom, setMapZoom ] = useState(12);
@@ -35,6 +35,7 @@ function Live(props) {
         }
     }, [concerts])
 
+
     const handleInfo = (venueId) => {
         if(venueId) {
             const venue = concerts.venues.filter(item => item.id === venueId)
@@ -46,7 +47,7 @@ function Live(props) {
             })
             setVenueBands(bands)
             setDisplayData(venue)
-            setTimeout(setSlideIn('0px'), 300)
+            setSlideIn('-10')
         }
     }
 
@@ -58,14 +59,14 @@ function Live(props) {
         setMapLocation(location)
         setMapZoom(12)
         setCoords(null)
-        setSlideIn('-350px')
+        setSlideIn('-350')
         setSearching(true)
         setVenueBands(null)
     }
 
     const handleBackToMap = (event) => {
         setDisplayMap(!displayMap)
-        setSlideIn('-350px')
+        setSlideIn('-350')
         setCoords(null)
         setVenueBands(null)    
         if(event) {      
@@ -78,8 +79,7 @@ function Live(props) {
                 coords: `${event.venue.lat}${event.venue.lng}`,
                 uri: event.uri,
             }])
-            //setTimeout(setSlideIn('0px'), 300)
-            setSlideIn('0px')
+            setSlideIn('-10')
         } else {
             setMapLocation(location)
             setMapZoom(12)
@@ -91,17 +91,22 @@ function Live(props) {
         setCoords(coords)
     }
 
+    const closer = () => {
+        setSlideIn('-350')
+    }
     const infoBoxes = {
-        marginLeft: slideIn,
-        marginTop: '90px',
+        marginLeft: slideIn + 'px',
+        marginTop: '110px',
         position: 'absolute',
-        zIndex: '98',
+        zIndex: '97',
+        height: '300px',
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',
         transitionDuration: '400ms',
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
+
 
     return (
         <div>
@@ -112,7 +117,7 @@ function Live(props) {
                     <Button  children={'new dates'} onClick={handleNewSearch}/>
                 </div>
             ) : (
-                <DateForm handleDates={handleSearch}/>
+                <DateForm handleDates={handleSearch} name={'search'}/>
             )
             }
             </div>
@@ -126,7 +131,7 @@ function Live(props) {
                     <div style={container}> 
                         <div>
                             <Map
-                            onClick={() => setSlideIn('-350px')}
+                            onClick={closer}
                             handleInfo={handleInfo}
                             location={mapLocation}
                             zoomLevel={mapZoom}
@@ -189,7 +194,8 @@ const container = {
 
 const buttonDiv = {
     textAlign: 'center', 
-    padding: '10px'
+    padding: '10px',
+    backgroundColor: '#395f78',
 }
 
 const logoDiv = {

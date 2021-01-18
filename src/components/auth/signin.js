@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signIn } from '../../store/actions/authActions';
 import Button from '../universal/button';
+import Input from '../universal/input';
 
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
 function SignIn(props) {
     const { signIn, authError, auth } = props
     const [ formData, setFormData ] = useState(initialState)
+    const [ labelMarg, setLabelMarg ] = useState('-36')
     if(auth.uid) return <Redirect to='/walks' />
 
 
@@ -20,22 +22,38 @@ function SignIn(props) {
         e.preventDefault()
         signIn(formData)
     }
-    const handleChange = (e) => {
-        setFormData((prev) => ({...prev, [e.target.id]: e.target.value}))
+    const handleChange = (type, value) => {
+        console.log(type, value)
+        setFormData((prev) => ({...prev, [type]: value}))
     }
+
+    const handleFocus = (e) => {
+        const div = e.target
+        div.style.marginTop = '36px'
+        div.style.borderColor = '#333'
+    }
+
         return (
             <div style={formStyle}>
                 <form onSubmit={handleSubmit} className="">
-                    <h5 className="grey-text text-darken-3">Sign In</h5>
-                    <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={handleChange} value={formData.email} required/>
+                    <h3 style={heading}>Sign In</h3>
+                    <div>
+                        <Input 
+                            type={'email'} 
+                            id={'email'}
+                            name={'Email'}
+                            onChange={handleChange} 
+                            value={formData.email} 
+                        />
+                        <Input
+                            type={"password"}
+                            id={'password'}
+                            name={'Password'}
+                            onChange={handleChange}
+                            value={formData.password} 
+                        />
                     </div>
-                    <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={handleChange}value={formData.password} required/>
-                    </div>
-                    <div className="input-field">
+                    <div>
                         <Button children={'login'} />
                     </div>
                     <div className="red-text center">
@@ -65,3 +83,8 @@ const formStyle = {
     padding: '50px', 
     alignContent: 'center'
 }
+
+const heading = {
+    color: '#333',
+}
+

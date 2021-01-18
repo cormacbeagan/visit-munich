@@ -39,7 +39,7 @@ function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
   if (!isLoaded(auth))
     return (
-      <div className="center">
+      <div style={{margin: '200px auto', textAlign: 'center'}}>
         {" "}
         <h4>2 secs, just need to make a coffee...</h4>
       </div>

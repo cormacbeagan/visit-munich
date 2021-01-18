@@ -3,12 +3,13 @@ import Button from '../universal/button';
 
 function DisplayField({ data, handleVenue, bands }) {
     const [displayData, setDisplayData ] = useState()
+
     useEffect(() => {
         setDisplayData(data)
     }, [data])
 
 
-    if(displayData){
+    if(displayData) {
         return (
             <div style={boxText}>
                 <h3 style={boxHeading}>{displayData.name}</h3>
@@ -28,8 +29,8 @@ function DisplayField({ data, handleVenue, bands }) {
                     <br/>
                     <Button children={'venue concerts'} onClick={() => handleVenue(displayData.coords)}/>
                     <a href={displayData.uri}
-                    target='_blank'
-                    rel="noreferrer" >
+                        target='_blank'
+                        rel="noreferrer" >
                         <img 
                         src="/images/sk-badge-pink.png" 
                         alt="Sonkick Logo" 
@@ -45,11 +46,10 @@ function DisplayField({ data, handleVenue, bands }) {
                 </div>
             </div>
         )
-    }else{
+    } else {
         return null;
     }
 }
-
 
 export default DisplayField;
 
@@ -60,7 +60,7 @@ const boxText = {
 }
 
 const boxHeading = {
-    color: '#f24847db', 
+    color: '#cecbcb', 
     maxWidth: '220px',
 }
 
@@ -79,13 +79,13 @@ const logoStyle = {
 
 const divBottom = {
     position: 'absolute', 
-    bottom: '30px', 
+    bottom: '-5px', 
     left: '20px'
 }
 
 const label = {
     margin: '0',
-    color: '#e2e2e2',
+    color: '#51748b',
 }
 
 const bandFlex = {
@@ -99,5 +99,5 @@ const bandStyle = {
     marginTop: '0', 
     marginRight: '12px', 
     marginBottom: '5px', 
-    color: '#f24847db'
+    color: '#cecbcb',
 }

@@ -17,5 +17,5 @@ const thumbStyle = {
     width: '80px', 
     height: '80px', 
     overflow: 'hidden', 
-    margin: '5px'
+    margin: '4px'
 }

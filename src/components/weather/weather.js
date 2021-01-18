@@ -9,7 +9,7 @@ function Weather(props) {
 
     return (
             <div>
-                <DateForm handleDates={handleDates}/>
+                <DateForm handleDates={handleDates} name={'tell me its sunny'}/>
                 <h2 style={{marginTop: '200px', padding: '50px'}}>The weather during your time in Munich</h2>
             </div>
     )

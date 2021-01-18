@@ -21,6 +21,7 @@ const displayDiv = {
     width: '300px',
     margin: '10px',
     backgroundColor: '#333333',
+    borderRadius: '20px',
     border: '3px solid #395f78',
     boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
 }

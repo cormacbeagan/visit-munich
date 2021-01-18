@@ -1,77 +1,72 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Button from './button';
+import React, { useEffect, useRef } from 'react';
 
-const date = new Date()
-const day = date.getDate()
-const month = date.getMonth('mm')+1
-const year = date.getFullYear('YYYY')
-const today = `${year}-${month < 10 ? '0'+ month : month}-${day < 10 ? '0'+ day : day}`
-const initialState = {
-    arrival: today,
-    departure: '', 
-}
 
-function Input({handleSubmit}) {
-    const [ formData, setFormData ] = useState(initialState);
-    const arrival = useRef();
-    
-    const arrivalDate = new Date(formData.arrival);
-    const maxDate = new Date(arrivalDate.getFullYear(), arrivalDate.getMonth(), arrivalDate.getDate()+7)
-    const maxDay = maxDate.getDate()
-    const maxMonth = maxDate.getMonth('mm')+1
-    const maxYear = maxDate.getFullYear('YYYY')
-    const maxInputDate = `${maxYear}-${maxMonth < 10 ? '0'+ maxMonth : maxMonth}-${maxDay < 10 ? '0'+ maxDay : maxDay}`
-    
+function Input(props) {
+    const { onChange, type, value, id, name } = props
+    const input = useRef()
+
     useEffect(() => {
-       // console.log(maxInputDate)
-    })
+        if(input.current.value) input.current.focus()
+    }, [])
 
-    const handleChange = (event) => {
-        event.persist();
-        setFormData((prev) => ({...prev, [event.target.name]: event.target.value}));
+    const handleChange = (e) => {
+        onChange(id, e.target.value)
     }
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        handleSubmit(formData)
-
-        //setFormData(initialState);
+    const handleFocus = (e) => {
+        const div = e.target
+        div.style.marginTop = '36px'
+        div.style.borderColor = '#333'
     }
+
     return (
-        <div className="row" style={inputMarg}>
-            <form onSubmit={onSubmit} className="col s12">
-              <div className="input-field col s4">
-               {/* <input type="text" className="datepicker"></input>*/}
-                <input 
-                    type="date" name="arrival" 
-                    value={formData.arrival} 
+        <div>
+            <div style={divStyle}>
+                <label 
+                    style={labelStyle} 
+                    htmlFor={type} 
+                    onClick={() => input.current.focus()}>
+                    {name}
+                </label>
+                <input
+                    ref={input} 
+                    style={inputStyle} 
+                    type={type} id={id} 
                     onChange={handleChange} 
-                    ref={arrival}
-                    min={today}
-                    />
-                
-                <label className="active">Arrival: </label>
-              </div>
-              <div className="input-field col s4">
-                <input type="date" name="departure" 
-                    value={formData.departure} 
-                    onChange={handleChange} 
-                    min={formData.arrival} 
-                    max={maxInputDate}
+                    onFocus={handleFocus}
+                    value={value} 
                     required
-                    />
-                <label className="active">Departure: </label>
-              </div>
-                <div className="col s4 center" style={buttonMarg}>
-                    <Button children={'search'}/>
-                </div>
-            </form>
+                    autoComplete='off'
+                />
+            </div>
         </div>
     )
 }
 
+
 export default Input;
 
-const buttonMarg = {marginTop: '15px'}
+const divStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '10px',
+    maxWidth: '500px',
+}
 
-const inputMarg = {paddingTop: '20px'}
+const labelStyle = {
+    marginLeft: '5px',
+    marginBottom: '-36px',
+    zIndex: '1',
+}
+
+const inputStyle = {
+    margin: '5px',
+    outline: 'none',
+    lineHeight: '36px',
+    fontSize: '24px',
+    color: '#787879',
+    backgroundColor: 'inherit',
+    border: 'none',
+    borderBottom: '2px solid #787879',
+    transition: 'all 400ms ease',
+}

@@ -18,7 +18,7 @@ function ConcertListings({ handleBackToMap, concerts, coords }) {
     }
 
     return (
-        <div className="container" style={containerStyle}>
+        <div style={containerStyle}>
             <div>
                 {concertArray.map(event => {
                     if(!event) {
@@ -49,13 +49,14 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(ConcertListings);
 
 const containerStyle = {
-    width: '90%', 
-    maxWidth: '800px',
+    width: '100%', 
+    maxWidth: '1000px',
     margin: '50px auto', 
     marginTop: '200px',
-    padding: '20px 0px', 
+    padding: '20px 0px',
     backgroundColor: '#333333', 
     color: '#f3f3f3', 
-    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+
 }
 

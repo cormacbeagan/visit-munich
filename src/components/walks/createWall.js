@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { createProject } from '../../store/actions/projectActions';
+import Button from '../universal/button';
+import Input from '../universal/input';
 
 const initialState = {
     name: '',
     description: '',
     lat: '',
     lng: '',
-    image: '',
+    image: '/images/Easy-schlachthof.jpg',
 }
 
 function CreateWall(props) {
@@ -18,8 +20,8 @@ function CreateWall(props) {
 
     if(!auth.uid) return <Redirect to='/signin' />;
 
-    const handleChange = (e) => {
-        setFormData((prev) => ({...prev, [e.target.id]: e.target.value}))
+    const handleChange = (id, value) => {
+        setFormData((prev) => ({...prev, [id]: value}))
     }
 
     const handleSubmit = (e) => {
@@ -29,33 +31,43 @@ function CreateWall(props) {
         history.push('/walks')
     }
 
-
     return (
       <div style={createDiv}>
             <form onSubmit={handleSubmit} className="">
-                <h5 className="grey-text text-darken-3">Create Wall</h5>
-                <div className="input-field">
-                    <label htmlFor="name">Wall Title</label>
-                    <input type="text" id="name" onChange={handleChange} value={formData.name} required/>
+                <h2 style={{color: '#333'}}>Create Wall</h2>
+                <div style={divStyle}>
+                    <Input 
+                        type={"text"} 
+                        id={"name"}
+                        name={'Wall Title'}
+                        onChange={handleChange} 
+                        value={formData.name} 
+                        />
+                    <Input 
+                        type={'text'}
+                        id={'description'}
+                        name={'Wall description'}
+                        onChange={handleChange}
+                        value={formData.description}
+                    />
+                    <Input
+                        type={'text'}
+                        id={'lat'}
+                        name={'Latitude'}
+                        onChange={handleChange}
+                        value={formData.lat}
+                    />
+                    <Input  
+                        type={'text'}
+                        id={'lng'}
+                        name={'Longditude'}
+                        onChange={handleChange}
+                        value={formData.lng}  
+                    />       
                 </div>
-                <div className="input-field">
-                    <label htmlFor="description">Wall Description</label>
-                    <input type="text" id="description" onChange={handleChange} value={formData.description}/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="lat">Latitude</label>
-                    <input type="text" id="lat" onChange={handleChange} value={formData.lat} required/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="lng">Longditude</label>
-                    <input type="text" id="lng" onChange={handleChange} value={formData.lng} required/>
-                </div>
-                <div className="input-field">
-                    <label htmlFor="image">Image Url</label>
-                    <input type="text" id="image" onChange={handleChange} value={formData.image} required/>
-                </div>
-                <div className="input-field">
-                    <button className="btn grey darken-2 z-depth-0">Create</button>
+                <div>
+                    <Button children={'create'} />
+                    <Button children={'cancel'} onClick={() => history.push('/walks')} />
                 </div>
             </form>
         </div>
@@ -78,5 +90,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
 
 const createDiv = {
     padding: '50px', 
-    alignContent: 'center'
+    alignContent: 'center',
+    margin: '30px auto',
+}
+
+const divStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '10px',
+    maxWidth: '500px',
 }

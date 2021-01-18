@@ -28,7 +28,14 @@ body::-webkit-scrollbar-thumb {
     margin-top: 80px;
 }
 
+p {
+  font-size: 18px;
+}
 
+h3 {
+  font-size: 24px;
+}
+/*
 form button, form h5{
   margin: 20px 0;
 }
@@ -40,11 +47,11 @@ input[type=password]{
   box-shadow: none;
   color: #f7abab;
 }
-/*
+
 input[type=date] {
   color: #737e80;
 }
-*/
+
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
@@ -55,13 +62,13 @@ textarea.materialize-textarea:focus:not([readonly]){
   box-shadow: none;
   color: #db6379fd;
 }
-/*
+
 
 input[type=date]:not(.browser-default):focus:not([readonly]) {
   background-color: transparent!important;
 
 }
-*/
+
 
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label,
@@ -71,4 +78,4 @@ input[type=date]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #333333!important;
 }
-
+*/

@@ -3,7 +3,7 @@ import DatePicker from '../universal/datePicker';
 import Button from '../universal/button';
 
 
-function DateForm({handleDates}) {
+function DateForm({handleDates, name}) {
     const [ preselected, setPreselected ] = useState();
     const [ dates, setDates ] = useState({
         arrival: '',
@@ -44,9 +44,15 @@ function DateForm({handleDates}) {
             <div >
                 <div style={divStyle}>
                   <div style={formStyle}>
-                    <DatePicker onChange={onChangeOne} float={'float-left'} id={'one'}/>
-                    <DatePicker onChange={onChangeTwo} float={'float-right'} preselected={preselected} id={'two'}/>
-                    <Button children={'submit'} onClick={handleSubmit} />
+                    <div style={{marginTop: '10px'}}>
+                        <DatePicker onChange={onChangeOne} float={'float-left'} id={'one'}/>
+                    </div>
+                    <div style={{marginTop: '10px'}}>
+                        <DatePicker onChange={onChangeTwo} float={'float-right'} preselected={preselected} id={'two'}/>
+                    </div>
+                    <div style={{marginTop: '10px'}}>
+                        <Button children={name} onClick={handleSubmit} />
+                    </div>
                   </div>
                 </div>
             </div>
@@ -57,7 +63,7 @@ export default DateForm;
 
 const divStyle = {
     position: 'fixed',
-    top: '80px',
+    top: '60px',
     left: '0',
     right: '0',
     zIndex: '98',
@@ -68,7 +74,8 @@ const divStyle = {
 
 const formStyle = {
     maxWidth: '800px',
-    margin: '20px auto',
+    margin: '5px auto',
+    marginTop: '20px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',

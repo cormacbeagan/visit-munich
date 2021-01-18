@@ -2,6 +2,7 @@ import React from 'react';
 import uniqid from 'uniqid'
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin'
+import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 const googleToken = process.env.REACT_APP_GOOGLE_KEY;
 const middle = {
     lat: 48.137200,
@@ -9,7 +10,16 @@ const middle = {
 }
 
 const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) => {
-    
+    const [ width, height ] = useDimensionSetter()
+
+
+  const mapContainer = {
+    height: height - 80 + 'px',
+    width: width + 'px',
+    position: 'fixed',
+    left: '0',
+    zIndex: '1',
+  };
 
     return (
         <div>
@@ -45,15 +55,5 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
         </div>
     )
   }
-
-  const mapContainer = {
-    height: window.innerHeight - 80 + 'px',
-    width: '100%',
-    position: 'fixed',
-    left: '0',
-    zIndex: '1',
-  };
-
-
 
   export default Map;

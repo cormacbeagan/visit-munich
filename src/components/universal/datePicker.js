@@ -82,7 +82,7 @@ function DatePicker({ onChange, id, preselected, float }) {
         return 40 - new Date(year, month, 40).getDate();
     }
 
-    const getMonthDetails = (year, month) => { // moved so as to initialise before setting state
+    const getMonthDetails = (year, month) => {
         let firstDay = (new Date(year, month)).getDay();
         let numberOfDays = getNumberOfDays(year, month);
         let monthArray = [];
@@ -111,7 +111,7 @@ function DatePicker({ onChange, id, preselected, float }) {
         year,
         month,
         selectedDay: preselected || todayTimestamp,
-        monthDetails:  getMonthDetails(year, month) // cannot access before initialization
+        monthDetails:  getMonthDetails(year, month),
     })
 
     const isCurrentDay = (day) => {
@@ -278,7 +278,5 @@ const containerClass = `mdp-container ${float}`
         </div>
     )
 }
-
-
 
 export default DatePicker;

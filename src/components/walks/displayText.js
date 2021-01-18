@@ -6,16 +6,17 @@ import Button from '../universal/button';
 
 function DisplayText({ project, auth }) {
     const history = useHistory()
-    if(project.authorFirstName){
+    
+    if(project.authorFirstName) {
         return (
             <div style={boxText}>
-                <h5>{project.name}</h5>
+                <h3 style={heading}>{project.name}</h3>
                 <p>{project.description}</p>
                 {project.updatedAt ? (
-                    <p>Last updated: {moment(project.updatedAt.toDate()).calendar()}</p>
+                    <p style={lowlight}>Last updated: <span style={highlight}>{moment(project.updatedAt.toDate()).calendar()}</span></p>
 
                 ) : (
-                    <p>Created: {moment(project.createdAt.toDate()).calendar()}</p>)}
+                    <p style={lowlight}>Created: {moment(project.createdAt.toDate()).calendar()}</p>)}
                 <div style={{marginLeft: '-5px'}}>
                     <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${project.lat},${project.lng}`} 
                     target='_blank'
@@ -26,15 +27,9 @@ function DisplayText({ project, auth }) {
                 </div>
             </div>
         )
-    }else{
+    } else {
         return null;
     }
-}
-
-const boxText = {
-    margin: '10px',
-    color: 'white',
-    contain: 'items',
 }
 
 
@@ -46,3 +41,22 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(DisplayText);
+
+const boxText = {
+    margin: '10px',
+    color: '#cecbcb',
+    contain: 'items',
+}
+
+const heading = {
+    color: '#51748b',
+}
+
+const lowlight = {
+    color: '#51748b',
+}
+
+const highlight = {
+    color: '#cecbcb',
+
+}

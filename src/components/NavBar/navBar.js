@@ -5,17 +5,15 @@ import SignedOutLinks from './signedOutLinks';
 import { connect } from 'react-redux';
 import {isLoaded} from 'react-redux-firebase';
 import { FaBars } from 'react-icons/fa';
+import { useDimensionSetter } from '../../hooks/useDimensionSetter';
+let width, height; 
 
 function NavBar(props) {
 	const { auth, profile } = props;
 	const [ smallScreen, setSmallScreen ] = useState(false)
-	const [ width, setWidth ] = useState(0)
 	const [ menuOpen, setMenuOpen ] = useState(false); 
 	const links = auth.uid ? <SignedInLinks mobile={smallScreen} profile={profile}/> : <SignedOutLinks mobile={smallScreen}/>;
-	
-	useEffect(() => {
-		setWidth(window.innerWidth);
-	}, [])
+	const [ width, height ] = useDimensionSetter();
 
 	useEffect(() => {
 		if(width < 900) {
@@ -63,7 +61,6 @@ function NavBar(props) {
 }
 
 const mapStateToProps = (state) => {
-	//console.log(state)
 	return {
 		auth: state.firebase.auth,
 		profile: state.firebase.profile,
@@ -132,6 +129,7 @@ const linksClosed = {
 	paddingRight: '10px',
 	fontSize: '24px',
 	zIndex: '99',
+	opacity: '0',
 	transform: 'scale(0.75)',
 	transition: 'all 400ms cubic-bezier(0.29,-0.15, 0.02, 1.02)'
 }
@@ -152,5 +150,5 @@ const mobileLinks = {
 	zIndex: '99',
 	borderLeft: '6px solid #395f78',
 	transform: 'scale(1)',
-	transition: 'all 500ms cubic-bezier(0.49, 0.8, 0.26, 1.34)'
+	transition: 'all 300ms cubic-bezier(0.65, 0.89, 0.8, 1.15)'
 } 

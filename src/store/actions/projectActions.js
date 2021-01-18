@@ -19,9 +19,6 @@ export const createProject = (project) => {
     }
 }
 
-// implement a check to see if new walls are close to existing walls
-// or find out how to merge points into one point on the map
-
 export const uploadImage = (image, id) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
@@ -66,9 +63,11 @@ export const updateProject = (wall, id) => {
             updatedAt: new Date(),
             updatedBy: authId,
         }, {merge: true})
-        .then(resp => {
-            // needs to dispatch a succesful update
-        }) // and an error
+        .then(() => {
+            dispatch({type: 'PROJECT_UPDATE_SUCCESS'})
+        }).catch(err => {
+            dispatch({type: 'PROJECT_UPDATE_ERROR', err})
+        })
     }
 }
 
@@ -77,12 +76,13 @@ export const deleteImage = (img, id) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const storage = firebase.storage();
-        const imgStorageRef = storage.refFromURL(img);
         const projectToEdit = firestore.collection('projects').doc(id);
         projectToEdit.update({
             images: firebase.firestore.FieldValue.arrayRemove(img)
         }).then(() => {
             dispatch({type: 'IMAGE_ARRAY_REMOVE_SUCCESS'})
+            if(img === '/images/Easy-schlachthof.jpg') return
+            const imgStorageRef = storage.refFromURL(img);
             imgStorageRef.delete().then(() => {
                 dispatch({type: 'IMAGE_STORAGE_DELETE_SUCCESS'})
             }).catch(err => {
@@ -90,6 +90,19 @@ export const deleteImage = (img, id) => {
             })
         }).catch(err => {
             dispatch({type: 'IMAGE_ARRAY_REMOVE_ERROR', err})
+        })
+    }
+}
+
+export const deleteProject = (id) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        firestore.collection('projects').doc(id).delete()
+        .then(() => {
+            dispatch({type: 'PROJECT_DELETE_SUCCESS'})
+        }).catch(err => {
+            dispatch({type: 'PROJECT_DELETE_ERROR', err})
         })
     }
 }

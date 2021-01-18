@@ -1,12 +1,9 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import Carousel from './carousel';
 
 function DisplayImage({ data }) {
     const [ display, setDisplay ] = useState({display: 'none'})
     const [ hover, setHover ] = useState(false)
-    useEffect(() => {
-        //console.log(data.image)
-    })
 
     const handleModal = () => {
         setDisplay({display: 'block'})
@@ -36,7 +33,7 @@ function DisplayImage({ data }) {
                     alt="Wall Thumbnail"/>
             </div>
         </div>
-        )
+    )
 }
 
 export default DisplayImage;
@@ -50,6 +47,7 @@ const imageDiv = {
     backgroundPosition: 'center center',
     backgroundSize: '305px 305px',
     bagroundRepeat: 'no-repeat',
+    borderRadius: '20px',
 }
 
 const imageStyle = {
@@ -57,6 +55,7 @@ const imageStyle = {
     width: '300px',
     objectFit: 'cover',
     transition: 'opacity 0.6s ease',
+
 }
 
 const imageHoverStyle = {

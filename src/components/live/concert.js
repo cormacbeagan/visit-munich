@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment'
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import Button from '../universal/button';
+import { useDimensionSetter } from '../../hooks/useDimensionSetter'; 
 
 function Concert({ data, handleBackToMap }) {
     const [ hover, setHover ] = useState(false)
+    const [ width, height ] = useDimensionSetter();
+    const [ padding, setPadding ] = useState('40px'); 
+
+    useEffect(() => {
+        console.log(width)
+        if(width > 800) {
+            setPadding('40px')
+        } else {
+            setPadding('20px')
+        }
+        console.log(padding)
+    }, [width])
 
     const handleBack = () => {
        handleBackToMap(data.id)
     }
+    const containerStyle = {
+        backgroundColor: '#a7a7a733', 
+        minHeight: '80px',
+        width: '76%', 
+        margin: '20px auto', 
+        padding: padding, 
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
+        color: '#e2e2e2',
+    }
 
     return (  
             <div style={containerStyle}>
-                <h3>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h3> 
+                <h3 style={lowlight}>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h3> 
                 <p style={{...highlight, ...noMargin}}>{moment(data.start.dateTime || data.start.date).format('DD MMMM YYYY')}</p>
-                <p stlye={noMargin}>Venue: <span style={highlight}>{data.venue.displayName}</span></p>
+                <p style={{...noMargin, ...lowlight}}>Venue: <span style={highlight}>{data.venue.displayName}</span></p>
                 {data.status !== 'ok' && <p>Status: <span style={highlight}>{data.status}</span></p>}
                 <div style={flexDiv}>
-                    <p style={{...bigP, ...noMargin}}>Bands: </p>
+                    <p style={{...bigP, ...noMargin, ...lowlight}}>Bands: </p>
                     {data.performance.map(band => {
                         return (
                             <div style={bandDiv}key={band.id}>
@@ -71,18 +92,13 @@ function Concert({ data, handleBackToMap }) {
 
 export default Concert;
 
-const containerStyle = {
-    backgroundColor: '#a7a7a733', 
-    minHeight: '80px',
-    width: '90%', 
-    margin: '20px auto', 
-    padding: '20px', 
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
-    color: '#e2e2e2',
+const highlight = {
+    color: '#cecbcb'
 }
 
-const highlight = {
-    color: '#f24847db'
+const lowlight = {
+    color: '#51748b',
+    fontWeight: '600',
 }
 
 const noMargin = {

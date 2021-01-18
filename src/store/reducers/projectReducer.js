@@ -37,6 +37,18 @@ const projectReducer = (state = initState, action) => {
         case 'IMAGE_STORAGE_DELETE_ERROR':
             console.log('Image storage delete error', action.err)
             return state;
+        case 'PROJECT_DELETE_SUCCESS':
+            console.log('Project delete success')
+            return state;
+        case 'PROJECT_DELETE_ERROR':
+            console.log('Project delete error', action.err)
+            return state;
+        case 'PROJECT_UPDATE_SUCCESS':
+            console.log('Project updated')
+            return state;
+        case 'PROJECT_UPDATE_ERROR':
+            console.log('Project update error', action.err)
+            return state;
         default: 
             return state;
     }

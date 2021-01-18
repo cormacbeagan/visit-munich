@@ -3,12 +3,7 @@ import '../../styles/button.css';
 
 function Button(props) {
     const { children, onClick } = props
-    const button = useRef()
-
-    const handleClick = () => {
-        button.current.click();
-        onClick()
-    }
+    
     return (
         <button 
             onClick={onClick} 

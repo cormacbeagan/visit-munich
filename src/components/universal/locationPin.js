@@ -13,7 +13,7 @@ const LocationPin = ({ text, handleInfo, id }) => {
     }
     
     return (
-        <div 
+        <div id="locationPin"
             onTouchEnd={handleClick}
             onClick={handleClick}
             style={hover ? hoverPin : pin}
@@ -27,7 +27,7 @@ const LocationPin = ({ text, handleInfo, id }) => {
     )
 }
 
-//{hover && text}
+export default LocationPin;
 
 const pin = {
     height: '25px',
@@ -53,5 +53,4 @@ const pinIcon = {
     width: '24px',
 };
 
-export default LocationPin;
 
