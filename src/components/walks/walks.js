@@ -34,7 +34,7 @@ function Walks(props) {
         marginLeft: slideIn,
         marginTop: '10px',
         position: 'absolute',
-        zIndex: '90',
+        zIndex: '80',
         width: '320px',
         display: 'block',
         transitionProperty: 'margin-left',

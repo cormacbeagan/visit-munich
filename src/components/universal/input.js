@@ -50,7 +50,7 @@ const divStyle = {
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '10px',
-    maxWidth: '500px',
+    maxWidth: '900px',
 }
 
 const labelStyle = {
@@ -69,4 +69,5 @@ const inputStyle = {
     border: 'none',
     borderBottom: '2px solid #787879',
     transition: 'all 400ms ease',
+    width: '90%'
 }

@@ -3,8 +3,8 @@
     align-content: center;
     position: fixed; 
     overflow: auto;
-    z-index: 1;
     padding-top: 100px;
+    z-index: 1;
     left: 0;
     top: 80px;
     right: 0;
@@ -34,7 +34,7 @@
 
 .closer {
   width: 100%;
-  min-height: 1000px;
+  min-height: 1130px;
   cursor: not-allowed;
   position: absolute;
   top: 0;
@@ -60,6 +60,7 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
+  margin-bottom: 150px;
   transition: opacity 600ms ease;  
 }
 
@@ -133,9 +134,13 @@ button.controlButton:focus {
   @media only screen and (max-width: 700px) {
     .slide {
       width: 100%;
+      
     }
     .controls {
-      left: 150px;
+      left: 120px;
       right: 20px
+    }
+    .closer {
+      min-height: 700px;
     }
   }

@@ -32,10 +32,10 @@ function CreateWall(props) {
     }
 
     return (
-      <div style={createDiv}>
-            <form onSubmit={handleSubmit} className="">
-                <h2 style={{color: '#333'}}>Create Wall</h2>
-                <div style={divStyle}>
+      <div>
+            <form onSubmit={handleSubmit} style={createDiv}>
+                <h2 style={heading}>Create Wall</h2>
+                <div>
                     <Input 
                         type={"text"} 
                         id={"name"}
@@ -89,14 +89,12 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
 
 const createDiv = {
-    padding: '50px', 
-    alignContent: 'center',
-    margin: '30px auto',
+    margin: '150px auto',
+    maxWidth: '600px',
 }
 
-const divStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '10px',
-    maxWidth: '500px',
+const heading = {
+    marginLeft: '100px',
+    fontSize: '24px',
+    color: '#333',
 }

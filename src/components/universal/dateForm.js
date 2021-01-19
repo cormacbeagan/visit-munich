@@ -66,7 +66,7 @@ const divStyle = {
     top: '60px',
     left: '0',
     right: '0',
-    zIndex: '98',
+    zIndex: '88',
     backgroundColor: '#395f78', 
     minHeight: '60px',  
   

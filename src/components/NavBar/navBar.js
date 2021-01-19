@@ -77,7 +77,7 @@ const navBarStyle = {
 	display: 'flex',
 	flexDirection: 'row',
 	backgroundColor: '#333333',
-	zIndex: '99',
+	zIndex: '89',
 	borderBottom: '4px solid #395f78'
 }
 
@@ -96,7 +96,7 @@ const mobileNavStyle = {
 	left: '0',
 	top: '0',
 	backgroundColor: '#333333',
-	zIndex: '99',
+	zIndex: '89',
 	borderBottom: '3px solid #395f78'
 }
 

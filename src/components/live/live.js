@@ -98,7 +98,7 @@ function Live(props) {
         marginLeft: slideIn + 'px',
         marginTop: '110px',
         position: 'absolute',
-        zIndex: '97',
+        zIndex: '87',
         height: '300px',
         width: '320px',
         display: 'block',
@@ -180,7 +180,7 @@ const liveStyle = {
     top: '80px',
     left: '0',
     right: '0',
-    zIndex: '98',
+    zIndex: '88',
     backgroundColor: '#395f78', 
     height: '70px',  
 }
@@ -202,7 +202,7 @@ const logoDiv = {
     position: 'absolute', 
     bottom: '0px', 
     right: '70px', 
-    zIndex: '98'
+    zIndex: '86'
 }
 
 const logoHeading = {

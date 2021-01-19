@@ -27,8 +27,8 @@ function SignIn(props) {
     }
 
         return (
-            <div style={formStyle}>
-                <form onSubmit={handleSubmit} className="">
+            <div>
+                <form onSubmit={handleSubmit} style={formStyle}>
                     <h3 style={heading}>Sign In</h3>
                     <div>
                         <Input 
@@ -73,11 +73,12 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
 const formStyle = {
-    padding: '50px', 
-    alignContent: 'center'
+    margin: '150px auto',
+    maxWidth: '600px',
 }
 
 const heading = {
     color: '#333',
+    marginLeft: '90px',
 }
 
