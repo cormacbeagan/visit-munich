@@ -14,7 +14,6 @@ const initialState = {
 function SignIn(props) {
     const { signIn, authError, auth } = props
     const [ formData, setFormData ] = useState(initialState)
-    const [ labelMarg, setLabelMarg ] = useState('-36')
     if(auth.uid) return <Redirect to='/walks' />
 
 
@@ -25,12 +24,6 @@ function SignIn(props) {
     const handleChange = (type, value) => {
         console.log(type, value)
         setFormData((prev) => ({...prev, [type]: value}))
-    }
-
-    const handleFocus = (e) => {
-        const div = e.target
-        div.style.marginTop = '36px'
-        div.style.borderColor = '#333'
     }
 
         return (
