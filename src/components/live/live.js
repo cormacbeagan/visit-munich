@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import DisplayBox from '../universal/displayBox';
+import DisplayBox from './displayBox';
 import Button from '../universal/button';
 import DateForm from '../universal/dateForm';
-
 import ConcertListings from './concertListings';
 import { location } from '../universal/mapData';
 import { connect } from 'react-redux';

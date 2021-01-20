@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import '../../styles/button.css';
 
 function Button(props) {

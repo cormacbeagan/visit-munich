@@ -46,6 +46,7 @@ input[type="date"]::-webkit-input-placeholder{
     color: #333333db;
     font-family: Roboto, Arial, sans-serif;
     font-weight: 550;
+    text-align: center;
 }
 
 /* dates box */

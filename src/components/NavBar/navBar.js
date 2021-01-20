@@ -137,7 +137,7 @@ const linksClosed = {
 const mobileLinks = {
 	width: window.innerWidth +6 +'px',
 	height: window.innerHeight + 'px',
-	overflow: 'scroll',
+	overflow: 'auto',
 	position: 'fixed',
 	top: '80px',
 	right: '0px',

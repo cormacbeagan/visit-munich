@@ -1,6 +1,6 @@
 
 export const createProject = (project) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
+    return (dispatch, getState, { getFirestore}) => {
         const firestore = getFirestore()
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
@@ -20,7 +20,7 @@ export const createProject = (project) => {
 }
 
 export const uploadImage = (image, id) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
+    return (dispatch, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const storage = firebase.storage();
@@ -53,8 +53,7 @@ export const uploadImage = (image, id) => {
 }
 
 export const updateProject = (wall, id) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
-        const firebase = getFirebase();
+    return (dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
         const authId = getState().firebase.auth.uid;
         const projectToEdit = firestore.collection('projects').doc(id)
@@ -72,7 +71,7 @@ export const updateProject = (wall, id) => {
 }
 
 export const deleteImage = (img, id) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
+    return (dispatch, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const storage = firebase.storage();
@@ -95,8 +94,7 @@ export const deleteImage = (img, id) => {
 }
 
 export const deleteProject = (id) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
-        const firebase = getFirebase();
+    return (dispatch, { getFirestore}) => {
         const firestore = getFirestore();
         firestore.collection('projects').doc(id).delete()
         .then(() => {

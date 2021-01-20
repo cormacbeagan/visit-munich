@@ -1,0 +1,37 @@
+.box-slider {
+    margin: 0 0px;
+    height: 350px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    transition: all 0.2s;
+    transform: scale(0.98);
+    will-change: transform;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.box-slider.active {
+    cursor: grabing;
+    cursor: -webkit-grabbing;
+    transform: scale(1)
+}
+
+.slider-inner {
+    display: flex;
+    flex-direction: row;
+}
+
+.box-slider::-webkit-scrollbar {
+    width: 11px;
+  }
+  
+.box-slider::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+.box-slider::-webkit-scrollbar-thumb {
+    position: absolute;
+    background-color: transparent;
+
+  }
