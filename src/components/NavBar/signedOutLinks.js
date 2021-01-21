@@ -8,7 +8,6 @@ function SignedOutLinks(props) {
 	return (
 			<div style={mobile ? mobileNavBar : navbar}>
 				<Link style={link} to="/signin">Sign In</Link>
-				<Link style={link} to="/signup">Sign Up</Link>
 			</div>
 		);
 }

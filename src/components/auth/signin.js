@@ -14,7 +14,7 @@ const initialState = {
 function SignIn(props) {
     const { signIn, authError, auth } = props
     const [ formData, setFormData ] = useState(initialState)
-    if(auth.uid) return <Redirect to='/walks' />
+    if(auth.uid) return <Redirect to='/' />
 
 
     const handleSubmit = (e) => {
@@ -22,7 +22,6 @@ function SignIn(props) {
         signIn(formData)
     }
     const handleChange = (type, value) => {
-        console.log(type, value)
         setFormData((prev) => ({...prev, [type]: value}))
     }
 

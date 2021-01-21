@@ -35,6 +35,7 @@ function BoxSlider({children}) {
         slider.current.addEventListener('mouseleave', handleUp)
         slider.current.addEventListener('mousemove', handleMove)
         return () => {
+            if(!slider.current) return
             slider.current.removeEventListener('mousedown', handleDown)
             slider.current.removeEventListener('mouseup', handleUp)
             slider.current.removeEventListener('mouseleave', handleUp)

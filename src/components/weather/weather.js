@@ -11,10 +11,16 @@ import {dummyData} from './dummy';
 
 
 function Weather(props) {
-    const { weatherSearch, weather } = props;
+    const { weatherSearch, weather, dates } = props;
     const [ width, height ] = useDimensionSetter();
     const [ data, setData ] = useState(dummyData);
     const boxes = useRef()
+
+    useEffect(() => {
+        if(dates.dates){
+            weatherSearch(dates.dates)
+        }
+    },[])
 
     useEffect(() => {
         if(weather.weather){
@@ -30,6 +36,7 @@ function Weather(props) {
 
 
     const handleDates = (dates) => {
+        console.log(dates)
         const date = new Date(dates.arrival)
         const tenDays = date.setDate(date.getDate() + 10)
         if(dates.departure > tenDays){
@@ -47,7 +54,10 @@ function Weather(props) {
         position: 'absolute',
         top: '0',
         left: '0',
-        backgroundImage: 'url(/images/munich-hills.jpg)',
+        backgroundImage: 'url(/images/thunderstorm.jpg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '55% 50%',
+        backgroundSize: 'cover',
     } 
     return (
             <div style={container}>
@@ -68,16 +78,17 @@ function Weather(props) {
                             })}
                     </BoxSlider>
                 </div>
-                <div style={{position: 'absolute', bottom: '100px', left: '200px'}}>
+                {/*<div style={{position: 'absolute', bottom: '100px', left: '200px'}}>
                     <Button children={'boxes please'} onClick={() => handleClose('200px')}/>
-                </div>
+                </div>*/}
             </div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        weather: state.weather
+        weather: state.weather,
+        dates: state.dates,
     }
 }
 

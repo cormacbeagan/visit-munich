@@ -9,6 +9,10 @@ import SignIn from './components/auth/signin';
 import SignUp from './components/auth/signup';
 import CreateWall from './components/walks/createWall';
 import DisplayWall from './components/walks/wallDetails';
+import CreateBlog from './components/home/createBlog';
+import EditBlog from './components/home/editBlog';
+
+
 import './styles/app.css';
 
 
@@ -53,8 +57,16 @@ function App() {
               render={() => <CreateWall/>}
             />
             <Route
+              path="/blog"
+              render={() => <CreateBlog/>}
+            />
+            <Route
               path="/wall/:id"
               render={() => <DisplayWall/>}
+            />
+            <Route
+              path="/editblog/:id"
+              render={() => <EditBlog/>}
             />
           </Switch>
         </div>

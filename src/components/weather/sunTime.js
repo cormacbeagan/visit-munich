@@ -1,5 +1,5 @@
 import React from 'react'
-import { WiSunrise, WiSunset, WiHorizon, WiHorizonAlt } from 'react-icons/wi';
+import { WiHorizon, WiHorizonAlt } from 'react-icons/wi';
 
 function SunTime({up, down}) {
     return (

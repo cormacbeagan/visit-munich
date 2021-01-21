@@ -18,7 +18,7 @@ const initialState = {
 }
 
 function Live(props) {
-    const { concerts, concertSearch } = props;
+    const { concerts, dates, concertSearch } = props;
     const [ displayData, setDisplayData ] = useState(initialState);
     const [ slideIn, setSlideIn ] = useState('-350')
     const [ searching, setSearching ] = useState(true);
@@ -27,6 +27,12 @@ function Live(props) {
     const [ displayMap, setDisplayMap ] = useState(false)
     const [ coords, setCoords ] = useState(null)
     const [ venueBands, setVenueBands ] = useState(null);
+
+    useEffect(() => {
+        if(dates.dates){
+            concertSearch(dates.dates)
+        }
+    },[])
 
     useEffect(() => {
         if(concerts.events[0]){
@@ -161,7 +167,8 @@ function Live(props) {
 
 const mapStateToProps = (state) => {
     return {
-        concerts: state.concerts
+        concerts: state.concerts,
+        dates: state.dates
     }
 }
 

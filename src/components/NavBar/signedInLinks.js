@@ -10,7 +10,9 @@ function SignedInLinks(props) {
 	return (
 		<div style={mobile ? mobileNavBar : navbar}>
 			<Link style={link} to="/create">Create Wall</Link>
+			<Link style={link} to='/blog'>Create Blog</Link>
 			<Link onClick={signOut} style={link} to="/">Logout</Link>
+			<Link style={link} to="/signup">Sign Up</Link>
 			{!mobile && <Link style={linkIn} to='/'>{profile.initials}</Link>}
 		</div>
 	);

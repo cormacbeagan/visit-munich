@@ -9,13 +9,11 @@ function Concert({ data, handleBackToMap }) {
     const [ padding, setPadding ] = useState('40px'); 
 
     useEffect(() => {
-        console.log(width)
         if(width > 800) {
             setPadding('40px')
         } else {
             setPadding('20px')
         }
-        console.log(padding)
     }, [width])
 
     const handleBack = () => {

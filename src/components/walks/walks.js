@@ -17,7 +17,7 @@ function Walks(props) {
         if(id) {
             const data = projects.find(project => project.id === id)
             setDisplayData(data)
-            setTimeout(setSlideIn('-15px'), 300)
+            setTimeout(setSlideIn('-10px'), 300)
         }
     }
 

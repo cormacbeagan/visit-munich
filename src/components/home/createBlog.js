@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { createProject } from '../../store/actions/projectActions';
+import { createBlog } from '../../store/actions/blogActions';
 import Button from '../universal/button';
 import Input from '../universal/input';
 
 const initialState = {
     name: '',
-    description: '',
-    lat: '',
-    lng: '',
-    image: '/images/Easy-schlachthof.jpg',
+    subtitle: '',
+    textInput: '',
+    link: '',
+    linkText: '',
 }
 
-function CreateWall(props) {
-    const { createProject, auth } = props
+function CreateBlog(props) {
+    const { createBlog, auth } = props
     const [ formData, setFormData ] = useState(initialState)
     const history = useHistory();
 
@@ -26,53 +26,59 @@ function CreateWall(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        createProject(formData)   
+        createBlog(formData)   
         setFormData(initialState)
-        history.push('/walks')
+        history.push('/')
     }
 
     return (
       <div>
             <form onSubmit={handleSubmit} style={createDiv}>
-                <h2 style={heading}>Create Wall</h2>
+                <h2 style={heading}>Create Homepage Entry</h2>
                 <div>
                     <Input 
                         type={"text"} 
                         id={"name"}
-                        name={'Wall Title'}
+                        name={'Name'}
                         onChange={handleChange} 
                         value={formData.name}
                         required={true}
                         />
                     <Input 
-                        type={'text'}
-                        id={'description'}
-                        name={'Wall description'}
-                        onChange={handleChange}
-                        value={formData.description}
+                        type={"text"} 
+                        id={"subtitle"}
+                        name={'Subtitle'}
+                        onChange={handleChange} 
+                        value={formData.subtitle} 
                         required={true}
 
-                    />
-                    <Input
+                        />
+                    <Input 
                         type={'text'}
-                        id={'lat'}
-                        name={'Latitude'}
+                        id={'textInput'}
+                        name={'Blog Text'}
                         onChange={handleChange}
-                        value={formData.lat}
+                        value={formData.textInput}
                         required={true}
                     />
                     <Input  
                         type={'text'}
-                        id={'lng'}
-                        name={'Longditude'}
+                        id={'link'}
+                        name={'Link URL'}
                         onChange={handleChange}
-                        value={formData.lng}  
-                        required={true}
-                    />       
+                        value={formData.link}  
+                    />
+                    <Input  
+                        type={'text'}
+                        id={'linkText'}
+                        name={'Button Text'}
+                        onChange={handleChange}
+                        value={formData.linkText}  
+                    />        
                 </div>
                 <div>
                     <Button children={'create'} />
-                    <Button children={'cancel'} onClick={() => history.push('/walks')} />
+                    <Button children={'cancel'} onClick={() => history.push('/')} />
                 </div>
             </form>
         </div>
@@ -87,11 +93,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createProject: (project) => dispatch(createProject(project)) 
+        createBlog: (blog) => dispatch(createBlog(blog)) 
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog)
 
 const createDiv = {
     margin: '150px auto',

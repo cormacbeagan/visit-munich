@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 
 function Input(props) {
-    const { onChange, type, value, id, name } = props
+    const { onChange, type, value, id, name, required } = props
     const input = useRef()
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function Input(props) {
                     onChange={handleChange} 
                     onFocus={handleFocus}
                     value={value} 
-                    required
+                    required={required}
                     autoComplete='off'
                 />
             </div>

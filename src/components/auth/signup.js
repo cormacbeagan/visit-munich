@@ -15,7 +15,7 @@ const initialState = {
 function SignUp(props) {
     const {auth, signUp, authError} = props;
     const [ formData, setFormData ] = useState(initialState)
-    if(auth.uid) return <Redirect to='/' />
+    if(!auth.uid) return <Redirect to='/' />
 
 
 
