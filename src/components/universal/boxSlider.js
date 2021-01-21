@@ -7,8 +7,8 @@ function BoxSlider({children}) {
     const slider = useRef()
     let isDown = false;
     let startX;
-    let scrollLeft;
-
+    let scrollLeft = 0;
+    console.log(children)
     const handleDown = (e) => {
         isDown = true;
         setClassSlider('box-slider active')

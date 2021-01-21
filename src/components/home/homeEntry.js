@@ -16,7 +16,6 @@ function HomeEntry({ data, auth }) {
                     <BlogTextDisplay data={data}/>
                     <div style={divBottom}>
                         {data.link && <Button children={<a href={data.link} 
-                        target='_blank'
                         rel="noreferrer" 
                         style={{color:'white'}}
                         >{data.linkText}</a>} />}
