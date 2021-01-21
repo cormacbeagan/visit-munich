@@ -9,7 +9,7 @@ const [ dimensions, setDimensions ] = useState([
 useEffect(() => {
     const debouncedResizeHandle = debounce(() => {
         setDimensions([window.innerWidth, window.innerHeight])
-    }, 50)
+    }, 100)
     window.addEventListener('resize', debouncedResizeHandle)
     return () => window.removeEventListener('resize', debouncedResizeHandle)
 }, [])

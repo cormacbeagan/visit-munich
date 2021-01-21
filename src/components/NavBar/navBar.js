@@ -14,7 +14,7 @@ function NavBar(props) {
 	const links = auth.uid ? <SignedInLinks mobile={smallScreen} profile={profile}/> : <SignedOutLinks mobile={smallScreen}/>;
 	const [ width, height ] = useDimensionSetter();
 	useEffect(() => {
-		if(width < 1070) {
+		if(width < 1200) {
 			setSmallScreen(true)
 		} else {
 			setSmallScreen(false)
@@ -73,7 +73,6 @@ function NavBar(props) {
 		transition: 'all 300ms cubic-bezier(0.65, 0.89, 0.8, 1.15)'
 	}
 
-
 	return (
 		<div>
 			{smallScreen ? (
@@ -107,6 +106,7 @@ function NavBar(props) {
 }
 
 const mapStateToProps = (state) => {
+	//console.log(state)
 	return {
 		auth: state.firebase.auth,
 		profile: state.firebase.profile,
@@ -133,8 +133,6 @@ const link = {
 	fontSize: '1.0em',
 	margin: '1em',
 }
-
-
 
 const logo = {
 	float: 'left',

@@ -26,10 +26,27 @@ function CreateWall(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        createProject(formData)   
+        const check = checkCoords(formData.lat, formData.lng)
+        if(check) {
+            createProject(formData)   
+        } else {
+            alert('Invalid Geolocation')
+            return
+        }
         setFormData(initialState)
         history.push('/walks')
     }
+
+    const checkCoords = (lat, lng) => {
+        const valLat = parseFloat(lat)
+        const valLng = parseFloat(lng)
+        if((!isNaN(valLat) && valLat <= 90 && valLat >= -90) && (!isNaN(valLng) && valLng <= 180 && valLng >= -180)) {
+            return true
+        } else {
+            return false
+        }
+    }
+
 
     return (
       <div>

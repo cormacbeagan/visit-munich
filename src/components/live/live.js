@@ -8,8 +8,6 @@ import { location } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
 
-
-
 const initialState = {
     name: '',
     lat: '',
@@ -111,7 +109,6 @@ function Live(props) {
         transitionDuration: '400ms',
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
-
 
     return (
         <div>

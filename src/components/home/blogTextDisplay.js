@@ -1,11 +1,11 @@
 import React from 'react';
 
 function BlogTextDisplay({ data }) {
-        return (
-                <div style={{marginLeft: '-5px'}}>
-                    <p style={label}>{data.textInput}</p>
-                </div>
-        )
+    return (
+        <div style={{marginLeft: '-5px'}}>
+            <p style={label}>{data.textInput}</p>
+    </div>
+    )
 
 }
 

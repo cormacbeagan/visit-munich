@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ function HomeEntry({ data, auth }) {
                         {data.link && <Button children={<a href={data.link} 
                         rel="noreferrer" 
                         style={{color:'white'}}
+                        target={data.link.includes('http') ? '_blank' : '_self'}
                         >{data.linkText}</a>} />}
                         {auth.uid && <Button onClick={() => history.push(`/editblog/${data.id}`)} children={'Edit Blog'} />}
                     </div>
@@ -62,9 +63,4 @@ const divBottom = {
     bottom: '15px', 
     right: '15px',
     opacity: '1',
-}
-
-const label = {
-    margin: '0',
-    color: '#black',
 }

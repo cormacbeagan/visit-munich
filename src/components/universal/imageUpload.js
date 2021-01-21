@@ -17,8 +17,6 @@ function ImageUpload(props) {
     const [ imageFile, setImageFile ] = useState(null)
     const input = useRef();
 
-
-
     const handleImageUpload = async (e) => {
         e.preventDefault();
         const compImage = await imageCompression(imageFile, compressOptions)

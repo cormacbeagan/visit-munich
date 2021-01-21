@@ -45,7 +45,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-
 export default connect(mapStateToProps)(ConcertListings);
 
 const containerStyle = {

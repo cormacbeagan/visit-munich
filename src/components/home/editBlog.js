@@ -11,7 +11,6 @@ import BlogDisplay from './blogDisplay';
 
 let idToPass;
 
-
 function EditBlog(props) {
     const {blog, auth, updateBlog, deleteBlog} = props;
     const history = useHistory();
@@ -27,8 +26,6 @@ function EditBlog(props) {
     }, [blog])
 
     if(!auth.uid) return <Redirect to='/signin' />
-    
-
 
     const handleEdit = () => {
         setIsEditing(!isEditing)
@@ -53,7 +50,6 @@ function EditBlog(props) {
     const uploadUpdate = (obj) => {
         updateBlog(obj, id)
         setIsEditing(!isEditing)
-
     }
 
     const handleCancel = () => {

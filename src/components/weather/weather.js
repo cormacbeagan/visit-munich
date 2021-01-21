@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import DateForm from '../universal/dateForm';
 import DisplayWeather from './displayWeather';
 import BoxSlider from '../universal/boxSlider';
-import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { connect } from 'react-redux';
 import { weatherSearch } from '../../store/actions/weatherActions';
@@ -36,7 +35,6 @@ function Weather(props) {
 
 
     const handleDates = (dates) => {
-        console.log(dates)
         const date = new Date(dates.arrival)
         const tenDays = date.setDate(date.getDate() + 10)
         if(dates.departure > tenDays){
@@ -78,9 +76,6 @@ function Weather(props) {
                             })}
                     </BoxSlider>
                 </div>
-                {/*<div style={{position: 'absolute', bottom: '100px', left: '200px'}}>
-                    <Button children={'boxes please'} onClick={() => handleClose('200px')}/>
-                </div>*/}
             </div>
     )
 }

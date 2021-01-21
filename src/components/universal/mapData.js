@@ -3,8 +3,6 @@ export const location = {
     lng: 11.580103,
 }
 
-
-
 export const mapStyle = [
     { elementType: "geometry", stylers: [{ color: "#2a5443" }] },
     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },

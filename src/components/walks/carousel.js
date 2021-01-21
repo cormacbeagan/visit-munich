@@ -123,6 +123,4 @@ function Carousel(props) {
     )
 }
 
-
 export default Carousel
-

@@ -105,7 +105,7 @@ const createDiv = {
 }
 
 const heading = {
-    marginLeft: '100px',
+    marginLeft: '50px',
     fontSize: '24px',
     color: '#333',
 }

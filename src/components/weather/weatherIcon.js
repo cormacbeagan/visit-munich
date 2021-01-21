@@ -25,8 +25,6 @@ function WeatherIcon({icon}) {
             symbol = <p>Cloudy with a chance of ERRORS</p>
     }
 
-
-
     return (
         <div style={divStyle}>
             {symbol}

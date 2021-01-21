@@ -2,30 +2,30 @@ import React, { useRef, useEffect, useState } from 'react'
 import '../../styles/boxSlider.css'
 
 
-function BoxSlider({children}) {
-    const [ classSlider, setClassSlider ] = useState('box-slider')
+function ColumnSlider({children}) {
+    const [ classSlider, setClassSlider ] = useState('box-slider column')
     const slider = useRef()
     let isDown = false;
-    let startX;
-    let scrollLeft = 0;
+    let startY;
+    let scrollTop = 0;
     const handleDown = (e) => {
         isDown = true;
-        setClassSlider('box-slider active')
-        startX = e.pageX - slider.current.offsetLeft;
-        scrollLeft = slider.current.scrollLeft
+        setClassSlider('box-slider column active')
+        startY = e.pageY - slider.current.offsetTop;
+        scrollTop = slider.current.scrollTop
     }
 
     const handleUp = () => {
         isDown = false;
-        setClassSlider('box-slider')
+        setClassSlider('box-slider column')
     }
 
     const handleMove = (e) => {
         if(!isDown) return;
         e.preventDefault();
-        const x = e.pageX -slider.current.offsetLeft;
-        const walk = x - startX;
-        slider.current.scrollLeft = scrollLeft - walk;
+        const y = e.pageY -slider.current.offsetTop;
+        const walk = y - startY;
+        slider.current.scrollTop = scrollTop - walk;
     }
 
     useEffect(() => {
@@ -44,11 +44,11 @@ function BoxSlider({children}) {
 
     return (
         <div className={classSlider} ref={slider}>
-            <div className='slider-inner'>
+            <div className='slider-inner column'>
                 {children}
             </div>
         </div>
     )
 }
 
-export default BoxSlider;
+export default ColumnSlider;

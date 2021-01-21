@@ -8,7 +8,6 @@ function DisplayField({ data, handleVenue, bands }) {
         setDisplayData(data)
     }, [data])
 
-
     if(displayData) {
         return (
             <div style={boxText}>

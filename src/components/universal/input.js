@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-
 function Input(props) {
     const { onChange, type, value, id, name, required } = props
     const input = useRef()
@@ -42,7 +41,6 @@ function Input(props) {
         </div>
     )
 }
-
 
 export default Input;
 

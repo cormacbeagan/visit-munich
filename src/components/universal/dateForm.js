@@ -10,7 +10,6 @@ function DateForm({handleDates, name}) {
         departure: '',
     });
 
-
     const onChangeOne = (timestamp) => {
         setPreselected(timestamp)
         setDates(prev => ({...prev, arrival: new Date(timestamp)}))
@@ -36,9 +35,6 @@ function DateForm({handleDates, name}) {
         }
         handleDates(dates)
     }
-
-
-
 
     return (
             <div >

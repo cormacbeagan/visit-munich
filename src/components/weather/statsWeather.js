@@ -4,9 +4,7 @@ import WeatherIcon from './weatherIcon';
 import SunTime from './sunTime';
 import MoonPhase from './moonPhase';
 
-
 function StatsWeather({data}) {
-
 
     let max;
     let min;
