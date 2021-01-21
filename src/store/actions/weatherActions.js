@@ -11,14 +11,12 @@ export const weatherSearch = (dates) => {
         .toISOString()
         .split('T')[0];
 
-        console.log(arrival, departure)
-
-
         const config = {
             method: 'get', 
             url: `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/munich/${arrival}/${departure}?unitGroup=metric&key=${weatherKey}`,
         }
         axios(config).then(resp => {
+            console.log(resp.data.remainingCost)
             console.log(resp)
             const dataArray = resp.data.days;
             dispatch({type: 'WEATHER_SEARCH_SUCCESS', data: {

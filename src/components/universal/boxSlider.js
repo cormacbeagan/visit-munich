@@ -10,7 +10,6 @@ function BoxSlider({children}) {
     let scrollLeft;
 
     const handleDown = (e) => {
-        console.log(e)
         isDown = true;
         setClassSlider('box-slider active')
         startX = e.pageX - slider.current.offsetLeft;

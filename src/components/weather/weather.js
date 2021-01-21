@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import DateForm from '../universal/dateForm';
 import DisplayWeather from './displayWeather';
 import BoxSlider from '../universal/boxSlider';
+import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { connect } from 'react-redux';
 import { weatherSearch } from '../../store/actions/weatherActions';
@@ -17,18 +18,27 @@ function Weather(props) {
 
     useEffect(() => {
         if(weather.weather){
+            // remove the loading signal
             setData(weather.weather)
             boxes.current.style.top = '200px'
         }
     }, [weather])
 
-    const handleClose = () => {
-        boxes.current.style.top = '-350px';
+    const handleClose = (pix) => {
+        boxes.current.style.top = pix;
     }
 
 
     const handleDates = (dates) => {
-        weatherSearch(dates)
+        const date = new Date(dates.arrival)
+        const tenDays = date.setDate(date.getDate() + 10)
+        if(dates.departure > tenDays){
+            alert('Max 10 days search')
+        } else {
+            // set some loading signal, opacity or rain or something
+            weatherSearch(dates)
+        }
+        return
     }
 
     const container = {
@@ -41,7 +51,7 @@ function Weather(props) {
     } 
     return (
             <div style={container}>
-                <div onClick={handleClose}>
+                <div onClick={() => handleClose('-350px')}>
                     <DateForm handleDates={handleDates} name={'tell me its sunny'}/>
                 </div>
                 <div style={boxDiv} ref={boxes}>
@@ -57,6 +67,9 @@ function Weather(props) {
                                 )
                             })}
                     </BoxSlider>
+                </div>
+                <div style={{position: 'absolute', bottom: '100px', left: '200px'}}>
+                    <Button children={'boxes please'} onClick={() => handleClose('200px')}/>
                 </div>
             </div>
     )
@@ -82,5 +95,5 @@ const boxDiv = {
     top: '-350px',
     display: 'flex',
     flexDirection: 'row',
-    transition: 'top 1.2s ease',
+    transition: 'top 350ms cubic-bezier(0.22, 1.68, 0.52, 0.73)',
 }

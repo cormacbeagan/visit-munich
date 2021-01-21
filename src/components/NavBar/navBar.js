@@ -41,7 +41,7 @@ function NavBar(props) {
 							{/*<Link style={link} to="/eat">Eat Out</Link>*/}
 							<Link style={link} to="/live">Live Music</Link>
 							<Link style={link} to="/weather">Weather</Link>
-							<Link style={link} to="/walks">Walls</Link>
+							<Link style={link} to="/walks">Graffiti</Link>
 							{isLoaded(auth) && links}
 						</div>
 					</div>
@@ -52,7 +52,7 @@ function NavBar(props) {
 					{/*<Link style={link} to="/eat">Eat Out</Link>*/}
 					<Link style={link} to="/live">Live Music</Link>
 					<Link style={link} to="/weather">Weather</Link>
-					<Link style={link} to="/walks">Walls</Link>
+					<Link style={link} to="/walks">Graffiti</Link>
 				{isLoaded(auth) && links}
 			</div>
 			)}
