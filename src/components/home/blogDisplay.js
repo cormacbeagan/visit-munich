@@ -26,7 +26,7 @@ import moment from 'moment';
 export default BlogDisplay
 
 const lowlight = {
-    color: '#51748b',
+    color: '#dfbaaa',
     fontWeight: '600',
 }
 const highlight = {

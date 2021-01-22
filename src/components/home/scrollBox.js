@@ -28,7 +28,7 @@ const displayDiv = {
     height: '295px',
     width: '260px',
     margin: '10px',
-    backgroundColor: '#51738acc',
+    backgroundColor: '#51738aeb',
     borderRadius: '20px',
     border: '3px solid #395f78',
     boxShadow: '0 0 40px rgba(0, 0, 0, 0.3)',

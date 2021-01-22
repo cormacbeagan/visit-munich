@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from '../universal/button';
 
 function DisplayField({ data, handleVenue, bands }) {
     const [displayData, setDisplayData ] = useState()
-
+    const link = useRef()
     useEffect(() => {
         setDisplayData(data)
     }, [data])
@@ -26,7 +26,6 @@ function DisplayField({ data, handleVenue, bands }) {
 
                 <div style={boxDiv}>
                     <br/>
-                    <Button children={'venue concerts'} onClick={() => handleVenue(displayData.coords)}/>
                     <a href={displayData.uri}
                         target='_blank'
                         rel="noreferrer" >
@@ -36,11 +35,13 @@ function DisplayField({ data, handleVenue, bands }) {
                         style={logoStyle}/>
                     </a>
                     <div style={divBottom}>
-                    <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`} 
-                    target='_blank'
-                    rel="noreferrer" 
-                    style={{color:'white'}}
-                    >Directions</a>} />
+                    <Button children={'concerts'} onClick={() => handleVenue(displayData.coords)}/>
+                    <Button children={'directions'} onClick={() => link.current.click()}/>
+                    <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`} 
+                        target='_blank'
+                        rel="noreferrer" 
+                        style={{display: 'none'}}
+                        ></a>
                     </div>
                 </div>
             </div>

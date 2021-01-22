@@ -1,11 +1,12 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import Button from '../universal/button';
 
 function DisplayText({ project, auth }) {
     const history = useHistory()
+    const link = useRef();
     
     if(project.authorFirstName) {
         return (
@@ -13,16 +14,19 @@ function DisplayText({ project, auth }) {
                 <h3 style={heading}>{project.name}</h3>
                 <p>{project.description}</p>
                 {project.updatedAt ? (
-                    <p style={lowlight}>Last updated: <span style={highlight}>{moment(project.updatedAt.toDate()).calendar()}</span></p>
-
+                    <div>
+                        <p style={highlight}>Last updated: </p>
+                        <p style={highlight}>{moment(project.updatedAt.toDate()).calendar()}</p>
+                    </div>
                 ) : (
                     <p style={lowlight}>Created: {moment(project.createdAt.toDate()).calendar()}</p>)}
-                <div style={{marginLeft: '-5px'}}>
-                    <Button children={<a href={`https://www.google.com/maps/search/?api=1&query=${project.lat},${project.lng}`} 
-                    target='_blank'
-                    rel="noreferrer" 
-                    style={{color:'white'}}
-                    >Directions</a>} />
+                <div style={divBottom}>
+                    <Button children={'directions'} onClick={() => link.current.click()}/>
+                    <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${project.lat},${project.lng}`} 
+                        target='_blank'
+                        rel="noreferrer" 
+                        style={{display: 'none'}}
+                        ></a>
                     {auth.uid && <Button onClick={() => history.push(`/wall/${project.id}`)} children={'Edit Wall'} />}
                 </div>
             </div>
@@ -55,6 +59,13 @@ const lowlight = {
 }
 
 const highlight = {
+    margin: '0',
     color: '#cecbcb',
 
+}
+
+const divBottom = {
+    position: 'absolute', 
+    bottom: '20px', 
+    right: '20px',
 }

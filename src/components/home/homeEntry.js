@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { connect } from 'react-redux';
@@ -6,8 +6,24 @@ import BlogTextDisplay from './blogTextDisplay';
 
 function HomeEntry({ data, auth }) {
     const history = useHistory()
-
+    const link = useRef()
+    let button = null;
     if(data.id) {
+        if(data.link) {
+            const check = data.link.includes('http')
+            if(check) {
+                button = (<div>
+                            <Button children={data.linkText} onClick={() => link.current.click()}/>
+                            <a href={data.link} 
+                                ref={link}
+                                rel="noreferrer" 
+                                style={{display:'none'}}
+                                target='_blank'></a>
+                            </div>)
+            } else {
+                button = <Button children={data.linkText} onClick={() => history.push(data.link)} />
+            }
+        }
         return (
             <div style={boxText}>
                 <h2 style={boxHeading}>{data.name}</h2>
@@ -15,11 +31,7 @@ function HomeEntry({ data, auth }) {
                 <div style={boxDiv}>
                     <BlogTextDisplay data={data}/>
                     <div style={divBottom}>
-                        {data.link && <Button children={<a href={data.link} 
-                        rel="noreferrer" 
-                        style={{color:'white'}}
-                        target={data.link.includes('http') ? '_blank' : '_self'}
-                        >{data.linkText}</a>} />}
+                        {button}                        
                         {auth.uid && <Button onClick={() => history.push(`/editblog/${data.id}`)} children={'Edit Blog'} />}
                     </div>
                 </div>
@@ -45,7 +57,7 @@ const boxText = {
 }
 
 const boxHeading = {
-    color: '#272727', 
+    color: '#243443', 
     maxWidth: '220px',
 }
 
@@ -62,5 +74,6 @@ const divBottom = {
     position: 'absolute', 
     bottom: '15px', 
     right: '15px',
-    opacity: '1',
+    display: 'flex',
+    flexDirection: 'row',
 }

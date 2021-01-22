@@ -37,10 +37,11 @@ function EditBlog(props) {
 
     const handleReady = (e) => {
         const obj = {}
-        
         for (let key in blogData) {
             if(blogData[key] === '') {
-                obj[key] = blog[key]
+                if(!(key === 'link' || key === 'linkText')){
+                    obj[key] = blog[key]
+                }
             }
         }
         setBlogData(prev => ({...prev, ...obj}))

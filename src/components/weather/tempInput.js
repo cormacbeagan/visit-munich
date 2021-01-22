@@ -9,7 +9,7 @@ function TempInput({avg, min, max}) {
         } else if (temp < 8) {
             return '#4ca8f7'
         } else if (temp < 14) {
-            return '#d9ff63'
+            return '#dfbaaa'
         } else if (temp < 22) {
             return '#f5b72d'
         } else if (temp < 28) {

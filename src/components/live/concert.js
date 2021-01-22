@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'
 import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter'; 
@@ -7,6 +7,7 @@ function Concert({ data, handleBackToMap }) {
     const [ hover, setHover ] = useState(false)
     const [ width, height ] = useDimensionSetter();
     const [ padding, setPadding ] = useState('40px'); 
+    const link = useRef()
 
     useEffect(() => {
         if(width > 800) {
@@ -31,10 +32,10 @@ function Concert({ data, handleBackToMap }) {
 
     return (  
             <div style={containerStyle}>
+                <h3 style={{...lowlight, ...noMargin}}>{moment(data.start.dateTime || data.start.date).format('ddd Do MMM YYYY')}</h3>
                 <h2 style={lowlight}>Name: <span style={highlight}>{data.displayName.replace(/ *\([^)]*\) */g, "")}</span></h2> 
-                <p style={{...highlight, ...noMargin}}>{moment(data.start.dateTime || data.start.date).format('DD MMMM YYYY')}</p>
                 <p style={{...noMargin, ...lowlight}}>Venue: <span style={highlight}>{data.venue.displayName}</span></p>
-                {data.status !== 'ok' && <p>Status: <span style={highlight}>{data.status}</span></p>}
+                {data.status !== 'ok' && <p style={lowlight}>Status: <span style={highlight}>{data.status}</span></p>}
                 <div style={flexDiv}>
                     <p style={{...bigP, ...noMargin, ...lowlight}}>Bands: </p>
                     {data.performance.map(band => {
@@ -63,26 +64,31 @@ function Concert({ data, handleBackToMap }) {
                     })}
                 </div>
                 <div style={btnDiv}>
-                    <Button 
-                    children={
-                        <a href={data.uri} 
-                            target='_blank'
-                            rel="noreferrer" 
-                            style={linkStyle}
+                    <div
                             onMouseEnter={() => setHover(!hover)}
-                            onMouseLeave={() => setHover(!hover)} >
+                            onMouseLeave={() => setHover(!hover)}>
+                        <Button 
+                        children={
                             <div style={linkStyle}>
                                 {!hover ? (
-                                    <p style={noMargin}>Details</p>
-                                    ) : (
+                                    'Details'
+                                ) : (
                                     <img src="/images/by-songkick-pink.svg" 
-                                                alt="Sonkick Logo" 
-                                                style={skButton}/>
+                                        alt="Sonkick Logo" 
+                                        style={skButton}/>
                                 )}
                             </div>
-                        </a>
-                    }/>
-                    <Button onClick={handleBack}children={'Back to Map'}/>
+                        }
+                        onClick={() => link.current.click()}
+                        />
+                        <a href={data.uri} 
+                            ref={link}
+                            target='_blank'
+                            rel="noreferrer" 
+                            style={{display: 'none'}}
+                        ></a>
+                    </div>
+                    <Button onClick={handleBack}children={'Show on Map'}/>
                 </div>
             </div>
     )
@@ -95,7 +101,7 @@ const highlight = {
 }
 
 const lowlight = {
-    color: '#51748b',
+    color: '#dfbaaa',
     fontWeight: '600',
 }
 
@@ -133,7 +139,9 @@ const bandDiv = {
 }
 
 const btnDiv = {
-    textAlign: 'right',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
 }
 
 const linkStyle = {

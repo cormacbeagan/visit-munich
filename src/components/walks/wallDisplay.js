@@ -40,7 +40,7 @@ import Thumbnail from '../universal/thumbnail';
 export default WallDisplay
 
 const lowlight = {
-    color: '#51748b',
+    color: '#dfbaaa',
     fontWeight: '600',
 }
 const highlight = {

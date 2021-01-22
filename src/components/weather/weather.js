@@ -60,7 +60,7 @@ function Weather(props) {
     return (
             <div style={container}>
                 <div onClick={() => handleClose('-350px')}>
-                    <DateForm handleDates={handleDates} name={'tell me its sunny'}/>
+                    <DateForm handleDates={handleDates} name={'forecast'}/>
                 </div>
                 <div style={boxDiv} ref={boxes}>
                     <BoxSlider>
