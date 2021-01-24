@@ -32,7 +32,7 @@ function HomeEntry({ data, auth }) {
                     <BlogTextDisplay data={data}/>
                     <div style={divBottom}>
                         {button}                        
-                        {auth.uid && <Button onClick={() => history.push(`/editblog/${data.id}`)} children={'Edit Blog'} />}
+                        {auth.uid && <Button onClick={() => history.push(`/editblog/${data.id}`)} children={'Edit'} />}
                     </div>
                 </div>
             </div>
