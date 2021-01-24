@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaForward, FaBackward} from 'react-icons/fa';
+import Closer from '../universal/closer';
 import '../../styles/carousel.css';
+
 let imageArray = [];
 
 
@@ -80,7 +82,7 @@ function Carousel(props) {
     
        return (
            <div className='carousel-container' style={display}>
-            <div className='closer' onClick={handleCloser}></div>
+            <div className='closer' onClick={handleCloser}><Closer/></div>
             <div ref={ref} className=''>
                 {imageArray.map(item => {
                     return (
@@ -94,6 +96,7 @@ function Carousel(props) {
                 )
             })}
             </div>
+            <Closer />
             <Controls>
                 {isPlaying ? (
                 <ControlButton

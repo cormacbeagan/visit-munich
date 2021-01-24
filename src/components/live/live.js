@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
 import DisplayBox from './displayBox';
 import Button from '../universal/button';
+import Closer from '../universal/closer';
 import DateForm from '../universal/dateForm';
 import ConcertListings from './concertListings';
 import { location } from '../universal/mapData';
+import { mapStyleLight } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
 
@@ -99,7 +101,7 @@ function Live(props) {
     }
     const infoBoxes = {
         marginLeft: slideIn + 'px',
-        marginTop: '110px',
+        marginTop: '70px',
         position: 'absolute',
         zIndex: '87',
         height: '300px',
@@ -119,7 +121,7 @@ function Live(props) {
                     <Button  children={'new dates'} onClick={handleNewSearch}/>
                 </div>
             ) : (
-                <DateForm handleDates={handleSearch} name={'search'}/>
+                <DateForm handleDates={handleSearch} name={'find concerts'}/>
             )
             }
             </div>
@@ -138,9 +140,15 @@ function Live(props) {
                             location={mapLocation}
                             zoomLevel={mapZoom}
                             projects={concerts.venues}
+                            color={'#b81b16'}
+                            mapStyle={mapStyleLight}
+                            switched={false}
                             />
                         </div>
                         <div style={infoBoxes}>
+                            <div style={bottom}>
+                                <Closer onClick={closer}/>
+                            </div>
                             <DisplayBox
                                 bands={venueBands}
                                 data={displayData}
@@ -180,7 +188,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Live);
 
 const liveStyle = {
     position: 'fixed',
-    top: '80px',
+    top: '70px',
     left: '0',
     right: '0',
     zIndex: '88',
@@ -212,4 +220,10 @@ const logoHeading = {
     color: '#f24847', 
     margin: '0', 
     fontWeight: 'bold'
+}
+
+const bottom = {
+    position: 'absolute',
+    top: '0px',
+    right: '75px'
 }

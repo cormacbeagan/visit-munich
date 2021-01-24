@@ -4,7 +4,7 @@ import Button from '../universal/button';
 import { connect } from 'react-redux';
 import BlogTextDisplay from './blogTextDisplay';
 
-function HomeEntry({ data, auth }) {
+function HomeEntry({ data, auth, url }) {
     const history = useHistory()
     const link = useRef()
     let button = null;
@@ -24,6 +24,14 @@ function HomeEntry({ data, auth }) {
                 button = <Button children={data.linkText} onClick={() => history.push(data.link)} />
             }
         }
+
+    const handleEdit = () => {
+        if(url === '/editblog'){
+            history.push(`/editblog/${data.id}`)
+        } else if (url === '/tips') {
+            history.push(`/edittip/${data.id}`)
+        }
+    }
         return (
             <div style={boxText}>
                 <h2 style={boxHeading}>{data.name}</h2>
@@ -32,7 +40,7 @@ function HomeEntry({ data, auth }) {
                     <BlogTextDisplay data={data}/>
                     <div style={divBottom}>
                         {button}                        
-                        {auth.uid && <Button onClick={() => history.push(`/editblog/${data.id}`)} children={'Edit'} />}
+                        {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
                     </div>
                 </div>
             </div>

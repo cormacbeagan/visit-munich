@@ -14,7 +14,7 @@ function NavBar(props) {
 	const links = auth.uid ? <SignedInLinks mobile={smallScreen} profile={profile}/> : <SignedOutLinks mobile={smallScreen}/>;
 	const [ width, height ] = useDimensionSetter();
 	useEffect(() => {
-		if(width < 1200) {
+		if(width < 1500) {
 			setSmallScreen(true)
 		} else {
 			setSmallScreen(false)
@@ -78,12 +78,12 @@ function NavBar(props) {
 			{smallScreen ? (
 				<div>
 					<div style={mobileNavStyle}>
-							<Link style={logo} to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+							<Link style={logo} to="/" onClick={() => setMenuOpen(false)}>Visit Munich</Link>
 							<a href="#0" onClick={handleMenuOpen}style={bars}><FaBars /></a>
 					</div>
 					<div>
 						<div style={menuOpen ? mobileLinks : linksClosed} onClick={() => setMenuOpen(false)}>
-							<Link style={link} to="/eat">Eat Out</Link>
+							<Link style={link} to="/tips">Tips</Link>
 							<Link style={link} to="/live">Live Music</Link>
 							<Link style={link} to="/weather">Weather</Link>
 							<Link style={link} to="/walks">Graffiti</Link>
@@ -94,7 +94,7 @@ function NavBar(props) {
 			) : (
 				<div style={navBarStyle}>
 					<Link style={link} to="/">Home</Link>
-					<Link style={link} to="/eat">Eat Out</Link>
+					<Link style={link} to="/tips">Tips</Link>
 					<Link style={link} to="/live">Live Music</Link>
 					<Link style={link} to="/weather">Weather</Link>
 					<Link style={link} to="/walks">Graffiti</Link>

@@ -2,6 +2,7 @@ const initState = {
     blogs: [
         {
             id: null,
+            rank: 0,
             name: 'A Title',
             subtitle: ': a subtitle',
             text: 'bla bla bla',
@@ -29,6 +30,12 @@ const blogReducer = (state = initState, action) => {
             return state;
         case 'BLOG_UPDATE_ERROR':
             console.log('Blog update error', action.err)
+            return state;
+        case 'BLOG_RANKING_UPDATE_SUCCESS':
+            console.log('Blog ranking update success')
+            return state;
+        case 'BLOG_RANKING_UPDATE_ERROR':
+            console.log('Blog ranking update error', action.err)
             return state;
         default: 
             return state;

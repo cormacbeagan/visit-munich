@@ -72,7 +72,7 @@ const logoStyle = {
     height: '25px', 
     width: '25px', 
     position: 'absolute', 
-    top: '30px', 
+    top: '80px', 
     right: '30px', 
     cursor: 'pointer'
 }

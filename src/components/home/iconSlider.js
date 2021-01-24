@@ -31,7 +31,7 @@ function IconSlider({data}) {
                         icon = <p>Cloudy with a chance of ERRORS</p>
                 }
                 return (
-                    <div style={concertEntry}>
+                    <div style={weatherEntry}>
                         <p style={pStyle}>{moment(item.datetime).format('ddd Do MMM YYYY')}</p>
                         {icon}
                         <TempInput avg={item.temp} max={item.tempmax} min={item.tempmin} />
@@ -81,7 +81,7 @@ export default IconSlider;
 const iconStyle = {
     height: '50px',
     width: '50px',
-    color: '#e2e2e2'
+    color: '#e2e2e2',
 }
 
 const column = {
@@ -90,15 +90,23 @@ const column = {
 }
 
 const row = {
+    marginTop: '5px',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderBottom: '3px dotted black',
+    justifyContent: 'center',
+    borderBottom: '2px solid #243443',
     postion: 'relative',
 }
 
 const concertEntry = {
     marginBottom: '5px',
+    marginRight: '25px'
+}
+
+const weatherEntry = {
+    margin: '5px 0',
+    borderBottom: '2px solid #243443',
+
 }
 
 const pStyle = {
@@ -116,5 +124,7 @@ const logoStyle = {
     height: '25px', 
     width: '25px', 
     cursor: 'pointer',
-    marginTop: '15px',    
+    marginTop: '15px',
+    position: 'absolute',
+    right: '0px'
 }

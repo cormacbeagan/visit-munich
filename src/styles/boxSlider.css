@@ -9,7 +9,17 @@
     will-change: transform;
     user-select: none;
     padding: auto;
+    scrollbar-color: transparent transparent;
+
 }
+
+body {
+  background-color: #c9c3c3;
+  scrollbar-width: thin;
+  scrollbar-color:#395f78 #333333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 
 .box-slider.active {
     cursor: grabing;

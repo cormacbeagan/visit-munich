@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid'
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin'
+import Switch from './switch';
+import { mapStyleDark, mapStyleLight } from './mapData';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 const googleToken = process.env.REACT_APP_GOOGLE_KEY;
 const middle = {
@@ -9,34 +11,57 @@ const middle = {
     lng: 11.576044,
 }
 
-const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) => {
+const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, color, switched}) => {
     const [ width, height ] = useDimensionSetter()
+    const [ zoom, setZoom ] = useState()
+    const [ styles, setStyles ] = useState()
 
+      const handleZoomChange = (e) => {
+          setZoom(e.zoom)
+      }
 
-  const mapContainer = {
-    height: height - 80 + 'px',
-    width: width + 'px',
-    position: 'fixed',
-    left: '0',
-    zIndex: '1',
-  };
+      useEffect(() => {
+        setStyles(mapStyle)
+      }, [])
+
+      const handleStyle = (check) => {
+        if(check) {
+          setStyles(mapStyleDark)
+        } else {
+          setStyles(mapStyleLight)
+        }
+      }
+
+      const mapContainer = {
+          height: height - 80 + 'px',
+          width: width + 'px',
+          position: 'fixed',
+          left: '0',
+          bottom: '0',
+          zIndex: '1',
+      };
 
     return (
-        <div>
+      <div>
             <div style={mapContainer}>
+                <div style={buttonStyle}>
+                    <Switch onClick={handleStyle} switched={switched}/>
+                </div>
                 <GoogleMapReact
-                    onClick={() => onClick()}
                     center={location}
                     bootstrapURLKeys={{ key: googleToken}}
                     defaultCenter={middle}
                     defaultZoom={12}
                     zoom={zoomLevel}
                     gestureHandling={'greedy'}
+                    id={'map'}
+                    onChange={handleZoomChange}
                     options={{
-                      styles: mapStyle,
+                      styles: styles,
                       fullscreenControl: false,
                     }}
                 >
+
                 {projects.map(item => {
                   if (item.id === null){
                     item.id = uniqid();
@@ -48,6 +73,8 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
                       lat={item.lat}
                       lng={item.lng}
                       text={item.name}
+                      zoom={zoom}
+                      color={color}
                     />)
                 })}
                 </GoogleMapReact>
@@ -57,3 +84,10 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, onClick}) =>
   }
 
   export default Map;
+
+  const buttonStyle = {
+    position: 'absolute',
+    top: '90px',
+    left: '10px',
+    zIndex: '99',
+  }
