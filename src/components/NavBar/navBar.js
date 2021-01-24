@@ -94,7 +94,7 @@ function NavBar(props) {
 			) : (
 				<div style={navBarStyle}>
 					<Link style={link} to="/">Home</Link>
-					<Link style={link} to="/eat">Eat Out</Link>
+					<Link style={link} to="/tips">Tips</Link>
 					<Link style={link} to="/live">Live Music</Link>
 					<Link style={link} to="/weather">Weather</Link>
 					<Link style={link} to="/walks">Graffiti</Link>
