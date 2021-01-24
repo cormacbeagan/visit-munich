@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import { setDates } from '../../store/actions/dateActions';
 import { concertSearch } from '../../store/actions/concertActions';
 import { weatherSearch } from '../../store/actions/weatherActions';
+import Button from '../universal/button'
 
 import DateForm from '../universal/dateForm';
 import BoxSlider from '../universal/boxSlider';
@@ -18,16 +19,16 @@ function Home(props) {
     const [ slideIn, setSlideIn ] = useState(width)
     const [ weatherScroll, setWeatherScroll ] = useState([]);
     const [ concertScroll, setConcertScroll ] = useState([]);
-
+    const scrollDiv = useRef()
 
     useEffect(() => {
         setSlideIn('0')
-
     }, [])
 
     useEffect(() => {
         if(weather.weather) {
             setWeatherScroll(weather.weather)
+            scrollDiv.current.style.width = '652px'
 
         }
         if(concerts.events) {
@@ -69,15 +70,18 @@ function Home(props) {
             <DateForm name={'pick your dates'} handleDates={handleDates}/>
             <div style={logo}>
                 <h1>Visit Munich</h1>
+                <Button onClick={() => scrollDiv.current.style.width === '0px' ? scrollDiv.current.style.width = '652px' : scrollDiv.current.style.width = '0px'} children={'box bounce'}/>
             </div>
             <div style={boxContainer}>
                 <BoxSlider>
                     <div style={boxDiv}>
-                        {weatherScroll[0] && <ScrollBox data={weatherScroll}/>}
-                        {concertScroll[0] && <ScrollBox data={concertScroll}/>}
+                        <div style={scrollBoxStyle} ref={scrollDiv} >
+                            {concertScroll[0] && <ScrollBox data={concertScroll}/>}
+                            {weatherScroll[0] && <ScrollBox data={weatherScroll}/>}
+                        </div>
                         {blogs.map(blog => {
                             return (
-                                <HomeBox key={blog.id} data={blog} />
+                                <HomeBox key={blog.id} data={blog} url={'/editblog'}/>
                             )
                         })}
                     </div>
@@ -107,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-        {collection: 'blogs'}
+        {collection: 'blogs', orderBy: ['rank']}
     ])
 )(Home);
 
@@ -122,4 +126,11 @@ const boxDiv = {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
+}
+
+const scrollBoxStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '0',
+    transition: 'all 500ms cubic-bezier(0.77, 2.05, 0.72, 0.75)'
 }

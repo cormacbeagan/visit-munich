@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/NavBar/navBar';
-import Eat from './components/eat/eat';
+import Tips from './components/tips/tips';
 import Home from './components/home/home';
 import Walks from './components/walks/walks';
 import Live from './components/live/live';
@@ -11,6 +11,8 @@ import CreateWall from './components/walks/createWall';
 import DisplayWall from './components/walks/wallDetails';
 import CreateBlog from './components/home/createBlog';
 import EditBlog from './components/home/editBlog';
+import CreateTip from './components/tips/createTip';
+import EditTip from './components/tips/editTip';
 
 
 import './styles/app.css';
@@ -33,8 +35,8 @@ function App() {
               render={() => <Walks />}
             />
             <Route
-              path="/eat"
-              render={() => <Eat />}
+              path="/tips"
+              render={() => <Tips />}
             />
             <Route
               path="/live"
@@ -67,6 +69,14 @@ function App() {
             <Route
               path="/editblog/:id"
               render={() => <EditBlog/>}
+            />
+            <Route
+              path="/createtip"
+              render={() => <CreateTip/>}
+            />
+            <Route
+              path="/edittip/:id"
+              render={() => <EditTip/>}
             />
           </Switch>
         </div>

@@ -54,7 +54,7 @@ const imageStyle = {
     height: '300px',
     width: '300px',
     objectFit: 'cover',
-    transition: 'opacity 0.6s ease',
+    transition: 'opacity 0.2s ease',
 
 }
 
@@ -62,7 +62,7 @@ const imageHoverStyle = {
     height: '302px',
     width: '302px',
     objectFit: 'cover',
+    opacity: '0.8',
     transition: 'all 400ms ease',
-    opacity: '0.75',
 }
 

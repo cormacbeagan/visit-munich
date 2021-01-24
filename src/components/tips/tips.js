@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import Display from './display';
-import { location, mapStyleDark} from '../universal/mapData';
+import HomeBox from '../home/homeBox';
+import Display from '../walks/display'
+import { location, mapStyleLight} from '../universal/mapData';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
 import Closer from '../universal/closer';
 
-function Walks(props) {
-    const {projects} = props
+function Tips(props) {
+    const {tips} = props
     const [ displayData, setDisplayData ] = useState({})
     const [ slideIn, setSlideIn ] = useState('-350px')
-    const [ mapState, setMapState ] = useState(mapStyleDark) 
+    const [ mapState, setMapState ] = useState(mapStyleLight) 
 
     const handleInfo = (id) => {
         if(id) {
-            const data = projects.find(project => project.id === id)
+            const data = tips.find(project => project.id === id)
             setDisplayData(data)
             setSlideIn('0px')
         }
@@ -26,11 +27,11 @@ function Walks(props) {
     }
 
     useEffect(() => {
-        const regEx = new RegExp('(?<=walks/).*$')
+        const regEx = new RegExp('(?<=tips/).*$')
         const idArr = window.location.pathname.match(regEx)
         if(idArr) {
             handleInfo(idArr[0])
-            window.history.pushState('', '', '/walks')
+            window.history.pushState('', '', '/tips')
         }
     }, [])  
 
@@ -53,10 +54,10 @@ function Walks(props) {
                             handleInfo={handleInfo}
                             location={location}
                             zoomLevel={12}
-                            projects={projects}
+                            projects={tips}
                             mapStyle={mapState}
                             color={'#b81b16'}
-                            switched={true}
+                            switched={false}
                         />
                     </div>
                     <div style={infoBoxes}>
@@ -65,30 +66,28 @@ function Walks(props) {
                             type={'image'}
                             data={displayData}
                             />
-                        <Display 
+                        <HomeBox
                             type={'text'}
                             data={displayData}
+                            url={'/tips'}
                             />
                     </div>
             </div>
     )
 }
 
-//
-
-
 const mapStateToProps = (state) => {
       return {
-          projects: state.firestore.ordered.projects || state.project.projects
+          tips: state.firestore.ordered.tips || state.tips.tips
       }
   }
 
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        {collection: 'projects'}
+        {collection: 'tips'}
     ])
-)(Walks);
+)(Tips);
 
 const container = {
     height: '100%',

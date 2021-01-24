@@ -1,12 +1,13 @@
 import React from 'react';
 import HomeEntry from './homeEntry';
 
-function HomeBox({ data }) {
+function HomeBox({ data, url }) {
 
         return (
             <div style={displayDiv} >
                 <HomeEntry
                     data={data}
+                    url={url}
                 />
             </div>
     )

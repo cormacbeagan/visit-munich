@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import imageCompression from 'browser-image-compression';
 import { connect } from 'react-redux';
 import { uploadImage } from '../../store/actions/projectActions';
+import { uploadTipImage } from '../../store/actions/tipActions';
 import { FaFileImport } from 'react-icons/fa';
 import Button from './button';
 
@@ -12,7 +13,7 @@ const compressOptions = {
 }
 
 function ImageUpload(props) {
-    const { uploadImage, id } = props;
+    const { uploadImage, id, usage, uploadTipImage } = props;
     const [ imageName, setImageName ] = useState(null)
     const [ imageFile, setImageFile ] = useState(null)
     const input = useRef();
@@ -20,7 +21,12 @@ function ImageUpload(props) {
     const handleImageUpload = async (e) => {
         e.preventDefault();
         const compImage = await imageCompression(imageFile, compressOptions)
-        uploadImage(compImage, id)
+        if(usage === 'wall') {
+            uploadImage(compImage, id)
+        } else if (usage === 'tip') {
+            console.log('calling')
+            uploadTipImage(compImage, id)
+        }
         input.current.value = null
         setImageName(null)
         setImageFile(null)
@@ -65,6 +71,7 @@ function ImageUpload(props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         uploadImage: (image, id) => dispatch(uploadImage(image, id)),
+        uploadTipImage: (image, id) => dispatch(uploadTipImage(image, id)),
     }
 }
 

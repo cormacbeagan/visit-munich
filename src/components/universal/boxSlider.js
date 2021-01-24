@@ -42,6 +42,14 @@ function BoxSlider({children}) {
         }
     }, [])
 
+    useEffect(() => {
+        const slideSet = slider.current
+        slideSet.scrollLeft = 0;
+        return () => {
+            slideSet.scrollLeft = 0;    
+        }
+    }, [children])
+
     return (
         <div className={classSlider} ref={slider}>
             <div className='slider-inner'>

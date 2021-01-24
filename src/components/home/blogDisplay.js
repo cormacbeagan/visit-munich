@@ -11,6 +11,8 @@ import moment from 'moment';
                 <p style={lowlight}>Text: <span style={highlight}>{blog.textInput}</span></p>
                 <p style={lowlight}>Link URL: <span style={highlight}>{blog.link}</span></p>
                 <p style={lowlight}>Link Text: <span style={highlight}>{blog.linkText}</span></p>
+                <p style={lowlight}>Position: <span style={highlight}>{Number(blog.rank) +1}</span></p>
+
                 <div>
                     <p style={lowlight}>Posted by: <span style={highlight}>{`${blog.authorFirstName} ${blog.authorLastName}`}</span></p>
                     <p style={lowlight}>Posted: <span style={highlight}>{moment(blog.createdAt.toDate()).calendar()}</span></p>
