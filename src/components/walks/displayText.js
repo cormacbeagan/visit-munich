@@ -4,6 +4,7 @@ import moment from 'moment'
 import { connect } from 'react-redux';
 import Button from '../universal/button';
 import Loading from '../universal/loading';
+import { FiExternalLink } from 'react-icons/fi'
 
 
 function DisplayText({ project, auth }) {
@@ -23,7 +24,7 @@ function DisplayText({ project, auth }) {
                 ) : (
                     <p style={lowlight}>Created: {moment(project.createdAt.toDate()).calendar()}</p>)}
                 <div style={divBottom}>
-                    <Button children={'directions'} onClick={() => link.current.click()}/>
+                    <Button children={<div>directions <FiExternalLink /></div>} onClick={() => link.current.click()}/>
                     <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${project.lat},${project.lng}`} 
                         target='_blank'
                         rel="noreferrer" 

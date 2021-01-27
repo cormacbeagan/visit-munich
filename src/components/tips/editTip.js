@@ -105,7 +105,8 @@ function EditTip(props) {
                         <Button onClick={handleDeleteTip} children={'delete wall'}/> 
                     </div>
                     <div>
-                    <Input 
+                        <div style={row}>
+                        <Input 
                             type={"text"} 
                             id={"name"}
                             name={'Name'}
@@ -121,6 +122,7 @@ function EditTip(props) {
                             value={formData.subtitle}
                             required={true}
                         />
+                        </div>
                         <TextArea 
                             type={'textarea'}
                             id={'textInput'}
@@ -129,6 +131,7 @@ function EditTip(props) {
                             value={formData.textInput}
                             required={true}
                         />
+                        <div style={row}>
                         <Input 
                             type={"text"} 
                             id={"link"}
@@ -143,6 +146,8 @@ function EditTip(props) {
                             onChange={handleChange}
                             value={formData.linkText}
                         />
+                        </div>
+                        <div style={row}>
                         <Input
                             type={'text'}
                             id={'lat'}
@@ -158,10 +163,10 @@ function EditTip(props) {
                             onChange={handleChange}
                             value={formData.lng}  
                             required={true}
-                        />    
-                        <p>Select thumbnail below</p>
+                        />
+                        </div>
+                        <div style={column}>
                         <Thumbnail src={editImage} />
-                        <br/>
                         <div style={imageContainer}>
                             {tip.images.map(img => {
                                 return (
@@ -182,6 +187,7 @@ function EditTip(props) {
                                 </div>
                                 )
                             })}
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -273,4 +279,28 @@ const imageBtn = {
     marginLeft: '10px',
     display: 'block',
     color: 'white',
+}
+
+const row = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+}
+
+const column = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
 }

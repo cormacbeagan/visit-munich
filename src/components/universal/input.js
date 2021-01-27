@@ -12,10 +12,10 @@ function Input(props) {
         onChange(id, e.target.value)
     }
 
+
     const handleFocus = (e) => {
         const div = e.target
         div.style.marginTop = '36px'
-        div.style.borderColor = '#333'
     }
 
     return (

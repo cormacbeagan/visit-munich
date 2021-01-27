@@ -26,7 +26,7 @@ function NavBar(props) {
 	}
 
 	const mobileNavStyle = {
-		width: '100%',
+		width: width,
 		height: '80px',
 		fontSize: '24px',
 		position: 'fixed',
@@ -139,7 +139,7 @@ const logo = {
 	margin: '20px',
 	color: '#e2e2e2',
 	textDecoration: 'none',
-	fontSize: '36px',
+	fontSize: '34px',
 	fontWeight: 'bold',
 
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FiExternalLink } from 'react-icons/fi';
 import Button from '../universal/button';
 
 function DisplayField({ data, handleVenue, bands }) {
@@ -36,7 +37,7 @@ function DisplayField({ data, handleVenue, bands }) {
                     </a>
                     <div style={divBottom}>
                     <Button children={'concerts'} onClick={() => handleVenue(displayData.coords)}/>
-                    <Button children={'directions'} onClick={() => link.current.click()}/>
+                    <Button children={<div>directions <FiExternalLink /></div>} onClick={() => link.current.click()}/>
                     <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`} 
                         target='_blank'
                         rel="noreferrer" 

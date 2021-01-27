@@ -68,6 +68,14 @@ textarea::-webkit-resizer {
   background: #333;
 }
 
+select {
+  border-radius: .5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: grey;
+}
+
 .home-heading {
   opacity: 0.3;
   animation: headingIn 2s forwards;

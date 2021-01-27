@@ -56,10 +56,11 @@ const divStyle = {
 
 const inputStyle = {
     margin: '5px',
+    padding: '10px',
     outline: 'none',
     fontSize: '18px',
-    color: '#787879',
-    backgroundColor: '#333',
+    color: '#bdbdbd',
+    backgroundColor: '#464646',
     border: 'none',
     borderBottom: '2px solid #787879',
     transition: 'all 400ms ease',
@@ -69,5 +70,6 @@ const inputStyle = {
     height: '90px',
     maxWidth: '280px',
     maxHeight: '175px',
+    boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)'
 
 }

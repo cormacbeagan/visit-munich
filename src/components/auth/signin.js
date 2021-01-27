@@ -73,6 +73,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 const formStyle = {
     margin: '150px auto',
     maxWidth: '600px',
+    background: '#333',
+    padding: '20px',
 }
 
 const heading = {

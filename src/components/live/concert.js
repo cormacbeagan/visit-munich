@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'
 import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter'; 
+import { FiExternalLink } from 'react-icons/fi';
 
 function Concert({ data, handleBackToMap }) {
     const [ hover, setHover ] = useState(false)
@@ -71,7 +72,7 @@ function Concert({ data, handleBackToMap }) {
                         children={
                             <div style={linkStyle}>
                                 {!hover ? (
-                                    'Details'
+                                    <div>Details <FiExternalLink /></div>
                                 ) : (
                                     <img src="/images/by-songkick-pink.svg" 
                                         alt="Sonkick Logo" 
@@ -146,6 +147,6 @@ const btnDiv = {
 
 const linkStyle = {
     color: '#e2e2e2',
-    width: '75px',
+    width: '95px',
     maxHeight: '18px',
 }

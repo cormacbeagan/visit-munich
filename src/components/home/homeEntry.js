@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { connect } from 'react-redux';
 import BlogTextDisplay from './blogTextDisplay';
+import { FiExternalLink } from 'react-icons/fi'
 
 function HomeEntry({ data, auth, url }) {
     const history = useHistory()
@@ -13,12 +14,12 @@ function HomeEntry({ data, auth, url }) {
             const check = data.link.includes('http')
             if(check) {
                 button = (<div>
-                            <Button children={data.linkText} onClick={() => link.current.click()}/>
+                            <Button children={<div>{data.linkText} <FiExternalLink /></div>} onClick={() => link.current.click()}/>
                             <a href={data.link} 
                                 ref={link}
                                 rel="noreferrer" 
                                 style={{display:'none'}}
-                                target='_blank'>Link to {data.linkText}</a>
+                                target='_blank'>{data.linkText}</a>
                             </div>)
             } else {
                 button = <Button children={data.linkText} onClick={() => history.push(data.link)} />
