@@ -23,7 +23,7 @@ function Input(props) {
             <div style={divStyle}>
                 <label 
                     style={labelStyle} 
-                    htmlFor={type} 
+                    htmlFor={id} 
                     onClick={() => input.current.focus()}>
                     {name}
                 </label>
@@ -55,6 +55,8 @@ const labelStyle = {
     marginLeft: '5px',
     marginBottom: '-36px',
     zIndex: '1',
+    color: '#787879',
+    //color: '#e8e8e8',
 }
 
 const inputStyle = {
@@ -62,7 +64,7 @@ const inputStyle = {
     outline: 'none',
     lineHeight: '36px',
     fontSize: '24px',
-    color: '#787879',
+    color: '#bdbdbd',
     backgroundColor: 'inherit',
     border: 'none',
     borderBottom: '2px solid #787879',

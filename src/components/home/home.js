@@ -67,7 +67,7 @@ function Home(props) {
         <div style={container}>
             <DateForm name={'pick your dates'} handleDates={handleDates}/>
             <div style={logo}>
-                <h1>Visit Munich</h1>
+                <h1 className='home-heading'>Visit Munich</h1>
                 {/*<Button onClick={() => scrollDiv.current.style.width === '0px' ? scrollDiv.current.style.width = '652px' : scrollDiv.current.style.width = '0px'} children={'box bounce'}/>*/}
             </div>
             <div style={boxContainer}>

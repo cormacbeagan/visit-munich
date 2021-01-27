@@ -55,11 +55,11 @@ function App() {
               render={() => <SignUp/>}
             />
             <Route
-              path="/create"
+              path="/createwall"
               render={() => <CreateWall/>}
             />
             <Route
-              path="/blog"
+              path="/createblog"
               render={() => <CreateBlog/>}
             />
             <Route

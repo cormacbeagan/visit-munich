@@ -139,6 +139,8 @@ const logo = {
 	margin: '20px',
 	color: '#e2e2e2',
 	textDecoration: 'none',
+	fontSize: '36px',
+	fontWeight: 'bold',
 
 }
 

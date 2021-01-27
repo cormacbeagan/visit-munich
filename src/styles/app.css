@@ -23,6 +23,7 @@ body::-webkit-scrollbar-thumb {
     border: 3px solid #333333;
   }
 
+
 .app-content {
     margin: 0px;
     margin-top: 80px;
@@ -39,4 +40,68 @@ h2 {
 h3 {
   font-size: 21px;
   margin: 5px 0;
+}
+
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color:#395f78 #333333;
+}
+
+textarea::-webkit-scrollbar {
+  width: 11px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #395f78;
+  border-radius: 6px;
+  border: 3px solid #333333;
+}
+
+textarea::-webkit-resizer {
+  border: solid 20px;
+  border-color: transparent #787879 #787879  transparent;
+  transform: rotate(45deg);
+  background: #333;
+}
+
+.home-heading {
+  opacity: 0.3;
+  animation: headingIn 2s forwards;
+}
+
+
+@media only screen and (max-width: 420px) {
+  .home-heading {
+    font-size: 56px
+  }
+  
+}
+
+@media only screen and (max-width: 380px) {
+  .home-heading {
+    font-size: 45px
+  }
+  
+}
+
+@media only screen and (max-height: 600px) {
+  .home-heading {
+    display: none;
+  }
+  
+}
+
+@keyframes headingIn {
+    from {
+      opacity: 0.3
+    }
+
+    to {
+      opacity: 1
+    }
+
 }

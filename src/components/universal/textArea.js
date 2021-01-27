@@ -5,7 +5,7 @@ function TextArea(props) {
     const input = useRef()
 
     useEffect(() => {
-        if(input.current.value) input.current.focus()
+        //if(input.current.value) input.current.focus()
     }, [])
 
     const handleChange = (e) => {
@@ -19,7 +19,6 @@ function TextArea(props) {
     }
 
     return (
-        <div>
             <div style={divStyle}>
                {/*} <label 
                     style={labelStyle} 
@@ -32,17 +31,21 @@ function TextArea(props) {
                     style={inputStyle} 
                     type={type} id={id} 
                     onChange={handleChange} 
-                    value={value} 
+                    value={value || 'Text: '} 
+                    onFocus={() => {
+                        if(input.current.value === 'Text: ') {
+                            input.current.value = ''}}
+                        }
                     required={required}
                 >{value}</textarea>
             </div>
-        </div>
     )
 }
 
 export default TextArea;
 
 const divStyle = {
+    margin: '20px auto',
     display: 'flex',
     flexDirection: 'column',
     marginBottom: '10px',
@@ -62,8 +65,8 @@ const inputStyle = {
     transition: 'all 400ms ease',
     width: '90%',
     fontFamily: 'Arial, Helvetica, sans-serif',
-    width: '280px',
-    height: '120px',
+    width: '240px',
+    height: '90px',
     maxWidth: '280px',
     maxHeight: '175px',
 

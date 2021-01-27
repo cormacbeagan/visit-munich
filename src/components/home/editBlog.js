@@ -8,6 +8,7 @@ import Button from '../universal/button';
 import Input from '../universal/input';
 import { updateBlog, deleteBlog, updateRanking } from '../../store/actions/blogActions';
 import BlogDisplay from './blogDisplay';
+import TextArea from '../universal/textArea';
 
 let idToPass;
 
@@ -116,6 +117,7 @@ function EditBlog(props) {
                         <Button onClick={blogDelete} children={'delete blog'}/> 
                     </div>
                     <div>
+                    <div style={test}>
                         <Input 
                             type={'text'}
                             id={'name'}
@@ -123,7 +125,6 @@ function EditBlog(props) {
                             value={blogData.name}
                             onChange={handleChange}
                         />
-
                         <Input 
                             type={'text'}
                             id={'subtitle'}
@@ -131,13 +132,22 @@ function EditBlog(props) {
                             value={blogData.subtitle}
                             onChange={handleChange}
                         />
-                        <Input 
+                    </div>
+                        <TextArea
                             type={'text'}
                             id={'textInput'}
                             name={'Text: '}
                             value={blogData.textInput}
                             onChange={handleChange}
-                        />                 
+                        ></TextArea>
+                        {/*<Input 
+                            type={'textarea'}
+                            id={'textInput'}
+                            name={'Text: '}
+                            value={blogData.textInput}
+                            onChange={handleChange}
+                        />          */}       
+                    <div style={test}>
                         <Input 
                             type={'text'}
                             id={'link'}
@@ -151,7 +161,8 @@ function EditBlog(props) {
                             name={'Link Text: '}
                             value={blogData.linkText}
                             onChange={handleChange}
-                        />        
+                        />
+                    </div>
                         <div>
                             <label htmlFor="position">Choose position:</label>
                             <select name="position" id="rank" value='Choose' onChange={handleRanking}>
@@ -218,6 +229,27 @@ export default compose(
     ])
 )(EditBlog);
 
+
+const test = {
+    /*
+    maxWidth: '800px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    borderBottom: '2px solid #787879'
+*/
+}
+
+const testTwo = {
+    margin: '20px',
+    maxWidth: '800px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+}
+
 const detailsDiv = {
     margin: '50px auto',
     marginTop: '120px', 
@@ -226,7 +258,7 @@ const detailsDiv = {
     padding: window.innerWidth / 16 + 'px', 
     backgroundColor: '#333333', 
     color: '#f3f3f3', 
-    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
 }
 
 const rightBut = {

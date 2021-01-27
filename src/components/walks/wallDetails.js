@@ -12,12 +12,14 @@ import { updateProject, deleteImage, deleteProject } from '../../store/actions/p
 import WallDisplay from './wallDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
+import TextArea from '../universal/textArea';
+
 
 
 let idToPass;
 
 
-function DisplayWall(props) {
+function WallDetails(props) {
     const {project, auth, updateProject, deleteImage, deleteProject} = props;
     const history = useHistory();
     let { id } = useParams();
@@ -112,8 +114,8 @@ function DisplayWall(props) {
                         value={wallData.name}
                         onChange={handleChange}
                     />
-                    <Input 
-                        type={'text'}
+                    <TextArea
+                        type={'textarea'}
                         id={'description'}
                         name={'Description: '}
                         value={wallData.description}
@@ -207,7 +209,7 @@ export default compose(
     firestoreConnect([
         { collection: 'projects' }
     ])
-)(DisplayWall);
+)(WallDetails);
 
 const detailsDiv = {
     margin: '50px auto',

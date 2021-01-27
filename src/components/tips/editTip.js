@@ -12,6 +12,8 @@ import { updateTip, deleteTipImage, deleteTip } from '../../store/actions/tipAct
 import TipDisplay from './tipDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
+import TextArea from '../universal/textArea';
+
 
 
 let idToPass;
@@ -119,12 +121,13 @@ function EditTip(props) {
                             value={formData.subtitle}
                             required={true}
                         />
-                        <Input 
-                            type={'text'}
+                        <TextArea 
+                            type={'textarea'}
                             id={'textInput'}
                             name={'Tip'}
                             onChange={handleChange}
                             value={formData.textInput}
+                            required={true}
                         />
                         <Input 
                             type={"text"} 

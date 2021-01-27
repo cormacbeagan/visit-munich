@@ -4,6 +4,8 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { createBlog } from '../../store/actions/blogActions';
 import Button from '../universal/button';
 import Input from '../universal/input';
+import TextArea from '../universal/textArea';
+
 
 const initialState = {
     name: '',
@@ -51,10 +53,9 @@ function CreateBlog(props) {
                         onChange={handleChange} 
                         value={formData.subtitle} 
                         required={true}
-
                         />
-                    <Input 
-                        type={'text'}
+                    <TextArea 
+                        type={'textarea'}
                         id={'textInput'}
                         name={'Blog Text'}
                         onChange={handleChange}
@@ -102,6 +103,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog)
 const createDiv = {
     margin: '150px auto',
     maxWidth: '600px',
+    background: '#333',
+    padding: '20px',
 }
 
 const heading = {
