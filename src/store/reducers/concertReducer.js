@@ -1,7 +1,8 @@
 const initState = {
             venues: [],
-            events: []
-        }
+            events: [],
+            msg: null
+}
 
 const concertReducer = (state = initState, action) => {
     switch(action.type) {
@@ -11,7 +12,15 @@ const concertReducer = (state = initState, action) => {
             }
         case 'CONCERT_SEARCH_ERROR':
             console.log(action.err)
-            return state;
+            return state
+
+        case 'CONCERT_SEARCH_NO_RESULTS':
+            console.log('No results')
+            return {
+                ...initState,
+                msg: 'No Results'
+                
+            };
         default:
             return state;
     }

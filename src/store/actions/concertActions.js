@@ -16,7 +16,13 @@ export const concertSearch = (dates) => {
             url: `https://api.songkick.com/api/3.0/metro_areas/${munichId}/calendar.json?apikey=${songKickKey}&min_date=${arrival}&max_date=${departure}`,
         }
             axios(config).then(resp => {
+                console.log(resp)
+
                 const dataArray = resp.data.resultsPage.results.event;
+                if(!dataArray) {
+                    dispatch({type: 'CONCERT_SEARCH_NO_RESULTS'})
+                    return
+                }
                 const a = dataArray.map(item => {
                     return  {
                         id: item.venue.id,

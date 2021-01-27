@@ -18,7 +18,7 @@ function HomeEntry({ data, auth, url }) {
                                 ref={link}
                                 rel="noreferrer" 
                                 style={{display:'none'}}
-                                target='_blank'></a>
+                                target='_blank'>Link to {data.linkText}</a>
                             </div>)
             } else {
                 button = <Button children={data.linkText} onClick={() => history.push(data.link)} />

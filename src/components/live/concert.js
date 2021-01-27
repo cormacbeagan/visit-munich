@@ -86,7 +86,7 @@ function Concert({ data, handleBackToMap }) {
                             target='_blank'
                             rel="noreferrer" 
                             style={{display: 'none'}}
-                        ></a>
+                        >Back to map</a>
                     </div>
                     <Button onClick={handleBack}children={'Show on Map'}/>
                 </div>

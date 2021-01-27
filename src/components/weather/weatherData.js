@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import StatsWeather from './statsWeather';
+import StatsWeather from './statsWeather'
+import Loading from '../universal/loading';
 
 function WeatherData({ data }) {
 
@@ -14,7 +15,7 @@ function WeatherData({ data }) {
             </div>
         )
     } else {
-        return null;
+        return <Loading />;
     }
 }
 

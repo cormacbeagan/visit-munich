@@ -5,14 +5,15 @@ import BoxSlider from '../universal/boxSlider';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { connect } from 'react-redux';
 import { weatherSearch } from '../../store/actions/weatherActions';
-import {dummyData} from './dummy';
+import Loading from '../universal/loading';
 
 
 
 function Weather(props) {
     const { weatherSearch, weather, dates } = props;
     const [ width, height ] = useDimensionSetter();
-    const [ data, setData ] = useState(dummyData);
+    const [ data, setData ] = useState([]);
+    const [ loader, setLoader ] = useState(false);
     const boxes = useRef()
 
     useEffect(() => {
@@ -23,7 +24,8 @@ function Weather(props) {
 
     useEffect(() => {
         if(weather.weather){
-            // remove the loading signal
+            // remove loading
+            setLoader(false)
             setData(weather.weather)
             boxes.current.style.top = '200px'
         }
@@ -41,6 +43,7 @@ function Weather(props) {
             alert('Max 10 days search')
         } else {
             // set some loading signal, opacity or rain or something
+            setLoader(true)
             weatherSearch(dates)
         }
         return
@@ -76,6 +79,8 @@ function Weather(props) {
                             })}
                     </BoxSlider>
                 </div>
+            {loader && <Loading />}
+
             </div>
     )
 }
@@ -101,5 +106,5 @@ const boxDiv = {
     top: '-350px',
     display: 'flex',
     flexDirection: 'row',
-    transition: 'top 350ms cubic-bezier(0.22, 1.68, 0.52, 0.73)',
+    transition: 'top 500ms cubic-bezier(0.22, 1.68, 0.52, 0.73)',
 }

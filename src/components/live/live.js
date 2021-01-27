@@ -5,10 +5,12 @@ import Button from '../universal/button';
 import Closer from '../universal/closer';
 import DateForm from '../universal/dateForm';
 import ConcertListings from './concertListings';
+import Loading from '../universal/loading';
 import { location } from '../universal/mapData';
 import { mapStyleLight } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
+import { GiFlexibleStar } from 'react-icons/gi';
 
 const initialState = {
     name: '',
@@ -27,6 +29,9 @@ function Live(props) {
     const [ displayMap, setDisplayMap ] = useState(false)
     const [ coords, setCoords ] = useState(null)
     const [ venueBands, setVenueBands ] = useState(null);
+    const [ loader, setLoader ] = useState(false);
+    const [ message, setMessage] = useState('');
+
 
     useEffect(() => {
         if(dates.dates){
@@ -35,10 +40,18 @@ function Live(props) {
     },[])
 
     useEffect(() => {
+        if(concerts.msg) {
+            setMessage(concerts.msg)
+            setTimeout(() => {
+                setLoader(false)
+                setMessage('')
+            }, 3000)
+        }
         if(concerts.events[0]){
             setSearching(false)
+            setLoader(false)
         }
-    }, [concerts])
+    }, [concerts]) 
 
 
     const handleInfo = (venueId) => {
@@ -57,6 +70,7 @@ function Live(props) {
     }
 
     const handleSearch = (dates) => {
+        setLoader(true)
         concertSearch(dates)
     }
 
@@ -89,7 +103,7 @@ function Live(props) {
             setMapLocation(location)
             setMapZoom(12)
         }
-    }
+    } 
 
     const handleVenue = (coords) => {
         setDisplayMap(!displayMap)
@@ -111,7 +125,6 @@ function Live(props) {
         transitionDuration: '400ms',
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     };
-
     return (
         <div>
             <div style={liveStyle}>
@@ -166,6 +179,8 @@ function Live(props) {
                     </div>
                 </div>
             )}
+            {loader && <Loading />}
+            {(loader && message) && <div style={center}><p style={error}>{message}</p></div>}
         </div>
     )
 }
@@ -226,4 +241,18 @@ const bottom = {
     position: 'absolute',
     top: '0px',
     right: '75px'
+}
+
+const error = {
+    zIndex: '99',
+    bottom: '200px',
+    color: '#ff4444',
+    fontSize: '36px',
+    fontWeight: 'bold',
+}
+
+const center = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 }

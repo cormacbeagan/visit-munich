@@ -11,6 +11,8 @@ import Input from '../universal/input';
 import { updateProject, deleteImage, deleteProject } from '../../store/actions/projectActions';
 import WallDisplay from './wallDisplay';
 import ImageUpload from '../universal/imageUpload';
+import Loading from '../universal/loading';
+
 
 let idToPass;
 
@@ -178,10 +180,7 @@ function DisplayWall(props) {
             </div>
         )
     } else {
-        return (
-            <div style={{margin: '200px auto', textAlign: 'center'}}> 
-                <h4 className="center">2 secs, just need to make a coffee...</h4>
-            </div>)
+        return <Loading />
     }
 }
 

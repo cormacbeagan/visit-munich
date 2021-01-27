@@ -1,0 +1,55 @@
+.loading-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #476073; 
+    opacity: 0.9;
+    transition: opacity 1s ease;
+    z-index: 80;
+}
+
+.heading-container {
+    position: relative;
+    margin: 200px auto;
+    width: 200px;
+}  
+
+.loading-header {
+    color: #d4cfcf;
+}
+
+.check-btn-white-checking {
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: #0e4aa531;
+}
+
+.loading-header:after {
+    content: '.';
+    animation: dots 750ms steps(5, end) infinite;
+}
+
+@keyframes dots {
+
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: #e7e7e7;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 #e7e7e7,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #e7e7e7,
+      .5em 0 0 white;}
+}

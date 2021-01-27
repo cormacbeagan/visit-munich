@@ -6,8 +6,6 @@ import { compose } from 'redux';
 import { setDates } from '../../store/actions/dateActions';
 import { concertSearch } from '../../store/actions/concertActions';
 import { weatherSearch } from '../../store/actions/weatherActions';
-import Button from '../universal/button'
-
 import DateForm from '../universal/dateForm';
 import BoxSlider from '../universal/boxSlider';
 import HomeBox from './homeBox';

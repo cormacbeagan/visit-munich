@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import WeatherData from './weatherData';
 
 function DisplayWeather({ data }) {

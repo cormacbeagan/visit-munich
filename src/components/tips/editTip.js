@@ -11,6 +11,8 @@ import Input from '../universal/input';
 import { updateTip, deleteTipImage, deleteTip } from '../../store/actions/tipActions';
 import TipDisplay from './tipDisplay';
 import ImageUpload from '../universal/imageUpload';
+import Loading from '../universal/loading';
+
 
 let idToPass;
 
@@ -201,10 +203,7 @@ function EditTip(props) {
             </div>
         )
     } else {
-        return (
-            <div style={{margin: '200px auto', textAlign: 'center'}}> 
-                <h4 className="center">2 secs, just need to make a coffee...</h4>
-            </div>)
+        return <Loading />
     }
 }
 

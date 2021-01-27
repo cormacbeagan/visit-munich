@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import Button from '../universal/button';
+import Loading from '../universal/loading';
+
 
 function DisplayText({ project, auth }) {
     const history = useHistory()
@@ -26,13 +28,13 @@ function DisplayText({ project, auth }) {
                         target='_blank'
                         rel="noreferrer" 
                         style={{display: 'none'}}
-                        ></a>
+                        >google maps</a>
                     {auth.uid && <Button onClick={() => history.push(`/wall/${project.id}`)} children={'Edit Wall'} />}
                 </div>
             </div>
         )
     } else {
-        return null;
+        return <Loading />
     }
 }
 

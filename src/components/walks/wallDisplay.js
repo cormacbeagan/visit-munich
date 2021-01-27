@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Thumbnail from '../universal/thumbnail';
+import Loading from '../universal/loading';
 
  function WallDisplay({project}) {
     
@@ -33,7 +34,7 @@ import Thumbnail from '../universal/thumbnail';
             </div>
     )
     } else {
-        return <div>Loading... </div>
+        return <Loading />
     } 
 }
 
