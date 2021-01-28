@@ -1,28 +1,27 @@
 html {
-  margin: 0;
+    margin: 0;
 }
 
 body {
     background-color: #c9c3c3;
     scrollbar-width: thin;
-    scrollbar-color:#395f78 #333333;
+    scrollbar-color: #395f78 #333333;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 body::-webkit-scrollbar {
     width: 11px;
-  }
-  
+}
+
 body::-webkit-scrollbar-track {
     background: #333333;
-  }
-  
+}
+
 body::-webkit-scrollbar-thumb {
     background-color: #395f78;
     border-radius: 6px;
     border: 3px solid #333333;
-  }
-
+}
 
 .app-content {
     margin: 0px;
@@ -30,90 +29,85 @@ body::-webkit-scrollbar-thumb {
 }
 
 p {
-  font-size: 18px;
+    font-size: 18px;
 }
 
 h2 {
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 h3 {
-  font-size: 21px;
-  margin: 5px 0;
+    font-size: 21px;
+    margin: 5px 0;
 }
 
 textarea {
-  scrollbar-width: thin;
-  scrollbar-color:#395f78 #333333;
+    scrollbar-width: thin;
+    scrollbar-color: #395f78 #333333;
 }
 
 textarea::-webkit-scrollbar {
-  width: 11px;
+    width: 11px;
 }
 
 textarea::-webkit-scrollbar-track {
-  background: #333333;
+    background: #333333;
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background-color: #395f78;
-  border-radius: 6px;
-  border: 3px solid #333333;
+    background-color: #395f78;
+    border-radius: 6px;
+    border: 3px solid #333333;
 }
 
 textarea::-webkit-resizer {
-  border: solid 20px;
-  border-color: transparent #787879 #787879  transparent;
-  transform: rotate(45deg);
-  background: #333;
+    border: solid 20px;
+    border-color: transparent #787879 #787879 transparent;
+    transform: rotate(45deg);
+    background: #333;
 }
 
 select {
-  border-radius: .5em;
-	-moz-appearance: none;
-	-webkit-appearance: none;
-	appearance: none;
-	background-color: grey;
+    border-radius: 0.5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: grey;
 }
 
 .home-heading {
-  opacity: 0.3;
-  animation: headingIn 2s forwards;
+    opacity: 0.3;
+    animation: headingIn 2s forwards;
 }
 
-
 @media only screen and (max-width: 420px) {
-  .home-heading {
-    font-size: 56px
-  }
+    .home-heading {
+        font-size: 56px;
+    }
 
-  textarea {
-    width: 240px!important;
-  }
-  
+    textarea {
+        width: 240px !important;
+    }
 }
 
 @media only screen and (max-width: 380px) {
-  .home-heading {
-    font-size: 45px
-  }
-
+    .home-heading {
+        font-size: 45px;
+    }
 }
 
 @media only screen and (max-height: 600px) {
-  .home-heading {
-    display: none;
-  }
-  
+    .home-heading {
+        display: none;
+    }
 }
 
 @keyframes headingIn {
     from {
-      opacity: 0.3
+        opacity: 0.3;
     }
 
     to {
-      opacity: 1
+        opacity: 1;
     }
-
 }
