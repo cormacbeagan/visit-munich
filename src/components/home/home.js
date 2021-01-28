@@ -6,12 +6,11 @@ import { compose } from 'redux';
 import { setDates } from '../../store/actions/dateActions';
 import { concertSearch } from '../../store/actions/concertActions';
 import { weatherSearch } from '../../store/actions/weatherActions';
-import Button from '../universal/button'
-
 import DateForm from '../universal/dateForm';
 import BoxSlider from '../universal/boxSlider';
-import HomeBox from './homeBox';
 import ScrollBox from './scrollBox';
+import BoxWrapper from '../universal/boxWrapper';
+import HomeEntry from './homeEntry';
 
 function Home(props) {
     const {setDates, concertSearch, weatherSearch, blogs, concerts, weather} = props;
@@ -19,6 +18,7 @@ function Home(props) {
     const [ slideIn, setSlideIn ] = useState(width)
     const [ weatherScroll, setWeatherScroll ] = useState([]);
     const [ concertScroll, setConcertScroll ] = useState([]);
+    const [ scrollWidth, setScrollWidth] = useState(0)
     const scrollDiv = useRef()
 
     useEffect(() => {
@@ -26,14 +26,20 @@ function Home(props) {
     }, [])
 
     useEffect(() => {
+        let tester = scrollWidth
         if(weather.weather) {
             setWeatherScroll(weather.weather)
-            scrollDiv.current.style.width = '652px'
-
+            if(scrollWidth < 600) {
+                setScrollWidth(scrollWidth + 326)
+                tester += 326;
+            }
         }
-        if(concerts.events) {
+        if(concerts.events.length !== 0) {
             setConcertScroll(concerts.events)
-        }
+            if(tester < 600) {
+                setScrollWidth(tester + 326)
+            }
+        }   
     }, [concerts, weather])
 
     const handleDates = (dates) => {
@@ -65,11 +71,18 @@ function Home(props) {
         transition: 'left 3s ease'
     }
 
+    const scrollBoxStyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        width: scrollWidth + 'px',
+        transition: 'all 500ms cubic-bezier(0.77, 2.05, 0.72, 0.75)'
+    }
+
     return (
         <div style={container}>
             <DateForm name={'pick your dates'} handleDates={handleDates}/>
             <div style={logo}>
-                <h1>Visit Munich</h1>
+                <h1 className='home-heading'>Visit Munich</h1>
                 {/*<Button onClick={() => scrollDiv.current.style.width === '0px' ? scrollDiv.current.style.width = '652px' : scrollDiv.current.style.width = '0px'} children={'box bounce'}/>*/}
             </div>
             <div style={boxContainer}>
@@ -81,7 +94,9 @@ function Home(props) {
                         </div>
                         {blogs.map(blog => {
                             return (
-                                <HomeBox key={blog.id} data={blog} url={'/editblog'}/>
+                                <BoxWrapper>
+                                    <HomeEntry key={blog.id} data={blog} url={'/editblog'}/>
+                                </BoxWrapper>
                             )
                         })}
                     </div>
@@ -128,9 +143,3 @@ const boxDiv = {
     flexDirection: 'row',
 }
 
-const scrollBoxStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '0',
-    transition: 'all 500ms cubic-bezier(0.77, 2.05, 0.72, 0.75)'
-}

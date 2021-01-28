@@ -23,6 +23,7 @@ body::-webkit-scrollbar-thumb {
     border: 3px solid #333333;
   }
 
+
 .app-content {
     margin: 0px;
     margin-top: 80px;
@@ -40,47 +41,79 @@ h3 {
   font-size: 21px;
   margin: 5px 0;
 }
-/*
-form button, form h5{
-  margin: 20px 0;
-}
-input[type=text],
-input[type=email],
-input[type=password]{
-  border-color:#f34a6994;
-  background-color: transparent!important;
-  box-shadow: none;
-  color: #f7abab;
+
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color:#395f78 #333333;
 }
 
-input[type=date] {
-  color: #737e80;
+textarea::-webkit-scrollbar {
+  width: 11px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #395f78;
+  border-radius: 6px;
+  border: 3px solid #333333;
+}
+
+textarea::-webkit-resizer {
+  border: solid 20px;
+  border-color: transparent #787879 #787879  transparent;
+  transform: rotate(45deg);
+  background: #333;
+}
+
+select {
+  border-radius: .5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: grey;
+}
+
+.home-heading {
+  opacity: 0.3;
+  animation: headingIn 2s forwards;
 }
 
 
-input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=email]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]){
-  border-color:#333333;
-  background-color: transparent!important;
-  box-shadow: none;
-  color: #db6379fd;
+@media only screen and (max-width: 420px) {
+  .home-heading {
+    font-size: 56px
+  }
+
+  textarea {
+    width: 240px!important;
+  }
+  
 }
 
-
-input[type=date]:not(.browser-default):focus:not([readonly]) {
-  background-color: transparent!important;
+@media only screen and (max-width: 380px) {
+  .home-heading {
+    font-size: 45px
+  }
 
 }
 
-
-
-input[type=text]:not(.browser-default):focus:not([readonly]) + label,
-textarea.materialize-textarea:focus:not([readonly]) + label,
-input[type=email]:not(.browser-default):focus:not([readonly]) + label,
-input[type=date]:not(.browser-default):focus:not([readonly]) + label,
-input[type=password]:not(.browser-default):focus:not([readonly]) + label{
-  color: #333333!important;
+@media only screen and (max-height: 600px) {
+  .home-heading {
+    display: none;
+  }
+  
 }
-*/
+
+@keyframes headingIn {
+    from {
+      opacity: 0.3
+    }
+
+    to {
+      opacity: 1
+    }
+
+}

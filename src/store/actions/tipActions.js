@@ -42,9 +42,9 @@ export const uploadTipImage = (image, id) => {
                         images: firebase.firestore.FieldValue.arrayUnion(url)
                     })
                 }).then(() => {
-                    dispatch({type: 'UPLOAD_SUCCESS'})
+                    dispatch({type: 'UPLOAD_SUCCESS_TIP'})
                 }).catch(err => {
-                    dispatch({type: 'UPLOAD_ERROR', err})
+                    dispatch({type: 'UPLOAD_ERROR_TIP', err})
                 })
                 }
         )
@@ -62,9 +62,9 @@ export const updateTip = (tip, id) => {
             updatedBy: authId,
         }, {merge: true})
         .then(() => {
-            dispatch({type: 'PROJECT_UPDATE_SUCCESS'})
+            dispatch({type: 'TIP_UPDATE_SUCCESS'})
         }).catch(err => {
-            dispatch({type: 'PROJECT_UPDATE_ERROR', err})
+            dispatch({type: 'TIP_UPDATE_ERROR', err})
         })
     }
 }
@@ -78,16 +78,16 @@ export const deleteTipImage = (img, id) => {
         projectToEdit.update({
             images: firebase.firestore.FieldValue.arrayRemove(img)
         }).then(() => {
-            dispatch({type: 'IMAGE_ARRAY_REMOVE_SUCCESS'})
+            dispatch({type: 'TIP_IMAGE_ARRAY_REMOVE_SUCCESS'})
             if(img === '/images/Easy-schlachthof.jpg') return
             const imgStorageRef = storage.refFromURL(img);
             imgStorageRef.delete().then(() => {
-                dispatch({type: 'IMAGE_STORAGE_DELETE_SUCCESS'})
+                dispatch({type: 'TIP_IMAGE_STORAGE_DELETE_SUCCESS'})
             }).catch(err => {
-                dispatch({type: 'IMAGE_STORAGE_DELETE_ERROR', err})
+                dispatch({type: 'TIP_IMAGE_STORAGE_DELETE_ERROR', err})
             })
         }).catch(err => {
-            dispatch({type: 'IMAGE_ARRAY_REMOVE_ERROR', err})
+            dispatch({type: 'TIP_IMAGE_ARRAY_REMOVE_ERROR', err})
         })
     }
 }
@@ -97,9 +97,9 @@ export const deleteTip = (id) => {
         const firestore = getFirestore();
         firestore.collection('tips').doc(id).delete()
         .then(() => {
-            dispatch({type: 'PROJECT_DELETE_SUCCESS'})
+            dispatch({type: 'TIP_DELETE_SUCCESS'})
         }).catch(err => {
-            dispatch({type: 'PROJECT_DELETE_ERROR', err})
+            dispatch({type: 'TIP_DELETE_ERROR', err})
         })
     }
 }

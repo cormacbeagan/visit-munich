@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import DatePicker from '../universal/datePicker';
 import Button from '../universal/button';
+import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 
 
 function DateForm({handleDates, name}) {
+    const [ width, height ] = useDimensionSetter();
     const [ preselected, setPreselected ] = useState();
     const [ dates, setDates ] = useState({
         arrival: '',
@@ -36,6 +38,19 @@ function DateForm({handleDates, name}) {
         handleDates(dates)
     }
 
+    const divStyle = {
+        width: width,
+        position: 'fixed',
+        top: '60px',
+        left: '0',
+        right: '0',
+        zIndex: '88',
+        backgroundColor: '#395f78', 
+        minHeight: '60px',  
+      
+    }
+    
+
     return (
             <div >
                 <div style={divStyle}>
@@ -57,16 +72,6 @@ function DateForm({handleDates, name}) {
 
 export default DateForm;
 
-const divStyle = {
-    position: 'fixed',
-    top: '60px',
-    left: '0',
-    right: '0',
-    zIndex: '88',
-    backgroundColor: '#395f78', 
-    minHeight: '60px',  
-  
-}
 
 const formStyle = {
     maxWidth: '800px',

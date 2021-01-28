@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Loading from './components/universal/loading';
 import reportWebVitals from './reportWebVitals';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
@@ -39,10 +40,7 @@ function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
   if (!isLoaded(auth))
     return (
-      <div style={{margin: '200px auto', textAlign: 'center'}}>
-        {" "}
-        <h4>2 secs, just need to make a coffee...</h4>
-      </div>
+        <Loading />
     );
   return children;
 }

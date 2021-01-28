@@ -24,7 +24,6 @@ function ImageUpload(props) {
         if(usage === 'wall') {
             uploadImage(compImage, id)
         } else if (usage === 'tip') {
-            console.log('calling')
             uploadTipImage(compImage, id)
         }
         input.current.value = null

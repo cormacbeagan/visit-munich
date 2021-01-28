@@ -58,23 +58,16 @@ export const deleteBlog = (id) => {
 export const updateRanking = (ranking, id) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
-        const authId = getState().firebase.auth.uid;
         firestore.collection('blogs').doc(id).update({
             rank: ranking,
         }).then(resp => {
             return true
         }).catch(err => {
             return false
-        })
-    }
-
-
-/*
-        .then(() => {
+        }).then(() => {
             dispatch({type: 'BLOG_RANKING_UPDATE_SUCCESS'})
         }).catch(err => {
             dispatch({type: 'BLOG_RANKING_UPDATE_ERROR', err})
         })
-    }
-*/
+    }        
 }

@@ -87,7 +87,7 @@ const Map = ({ location, zoomLevel, handleInfo, projects, mapStyle, color, switc
 
   const buttonStyle = {
     position: 'absolute',
-    top: '90px',
+    bottom: '50px',
     left: '10px',
     zIndex: '99',
   }

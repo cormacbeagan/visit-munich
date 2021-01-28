@@ -1,38 +1,49 @@
-import React, { useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import Button from '../universal/button';
+import Loading from '../universal/loading';
+import { FiExternalLink } from 'react-icons/fi'
 
-function DisplayText({ project, auth }) {
+
+function DisplayText({ data, auth, handleEditMode }) {
     const history = useHistory()
     const link = useRef();
+    let url;
+
+    const handleEdit = () => {
+        if(history.location.pathname.includes('/wall/')) {
+            handleEditMode()
+        } else {
+            history.push(`/wall/${data.id}`)
+        }
+    }
     
-    if(project.authorFirstName) {
+    if(data.authorFirstName) {
         return (
             <div style={boxText}>
-                <h3 style={heading}>{project.name}</h3>
-                <p>{project.description}</p>
-                {project.updatedAt ? (
-                    <div>
-                        <p style={highlight}>Last updated: </p>
-                        <p style={highlight}>{moment(project.updatedAt.toDate()).calendar()}</p>
-                    </div>
-                ) : (
-                    <p style={lowlight}>Created: {moment(project.createdAt.toDate()).calendar()}</p>)}
+                <h3 style={heading}>{data.name}</h3>
+                <p>{data.description}</p>
+                <div style={timeStyle}>
+                    {data.updatedAt ? (
+                            <p style={highlight}>Updated <span style={lowlight}>{moment(data.updatedAt.toDate()).format('ddd Do MMM YYYY')}</span></p>
+                    ) : (
+                        <p style={highlight}>Created <span style={lowlight}>{moment(data.createdAt.toDate()).format('ddd Do MMM YYYY')}</span></p>)}
+                </div>
                 <div style={divBottom}>
-                    <Button children={'directions'} onClick={() => link.current.click()}/>
-                    <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${project.lat},${project.lng}`} 
+                    <Button children={<div>directions <FiExternalLink style={{marginBottom: '-2px'}}/></div>} onClick={() => link.current.click()}/>
+                    <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`} 
                         target='_blank'
                         rel="noreferrer" 
                         style={{display: 'none'}}
-                        ></a>
-                    {auth.uid && <Button onClick={() => history.push(`/wall/${project.id}`)} children={'Edit Wall'} />}
+                        >google maps</a>
+                    {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
                 </div>
             </div>
         )
     } else {
-        return null;
+        return <Loading />
     }
 }
 
@@ -47,15 +58,15 @@ export default connect(mapStateToProps)(DisplayText);
 const boxText = {
     margin: '10px',
     color: '#cecbcb',
-    contain: 'items',
+   // contain: 'items',
 }
 
 const heading = {
-    color: '#51748b',
+    color: '#243443',
 }
 
 const lowlight = {
-    color: '#51748b',
+    color: '#243443',
 }
 
 const highlight = {
@@ -68,4 +79,11 @@ const divBottom = {
     position: 'absolute', 
     bottom: '20px', 
     right: '20px',
+}
+
+const timeStyle = {
+    position: 'absolute',
+    bottom: '70px',
+    right: '20px',
+    
 }

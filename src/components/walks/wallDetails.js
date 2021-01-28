@@ -11,11 +11,15 @@ import Input from '../universal/input';
 import { updateProject, deleteImage, deleteProject } from '../../store/actions/projectActions';
 import WallDisplay from './wallDisplay';
 import ImageUpload from '../universal/imageUpload';
+import Loading from '../universal/loading';
+import TextArea from '../universal/textArea';
+
+
 
 let idToPass;
 
 
-function DisplayWall(props) {
+function WallDetails(props) {
     const {project, auth, updateProject, deleteImage, deleteProject} = props;
     const history = useHistory();
     let { id } = useParams();
@@ -26,7 +30,8 @@ function DisplayWall(props) {
     
     useEffect(() => {
         if(project) {
-            setWallData(project)
+            const obj = {...project, id: id}
+            setWallData(obj)
         }
     }, [project])
 
@@ -93,16 +98,15 @@ function DisplayWall(props) {
     
     if(project) {
         return (
-            <div className="container" style={detailsDiv}>
+            <div style={detailsDiv}>
                 <div style={rightBut}>
+                    {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
                     <Button onClick={() => history.push(`/walks/${idToPass}`)}children={'Back to Map'}/> 
+                    {isEditing && <Button onClick={deleteWall}children={'delete wall'}/>}
                 </div>
-              {isEditing ? (
+                {isEditing ? (
                 <div>
-                    <div style={rightBut}>
-                        <Button onClick={deleteWall}children={'delete wall'}/> 
-                    </div>
-                  <div>
+                    <div style={row}>
                     <Input 
                         type={'text'}
                         id={'name'}
@@ -110,13 +114,17 @@ function DisplayWall(props) {
                         value={wallData.name}
                         onChange={handleChange}
                     />
-                    <Input 
-                        type={'text'}
+                    </div>
+                    <div style={row}>
+                    <TextArea
+                        type={'textarea'}
                         id={'description'}
                         name={'Description: '}
                         value={wallData.description}
                         onChange={handleChange}
                     />
+                    </div>
+                    <div style={row}>
                     <Input 
                         type={'text'}
                         id={'lat'}
@@ -131,34 +139,36 @@ function DisplayWall(props) {
                         value={wallData.lng}
                         onChange={handleChange}
                     />
-                    <p>Select thumbnail below</p>
-                    <Thumbnail src={editImage} />
-                    <br/>
-                    <div style={imageContainer}>
-                        {project.images.map(img => {
-                            return (
-                            <div key={img} style={{position: 'relative', zIndex: '1'}}>
-                                <Thumbnail src={img} />
-                                <div style={{position: 'absolute', top: '20px'}}>
-                                    <button 
-                                        onClick={() => handleEditThmbnail(img)} 
-                                        style={imageBtn}>
-                                            <FaArrowAltCircleUp size={24}/>
-                                    </button>
-                                    <button 
-                                        onClick={() => handleImageDelete(img)} 
-                                        style={imageBtn}>
-                                            <FaTrashAlt size={24}/>
-                                    </button>
-                                </div>
-                            </div>
-                            )
-                        })}
                     </div>
+                    <div style={column}>
+                        <div>
+                            <Thumbnail src={editImage} />
+                        </div>
+                        <div style={imageContainer}>
+                            {project.images.map(img => {
+                                return (
+                                <div key={img} style={{position: 'relative', zIndex: '1'}}>
+                                    <Thumbnail src={img} />
+                                    <div style={{position: 'absolute', top: '20px'}}>
+                                        <button 
+                                            onClick={() => handleEditThmbnail(img)} 
+                                            style={imageBtn}>
+                                                <FaArrowAltCircleUp size={24}/>
+                                        </button>
+                                        <button 
+                                            onClick={() => handleImageDelete(img)} 
+                                            style={imageBtn}>
+                                                <FaTrashAlt size={24}/>
+                                        </button>
+                                    </div>
+                                </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
                 ) : (
-                <WallDisplay project={wallData} /> 
+                    <WallDisplay project={wallData} handleEdit={handleEdit}/> 
                 )}
                 <div style={editContainer}>
                     <div>
@@ -172,16 +182,14 @@ function DisplayWall(props) {
                                 <Button onClick={handleEdit} children={'Edit'} />
                             </div>
                         )}
+                    <Button onClick={() => history.push(`/walks/${idToPass}`)}children={'Back to Map'}/> 
                     </div>
-                    {isEditing && <ImageUpload id={id} /> }
+                    {isEditing && <ImageUpload id={id} usage={'wall'}/> }
                 </div>
             </div>
         )
     } else {
-        return (
-            <div style={{margin: '200px auto', textAlign: 'center'}}> 
-                <h4 className="center">2 secs, just need to make a coffee...</h4>
-            </div>)
+        return <Loading />
     }
 }
 
@@ -208,7 +216,7 @@ export default compose(
     firestoreConnect([
         { collection: 'projects' }
     ])
-)(DisplayWall);
+)(WallDetails);
 
 const detailsDiv = {
     margin: '50px auto',
@@ -221,8 +229,12 @@ const detailsDiv = {
     boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
 }
 
-const rightBut = {
-    textAlign: 'right'
+const rightBut = {    
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    marginBottom: '10px'
 }
 
 const imageContainer = {
@@ -248,4 +260,32 @@ const imageBtn = {
     marginLeft: '10px',
     display: 'block',
     color: 'white',
+}
+
+const row = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
+}
+
+const column = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }

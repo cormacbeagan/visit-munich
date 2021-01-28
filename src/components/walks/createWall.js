@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { createProject } from '../../store/actions/projectActions';
 import Button from '../universal/button';
 import Input from '../universal/input';
+import TextArea from '../universal/textArea';
 
 const initialState = {
     name: '',
@@ -61,6 +62,14 @@ function CreateWall(props) {
                         value={formData.name}
                         required={true}
                         />
+                    <TextArea                         
+                        type={'textarea'}
+                        id={'description'}
+                        name={'Wall description'}
+                        onChange={handleChange}
+                        value={formData.description}
+                        required={true} />
+                        {/*
                     <Input 
                         type={'text'}
                         id={'description'}
@@ -69,7 +78,7 @@ function CreateWall(props) {
                         value={formData.description}
                         required={true}
 
-                    />
+                    /> */}
                     <Input
                         type={'text'}
                         id={'lat'}
@@ -113,6 +122,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateWall)
 const createDiv = {
     margin: '150px auto',
     maxWidth: '600px',
+    background: '#333',
+    padding: '20px',
+
 }
 
 const heading = {

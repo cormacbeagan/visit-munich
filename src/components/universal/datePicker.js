@@ -115,7 +115,7 @@ function DatePicker({ onChange, id, preselected, float }) {
     })
 
     const isCurrentDay = (day) => {
-        return day.timestamp === todayTimestamp;
+        return day.timestamp === todayTimestamp
     }
 
     const isSelectedDay = (day) => {

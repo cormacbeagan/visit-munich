@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { createTip } from '../../store/actions/tipActions.js';
 import Button from '../universal/button';
 import Input from '../universal/input';
+import TextArea from '../universal/textArea';
 
 const initialState = {
     name: '',
@@ -72,13 +73,21 @@ function CreateTip(props) {
                         value={formData.subtitle}
                         required={true}
                     />
+                    <TextArea 
+                        type={'textarea'}
+                        id={'textInput'}
+                        name={'Tip'}
+                        onChange={handleChange}
+                        value={formData.textInput}
+                    />
+                    {/*
                     <Input 
                         type={'text'}
                         id={'textInput'}
                         name={'Tip'}
                         onChange={handleChange}
                         value={formData.textInput}
-                    />
+                    />*/}
                     <Input 
                         type={"text"} 
                         id={"link"}
@@ -136,6 +145,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateTip)
 const createDiv = {
     margin: '150px auto',
     maxWidth: '600px',
+    background: '#333',
+    padding: '20px',
+
 }
 
 const heading = {

@@ -5,7 +5,6 @@ import SunTime from './sunTime';
 import MoonPhase from './moonPhase';
 
 function StatsWeather({data}) {
-
     let max;
     let min;
     const checkColor = () => {
@@ -32,7 +31,6 @@ function StatsWeather({data}) {
     )
 }
 export default StatsWeather;
-
 
 const conditionsP = {
     margin: '0',

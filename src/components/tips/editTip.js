@@ -11,6 +11,10 @@ import Input from '../universal/input';
 import { updateTip, deleteTipImage, deleteTip } from '../../store/actions/tipActions';
 import TipDisplay from './tipDisplay';
 import ImageUpload from '../universal/imageUpload';
+import Loading from '../universal/loading';
+import TextArea from '../universal/textArea';
+
+
 
 let idToPass;
 
@@ -93,15 +97,14 @@ function EditTip(props) {
         return (
             <div className="container" style={detailsDiv}>
                 <div style={rightBut}>
+                    {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
                     <Button onClick={() => history.push(`/tips/${idToPass}`)}children={'Back to Map'}/> 
+                    {isEditing && <Button onClick={handleDeleteTip} children={'delete wall'}/>}
                 </div>
-              {isEditing ? (
-                <div>
-                    <div style={rightBut}>
-                        <Button onClick={handleDeleteTip} children={'delete wall'}/> 
-                    </div>
+                {isEditing ? (
                     <div>
-                    <Input 
+                        <div style={row}>
+                        <Input 
                             type={"text"} 
                             id={"name"}
                             name={'Name'}
@@ -117,13 +120,18 @@ function EditTip(props) {
                             value={formData.subtitle}
                             required={true}
                         />
-                        <Input 
-                            type={'text'}
+                        </div>
+                        <div style={row}>
+                        <TextArea 
+                            type={'textarea'}
                             id={'textInput'}
                             name={'Tip'}
                             onChange={handleChange}
                             value={formData.textInput}
+                            required={true}
                         />
+                        </div>
+                        <div style={row}>
                         <Input 
                             type={"text"} 
                             id={"link"}
@@ -138,6 +146,8 @@ function EditTip(props) {
                             onChange={handleChange}
                             value={formData.linkText}
                         />
+                        </div>
+                        <div style={row}>
                         <Input
                             type={'text'}
                             id={'lat'}
@@ -153,10 +163,10 @@ function EditTip(props) {
                             onChange={handleChange}
                             value={formData.lng}  
                             required={true}
-                        />    
-                        <p>Select thumbnail below</p>
+                        />
+                        </div>
+                        <div style={column}>
                         <Thumbnail src={editImage} />
-                        <br/>
                         <div style={imageContainer}>
                             {tip.images.map(img => {
                                 return (
@@ -178,10 +188,10 @@ function EditTip(props) {
                                 )
                             })}
                         </div>
+                        </div>
                     </div>
-                </div>
                 ) : (
-                <TipDisplay tip={formData} /> 
+                <TipDisplay tip={formData} handleEdit={handleEdit}/> 
                 )}
                 <div style={editContainer}>
                     <div>
@@ -195,16 +205,15 @@ function EditTip(props) {
                                 <Button onClick={handleEdit} children={'Edit'} />
                             </div>
                         )}
+                        <Button onClick={() => history.push(`/tips/${idToPass}`)}children={'Back to Map'}/> 
                     </div>
                     {isEditing && <ImageUpload id={id} usage={'tip'}/> }
                 </div>
+
             </div>
         )
     } else {
-        return (
-            <div style={{margin: '200px auto', textAlign: 'center'}}> 
-                <h4 className="center">2 secs, just need to make a coffee...</h4>
-            </div>)
+        return <Loading />
     }
 }
 
@@ -245,7 +254,11 @@ const detailsDiv = {
 }
 
 const rightBut = {
-    textAlign: 'right'
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    marginBottom: '10px'
 }
 
 const imageContainer = {
@@ -271,4 +284,32 @@ const imageBtn = {
     marginLeft: '10px',
     display: 'block',
     color: 'white',
+}
+
+const row = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
+}
+
+const column = {
+    background: '#464646',
+    margin: '50px auto',
+    padding: '20px',
+    maxWidth: '650px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }

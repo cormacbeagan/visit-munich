@@ -17,6 +17,10 @@ export const concertSearch = (dates) => {
         }
             axios(config).then(resp => {
                 const dataArray = resp.data.resultsPage.results.event;
+                if(!dataArray) {
+                    dispatch({type: 'CONCERT_SEARCH_NO_RESULTS'})
+                    return
+                }
                 const a = dataArray.map(item => {
                     return  {
                         id: item.venue.id,

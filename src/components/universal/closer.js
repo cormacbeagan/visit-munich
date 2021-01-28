@@ -19,8 +19,8 @@ const closerStyle = {
     height: '50px',
     top: '10px',
     left: '10px',
-    background: 'rgba(0,0,0,0.5)',
-    boxShadow: '0 0 8px 10px rgba(0,0,0,0.3)',
+    background: 'rgba(0,0,0,0.3)',
+    boxShadow: '0 0 5px 8px rgba(0,0,0,0.2)',
     transform: 'scale(0.65)',
     zIndex: '1',
 

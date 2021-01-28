@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'
 import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter'; 
+import { FiExternalLink } from 'react-icons/fi';
 
 function Concert({ data, handleBackToMap }) {
     const [ hover, setHover ] = useState(false)
@@ -65,13 +66,15 @@ function Concert({ data, handleBackToMap }) {
                 </div>
                 <div style={btnDiv}>
                     <div
-                            onMouseEnter={() => setHover(!hover)}
-                            onMouseLeave={() => setHover(!hover)}>
+                        onMouseEnter={() => setHover(true)}
+                        onMouseOver={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                        onMouseOut={() => setHover(false)}>
                         <Button 
                         children={
                             <div style={linkStyle}>
                                 {!hover ? (
-                                    'Details'
+                                    <div>Details <FiExternalLink style={{marginBottom: '-2px'}}/></div>
                                 ) : (
                                     <img src="/images/by-songkick-pink.svg" 
                                         alt="Sonkick Logo" 
@@ -86,7 +89,7 @@ function Concert({ data, handleBackToMap }) {
                             target='_blank'
                             rel="noreferrer" 
                             style={{display: 'none'}}
-                        ></a>
+                        >Back to map</a>
                     </div>
                     <Button onClick={handleBack}children={'Show on Map'}/>
                 </div>
@@ -127,7 +130,6 @@ const smallLogo = {
 }
 
 const skButton = {
-    marginBottom: '-11px',
     left: '20px',
     height: '25px',
     width: '75px',
@@ -146,6 +148,7 @@ const btnDiv = {
 
 const linkStyle = {
     color: '#e2e2e2',
-    width: '75px',
+    width: '95px',
     maxHeight: '18px',
+    overflow: 'hidden',
 }

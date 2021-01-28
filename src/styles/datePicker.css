@@ -182,7 +182,7 @@ input[type="date"]::-webkit-input-placeholder{
     width: 100%;
     height: 30px;
     font-size: 27px;
-    color: #666;
+    color: #cacaca;
     font-weight: 200;
     text-align: center;
 }
@@ -192,7 +192,7 @@ input[type="date"]::-webkit-input-placeholder{
     width: 100%;
     height: 15px;
     font-size: 13px;
-    color: #666;
+    color: #cacaca;
     font-weight: 200px;
     text-align: center;
 }
@@ -294,7 +294,7 @@ input[type="date"]::-webkit-input-placeholder{
 }
 
 .c-day-container.disabled .cdc-day span {
-    color: #333;
+    color: #333!important;
 }
 
 .c-day-container.disabled .cdc-day span {
@@ -302,7 +302,7 @@ input[type="date"]::-webkit-input-placeholder{
 }
 
 .c-day-container.highlight .cdc-day span {
-    color: red;
+    color: #fa5555;
     background: #333;
 }
 
