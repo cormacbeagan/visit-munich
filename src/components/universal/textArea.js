@@ -1,57 +1,59 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 function TextArea(props) {
-    const { onChange, type, value, id, name, required } = props
-    const input = useRef()
+  const { onChange, type, value, id, name, required } = props;
+  const input = useRef();
 
-    const handleChange = (e) => {
-        onChange(id, e.target.value)
-    }
+  const handleChange = (e) => {
+    onChange(id, e.target.value);
+  };
 
-    return (
-            <div style={divStyle}>
-                <textarea
-                    ref={input} 
-                    style={inputStyle} 
-                    type={type} id={id} 
-                    onChange={handleChange} 
-                    value={value || 'Text: '} 
-                    onFocus={() => {
-                        if(input.current.value === 'Text: ') {
-                            input.current.value = ''}}
-                        }
-                    required={required}
-                >{value}</textarea>
-            </div>
-    )
+  return (
+    <div style={divStyle}>
+      <textarea
+        ref={input}
+        style={inputStyle}
+        type={type}
+        id={id}
+        onChange={handleChange}
+        value={value || "Text: "}
+        onFocus={() => {
+          if (input.current.value === "Text: ") {
+            input.current.value = "";
+          }
+        }}
+        required={required}
+      >
+        {value}
+      </textarea>
+    </div>
+  );
 }
 
 export default TextArea;
 
 const divStyle = {
-    margin: '20px auto',
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '10px',
-    maxWidth: '280px',
-}
-
-
+  margin: "20px auto",
+  display: "flex",
+  flexDirection: "column",
+  marginBottom: "10px",
+  maxWidth: "280px",
+};
 
 const inputStyle = {
-    margin: '5px',
-    padding: '10px',
-    outline: 'none',
-    fontSize: '18px',
-    color: '#bdbdbd',
-    backgroundColor: '#464646',
-    border: 'none',
-    borderBottom: '2px solid #787879',
-    transition: 'all 400ms ease',
-    fontFamily: 'Arial, Helvetica, sans-serif',
-    width: '280px',
-    height: '175px',
-    maxWidth: '280px',
-    maxHeight: '175px',
-    boxShadow: '0 0  50px rgba(0, 0, 0, 0.3)'
-}
+  margin: "5px",
+  padding: "10px",
+  outline: "none",
+  fontSize: "18px",
+  color: "#bdbdbd",
+  backgroundColor: "#464646",
+  border: "none",
+  borderBottom: "2px solid #787879",
+  transition: "all 400ms ease",
+  fontFamily: "Arial, Helvetica, sans-serif",
+  width: "280px",
+  height: "175px",
+  maxWidth: "280px",
+  maxHeight: "175px",
+  boxShadow: "0 0  50px rgba(0, 0, 0, 0.3)",
+};

@@ -1,4 +1,5 @@
-export const dummyData = [{
+export const dummyData = [
+  {
     cloudcover: 19.5,
     conditions: "Clear",
     datetime: "2021-08-01",
@@ -12,16 +13,16 @@ export const dummyData = [{
     icon: "clear-day",
     moonphase: 0.8,
     normal: {
-        cloudcover: [0, 19.5, 67.5],
-        feelslike: [5.5, 26.1, 32.6],
-        humidity: [55.2, 68.1, 85],
-        precip: [0, 0, 0],
-        snowdepth: [null, null, null],
-        tempmax: [20.5, 26.1, 33.3],
-        tempmin: [5.5, 13.5, 18.1],
-        winddir:  [78.4, 171.3, 274.6],
-        windgust: [null, null, null],
-        windspeed: [9.4, 16.9, 25.9],
+      cloudcover: [0, 19.5, 67.5],
+      feelslike: [5.5, 26.1, 32.6],
+      humidity: [55.2, 68.1, 85],
+      precip: [0, 0, 0],
+      snowdepth: [null, null, null],
+      tempmax: [20.5, 26.1, 33.3],
+      tempmin: [5.5, 13.5, 18.1],
+      winddir: [78.4, 171.3, 274.6],
+      windgust: [null, null, null],
+      windspeed: [9.4, 16.9, 25.9],
     },
     precip: 0,
     precipcover: 0,
@@ -45,4 +46,5 @@ export const dummyData = [{
     winddir: 171.3,
     windgust: null,
     windspeed: 16.9,
-    }]
+  },
+];

@@ -1,43 +1,45 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 function SignedOutLinks(props) {
-	const { mobile } = props;
-	
-	return (
-			<div style={mobile ? mobileNavBar : navbar}>
-				<Link style={mobile ? linkMob: link} to="/signin">Sign In</Link>
-			</div>
-	);
+  const { mobile } = props;
+
+  return (
+    <div style={mobile ? mobileNavBar : navbar}>
+      <Link style={mobile ? linkMob : link} to="/signin">
+        Sign In
+      </Link>
+    </div>
+  );
 }
 
 export default SignedOutLinks;
 
 const navbar = {
-	display: 'flex',
-	flexDirection: 'row',
-	backgroundColor: '#333',
-}
+  display: "flex",
+  flexDirection: "row",
+  backgroundColor: "#333",
+};
 
 const mobileNavBar = {
-	width: '100%',
-	backgroundColor: '#333333',
-	display: 'flex',
-	flexDirection: 'column',
-	textAlign: 'right',
-}
+  width: "100%",
+  backgroundColor: "#333333",
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "right",
+};
 
 const link = {
-	color: '#e2e2e2',
-	textDecoration: 'none',
-	fontSize: '1.0em',
-	padding: '1em',
-}
+  color: "#e2e2e2",
+  textDecoration: "none",
+  fontSize: "1.0em",
+  padding: "1em",
+};
 
 const linkMob = {
-	color: '#e2e2e2',
-	textDecoration: 'none',
-	fontSize: '1.0em',
-	padding: '1em',
-	borderBottom: '2px solid #63849a94',
-}
+  color: "#e2e2e2",
+  textDecoration: "none",
+  fontSize: "1.0em",
+  padding: "1em",
+  borderBottom: "2px solid #63849a94",
+};

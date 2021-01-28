@@ -1,89 +1,108 @@
-import React, { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
-import moment from 'moment'
-import { connect } from 'react-redux';
-import Button from '../universal/button';
-import Loading from '../universal/loading';
-import { FiExternalLink } from 'react-icons/fi'
-
+import React, { useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
+import { connect } from "react-redux";
+import Button from "../universal/button";
+import Loading from "../universal/loading";
+import { FiExternalLink } from "react-icons/fi";
 
 function DisplayText({ data, auth, handleEditMode }) {
-    const history = useHistory()
-    const link = useRef();
-    let url;
+  const history = useHistory();
+  const link = useRef();
+  let url;
 
-    const handleEdit = () => {
-        if(history.location.pathname.includes('/wall/')) {
-            handleEditMode()
-        } else {
-            history.push(`/wall/${data.id}`)
-        }
-    }
-    
-    if(data.authorFirstName) {
-        return (
-            <div style={boxText}>
-                <h3 style={heading}>{data.name}</h3>
-                <p>{data.description}</p>
-                <div style={timeStyle}>
-                    {data.updatedAt ? (
-                            <p style={highlight}>Updated <span style={lowlight}>{moment(data.updatedAt.toDate()).format('ddd Do MMM YYYY')}</span></p>
-                    ) : (
-                        <p style={highlight}>Created <span style={lowlight}>{moment(data.createdAt.toDate()).format('ddd Do MMM YYYY')}</span></p>)}
-                </div>
-                <div style={divBottom}>
-                    <Button children={<div>directions <FiExternalLink style={{marginBottom: '-2px'}}/></div>} onClick={() => link.current.click()}/>
-                    <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`} 
-                        target='_blank'
-                        rel="noreferrer" 
-                        style={{display: 'none'}}
-                        >google maps</a>
-                    {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
-                </div>
-            </div>
-        )
+  const handleEdit = () => {
+    if (history.location.pathname.includes("/wall/")) {
+      handleEditMode();
     } else {
-        return <Loading />
+      history.push(`/wall/${data.id}`);
     }
+  };
+
+  if (data.authorFirstName) {
+    return (
+      <div style={boxText}>
+        <h3 style={heading}>{data.name}</h3>
+        <p>{data.description}</p>
+        <div style={timeStyle}>
+          {data.updatedAt ? (
+            <p style={highlight}>
+              Updated{" "}
+              <span style={lowlight}>
+                {moment(data.updatedAt.toDate()).format("ddd Do MMM YYYY")}
+              </span>
+            </p>
+          ) : (
+            <p style={highlight}>
+              Created{" "}
+              <span style={lowlight}>
+                {moment(data.createdAt.toDate()).format("ddd Do MMM YYYY")}
+              </span>
+            </p>
+          )}
+        </div>
+        <div style={divBottom}>
+          <Button
+            children={
+              <div>
+                directions <FiExternalLink style={{ marginBottom: "-2px" }} />
+              </div>
+            }
+            onClick={() => link.current.click()}
+          />
+          <a
+            ref={link}
+            href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`}
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: "none" }}
+          >
+            google maps
+          </a>
+          {auth.uid && <Button onClick={handleEdit} children={"Edit"} />}
+        </div>
+      </div>
+    );
+  } else {
+    return <Loading />;
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        auth: state.firebase.auth,
-    }
-}
+  return {
+    auth: state.firebase.auth,
+  };
+};
 
 export default connect(mapStateToProps)(DisplayText);
 
 const boxText = {
-    margin: '10px',
-    color: '#cecbcb',
-   // contain: 'items',
-}
+  margin: "10px",
+  color: "#cecbcb",
+  // contain: 'items',
+};
 
 const heading = {
-    color: '#243443',
-}
+  color: "#243443",
+};
 
 const lowlight = {
-    color: '#243443',
-}
+  color: "#243443",
+};
 
 const highlight = {
-    margin: '0',
-    color: '#cecbcb',
-
-}
+  margin: "0",
+  color: "#cecbcb",
+};
 
 const divBottom = {
-    position: 'absolute', 
-    bottom: '20px', 
-    right: '20px',
-}
+  position: "absolute",
+  bottom: "20px",
+  right: "20px",
+};
 
 const timeStyle = {
-    position: 'absolute',
-    bottom: '70px',
-    right: '20px',
-    
-}
+  position: "absolute",
+  bottom: "70px",
+  right: "20px",
+};
