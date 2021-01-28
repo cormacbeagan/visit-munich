@@ -14,7 +14,7 @@ function NavBar(props) {
 	const links = auth.uid ? <SignedInLinks mobile={smallScreen} profile={profile}/> : <SignedOutLinks mobile={smallScreen}/>;
 	const [ width, height ] = useDimensionSetter();
 	useEffect(() => {
-		if(width < 1500) {
+		if(width < 1060) {
 			setSmallScreen(true)
 		} else {
 			setSmallScreen(false)
@@ -57,6 +57,8 @@ function NavBar(props) {
 	const mobileLinks = {
 		width: width +6 +'px',
 		height: height + 'px',
+		maxWidth: '270px',
+		maxHeight: auth.uid ? '702px' : '390px',
 		overflow: 'auto',
 		position: 'fixed',
 		top: '80px',
@@ -68,11 +70,10 @@ function NavBar(props) {
 		paddingRight: '10px',
 		fontSize: '24px',
 		zIndex: '99',
-		borderLeft: '6px solid #395f78',
+		borderLeft: '2px solid #395f78',
 		transform: 'scale(1)',
 		transition: 'all 300ms cubic-bezier(0.65, 0.89, 0.8, 1.15)'
 	}
-
 	return (
 		<div>
 			{smallScreen ? (
@@ -83,10 +84,10 @@ function NavBar(props) {
 					</div>
 					<div>
 						<div style={menuOpen ? mobileLinks : linksClosed} onClick={() => setMenuOpen(false)}>
-							<Link style={link} to="/tips">Tips</Link>
-							<Link style={link} to="/live">Live Music</Link>
-							<Link style={link} to="/weather">Weather</Link>
-							<Link style={link} to="/walks">Graffiti</Link>
+							<Link style={linkMob} to="/tips">Tips</Link>
+							<Link style={linkMob} to="/live">Live Music</Link>
+							<Link style={linkMob} to="/weather">Weather</Link>
+							<Link style={linkMob} to="/walks">Graffiti</Link>
 							{isLoaded(auth) && links}
 						</div>
 					</div>
@@ -131,7 +132,15 @@ const link = {
 	color: '#e2e2e2',
 	textDecoration: 'none',
 	fontSize: '1.0em',
-	margin: '1em',
+	padding: '1em',
+}
+
+const linkMob = {
+	color: '#e2e2e2',
+	textDecoration: 'none',
+	fontSize: '1.0em',
+	padding: '1em',
+	borderBottom: '2px solid #63849a94'
 }
 
 const logo = {

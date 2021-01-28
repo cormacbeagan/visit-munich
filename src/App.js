@@ -13,13 +13,9 @@ import CreateBlog from './components/home/createBlog';
 import EditBlog from './components/home/editBlog';
 import CreateTip from './components/tips/createTip';
 import EditTip from './components/tips/editTip';
-
-
 import './styles/app.css';
 
-
 function App() {
-
   return (
     <Router>
       <div>

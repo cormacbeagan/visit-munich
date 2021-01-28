@@ -97,13 +97,11 @@ function EditTip(props) {
         return (
             <div className="container" style={detailsDiv}>
                 <div style={rightBut}>
+                    {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
                     <Button onClick={() => history.push(`/tips/${idToPass}`)}children={'Back to Map'}/> 
+                    {isEditing && <Button onClick={handleDeleteTip} children={'delete wall'}/>}
                 </div>
-              {isEditing ? (
-                <div>
-                    <div style={rightBut}>
-                        <Button onClick={handleDeleteTip} children={'delete wall'}/> 
-                    </div>
+                {isEditing ? (
                     <div>
                         <div style={row}>
                         <Input 
@@ -123,6 +121,7 @@ function EditTip(props) {
                             required={true}
                         />
                         </div>
+                        <div style={row}>
                         <TextArea 
                             type={'textarea'}
                             id={'textInput'}
@@ -131,6 +130,7 @@ function EditTip(props) {
                             value={formData.textInput}
                             required={true}
                         />
+                        </div>
                         <div style={row}>
                         <Input 
                             type={"text"} 
@@ -190,9 +190,8 @@ function EditTip(props) {
                         </div>
                         </div>
                     </div>
-                </div>
                 ) : (
-                <TipDisplay tip={formData} /> 
+                <TipDisplay tip={formData} handleEdit={handleEdit}/> 
                 )}
                 <div style={editContainer}>
                     <div>
@@ -206,9 +205,11 @@ function EditTip(props) {
                                 <Button onClick={handleEdit} children={'Edit'} />
                             </div>
                         )}
+                        <Button onClick={() => history.push(`/tips/${idToPass}`)}children={'Back to Map'}/> 
                     </div>
                     {isEditing && <ImageUpload id={id} usage={'tip'}/> }
                 </div>
+
             </div>
         )
     } else {
@@ -253,7 +254,11 @@ const detailsDiv = {
 }
 
 const rightBut = {
-    textAlign: 'right'
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    marginBottom: '10px'
 }
 
 const imageContainer = {
@@ -291,6 +296,8 @@ const row = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }
 
 const column = {
@@ -302,5 +309,7 @@ const column = {
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }

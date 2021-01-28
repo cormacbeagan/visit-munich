@@ -22,22 +22,22 @@ const tipReducer = (state = initState, action) => {
         case 'CREATE_TIP_ERROR':
             console.log('create tip error', action.err)
             return state;
-        case 'UPLOAD_SUCCESS':
+        case 'UPLOAD_SUCCESS_TIP':
             console.log('Upload successful')
             return state;
-        case 'UPLOAD_ERROR':
+        case 'UPLOAD_ERROR_TIP':
             console.log('Upload error ', action.err)
             return state;
-        case 'IMAGE_ARRAY_REMOVE_SUCCESS':
+        case 'TIP_IMAGE_ARRAY_REMOVE_SUCCESS':
             console.log('Image removed from array')
             return state;
-        case 'IMAGE_ARRAY_REMOVE_ERROR':
+        case 'TIP_IMAGE_ARRAY_REMOVE_ERROR':
             console.log('Image array removal error', action.err)
             return state;
-        case 'IMAGE_STORAGE_DELETE_SUCCESS':
+        case 'TIP_IMAGE_STORAGE_DELETE_SUCCESS':
             console.log('Image removed from storage')
             return state;
-        case 'IMAGE_STORAGE_DELETE_ERROR':
+        case 'TIP_IMAGE_STORAGE_DELETE_ERROR':
             console.log('Image storage delete error', action.err)
             return state;
         case 'TIP_DELETE_SUCCESS':

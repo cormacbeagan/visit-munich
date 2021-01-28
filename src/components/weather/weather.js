@@ -24,7 +24,6 @@ function Weather(props) {
 
     useEffect(() => {
         if(weather.weather){
-            // remove loading
             setLoader(false)
             setData(weather.weather)
             boxes.current.style.top = '200px'
@@ -42,7 +41,6 @@ function Weather(props) {
         if(dates.departure > tenDays){
             alert('Max 10 days search')
         } else {
-            // set some loading signal, opacity or rain or something
             setLoader(true)
             weatherSearch(dates)
         }

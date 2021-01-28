@@ -4,8 +4,9 @@ import Button from '../universal/button';
 import { connect } from 'react-redux';
 import BlogTextDisplay from './blogTextDisplay';
 import { FiExternalLink } from 'react-icons/fi'
+import Loading from '../universal/loading';
 
-function HomeEntry({ data, auth, url }) {
+function HomeEntry({ data, auth, url, handleEditMode }) {
     const history = useHistory()
     const link = useRef()
     let button = null;
@@ -14,7 +15,7 @@ function HomeEntry({ data, auth, url }) {
             const check = data.link.includes('http')
             if(check) {
                 button = (<div>
-                            <Button children={<div>{data.linkText} <FiExternalLink /></div>} onClick={() => link.current.click()}/>
+                            <Button children={<div>{data.linkText} <FiExternalLink style={{marginBottom: '-2px'}}/></div>} onClick={() => link.current.click()}/>
                             <a href={data.link} 
                                 ref={link}
                                 rel="noreferrer" 
@@ -26,19 +27,23 @@ function HomeEntry({ data, auth, url }) {
             }
         }
 
-    const handleEdit = () => {
-        if(url === '/editblog'){
-            history.push(`/editblog/${data.id}`)
-        } else if (url === '/tips') {
-            history.push(`/edittip/${data.id}`)
+        const handleEdit = () => {
+            if(url === '/editblog'){
+                history.push(`/editblog/${data.id}`)
+            } else if (url === '/tips') {
+                history.push(`/edittip/${data.id}`)
+            } else {
+                handleEditMode()
+            }
         }
-    }
         return (
             <div style={boxText}>
                 <h2 style={boxHeading}>{data.name}</h2>
                 <h3 style={boxSubHeading}>{data.subtitle}</h3>
                 <div style={boxDiv}>
-                    <BlogTextDisplay data={data}/>
+                    <div style={{marginLeft: '-5px'}}>
+                        <p style={label}>{data.textInput}</p>
+                    </div>
                     <div style={divBottom}>
                         {button}                        
                         {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
@@ -47,7 +52,7 @@ function HomeEntry({ data, auth, url }) {
             </div>
         )
     } else {
-        return null;
+        return <Loading />
     }
 }
 
@@ -85,4 +90,9 @@ const divBottom = {
     right: '15px',
     display: 'flex',
     flexDirection: 'row',
+}
+
+const label = {
+    margin: '0',
+    color: 'white',
 }

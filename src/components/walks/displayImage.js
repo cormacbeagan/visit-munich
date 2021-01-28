@@ -59,6 +59,7 @@ const imageStyle = {
 }
 
 const imageHoverStyle = {
+    cursor: 'pointer',
     height: '302px',
     width: '302px',
     objectFit: 'cover',

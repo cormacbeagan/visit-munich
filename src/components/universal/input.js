@@ -5,7 +5,7 @@ function Input(props) {
     const input = useRef()
 
     useEffect(() => {
-        if(input.current.value) input.current.focus()
+        if(value) input.current.style.marginTop = '36px'
     }, [])
 
     const handleChange = (e) => {
@@ -56,7 +56,6 @@ const labelStyle = {
     marginBottom: '-36px',
     zIndex: '1',
     color: '#787879',
-    //color: '#e8e8e8',
 }
 
 const inputStyle = {

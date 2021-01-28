@@ -6,7 +6,7 @@ function DisplayField({ data, handleVenue, bands }) {
     const [displayData, setDisplayData ] = useState()
     const link = useRef()
     useEffect(() => {
-        setDisplayData(data)
+        setDisplayData(data[0])
     }, [data])
 
     if(displayData) {
@@ -37,7 +37,7 @@ function DisplayField({ data, handleVenue, bands }) {
                     </a>
                     <div style={divBottom}>
                     <Button children={'concerts'} onClick={() => handleVenue(displayData.coords)}/>
-                    <Button children={<div>directions <FiExternalLink /></div>} onClick={() => link.current.click()}/>
+                    <Button children={<div>directions <FiExternalLink style={{marginBottom: '-2px'}}/></div>} onClick={() => link.current.click()}/>
                     <a ref={link}href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`} 
                         target='_blank'
                         rel="noreferrer" 
@@ -61,8 +61,9 @@ const boxText = {
 }
 
 const boxHeading = {
-    color: '#cecbcb', 
+    color: '#243443', 
     maxWidth: '220px',
+    fontWeight: 'bold',
 }
 
 const boxDiv = {
@@ -73,20 +74,20 @@ const logoStyle = {
     height: '25px', 
     width: '25px', 
     position: 'absolute', 
-    top: '80px', 
+    top: '50px', 
     right: '30px', 
     cursor: 'pointer'
 }
 
 const divBottom = {
     position: 'absolute', 
-    bottom: '-5px', 
-    left: '20px'
+    bottom: '5px', 
+    left: '5px'
 }
 
 const label = {
     margin: '0',
-    color: '#51748b',
+    color: '#dfbaaa',
 }
 
 const bandFlex = {
@@ -100,5 +101,5 @@ const bandStyle = {
     marginTop: '0', 
     marginRight: '12px', 
     marginBottom: '5px', 
-    color: '#cecbcb',
+    color: 'white',
 }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import HomeBox from '../home/homeBox';
-import Display from '../walks/display'
 import { location, mapStyleLight} from '../universal/mapData';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
 import Closer from '../universal/closer';
+import BoxWrapper from '../universal/boxWrapper';
+import DisplayImage from '../walks/displayImage';
+import HomeEntry from '../home/homeEntry';
 
 function Tips(props) {
     const {tips} = props
@@ -62,15 +63,18 @@ function Tips(props) {
                     </div>
                     <div style={infoBoxes}>
                         <Closer onClick={handleSlideOut} />
-                        <Display 
-                            type={'image'}
-                            data={displayData}
+                        <BoxWrapper>
+                            <DisplayImage
+                                data={displayData}
                             />
-                        <HomeBox
-                            type={'text'}
-                            data={displayData}
-                            url={'/tips'}
+                        </BoxWrapper>
+                        <BoxWrapper>
+                            <HomeEntry
+                                type={'text'}
+                                data={displayData}
+                                url={'/tips'}
                             />
+                        </BoxWrapper>
                     </div>
             </div>
     )

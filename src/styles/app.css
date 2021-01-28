@@ -86,6 +86,10 @@ select {
   .home-heading {
     font-size: 56px
   }
+
+  textarea {
+    width: 240px!important;
+  }
   
 }
 
@@ -93,7 +97,7 @@ select {
   .home-heading {
     font-size: 45px
   }
-  
+
 }
 
 @media only screen and (max-height: 600px) {

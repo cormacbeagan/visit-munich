@@ -112,6 +112,7 @@ function EditBlog(props) {
         return (
             <div style={detailsDiv}>
                 <div style={rightBut}>
+                {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
                     <Button onClick={() => history.push(`/`)} children={'Back'}/> 
                     {isEditing && <Button onClick={blogDelete} children={'delete blog'}/>}
                 </div>
@@ -133,7 +134,7 @@ function EditBlog(props) {
                             onChange={handleChange}
                         />
                     </div>
-                    <div style={{}}>
+                    <div style={row}>
                         <TextArea
                             type={'text'}
                             id={'textInput'}
@@ -163,7 +164,7 @@ function EditBlog(props) {
                     </div>            
                 </div>
                 ) : (
-                <BlogDisplay blog={blogData} /> 
+                <BlogDisplay blog={blogData} handleEdit={handleEdit}/> 
                 )}
                 <div style={editContainer}>
                     <div>
@@ -233,6 +234,7 @@ const row = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
 }
 
 

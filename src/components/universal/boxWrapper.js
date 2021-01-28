@@ -1,24 +1,21 @@
 import React from 'react';
-import HomeEntry from './homeEntry';
 
-function HomeBox({ data, url }) {
+function BoxWrapper({ children }) {
 
         return (
             <div style={displayDiv} >
-                <HomeEntry
-                    data={data}
-                    url={url}
-                />
+                {children}
             </div>
     )
 }
 
-export default HomeBox;
+export default BoxWrapper;
 
 const displayDiv = {
     position: 'relative',
     height: '300px',
     width: '300px',
+    minWidth: '300px',
     margin: '10px',
     backgroundColor: '#51738aeb',
     borderRadius: '20px',

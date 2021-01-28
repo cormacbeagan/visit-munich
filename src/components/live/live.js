@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import DisplayBox from './displayBox';
 import Button from '../universal/button';
 import Closer from '../universal/closer';
 import DateForm from '../universal/dateForm';
@@ -10,7 +9,8 @@ import { location } from '../universal/mapData';
 import { mapStyleLight } from '../universal/mapData';
 import { connect } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
-import { GiFlexibleStar } from 'react-icons/gi';
+import BoxWrapper from '../universal/boxWrapper';
+import DisplayField from './displayField';
 
 const initialState = {
     name: '',
@@ -162,11 +162,13 @@ function Live(props) {
                             <div style={bottom}>
                                 <Closer onClick={closer}/>
                             </div>
-                            <DisplayBox
-                                bands={venueBands}
-                                data={displayData}
-                                handleVenue={handleVenue}
-                                />
+                            <BoxWrapper>
+                                <DisplayField
+                                    bands={venueBands}
+                                    data={displayData}
+                                    handleVenue={handleVenue}
+                                    />
+                            </BoxWrapper>
                         </div>
                     </div>
                     <div style={logoDiv}>

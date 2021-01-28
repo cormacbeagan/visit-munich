@@ -30,7 +30,8 @@ function WallDetails(props) {
     
     useEffect(() => {
         if(project) {
-            setWallData(project)
+            const obj = {...project, id: id}
+            setWallData(obj)
         }
     }, [project])
 
@@ -99,6 +100,7 @@ function WallDetails(props) {
         return (
             <div style={detailsDiv}>
                 <div style={rightBut}>
+                    {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
                     <Button onClick={() => history.push(`/walks/${idToPass}`)}children={'Back to Map'}/> 
                     {isEditing && <Button onClick={deleteWall}children={'delete wall'}/>}
                 </div>
@@ -113,6 +115,7 @@ function WallDetails(props) {
                         onChange={handleChange}
                     />
                     </div>
+                    <div style={row}>
                     <TextArea
                         type={'textarea'}
                         id={'description'}
@@ -120,6 +123,7 @@ function WallDetails(props) {
                         value={wallData.description}
                         onChange={handleChange}
                     />
+                    </div>
                     <div style={row}>
                     <Input 
                         type={'text'}
@@ -164,7 +168,7 @@ function WallDetails(props) {
                     </div>
                 </div>
                 ) : (
-                <WallDisplay project={wallData} /> 
+                    <WallDisplay project={wallData} handleEdit={handleEdit}/> 
                 )}
                 <div style={editContainer}>
                     <div>
@@ -178,8 +182,9 @@ function WallDetails(props) {
                                 <Button onClick={handleEdit} children={'Edit'} />
                             </div>
                         )}
+                    <Button onClick={() => history.push(`/walks/${idToPass}`)}children={'Back to Map'}/> 
                     </div>
-                    {isEditing && <ImageUpload id={id} /> }
+                    {isEditing && <ImageUpload id={id} usage={'wall'}/> }
                 </div>
             </div>
         )
@@ -267,6 +272,8 @@ const row = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }
 
 const column = {
@@ -278,5 +285,7 @@ const column = {
     flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)'
+    boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+
 }

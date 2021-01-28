@@ -6,9 +6,9 @@ function SignedOutLinks(props) {
 	
 	return (
 			<div style={mobile ? mobileNavBar : navbar}>
-				<Link style={link} to="/signin">Sign In</Link>
+				<Link style={mobile ? linkMob: link} to="/signin">Sign In</Link>
 			</div>
-		);
+	);
 }
 
 export default SignedOutLinks;
@@ -31,6 +31,13 @@ const link = {
 	color: '#e2e2e2',
 	textDecoration: 'none',
 	fontSize: '1.0em',
-	margin: '1em',
-	
+	padding: '1em',
+}
+
+const linkMob = {
+	color: '#e2e2e2',
+	textDecoration: 'none',
+	fontSize: '1.0em',
+	padding: '1em',
+	borderBottom: '2px solid #63849a94',
 }

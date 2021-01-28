@@ -66,13 +66,15 @@ function Concert({ data, handleBackToMap }) {
                 </div>
                 <div style={btnDiv}>
                     <div
-                            onMouseEnter={() => setHover(!hover)}
-                            onMouseLeave={() => setHover(!hover)}>
+                        onMouseEnter={() => setHover(true)}
+                        onMouseOver={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                        onMouseOut={() => setHover(false)}>
                         <Button 
                         children={
                             <div style={linkStyle}>
                                 {!hover ? (
-                                    <div>Details <FiExternalLink /></div>
+                                    <div>Details <FiExternalLink style={{marginBottom: '-2px'}}/></div>
                                 ) : (
                                     <img src="/images/by-songkick-pink.svg" 
                                         alt="Sonkick Logo" 
@@ -128,7 +130,6 @@ const smallLogo = {
 }
 
 const skButton = {
-    marginBottom: '-11px',
     left: '20px',
     height: '25px',
     width: '75px',
@@ -149,4 +150,5 @@ const linkStyle = {
     color: '#e2e2e2',
     width: '95px',
     maxHeight: '18px',
+    overflow: 'hidden',
 }

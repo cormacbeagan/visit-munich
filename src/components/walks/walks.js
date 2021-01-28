@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Map from '../universal/map';
-import Display from './display';
 import { location, mapStyleDark} from '../universal/mapData';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux';
 import Closer from '../universal/closer';
+import BoxWrapper from '../universal/boxWrapper';
+import DisplayImage from './displayImage';
+import DisplayText from './displayText';
 
 function Walks(props) {
     const {projects} = props
@@ -61,27 +63,26 @@ function Walks(props) {
                     </div>
                     <div style={infoBoxes}>
                         <Closer onClick={handleSlideOut} />
-                        <Display 
-                            type={'image'}
-                            data={displayData}
+                        <BoxWrapper>
+                            <DisplayImage
+                                data={displayData}
                             />
-                        <Display 
-                            type={'text'}
-                            data={displayData}
+                        </BoxWrapper>
+                        <BoxWrapper>
+                            <DisplayText
+                                data={displayData}
                             />
+                        </BoxWrapper>
                     </div>
             </div>
     )
 }
 
-//
-
-
 const mapStateToProps = (state) => {
       return {
           projects: state.firestore.ordered.projects || state.project.projects
       }
-  }
+}
 
 export default compose(
     connect(mapStateToProps),
