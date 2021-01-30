@@ -9,7 +9,9 @@ import {
     TiWeatherSnow,
 } from 'react-icons/ti'
 import TempInput from '../weather/tempInput'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+dayjs.extend(advancedFormat)
 
 function IconSlider({ data }) {
     const [dataArray, setDataArray] = useState([])
@@ -40,7 +42,7 @@ function IconSlider({ data }) {
                 return (
                     <div style={weatherEntry}>
                         <p style={pStyle}>
-                            {moment(item.datetime).format('ddd Do MMM YYYY')}
+                            {dayjs(item.datetime).format('ddd Do MMM YYYY')}
                         </p>
                         {icon}
                         <TempInput

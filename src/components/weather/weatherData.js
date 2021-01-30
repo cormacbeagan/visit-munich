@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import StatsWeather from './statsWeather'
 import Loading from '../universal/loading'
+dayjs.extend(advancedFormat)
 
 function WeatherData({ data }) {
     if (data) {
         return (
             <div style={boxText}>
                 <h3 style={boxHeading}>
-                    {moment(data.datetime).format('ddd Do MMM YYYY')}
+                    {dayjs(data.datetime).format('ddd Do MMM YYYY')}
                 </h3>
                 <div style={blur}>
                     <StatsWeather data={data} />

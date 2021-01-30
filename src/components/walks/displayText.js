@@ -2,10 +2,13 @@ import PropTypes from 'prop-types'
 import { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { connect } from 'react-redux'
 import Button from '../universal/button'
 import Loading from '../universal/loading'
 import { FiExternalLink } from 'react-icons/fi'
+dayjs.extend(advancedFormat)
 
 function DisplayText(props) {
     const { data, auth, handleEditMode } = props
@@ -31,7 +34,7 @@ function DisplayText(props) {
                         <p style={highlight}>
                             Updated{' '}
                             <span style={lowlight}>
-                                {moment(data.updatedAt.toDate()).format(
+                                {dayjs(data.updatedAt.toDate()).format(
                                     'ddd Do MMM YYYY'
                                 )}
                             </span>
@@ -40,7 +43,7 @@ function DisplayText(props) {
                         <p style={highlight}>
                             Created{' '}
                             <span style={lowlight}>
-                                {moment(data.createdAt.toDate()).format(
+                                {dayjs(data.createdAt.toDate()).format(
                                     'ddd Do MMM YYYY'
                                 )}
                             </span>

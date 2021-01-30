@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import HomeEntry from './homeEntry'
 import BoxWrapper from '../universal/boxWrapper'
 import Loading from '../universal/loading'
+dayjs.extend(advancedFormat)
 
 function BlogDisplay(props) {
     const { blog, handleEdit } = props
@@ -43,14 +45,18 @@ function BlogDisplay(props) {
                         <p style={lowlight}>
                             Posted:{' '}
                             <span style={highlight}>
-                                {moment(blog.createdAt.toDate()).calendar()}
+                                {dayjs(blog.createdAt.toDate()).format(
+                                    'ddd Do MMM YYYY'
+                                )}
                             </span>
                         </p>
                         {blog.updatedAt && (
                             <p style={lowlight}>
                                 Last updated:{' '}
                                 <span style={highlight}>
-                                    {moment(blog.updatedAt.toDate()).calendar()}
+                                    {dayjs(blog.updatedAt.toDate()).format(
+                                        'ddd Do MMM YYYY'
+                                    )}
                                 </span>
                             </p>
                         )}

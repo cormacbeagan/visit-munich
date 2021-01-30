@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import Thumbnail from '../universal/thumbnail'
 import Loading from '../universal/loading'
 import BoxWrapper from '../universal/boxWrapper'
 import HomeEntry from '../home/homeEntry'
+dayjs.extend(advancedFormat)
 
 function TipDisplay({ tip, handleEdit }) {
     if (tip) {
@@ -43,14 +45,18 @@ function TipDisplay({ tip, handleEdit }) {
                         <p style={lowlight}>
                             Posted:{' '}
                             <span style={highlight}>
-                                {moment(tip.createdAt.toDate()).calendar()}
+                                {dayjs(tip.createdAt.toDate()).format(
+                                    'ddd Do MMM YYYY'
+                                )}
                             </span>
                         </p>
                         {tip.updatedAt && (
                             <p style={lowlight}>
                                 Last updated:{' '}
                                 <span style={highlight}>
-                                    {moment(tip.updatedAt.toDate()).calendar()}
+                                    {dayjs(tip.updatedAt.toDate()).format(
+                                        'ddd Do MMM YYYY'
+                                    )}
                                 </span>
                             </p>
                         )}

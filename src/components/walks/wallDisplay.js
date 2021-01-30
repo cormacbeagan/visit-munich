@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import Thumbnail from '../universal/thumbnail'
 import Loading from '../universal/loading'
 import BoxWrapper from '../universal/boxWrapper'
 import DisplayText from './displayText'
+dayjs.extend(advancedFormat)
 
 function WallDisplay({ project, handleEdit }) {
     if (project) {
@@ -38,7 +40,7 @@ function WallDisplay({ project, handleEdit }) {
                         <p style={lowlight}>
                             Posted:{' '}
                             <span style={highlight}>
-                                {moment(project.createdAt.toDate()).format(
+                                {dayjs(project.createdAt.toDate()).format(
                                     'ddd Do MMM YYYY'
                                 )}
                             </span>
@@ -47,7 +49,7 @@ function WallDisplay({ project, handleEdit }) {
                             <p style={lowlight}>
                                 Last updated:{' '}
                                 <span style={highlight}>
-                                    {moment(project.updatedAt.toDate()).format(
+                                    {dayjs(project.updatedAt.toDate()).format(
                                         'ddd Do MMM YYYY'
                                     )}
                                 </span>

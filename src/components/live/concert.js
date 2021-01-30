@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect, useRef } from 'react'
-import moment from 'moment' // * maybe try DayJS smaller footprint -->
-//todo import dayjs from 'dayjs'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import Button from '../universal/button'
 import { useDimensionSetter } from '../../hooks/useDimensionSetter'
 import { FiExternalLink } from 'react-icons/fi'
+dayjs.extend(advancedFormat)
 
 function Concert(props) {
     const { data, handleBackToMap } = props
@@ -37,7 +38,7 @@ function Concert(props) {
     return (
         <div style={containerStyle}>
             <h3 style={{ ...lowlight, ...noMargin }}>
-                {moment(data.start.dateTime || data.start.date).format(
+                {dayjs(data.start.dateTime || data.start.date).format(
                     'ddd Do MMM YYYY'
                 )}
             </h3>
