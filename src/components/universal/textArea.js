@@ -55,7 +55,7 @@ const inputStyle = {
     padding: '10px',
     outline: 'none',
     fontSize: '18px',
-    color: '#bdbdbd',
+    color: '#e8e8e8',
     backgroundColor: '#464646',
     border: 'none',
     borderBottom: '2px solid #787879',

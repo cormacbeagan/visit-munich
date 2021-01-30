@@ -66,7 +66,8 @@ const labelStyle = {
     marginLeft: '5px',
     marginBottom: '-36px',
     zIndex: '1',
-    color: '#787879',
+    color: '#dfbaaa',
+    fontSize: '20px',
 }
 
 const inputStyle = {
@@ -74,7 +75,7 @@ const inputStyle = {
     outline: 'none',
     lineHeight: '36px',
     fontSize: '24px',
-    color: '#bdbdbd',
+    color: '#e8e8e8',
     backgroundColor: 'inherit',
     border: 'none',
     borderBottom: '2px solid #787879',

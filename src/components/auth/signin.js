@@ -49,7 +49,7 @@ function SignIn(props) {
                     <Button children={'login'} />
                 </div>
                 <div className='red-text center'>
-                    {authError ? <p>{authError}</p> : null}
+                    {authError ? <p style={errorStyle}>{authError}</p> : null}
                 </div>
             </form>
         </div>
@@ -87,4 +87,10 @@ const formStyle = {
 const heading = {
     color: '#333',
     marginLeft: '90px',
+}
+
+const errorStyle = {
+    color: '#ffacac',
+    fontSize: '20px',
+    textAlign: 'center',
 }

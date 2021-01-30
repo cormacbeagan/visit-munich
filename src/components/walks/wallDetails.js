@@ -44,7 +44,7 @@ function WallDetails(props) {
         setEditImage(project.image)
     }
 
-    const handleEditThmbnail = url => {
+    const handleEditThumbnail = url => {
         if (!isEditing) return
         setEditImage(url)
         setWallData(prev => ({ ...prev, image: url }))
@@ -173,7 +173,7 @@ function WallDetails(props) {
                                             >
                                                 <button
                                                     onClick={() =>
-                                                        handleEditThmbnail(img)
+                                                        handleEditThumbnail(img)
                                                     }
                                                     style={imageBtn}
                                                 >

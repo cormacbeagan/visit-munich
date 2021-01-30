@@ -60,7 +60,7 @@ function SignUp(props) {
                 />
                 <Button children={'sign up'} />
                 <div style={{ color: 'red', textAlign: 'center' }}>
-                    {authError ? <p>{authError}</p> : null}
+                    {authError ? <p style={errorStyle}>{authError}</p> : null}
                 </div>
             </form>
         </div>
@@ -99,4 +99,10 @@ const heading = {
     marginLeft: '100px',
     fontSize: '24px',
     color: '#333',
+}
+
+const errorStyle = {
+    color: '#ffacac',
+    fontSize: '20px',
+    textAlign: 'center',
 }

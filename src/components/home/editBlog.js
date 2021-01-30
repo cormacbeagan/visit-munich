@@ -104,14 +104,21 @@ function EditBlog(props) {
             'Do you really want to delete the whole document?'
         )
         if (doubleCheck) {
+            handleRanking(null, blogsArray.length)
             deleteBlog(id)
             history.push('/')
         }
     }
 
-    const handleRanking = e => {
-        if (e.target.value === 'Choose') return
-        const inputValue = Number(e.target.value)
+    const handleRanking = (e, rank) => {
+        let inputValue
+        if (e) {
+            if (e.target.value === 'Choose' || e.target.value === '1 Fixed')
+                return
+            inputValue = Number(e.target.value)
+        } else {
+            inputValue = rank
+        }
         const origPos = blog.rank
         if (origPos === inputValue) return
 
@@ -205,6 +212,25 @@ function EditBlog(props) {
                             />
                         </div>
                         <div style={titleDiv}>{titles}</div>
+                        <div style={row}>
+                            <label style={labelStyle} htmlFor='position'>
+                                Choose position:{' '}
+                            </label>
+                            <br />
+                            {blog.rank !== 0 && (
+                                <select
+                                    style={selectStyle}
+                                    name='position'
+                                    id='rank'
+                                    value='Choose'
+                                    onChange={handleRanking}
+                                >
+                                    <option>Reorder</option>
+                                    <option>1 is Fixed</option>
+                                    {options}
+                                </select>
+                            )}
+                        </div>
                     </div>
                 ) : (
                     <BlogDisplay blog={blogData} handleEdit={handleEdit} />
@@ -213,26 +239,6 @@ function EditBlog(props) {
                     <div>
                         {isEditing ? (
                             <div style={editContainer}>
-                                <div style={orderSelection}>
-                                    <label
-                                        style={labelStyle}
-                                        htmlFor='position'
-                                    >
-                                        Choose position:{' '}
-                                    </label>
-                                    {blog.rank !== 0 && (
-                                        <select
-                                            style={selectStyle}
-                                            name='position'
-                                            id='rank'
-                                            value='Choose'
-                                            onChange={handleRanking}
-                                        >
-                                            <option>Choose</option>
-                                            {options}
-                                        </select>
-                                    )}
-                                </div>
                                 <Button
                                     onClick={handleReady}
                                     children={'Save'}
@@ -247,6 +253,10 @@ function EditBlog(props) {
                                 <Button
                                     onClick={handleEdit}
                                     children={'Edit'}
+                                />
+                                <Button
+                                    onClick={() => history.push(`/`)}
+                                    children={'Back to map'}
                                 />
                             </div>
                         )}
@@ -350,21 +360,20 @@ const titleDiv = {
     justifyContent: 'center',
 }
 
-const orderSelection = {
-    margin: '20px',
-}
-
 const labelStyle = {
+    fontSize: '22px',
     marginLeft: '5px',
     marginBottom: '-36px',
     zIndex: '1',
-    color: '#787879',
+    color: '#dfbaaa',
 }
 
 const selectStyle = {
     width: '90px',
-    background: '#333',
+    backgroundColor: 'rgb(212, 209, 209)',
+    fontSize: '20px',
     padding: '5px',
     outline: 'none',
     border: 'none',
+    margin: '0 10px',
 }
