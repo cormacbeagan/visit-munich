@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import SignedInLinks from './signedInLinks'
 import SignedOutLinks from './signedOutLinks'
@@ -12,10 +12,15 @@ function NavBar(props) {
     const { auth, profile } = props
     const [smallScreen, setSmallScreen] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
+    const navBars = useRef()
     const links = auth.uid ? (
-        <SignedInLinks mobile={smallScreen} profile={profile} />
+        <SignedInLinks
+            mobile={smallScreen}
+            menuOpen={menuOpen}
+            profile={profile}
+        />
     ) : (
-        <SignedOutLinks mobile={smallScreen} />
+        <SignedOutLinks mobile={smallScreen} menuOpen={menuOpen} />
     )
     const [width, height] = useDimensionSetter()
     useEffect(() => {
@@ -26,9 +31,17 @@ function NavBar(props) {
         }
     }, [width])
 
-    const handleMenuOpen = () => {
-        setMenuOpen(!menuOpen)
+    const handleMenuOpen = e => {
+        if (!smallScreen) return
+        if (!navBars.current.contains(e.target)) setMenuOpen(false)
     }
+
+    useEffect(() => {
+        document.addEventListener('click', handleMenuOpen)
+        return () => {
+            document.removeEventListener('click', handleMenuOpen)
+        }
+    })
 
     const mobileNavStyle = {
         width: width,
@@ -46,7 +59,7 @@ function NavBar(props) {
         width: '100%',
         position: 'fixed',
         top: '80px',
-        right: width + 'px',
+        right: '-300px',
         backgroundColor: '#333333',
         display: 'flex',
         flexDirection: 'column',
@@ -80,44 +93,77 @@ function NavBar(props) {
         transition: 'all 300ms cubic-bezier(0.65, 0.89, 0.8, 1.15)',
     }
     return (
-        <div>
+        <>
             {smallScreen ? (
-                <div>
-                    <div style={mobileNavStyle}>
+                <>
+                    <nav style={mobileNavStyle}>
                         <Link
+                            aria-label='home'
                             style={logo}
                             to='/'
                             onClick={() => setMenuOpen(false)}
                         >
                             Visit Munich
                         </Link>
-                        <a href='#0' onClick={handleMenuOpen} style={bars}>
+                        <button
+                            ref={navBars}
+                            aria-label='open navigation menu'
+                            onClick={() => setMenuOpen(!menuOpen)}
+                            style={bars}
+                        >
                             <FaBars />
-                        </a>
-                    </div>
-                    <div>
-                        <div
+                        </button>
+                    </nav>
+                    <>
+                        <nav
                             style={menuOpen ? mobileLinks : linksClosed}
                             onClick={() => setMenuOpen(false)}
                         >
-                            <Link style={linkMob} to='/tips'>
-                                Tips
-                            </Link>
-                            <Link style={linkMob} to='/live'>
-                                Live Music
-                            </Link>
-                            <Link style={linkMob} to='/weather'>
-                                Weather
-                            </Link>
-                            <Link style={linkMob} to='/walks'>
-                                Graffiti
-                            </Link>
-                            {isLoaded(auth) && links}
-                        </div>
-                    </div>
-                </div>
+                            <div
+                                style={
+                                    menuOpen
+                                        ? {
+                                              display: 'flex',
+                                              flexDirection: 'column',
+                                          }
+                                        : { display: 'none' }
+                                }
+                            >
+                                <Link
+                                    style={linkMob}
+                                    to='/tips'
+                                    aria-hidden={menuOpen ? false : true}
+                                >
+                                    Tips
+                                </Link>
+                                <Link
+                                    style={linkMob}
+                                    to='/live'
+                                    aria-hidden={menuOpen ? false : true}
+                                >
+                                    Live Music
+                                </Link>
+                                <Link
+                                    style={linkMob}
+                                    to='/weather'
+                                    aria-hidden={menuOpen ? false : true}
+                                >
+                                    Weather
+                                </Link>
+                                <Link
+                                    style={linkMob}
+                                    to='/walks'
+                                    aria-hidden={menuOpen ? false : true}
+                                >
+                                    Graffiti
+                                </Link>
+                                {isLoaded(auth) && links}
+                            </div>
+                        </nav>
+                    </>
+                </>
             ) : (
-                <div style={navBarStyle}>
+                <nav style={navBarStyle}>
                     <Link style={link} to='/'>
                         Home
                     </Link>
@@ -134,9 +180,9 @@ function NavBar(props) {
                         Graffiti
                     </Link>
                     {isLoaded(auth) && links}
-                </div>
+                </nav>
             )}
-        </div>
+        </>
     )
 }
 

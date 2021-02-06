@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
 function SignedInLinks(props) {
-    const { profile, signOut, mobile } = props
+    const { profile, signOut, mobile, menuOpen } = props
     const [dropNav, setDropNav] = useState(false)
     const droper = useRef()
 
@@ -25,32 +25,57 @@ function SignedInLinks(props) {
     }
 
     return (
-        <div>
+        <>
             {mobile && (
-                <div style={mobileNavBar}>
-                    <Link style={linkMob} to='/createblog'>
+                <div
+                    style={mobileNavBar}
+                    aria-hidden={menuOpen ? false : true}
+                    style={menuOpen ? mobileNavBar : { display: 'none' }}
+                >
+                    <Link
+                        style={linkMob}
+                        to='/createblog'
+                        aria-hidden={menuOpen ? false : true}
+                    >
                         Create Blog
                     </Link>
-                    <Link style={linkMob} to='/createtip'>
+                    <Link
+                        style={linkMob}
+                        to='/createtip'
+                        aria-hidden={menuOpen ? false : true}
+                    >
                         Create Tip
                     </Link>
-                    <Link style={linkMob} to='/createwall'>
+                    <Link
+                        style={linkMob}
+                        to='/createwall'
+                        aria-hidden={menuOpen ? false : true}
+                    >
                         Create Wall
                     </Link>
-                    <Link onClick={signOut} style={linkMob} to='/'>
+                    <Link
+                        onClick={signOut}
+                        style={linkMob}
+                        to='/'
+                        aria-hidden={menuOpen ? false : true}
+                    >
                         Logout
                     </Link>
-                    <Link style={linkMob} to='/signup'>
+                    <Link
+                        style={linkMob}
+                        to='/signup'
+                        aria-hidden={menuOpen ? false : true}
+                    >
                         Sign Up
                     </Link>
                 </div>
             )}
             {!mobile && (
                 <div style={navbar}>
-                    <div style={link} ref={droper} onClick={handleDrop}>
+                    <a href='#' style={link} ref={droper} onClick={handleDrop}>
                         Create
-                    </div>
-                    <div style={dropContainer} onClick={handleDrop}>
+                    </a>
+                    <nav style={dropContainer} onClick={handleDrop}>
                         <div style={dropNav ? createOpen : createClose}>
                             <div style={pointer}></div>
                             <Link style={link} to='/createblog'>
@@ -63,7 +88,7 @@ function SignedInLinks(props) {
                                 Create Wall
                             </Link>
                         </div>
-                    </div>
+                    </nav>
                     <Link onClick={signOut} style={link} to='/'>
                         Logout
                     </Link>
@@ -75,7 +100,7 @@ function SignedInLinks(props) {
                     </Link>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
@@ -131,8 +156,9 @@ const linkIn = {
     borderRadius: '100%',
     fontSize: '20px',
     textDecoration: 'none',
-    background: '#51748b',
+    background: '#f9cd25',
     color: '#333333',
+    fontWeight: 'bold',
 }
 
 const dropContainer = {

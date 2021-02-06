@@ -12,6 +12,7 @@ function TextArea(props) {
     return (
         <div style={divStyle}>
             <textarea
+                aria-label='enter the main text here'
                 ref={input}
                 style={inputStyle}
                 type={type}

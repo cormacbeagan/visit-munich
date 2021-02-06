@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import uniqid from 'uniqid'
 import GoogleMapReact from 'google-map-react'
 import LocationPin from './locationPin'
@@ -25,6 +25,7 @@ function Map(props) {
     const [width, height] = useDimensionSetter()
     const [zoom, setZoom] = useState()
     const [styles, setStyles] = useState()
+    const pin = useRef()
 
     const handleZoomChange = e => {
         setZoom(e.zoom)

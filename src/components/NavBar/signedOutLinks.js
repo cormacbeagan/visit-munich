@@ -2,11 +2,15 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 function SignedOutLinks(props) {
-    const { mobile } = props
+    const { mobile, menuOpen } = props
 
     return (
         <div style={mobile ? mobileNavBar : navbar}>
-            <Link style={mobile ? linkMob : link} to='/signin'>
+            <Link
+                style={mobile ? linkMob : link}
+                to='/signin'
+                aria-hidden={mobile && menuOpen ? false : true}
+            >
                 Sign In
             </Link>
         </div>

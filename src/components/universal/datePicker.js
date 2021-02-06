@@ -13,11 +13,9 @@ function DatePicker(props) {
     const [showDatePicker, setShowDatePicker] = useState(false)
     const input = useRef()
     const div = useRef()
-    const [picked, setPicked] = useState(false)
 
     useEffect(() => {
         window.addEventListener('click', addBackDrop)
-
         return () => {
             window.removeEventListener('click', addBackDrop)
         }
@@ -32,11 +30,12 @@ function DatePicker(props) {
         }
     }
 
-    useEffect(() => {
-        if (preselected && !picked && !showDatePicker) {
-            div.current.click()
-        }
-    })
+    const handleBlur = e => {
+        // todo this needs to handle the backdrop close when focus moves
+        setTimeout(() => {
+            // setShowDatePicker(false)
+        }, 200)
+    }
 
     useEffect(() => {
         if (preselected) {
@@ -215,7 +214,6 @@ function DatePicker(props) {
             onChange(day.timestamp)
         }
         setShowDatePicker(false)
-        setPicked(true)
     }
 
     const setYear = offset => {
@@ -245,11 +243,12 @@ function DatePicker(props) {
             monthDetails: getMonthDetails(year, month),
         }))
     }
+    // todo change to table instead of divs
 
     const renderCalender = () => {
         let days = dateStamp.monthDetails.map((day, index) => {
             return (
-                <div
+                <td
                     className={
                         'c-day-container ' +
                         (day.month !== 0 ? ' disabled' : '') +
@@ -261,31 +260,40 @@ function DatePicker(props) {
                     <div className='cdc-day'>
                         <span onClick={() => onDateClick(day)}>{day.date}</span>
                     </div>
-                </div>
+                </td>
             )
         })
         return (
-            <div className='c-container'>
-                <div className='cc-head'>
+            <table className='c-container'>
+                <tr className='cc-head'>
                     {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(
                         (d, i) => (
-                            <div key={i} className='cch-name'>
+                            <th key={i} className='cch-name'>
                                 {d}
-                            </div>
+                            </th>
                         )
                     )}
-                </div>
+                </tr>
                 <div className='cc-body'>{days}</div>
-            </div>
+            </table>
         )
     }
 
     const containerClass = `mdp-container ${float}`
     /* jsx display */
     return (
-        <div className='MyDatePicker' ref={div}>
-            <div className='mdp-input' id={id} onClick={addBackDrop}>
+        <div
+            tabIndex='0'
+            className='MyDatePicker'
+            ref={div}
+            onFocus={() => setShowDatePicker(true)}
+            onBlur={handleBlur}
+        >
+            <div className='mdp-input'>
                 <input
+                    aria-label={`${id} date`}
+                    name='date'
+                    id={id}
                     type='date'
                     ref={input}
                     onChange={updateDateFromInput}

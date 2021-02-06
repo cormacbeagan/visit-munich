@@ -57,7 +57,7 @@ function Weather(props) {
         backgroundSize: 'cover',
     }
     return (
-        <div style={container}>
+        <section style={container}>
             <div onClick={() => handleClose('-350px')}>
                 <DateForm handleDates={handleDates} name={'forecast'} />
             </div>
@@ -76,7 +76,7 @@ function Weather(props) {
                 </BoxSlider>
             </div>
             {loader && <Loading />}
-        </div>
+        </section>
     )
 }
 

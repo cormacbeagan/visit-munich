@@ -50,7 +50,7 @@ function Tips(props) {
     }
 
     return (
-        <div style={container}>
+        <section style={container}>
             <div>
                 <Map
                     handleInfo={handleInfo}
@@ -71,7 +71,7 @@ function Tips(props) {
                     <HomeEntry type={'text'} data={displayData} url={'/tips'} />
                 </BoxWrapper>
             </div>
-        </div>
+        </section>
     )
 }
 

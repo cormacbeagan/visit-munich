@@ -93,7 +93,7 @@ function Home(props) {
     }
 
     return (
-        <div style={container}>
+        <section style={container}>
             <DateForm name={'pick your dates'} handleDates={handleDates} />
             <div style={logo}>
                 <h1 className='home-heading'>Visit Munich</h1>
@@ -119,7 +119,7 @@ function Home(props) {
                     </div>
                 </BoxSlider>
             </div>
-        </div>
+        </section>
     )
 }
 

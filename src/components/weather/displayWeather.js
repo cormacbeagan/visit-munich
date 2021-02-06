@@ -44,9 +44,9 @@ function DisplayWeather({ data }) {
     }
 
     return (
-        <div style={displayDiv}>
+        <article style={displayDiv} tabIndex='0'>
             <WeatherData data={data} />
-        </div>
+        </article>
     )
 }
 

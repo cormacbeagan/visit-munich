@@ -23,6 +23,11 @@ body::-webkit-scrollbar-thumb {
     border: 3px solid #333333;
 }
 
+*:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.678);
+}
+
 .app-content {
     margin: 0px;
     margin-top: 80px;
@@ -39,6 +44,12 @@ h2 {
 h3 {
     font-size: 21px;
     margin: 5px 0;
+}
+
+ul li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 textarea {

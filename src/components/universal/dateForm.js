@@ -60,7 +60,7 @@ function DateForm({ handleDates, name }) {
                         <DatePicker
                             onChange={onChangeOne}
                             float={'float-left'}
-                            id={'one'}
+                            id={'arrival'}
                         />
                     </div>
                     <div style={{ marginTop: '10px' }}>
@@ -68,7 +68,7 @@ function DateForm({ handleDates, name }) {
                             onChange={onChangeTwo}
                             float={'float-right'}
                             preselected={preselected}
-                            id={'two'}
+                            id={'departure'}
                         />
                     </div>
                     <div style={{ marginTop: '10px' }}>

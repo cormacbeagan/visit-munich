@@ -1,5 +1,9 @@
 function BoxWrapper({ children }) {
-    return <div style={displayDiv}>{children}</div>
+    return (
+        <article style={displayDiv} tabIndex='0'>
+            {children}
+        </article>
+    )
 }
 
 export default BoxWrapper

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Map from '../universal/map'
 import { location, mapStyleDark } from '../universal/mapData'
 import { connect } from 'react-redux'
@@ -15,12 +15,14 @@ function Walks(props) {
     const [displayData, setDisplayData] = useState({})
     const [slideIn, setSlideIn] = useState('-350px')
     const [mapState, setMapState] = useState(mapStyleDark)
+    const boxes = useRef()
 
-    const handleInfo = id => {
+    const handleInfo = (id, pin) => {
         if (id) {
             const data = projects.find(project => project.id === id)
             setDisplayData(data)
             setSlideIn('0px')
+            boxes.current.focus()
         }
     }
 
@@ -50,7 +52,7 @@ function Walks(props) {
     }
 
     return (
-        <div style={container}>
+        <section style={container}>
             <div>
                 <Map
                     handleInfo={handleInfo}
@@ -63,7 +65,9 @@ function Walks(props) {
                 />
             </div>
             <div style={infoBoxes}>
-                <Closer onClick={handleSlideOut} />
+                <div ref={boxes} tabIndex='0'>
+                    <Closer onClick={handleSlideOut} />
+                </div>
                 <BoxWrapper>
                     <DisplayImage data={displayData} />
                 </BoxWrapper>
@@ -71,7 +75,7 @@ function Walks(props) {
                     <DisplayText data={displayData} />
                 </BoxWrapper>
             </div>
-        </div>
+        </section>
     )
 }
 

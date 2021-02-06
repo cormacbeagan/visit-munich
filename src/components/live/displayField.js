@@ -38,6 +38,7 @@ function DisplayField(props) {
                             alt='Sonkick Logo'
                             style={logoStyle}
                         />
+                        <p style={{ display: 'none' }}>Songkick website</p>
                     </a>
                     <div style={divBottom}>
                         <Button
@@ -61,7 +62,9 @@ function DisplayField(props) {
                             target='_blank'
                             rel='noreferrer'
                             style={{ display: 'none' }}
-                        ></a>
+                        >
+                            Google Maps
+                        </a>
                     </div>
                 </div>
             </div>

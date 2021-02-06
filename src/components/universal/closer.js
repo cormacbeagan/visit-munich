@@ -1,8 +1,18 @@
 import PropTypes from 'prop-types'
 
 function Closer({ onClick }) {
+    const handleKeyDown = e => {
+        if (e.keyCode === 13) onClick()
+    }
+
     return (
-        <div style={closerStyle} onClick={onClick} aria-label='closer'>
+        <div
+            style={closerStyle}
+            onClick={onClick}
+            aria-label='closer'
+            tabIndex='0'
+            onKeyDown={handleKeyDown}
+        >
             <div style={xCloser}></div>
             <div style={yCloser}></div>
         </div>

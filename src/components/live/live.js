@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Map from '../universal/map'
 import Button from '../universal/button'
 import Closer from '../universal/closer'
@@ -32,6 +32,7 @@ function Live(props) {
     const [venueBands, setVenueBands] = useState(null)
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState('')
+    const boxes = useRef()
 
     useEffect(() => {
         if (dates.dates) {
@@ -65,6 +66,7 @@ function Live(props) {
             setVenueBands(bands)
             setDisplayData(venue)
             setSlideIn('-10')
+            boxes.current.focus()
         }
     }
 
@@ -127,7 +129,7 @@ function Live(props) {
         transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
     }
     return (
-        <div>
+        <section>
             <div style={liveStyle}>
                 {concerts.events && !searching ? (
                     <div style={buttonDiv}>
@@ -169,7 +171,7 @@ function Live(props) {
                                 switched={false}
                             />
                         </div>
-                        <div style={infoBoxes}>
+                        <div style={infoBoxes} ref={boxes} tabIndex='0'>
                             <div style={bottom}>
                                 <Closer onClick={closer} />
                             </div>
@@ -199,7 +201,7 @@ function Live(props) {
                     <p style={error}>{message}</p>
                 </div>
             )}
-        </div>
+        </section>
     )
 }
 

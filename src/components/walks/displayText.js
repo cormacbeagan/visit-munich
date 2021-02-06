@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { useRef } from 'react'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { connect } from 'react-redux'

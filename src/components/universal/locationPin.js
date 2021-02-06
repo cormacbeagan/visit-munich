@@ -18,6 +18,10 @@ const LocationPin = props => {
         setPinSize(zoom * 2.2)
     }, [zoom])
 
+    const handleKeyDown = e => {
+        if (e.keyCode === 13) handleInfo(id)
+    }
+
     const pin = {
         position: 'relative',
         height: pinSize + 'px',
@@ -46,14 +50,20 @@ const LocationPin = props => {
 
     return (
         <div
-            id='locationPin'
+            aria-label={`location pin for ${text}`}
+            tabIndex='0'
+            id={`locationPin-${text}`}
             style={hover ? hoverPin : pin}
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
+            onFocus={toggleHover}
+            onBlur={toggleHover}
+            onKeyDown={handleKeyDown}
         >
             <GiMineralHeart
                 onTouchEnd={handleClick}
                 onClick={handleClick}
+                onKeyPress={handleClick}
                 style={pinIcon}
             />
         </div>

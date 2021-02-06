@@ -11,6 +11,10 @@ const initialState = {
     password: '',
 }
 
+//todo add a reset password button/email
+//https://firebase.google.com/docs/auth/web/manage-users
+//* try test and think about adding a click back link
+
 function SignIn(props) {
     const { signIn, authError, auth } = props
     const [formData, setFormData] = useState(initialState)
