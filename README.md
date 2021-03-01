@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# Welcome
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a project which I have been building on the road to becoming a web developer.
 
-## Available Scripts
+It is primarily designed for people planning a trip to Munich and is designed to offer tips for sites and tours as well as long range forecasts and a concert search.
 
-In the project directory, you can run:
+It is built using create-react-app, react-redux and firebase.
 
-### `npm start`
+If you are interested please feel free to fork the repo and play around.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If you have any questions please do not hesitate to contact me cor@macbeagan.me
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Setup
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+Use
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+to run local dev.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Firebase
 
-### `npm run eject`
+You will need to get credentials from Firebase and add them to a .env file in the root directory.
+Then you can run
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+firebase login
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+and
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+firebase init
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To get firebase up and running.
 
-## Learn More
+## Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run build
+```
 
-### Code Splitting
+to generate the build files in the `/build/` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Run
 
-### Analyzing the Bundle Size
+```bash
+firebase deploy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+to push to production contents from `/build/`
 
-### Making a Progressive Web App
+### Resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The app is designed to use the following:
+`Firebase Firestore` - for storing map entries and front page info boxes.
+`Firebase Storage` - for storing images
+`Firebase Hosting` - for hosting the site
+`Songkick API` - for accessing concert data, it is free for students but you need to email and request an API key, they were very friendly and forthcoming [(details)](https://www.songkick.com/developer)
+`Visual Crossing API` - for accessing long range weather statistics. You can sign up for an API key on their [website](https://www.visualcrossing.com/weather-api), the free tier gives you 1000 hits per day.
 
-### Advanced Configuration
+### Credits
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The Date picker based on the work of [Rinas Musthafa](https://medium.com/swlh/build-a-date-picker-in-15mins-using-javascript-react-from-scratch-f6932c77db09) - note that there are accessibility issues with my design.
 
-### Deployment
+The dimension setter based on the work of `Lead Developer` [(StackOverflow)](https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Licence
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT © P. Cormac Beagan
