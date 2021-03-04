@@ -17,8 +17,7 @@ function SignUp(props) {
   const { auth, signUp, authError } = props;
   const [formData, setFormData] = useState(initialState);
 
-  // take the ! away when signup goes public
-  if (!auth.uid) return <Redirect to="/" />;
+  if (auth.uid) return <Redirect to="/" />;
 
   const handleChange = (id, value) => {
     setFormData(prev => ({ ...prev, [id]: value }));
