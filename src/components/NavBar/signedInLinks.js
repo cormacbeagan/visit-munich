@@ -3,11 +3,19 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
+const myId = process.env.REACT_APP_MY_ID;
 
 function SignedInLinks(props) {
-  const { profile, signOut, mobile, menuOpen } = props;
+  const { profile, signOut, mobile, menuOpen, auth } = props;
   const [dropNav, setDropNav] = useState(false);
   const droper = useRef();
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(() => {
+    if (auth.uid === myId) {
+      setHasAccess(true);
+    }
+  }, [auth]);
 
   useEffect(() => {
     const handleDropClick = e => {
@@ -31,13 +39,15 @@ function SignedInLinks(props) {
           aria-hidden={menuOpen ? false : true}
           style={menuOpen ? mobileNavBar : { display: 'none' }}
         >
-          <Link
-            style={linkMob}
-            to="/createblog"
-            aria-hidden={menuOpen ? false : true}
-          >
-            Create Blog
-          </Link>
+          {hasAccess && (
+            <Link
+              style={linkMob}
+              to="/createblog"
+              aria-hidden={menuOpen ? false : true}
+            >
+              Create Blog
+            </Link>
+          )}
           <Link
             style={linkMob}
             to="/createtip"
@@ -59,13 +69,6 @@ function SignedInLinks(props) {
             aria-hidden={menuOpen ? false : true}
           >
             Logout
-          </Link>
-          <Link
-            style={linkMob}
-            to="/signup"
-            aria-hidden={menuOpen ? false : true}
-          >
-            Sign Up
           </Link>
         </div>
       )}
@@ -91,9 +94,6 @@ function SignedInLinks(props) {
           <Link onClick={signOut} style={link} to="/">
             Logout
           </Link>
-          <Link style={link} to="/signup">
-            Sign Up
-          </Link>
           <Link style={linkIn} to="/">
             {profile.initials}
           </Link>
@@ -109,13 +109,19 @@ SignedInLinks.propTypes = {
   signOut: PropTypes.func,
 };
 
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignedInLinks);
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);
 
 const navbar = {
   display: 'flex',

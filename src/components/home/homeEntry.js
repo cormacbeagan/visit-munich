@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { connect } from 'react-redux';
 import { FiExternalLink } from 'react-icons/fi';
 import Loading from '../universal/loading';
+const myId = process.env.REACT_APP_MY_ID;
 
 function HomeEntry(props) {
   const { data, auth, url, handleEditMode } = props;
   const history = useHistory();
   const link = useRef();
   let button = null;
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(() => {
+    if (auth.uid === myId || auth.uid === data.authorId) {
+      setHasAccess(true);
+    }
+  }, [data, auth]);
+
   if (data.id) {
     if (data.link) {
       const check = data.link.includes('http');
@@ -66,7 +75,7 @@ function HomeEntry(props) {
           </div>
           <div style={divBottom}>
             {button}
-            {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
+            {hasAccess && <Button onClick={handleEdit} children={'Edit'} />}
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ import WallDisplay from './wallDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
-
+const myId = process.env.REACT_APP_MY_ID;
 let idToPass;
 
 function WallDetails(props) {
@@ -38,6 +38,8 @@ function WallDetails(props) {
   }, [project]);
 
   if (!auth.uid) return <Redirect to="/signin" />;
+  if (!(auth.uid === myId || auth.uid === project?.authorId))
+    return <Redirect to="/walks" />;
 
   const handleEdit = () => {
     setIsEditing(!isEditing);

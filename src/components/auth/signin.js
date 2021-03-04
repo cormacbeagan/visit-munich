@@ -11,18 +11,6 @@ const initialState = {
   password: '',
 };
 
-//todo create roles so that there is an admin and users
-// https://firebase.google.com/docs/auth/admin/custom-claims#access_custom_claims_on_the_client
-//* admin can access everything
-//* user can access pieces that they have uploaded
-//* problems - can the user add photos to another persons entry?
-//* how do you deal with the overcrowding problem ?
-//* then add a role check on each component to check for access
-//* before displaying an edit button as well as each edit page
-
-//* maybe just add a check for a specific user (me) for the home page
-//* then check on each checkpoint to see if its me or if the current user has created the particular entry
-
 function SignIn(props) {
   const { signIn, authError, auth, authMsg, resetPassword } = props;
   const [formData, setFormData] = useState(initialState);

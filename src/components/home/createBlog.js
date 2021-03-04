@@ -6,6 +6,7 @@ import { createBlog } from '../../store/actions/blogActions';
 import Button from '../universal/button';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
+const myId = process.env.REACT_APP_MY_ID;
 
 const initialState = {
   name: '',
@@ -20,7 +21,7 @@ function CreateBlog(props) {
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
 
-  if (!auth.uid) return <Redirect to="/signin" />;
+  if (auth.uid !== myId) return <Redirect to="/signin" />;
 
   const handleChange = (id, value) => {
     setFormData(prev => ({ ...prev, [id]: value }));

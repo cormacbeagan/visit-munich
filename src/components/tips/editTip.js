@@ -18,6 +18,7 @@ import TipDisplay from './tipDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
+const myId = process.env.REACT_APP_MY_ID;
 
 let idToPass;
 
@@ -35,8 +36,9 @@ function EditTip(props) {
       setFormData(tip);
     }
   }, [tip]);
-
   if (!auth.uid) return <Redirect to="/signin" />;
+  if (!(auth.uid === myId || auth.uid === tip?.authorId))
+    return <Redirect to="/tips" />;
 
   const handleEdit = () => {
     setIsEditing(!isEditing);

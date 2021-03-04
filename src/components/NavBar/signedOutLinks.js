@@ -13,6 +13,9 @@ function SignedOutLinks(props) {
       >
         Sign In
       </Link>
+      <Link style={link} to="/signup">
+        Sign Up
+      </Link>
     </div>
   );
 }
@@ -35,6 +38,7 @@ const mobileNavBar = {
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'right',
+  height: '100%',
 };
 
 const link = {

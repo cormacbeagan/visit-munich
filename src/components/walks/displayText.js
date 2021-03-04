@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -8,11 +8,19 @@ import Button from '../universal/button';
 import Loading from '../universal/loading';
 import { FiExternalLink } from 'react-icons/fi';
 dayjs.extend(advancedFormat);
+const myId = process.env.REACT_APP_MY_ID;
 
 function DisplayText(props) {
   const { data, auth, handleEditMode } = props;
   const history = useHistory();
   const link = useRef();
+  const [hasAccess, setHasAccess] = useState(false);
+
+  useEffect(() => {
+    if (auth.uid === myId || auth.uid === data.authorId) {
+      setHasAccess(true);
+    }
+  }, [data, auth]);
 
   const handleEdit = () => {
     if (history.location.pathname.includes('/wall/')) {
@@ -62,7 +70,7 @@ function DisplayText(props) {
           >
             google maps
           </a>
-          {auth.uid && <Button onClick={handleEdit} children={'Edit'} />}
+          {hasAccess && <Button onClick={handleEdit} children={'Edit'} />}
         </div>
       </div>
     );

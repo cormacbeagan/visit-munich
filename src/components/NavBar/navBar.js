@@ -13,11 +13,13 @@ function NavBar(props) {
   const [smallScreen, setSmallScreen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navBars = useRef();
+
   const links = auth.uid ? (
     <SignedInLinks mobile={smallScreen} menuOpen={menuOpen} profile={profile} />
   ) : (
     <SignedOutLinks mobile={smallScreen} menuOpen={menuOpen} />
   );
+
   const [width, height] = useDimensionSetter();
   useEffect(() => {
     if (width < 1060) {
@@ -69,10 +71,9 @@ function NavBar(props) {
   };
 
   const mobileLinks = {
-    width: width + 6 + 'px',
-    height: height + 'px',
+    minWidth: '220px',
+    height: 'auto',
     maxWidth: '270px',
-    maxHeight: auth.uid ? '702px' : '390px',
     overflow: 'auto',
     position: 'fixed',
     top: '80px',
