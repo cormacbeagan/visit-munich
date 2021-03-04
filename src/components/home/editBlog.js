@@ -15,6 +15,7 @@ import {
 import BlogDisplay from './blogDisplay';
 import TextArea from '../universal/textArea';
 import Loading from '../universal/loading';
+const myId = process.env.REACT_APP_MY_ID;
 
 let idToPass;
 
@@ -66,7 +67,7 @@ function EditBlog(props) {
     }
   }, [blogsArray]);
 
-  if (!auth.uid) return <Redirect to="/signin" />;
+  if (auth.uid !== myId) return <Redirect to="/signin" />;
 
   const handleEdit = () => {
     setIsEditing(!isEditing);

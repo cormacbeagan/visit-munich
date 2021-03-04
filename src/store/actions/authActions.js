@@ -51,3 +51,21 @@ export const signUp = newUser => {
       });
   };
 };
+
+export const resetPassword = email => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        dispatch({ type: 'RESET_SUCCESS' });
+        setTimeout(() => {
+          dispatch({ type: 'CLEAR_MSG' });
+        }, 10000);
+      })
+      .catch(err => {
+        dispatch({ type: 'RESET_ERROR', err });
+      });
+  };
+};

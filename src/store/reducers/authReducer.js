@@ -1,5 +1,6 @@
 const initState = {
   authError: null,
+  authMsg: '',
 };
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -29,6 +30,22 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authError: action.err.message,
+      };
+    case 'RESET_SUCCESS':
+      return {
+        ...state,
+        authMsg: 'Password reset - check your email',
+        authError: null,
+      };
+    case 'RESET_ERROR':
+      return {
+        ...state,
+        authError: action.err.message,
+      };
+    case 'CLEAR_MSG':
+      return {
+        ...state,
+        authMsg: null,
       };
     default:
       return state;
