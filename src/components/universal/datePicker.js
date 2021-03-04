@@ -31,9 +31,8 @@ function DatePicker(props) {
   };
 
   const handleBlur = e => {
-    // todo this needs to handle the backdrop close when focus moves
     setTimeout(() => {
-      // setShowDatePicker(false)
+      setShowDatePicker(false);
     }, 200);
   };
 
@@ -238,7 +237,6 @@ function DatePicker(props) {
       monthDetails: getMonthDetails(year, month),
     }));
   };
-  // todo change to table instead of divs
 
   const renderCalender = () => {
     let days = dateStamp.monthDetails.map((day, index) => {
@@ -338,3 +336,5 @@ DatePicker.propTypes = {
 };
 
 export default DatePicker;
+
+// Based on the work of Rinas Musthafa (https://medium.com/swlh/build-a-date-picker-in-15mins-using-javascript-react-from-scratch-f6932c77db09) - note that there are accessibility issues with my design.

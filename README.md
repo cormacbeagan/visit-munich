@@ -76,6 +76,8 @@ The Date picker based on the work of [Rinas Musthafa](https://medium.com/swlh/bu
 
 The dimension setter based on the work of `Lead Developer` [(StackOverflow)](https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react)
 
+The photo carousel based on Ryan Florence's React Conf Speech 2018 [repo](https://github.com/ryanflorence/react-conf-2018)
+
 ### Licence
 
 MIT © P. Cormac Beagan

@@ -1,14 +1,14 @@
-export const signIn = (credentials) => {
+export const signIn = credentials => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(() => {
-        dispatch({ type: "LOGIN_SUCCESS" });
+        dispatch({ type: 'LOGIN_SUCCESS' });
       })
-      .catch((err) => {
-        dispatch({ type: "LOGIN_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'LOGIN_ERROR', err });
       });
   };
 };
@@ -20,12 +20,12 @@ export const signOut = () => {
       .auth()
       .signOut()
       .then(() => {
-        dispatch({ type: "SIGNOUT_SUCCESS" });
+        dispatch({ type: 'SIGNOUT_SUCCESS' });
       });
   };
 };
 
-export const signUp = (newUser) => {
+export const signUp = newUser => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -33,9 +33,9 @@ export const signUp = (newUser) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
-      .then((resp) => {
+      .then(resp => {
         return firestore
-          .collection("users")
+          .collection('users')
           .doc(resp.user.uid)
           .set({
             firstName: newUser.firstName,
@@ -44,10 +44,10 @@ export const signUp = (newUser) => {
           });
       })
       .then(() => {
-        dispatch({ type: "SIGNUP_SUCCESS" });
+        dispatch({ type: 'SIGNUP_SUCCESS' });
       })
-      .catch((err) => {
-        dispatch({ type: "SIGNUP_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'SIGNUP_ERROR', err });
       });
   };
 };

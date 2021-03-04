@@ -1,18 +1,18 @@
-export const createBlog = (blog) => {
+export const createBlog = blog => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     const profile = getState().firebase.profile;
     const authorId = getState().firebase.auth.uid;
     firestore
-      .collection("blogs")
+      .collection('blogs')
       .get()
-      .then((snap) => {
+      .then(snap => {
         console.log(snap.size);
         return snap.size;
       })
-      .then((size) => {
+      .then(size => {
         firestore
-          .collection("blogs")
+          .collection('blogs')
           .add({
             ...blog,
             rank: size,
@@ -22,14 +22,14 @@ export const createBlog = (blog) => {
             createdAt: new Date(),
           })
           .then(() => {
-            dispatch({ type: "CREATE_BLOG", blog });
+            dispatch({ type: 'CREATE_BLOG', blog });
           })
-          .catch((err) => {
-            dispatch({ type: "CREATE_BLOG_ERROR", err });
+          .catch(err => {
+            dispatch({ type: 'CREATE_BLOG_ERROR', err });
           });
       })
-      .catch((err) => {
-        dispatch({ type: "CREATE_BLOG_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'CREATE_BLOG_ERROR', err });
       });
   };
 };
@@ -38,7 +38,7 @@ export const updateBlog = (blog, id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const authId = getState().firebase.auth.uid;
-    const projectToEdit = firestore.collection("blogs").doc(id);
+    const projectToEdit = firestore.collection('blogs').doc(id);
     projectToEdit
       .set(
         {
@@ -49,26 +49,26 @@ export const updateBlog = (blog, id) => {
         { merge: true }
       )
       .then(() => {
-        dispatch({ type: "BLOG_UPDATE_SUCCESS" });
+        dispatch({ type: 'BLOG_UPDATE_SUCCESS' });
       })
-      .catch((err) => {
-        dispatch({ type: "BLOG_UPDATE_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'BLOG_UPDATE_ERROR', err });
       });
   };
 };
 
-export const deleteBlog = (id) => {
+export const deleteBlog = id => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("blogs")
+      .collection('blogs')
       .doc(id)
       .delete()
       .then(() => {
-        dispatch({ type: "BLOG_DELETE_SUCCESS" });
+        dispatch({ type: 'BLOG_DELETE_SUCCESS' });
       })
-      .catch((err) => {
-        dispatch({ type: "BLOG_DELETE_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'BLOG_DELETE_ERROR', err });
       });
   };
 };
@@ -77,22 +77,22 @@ export const updateRanking = (ranking, id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("blogs")
+      .collection('blogs')
       .doc(id)
       .update({
         rank: ranking,
       })
-      .then((resp) => {
+      .then(resp => {
         return true;
       })
-      .catch((err) => {
+      .catch(err => {
         return false;
       })
       .then(() => {
-        dispatch({ type: "BLOG_RANKING_UPDATE_SUCCESS" });
+        dispatch({ type: 'BLOG_RANKING_UPDATE_SUCCESS' });
       })
-      .catch((err) => {
-        dispatch({ type: "BLOG_RANKING_UPDATE_ERROR", err });
+      .catch(err => {
+        dispatch({ type: 'BLOG_RANKING_UPDATE_ERROR', err });
       });
   };
 };

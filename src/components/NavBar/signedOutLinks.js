@@ -1,53 +1,53 @@
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function SignedOutLinks(props) {
-    const { mobile, menuOpen } = props
+  const { mobile, menuOpen } = props;
 
-    return (
-        <div style={mobile ? mobileNavBar : navbar}>
-            <Link
-                style={mobile ? linkMob : link}
-                to='/signin'
-                aria-hidden={mobile && menuOpen ? false : true}
-            >
-                Sign In
-            </Link>
-        </div>
-    )
+  return (
+    <div style={mobile ? mobileNavBar : navbar}>
+      <Link
+        style={mobile ? linkMob : link}
+        to="/signin"
+        aria-hidden={mobile && menuOpen ? false : true}
+      >
+        Sign In
+      </Link>
+    </div>
+  );
 }
 
 SignedOutLinks.propTypes = {
-    mobile: PropTypes.bool.isRequired,
-}
+  mobile: PropTypes.bool.isRequired,
+};
 
-export default SignedOutLinks
+export default SignedOutLinks;
 
 const navbar = {
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: '#333',
-}
+  display: 'flex',
+  flexDirection: 'row',
+  backgroundColor: '#333',
+};
 
 const mobileNavBar = {
-    width: '100%',
-    backgroundColor: '#333333',
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'right',
-}
+  width: '100%',
+  backgroundColor: '#333333',
+  display: 'flex',
+  flexDirection: 'column',
+  textAlign: 'right',
+};
 
 const link = {
-    color: '#e2e2e2',
-    textDecoration: 'none',
-    fontSize: '1.0em',
-    padding: '1em',
-}
+  color: '#e2e2e2',
+  textDecoration: 'none',
+  fontSize: '1.0em',
+  padding: '1em',
+};
 
 const linkMob = {
-    color: '#e2e2e2',
-    textDecoration: 'none',
-    fontSize: '1.0em',
-    padding: '1em',
-    borderBottom: '2px solid #63849a94',
-}
+  color: '#e2e2e2',
+  textDecoration: 'none',
+  fontSize: '1.0em',
+  padding: '1em',
+  borderBottom: '2px solid #63849a94',
+};
