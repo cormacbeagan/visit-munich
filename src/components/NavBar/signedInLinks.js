@@ -74,9 +74,9 @@ function SignedInLinks(props) {
       )}
       {!mobile && (
         <div style={navbar}>
-          <a href="/#" style={link} ref={droper} onClick={handleDrop}>
+          <button style={link} ref={droper} onClick={handleDrop}>
             Create
-          </a>
+          </button>
           <nav style={dropContainer} onClick={handleDrop}>
             <div style={dropNav ? createOpen : createClose}>
               <div style={pointer}></div>
