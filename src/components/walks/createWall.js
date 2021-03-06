@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { createProject } from '../../store/actions/projectActions';
 import Button from '../universal/button';
+import GetCoords from '../universal/GetCoords';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
 
@@ -24,6 +25,14 @@ function CreateWall(props) {
 
   const handleChange = (id, value) => {
     setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleCoords = coords => {
+    setFormData(prev => ({
+      ...prev,
+      lat: coords.lat.toString(),
+      lng: coords.lng.toString(),
+    }));
   };
 
   const handleSubmit = e => {
@@ -93,6 +102,7 @@ function CreateWall(props) {
             value={formData.lng}
             required={true}
           />
+          <GetCoords passCoords={handleCoords} />
         </div>
         <div>
           <Button children={'create'} />

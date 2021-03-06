@@ -21,6 +21,7 @@ function Map(props) {
     mapStyle,
     color,
     switched,
+    getCoords,
   } = props;
   const [width, height] = useDimensionSetter();
   const [zoom, setZoom] = useState();
@@ -70,8 +71,9 @@ function Map(props) {
             styles: styles,
             fullscreenControl: false,
           }}
+          onClick={getCoords}
         >
-          {projects.map(item => {
+          {projects?.map(item => {
             if (item.id === null) {
               item.id = uniqid();
             }

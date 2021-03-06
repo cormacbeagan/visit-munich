@@ -18,6 +18,7 @@ import TipDisplay from './tipDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
+import GetCoords from '../universal/GetCoords';
 const myId = process.env.REACT_APP_MY_ID;
 
 let idToPass;

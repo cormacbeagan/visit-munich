@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { createTip } from '../../store/actions/tipActions.js';
 import Button from '../universal/button';
+import GetCoords from '../universal/GetCoords.js';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
 
@@ -22,11 +23,18 @@ function CreateTip(props) {
   const { createTip, auth } = props;
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
-
   if (!auth.uid) return <Redirect to="/signin" />;
 
   const handleChange = (id, value) => {
     setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleCoords = coords => {
+    setFormData(prev => ({
+      ...prev,
+      lat: coords.lat.toString(),
+      lng: coords.lng.toString(),
+    }));
   };
 
   const handleSubmit = e => {
@@ -58,7 +66,7 @@ function CreateTip(props) {
       return false;
     }
   };
-
+  console.log(formData);
   return (
     <div>
       <form onSubmit={handleSubmit} style={createDiv}>
@@ -117,6 +125,7 @@ function CreateTip(props) {
             value={formData.lng}
             required={true}
           />
+          <GetCoords passCoords={handleCoords} />
         </div>
         <div>
           <Button children={'create'} />

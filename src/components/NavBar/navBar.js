@@ -29,17 +29,18 @@ function NavBar(props) {
     }
   }, [width]);
 
-  const handleMenuOpen = e => {
-    if (!smallScreen) return;
-    if (!navBars.current.contains(e.target)) setMenuOpen(false);
-  };
-
   useEffect(() => {
+    const bars = navBars.current;
+    const handleMenuOpen = e => {
+      if (!smallScreen) return;
+      if (!bars.contains(e.target)) setMenuOpen(false);
+    };
+
     document.addEventListener('click', handleMenuOpen);
     return () => {
       document.removeEventListener('click', handleMenuOpen);
     };
-  });
+  }, []);
 
   const mobileNavStyle = {
     width: width,
