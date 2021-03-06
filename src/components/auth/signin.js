@@ -76,7 +76,7 @@ function SignIn(props) {
           {resetting && (
             <Button
               type="button"
-              children={'Cancel'}
+              children={'Back'}
               onClick={() => {
                 setFormData(initialState);
                 setResetting(false);
