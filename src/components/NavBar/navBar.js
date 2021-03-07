@@ -121,10 +121,7 @@ function NavBar(props) {
               <div
                 style={
                   menuOpen
-                    ? {
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }
+                    ? { display: 'flex', flexDirection: 'column' }
                     : { display: 'none' }
                 }
               >

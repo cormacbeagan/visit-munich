@@ -31,9 +31,9 @@ function DatePicker(props) {
   };
 
   const handleBlur = e => {
-    setTimeout(() => {
-      setShowDatePicker(false);
-    }, 200);
+    // setTimeout(() => {
+    //   setShowDatePicker(false);
+    // }, 200);
   };
 
   useEffect(() => {
@@ -276,7 +276,8 @@ function DatePicker(props) {
     <div
       className="MyDatePicker"
       ref={div}
-      onFocus={() => setShowDatePicker(true)}
+      onClick={() => setShowDatePicker(true)}
+      // onFocus={() => setShowDatePicker(true)}
       onBlur={handleBlur}
     >
       <div className="mdp-input">

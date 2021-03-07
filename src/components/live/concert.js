@@ -36,18 +36,18 @@ function Concert(props) {
   };
 
   return (
-    <div style={containerStyle}>
-      <h3 style={{ ...lowlight, ...noMargin }}>
+    <article style={containerStyle}>
+      <h2 style={{ ...lowlight, ...noMargin }}>
         {dayjs(data.start.dateTime || data.start.date).format(
           'ddd Do MMM YYYY'
         )}
-      </h3>
-      <h2 style={lowlight}>
+      </h2>
+      <h3 style={lowlight}>
         Name:{' '}
         <span style={highlight}>
           {data.displayName.replace(/ *\([^)]*\) */g, '')}
         </span>
-      </h2>
+      </h3>
       <p style={{ ...noMargin, ...lowlight }}>
         Venue: <span style={highlight}>{data.venue.displayName}</span>
       </p>
@@ -131,7 +131,7 @@ function Concert(props) {
         </div>
         <Button onClick={handleBack} children={'Back'} />
       </div>
-    </div>
+    </article>
   );
 }
 
