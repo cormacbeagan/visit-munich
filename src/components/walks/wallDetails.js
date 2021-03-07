@@ -18,6 +18,7 @@ import WallDisplay from './wallDisplay';
 import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
+import GetCoords from '../universal/GetCoords';
 const myId = process.env.REACT_APP_MY_ID;
 let idToPass;
 
@@ -37,6 +38,7 @@ function WallDetails(props) {
     }
   }, [project]);
 
+  if (!project) return <Loading />;
   if (!auth.uid) return <Redirect to="/signin" />;
   if (!(auth.uid === myId || auth.uid === project?.authorId))
     return <Redirect to="/walks" />;
@@ -54,6 +56,14 @@ function WallDetails(props) {
 
   const handleChange = (id, value) => {
     setWallData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleCoords = coords => {
+    setWallData(prev => ({
+      ...prev,
+      lat: coords.lat.toString(),
+      lng: coords.lng.toString(),
+    }));
   };
 
   const handleReady = e => {
@@ -149,6 +159,7 @@ function WallDetails(props) {
                 value={wallData.lng}
                 onChange={handleChange}
               />
+              <GetCoords passCoords={handleCoords} />
             </div>
             <div style={column}>
               <div>
@@ -161,7 +172,7 @@ function WallDetails(props) {
                       key={img}
                       style={{
                         position: 'relative',
-                        zIndex: '1',
+                        zIndex: '0',
                       }}
                     >
                       <Thumbnail src={img} />

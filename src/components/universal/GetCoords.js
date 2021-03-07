@@ -10,7 +10,6 @@ export default function GetCoords({ passCoords }) {
   const [coords, setCoords] = useState(initState);
 
   const handleCoords = e => {
-    console.log(e);
     setCoords({ lat: e.lat, lng: e.lng, set: true, id: 1 });
   };
 

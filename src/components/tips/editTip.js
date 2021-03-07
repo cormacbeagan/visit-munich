@@ -37,6 +37,7 @@ function EditTip(props) {
       setFormData(tip);
     }
   }, [tip]);
+  if (!tip) return <Loading />;
   if (!auth.uid) return <Redirect to="/signin" />;
   if (!(auth.uid === myId || auth.uid === tip?.authorId))
     return <Redirect to="/tips" />;
@@ -66,6 +67,14 @@ function EditTip(props) {
     }
     setFormData(prev => ({ ...prev, ...obj }));
     uploadUpdate({ ...formData, ...obj });
+  };
+
+  const handleCoords = coords => {
+    setFormData(prev => ({
+      ...prev,
+      lat: coords.lat.toString(),
+      lng: coords.lng.toString(),
+    }));
   };
 
   const uploadUpdate = obj => {
@@ -177,6 +186,7 @@ function EditTip(props) {
                 value={formData.lng}
                 required={true}
               />
+              <GetCoords passCoords={handleCoords} />
             </div>
             <div style={column}>
               <Thumbnail src={editImage} />
@@ -187,7 +197,7 @@ function EditTip(props) {
                       key={img}
                       style={{
                         position: 'relative',
-                        zIndex: '1',
+                        zIndex: '0',
                       }}
                     >
                       <Thumbnail src={img} />

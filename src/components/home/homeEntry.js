@@ -12,13 +12,6 @@ function HomeEntry(props) {
   const history = useHistory();
   const link = useRef();
   let button = null;
-  const [hasAccess, setHasAccess] = useState(false);
-
-  useEffect(() => {
-    if (auth.uid === myId || auth.uid === data.authorId) {
-      setHasAccess(true);
-    }
-  }, [data, auth]);
 
   if (data.id) {
     if (data.link) {
@@ -75,7 +68,9 @@ function HomeEntry(props) {
           </div>
           <div style={divBottom}>
             {button}
-            {hasAccess && <Button onClick={handleEdit} children={'Edit'} />}
+            {(auth.uid === myId || auth.uid === data.authorId) && (
+              <Button onClick={handleEdit} children={'Edit'} />
+            )}
           </div>
         </div>
       </div>

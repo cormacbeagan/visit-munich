@@ -5,6 +5,7 @@ import {
   TiWeatherSunny,
   TiWeatherShower,
   TiWeatherSnow,
+  TiWeatherWindy,
 } from 'react-icons/ti';
 
 function WeatherIcon({ icon }) {
@@ -24,6 +25,9 @@ function WeatherIcon({ icon }) {
       break;
     case 'snow':
       symbol = <TiWeatherSnow style={iconStyle} />;
+      break;
+    case 'wind':
+      symbol = <TiWeatherWindy style={iconStyle} />;
       break;
     default:
       symbol = <p>Cloudy with a chance of ERRORS</p>;

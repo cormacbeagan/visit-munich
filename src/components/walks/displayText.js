@@ -14,13 +14,6 @@ function DisplayText(props) {
   const { data, auth, handleEditMode } = props;
   const history = useHistory();
   const link = useRef();
-  const [hasAccess, setHasAccess] = useState(false);
-
-  useEffect(() => {
-    if (auth.uid === myId || auth.uid === data.authorId) {
-      setHasAccess(true);
-    }
-  }, [data, auth]);
 
   const handleEdit = () => {
     if (history.location.pathname.includes('/wall/')) {
@@ -70,7 +63,9 @@ function DisplayText(props) {
           >
             google maps
           </a>
-          {hasAccess && <Button onClick={handleEdit} children={'Edit'} />}
+          {(auth.uid === myId || auth.uid === data.authorId) && (
+            <Button onClick={handleEdit} children={'Edit'} />
+          )}
         </div>
       </div>
     );
