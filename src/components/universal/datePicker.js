@@ -274,7 +274,6 @@ function DatePicker(props) {
   /* jsx display */
   return (
     <div
-      tabIndex="0"
       className="MyDatePicker"
       ref={div}
       onFocus={() => setShowDatePicker(true)}

@@ -15,6 +15,7 @@ function Slide(props) {
       aria-labelledby={label}
       src={image}
       onClick={click}
+      tabIndex={isCurrent ? '0' : '-1'}
     />
   );
 }
@@ -81,7 +82,7 @@ function Carousel(props) {
   return (
     <div className="carousel-container" style={display}>
       <div className="closer" onClick={handleCloser}>
-        <Closer />
+        <Closer onClick={handleCloser} />
       </div>
       <div ref={ref} className="">
         {imageArray.map(item => {
@@ -96,7 +97,6 @@ function Carousel(props) {
           );
         })}
       </div>
-      <Closer />
       <Controls>
         {isPlaying ? (
           <ControlButton

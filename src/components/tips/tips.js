@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Map from '../universal/map';
 import { location, mapStyleLight } from '../universal/mapData';
 import { connect } from 'react-redux';
@@ -15,12 +15,14 @@ function Tips(props) {
   const [displayData, setDisplayData] = useState({});
   const [slideIn, setSlideIn] = useState('-350px');
   const [mapState, setMapState] = useState(mapStyleLight);
+  const boxes = useRef();
 
   const handleInfo = id => {
     if (id) {
       const data = tips.find(project => project.id === id);
       setDisplayData(data);
       setSlideIn('0px');
+      boxes.current.focus();
     }
   };
 
@@ -63,7 +65,9 @@ function Tips(props) {
         />
       </div>
       <div style={infoBoxes}>
-        <Closer onClick={handleSlideOut} />
+        <div ref={boxes} tabIndex="0">
+          <Closer onClick={handleSlideOut} />
+        </div>
         <BoxWrapper>
           <DisplayImage data={displayData} />
         </BoxWrapper>

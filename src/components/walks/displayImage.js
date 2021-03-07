@@ -24,7 +24,7 @@ function DisplayImage({ data }) {
           display={display}
         />
       </div>
-      <div onClick={handleModal} style={imageDiv}>
+      <button onClick={handleModal} style={imageDiv}>
         <img
           onMouseEnter={() => setHover(!hover)}
           onMouseLeave={() => setHover(!hover)}
@@ -32,7 +32,7 @@ function DisplayImage({ data }) {
           src={data.image}
           alt="Wall Thumbnail"
         />
-      </div>
+      </button>
     </div>
   );
 }

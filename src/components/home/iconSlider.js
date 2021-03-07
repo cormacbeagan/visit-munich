@@ -58,6 +58,7 @@ function IconSlider({ data }) {
               <p style={pStyle}>{item.performance[0].artist.displayName}</p>
               <p style={venueStyle}>{item.venue.displayName}</p>
             </div>
+
             <a href={item.uri} target="_blank" rel="noreferrer">
               <img
                 src="/images/sk-badge-pink.png"
@@ -73,11 +74,15 @@ function IconSlider({ data }) {
   }, [data]);
 
   return (
-    <div style={column}>
+    <ul style={column}>
       {dataArray.map(icon => {
-        return <div key={uniqid()}>{icon}</div>;
+        return (
+          <li tabIndex="0" key={uniqid()}>
+            {icon}
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 }
 
@@ -96,6 +101,7 @@ const iconStyle = {
 const column = {
   display: 'flex',
   flexDirection: 'column',
+  padding: '0',
 };
 
 const row = {
