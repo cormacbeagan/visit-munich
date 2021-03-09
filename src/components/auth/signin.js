@@ -121,8 +121,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 const formStyle = {
   margin: '150px auto',
   maxWidth: '600px',
-  background: '#333',
+  background: 'var(--offWhite)',
   padding: '20px',
+  borderRadius: '5px',
 };
 
 const heading = {

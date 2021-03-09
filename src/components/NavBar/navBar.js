@@ -30,17 +30,16 @@ function NavBar(props) {
   }, [width]);
 
   useEffect(() => {
+    if (!smallScreen) return;
     const bars = navBars.current;
     const handleMenuOpen = e => {
-      if (!smallScreen) return;
       if (!bars.contains(e.target)) setMenuOpen(false);
     };
-
     document.addEventListener('click', handleMenuOpen);
     return () => {
       document.removeEventListener('click', handleMenuOpen);
     };
-  }, []);
+  }, [smallScreen]);
 
   const mobileNavStyle = {
     width: width,
@@ -75,7 +74,7 @@ function NavBar(props) {
     minWidth: '220px',
     height: 'auto',
     maxWidth: '270px',
-    overflow: 'auto',
+    overflowY: 'auto',
     position: 'fixed',
     top: '80px',
     right: '0px',

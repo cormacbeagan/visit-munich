@@ -13,9 +13,10 @@ const myId = process.env.REACT_APP_MY_ID;
 
 const TextDiv = styled.div`
   margin: 10px;
-  color: #cecbcb;
+  color: var(--white);
   h3 {
-    color: #243443;
+    font-size: 24px;
+    color: var(--lightPink);
   }
 `;
 
@@ -25,7 +26,7 @@ const TimeDiv = styled.div`
   right: 2rem;
   p {
     margin: 0;
-    color: #243443;
+    color: var(--lightPink);
   }
   span {
     color: #cecbcb;

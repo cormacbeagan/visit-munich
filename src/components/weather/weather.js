@@ -84,7 +84,6 @@ Weather.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     weather: state.weather.type ? false : state.weather.weather,
     dates: state.dates,

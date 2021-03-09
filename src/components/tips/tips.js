@@ -9,11 +9,19 @@ import Closer from '../universal/closer';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from '../walks/displayImage';
 import HomeEntry from '../home/homeEntry';
+import styled from 'styled-components';
+import InfoBoxStyles from '../Styles/InfoBoxStyles';
+
+const TipsContainer = styled.section`
+  height: 100%;
+  max-height: 1000px;
+  width: 32rem;
+`;
 
 function Tips(props) {
   const { tips } = props;
   const [displayData, setDisplayData] = useState({});
-  const [slideIn, setSlideIn] = useState('-350px');
+  const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleLight);
   const boxes = useRef();
 
@@ -21,13 +29,15 @@ function Tips(props) {
     if (id) {
       const data = tips.find(project => project.id === id);
       setDisplayData(data);
-      setSlideIn('0px');
+      setTimeout(() => {
+        setSlideIn(true);
+      });
       boxes.current.focus();
     }
   };
 
   const handleSlideOut = () => {
-    setSlideIn('-350px');
+    setSlideIn(false);
   };
 
   useEffect(() => {
@@ -39,20 +49,24 @@ function Tips(props) {
     }
   }, []);
 
-  const infoBoxes = {
-    left: slideIn,
-    top: '80px',
-    position: 'absolute',
-    zIndex: '80',
-    width: '320px',
-    display: 'block',
-    transitionProperty: 'left',
-    transitionDuration: '400ms',
-    transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
-  };
+  useEffect(() => {
+    const infoBoxes = boxes.current;
+    const handleSlideout = e => {
+      if (!slideIn) {
+        return;
+      }
+      if (!infoBoxes.contains(e.target) && e.target) {
+        setSlideIn(false);
+      }
+    };
+    document.addEventListener('click', handleSlideout);
+    return () => {
+      document.removeEventListener('click', handleSlideout);
+    };
+  }, [slideIn]);
 
   return (
-    <section style={container}>
+    <TipsContainer>
       <div>
         <Map
           handleInfo={handleInfo}
@@ -64,8 +78,8 @@ function Tips(props) {
           switched={false}
         />
       </div>
-      <div style={infoBoxes}>
-        <div ref={boxes} tabIndex="0">
+      <InfoBoxStyles slideIn={slideIn} ref={boxes} tabIndex="0">
+        <div>
           <Closer onClick={handleSlideOut} />
         </div>
         <BoxWrapper>
@@ -74,8 +88,8 @@ function Tips(props) {
         <BoxWrapper>
           <HomeEntry type={'text'} data={displayData} url={'/tips'} />
         </BoxWrapper>
-      </div>
-    </section>
+      </InfoBoxStyles>
+    </TipsContainer>
   );
 }
 
@@ -93,9 +107,3 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'tips' }])
 )(Tips);
-
-const container = {
-  height: '100%',
-  maxHeight: '1000px',
-  width: '320px',
-};

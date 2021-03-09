@@ -62,6 +62,9 @@ function SignedInLinks(props) {
           >
             Create Wall
           </Link>
+          <Link style={linkMob} to={`/profile/${auth.uid}`}>
+            Profile
+          </Link>
           <Link
             onClick={signOut}
             style={linkMob}

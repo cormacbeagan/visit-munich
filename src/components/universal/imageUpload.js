@@ -88,6 +88,7 @@ const divStyle = {
 };
 
 const heading = {
+  fontSize: '18px',
   margin: '10px 0px',
 };
 

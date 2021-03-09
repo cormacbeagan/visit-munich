@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const InputDiv = styled.div`
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -13,22 +15,25 @@ const InputLabel = styled.label`
   margin-left: 5px;
   margin-bottom: -36px;
   z-index: 1;
-  color: #dfbaaa;
+  color: var(--middleBlue);
   font-size: 2rem;
 `;
 
 const InputStyle = styled.input`
-  width: 90%;
-  margin: 5px;
+  width: 100%;
+  margin: 5px auto;
   margin-top: ${props => props.marg}px;
   outline: none;
   line-height: 36px;
   font-size: 24px;
-  color: #e8e8e8;
+  color: var(--darkBlue);
   background-color: inherit;
   border: none;
-  border-bottom: 2px solid #787879;
+  border-bottom: 2px solid var(--lightBlue);
   transition: all 400ms ease;
+  &:focus {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.678) !important;
+  }
 `;
 
 function Input(props) {

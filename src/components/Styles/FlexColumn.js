@@ -11,6 +11,13 @@ const FlexColumn = styled.div`
   justify-content: center;
   box-shadow: 0 100px 80px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  &.editing {
+    background: var(--offWhite);
+  }
+  @media only screen and (max-width: 480px) {
+    padding: 2rem 1rem;
+    margin: 5rem 1rem;
+  }
 `;
 
 export default FlexColumn;

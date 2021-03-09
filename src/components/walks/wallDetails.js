@@ -31,7 +31,8 @@ const ContainerStyles = styled.div`
   width: 88%;
   max-width: 100rem;
   padding: 5%;
-  background: #333333;
+  background: var(--darkBrown);
+  border-radius: 5px;
   color: #f3f3f3;
   box-shadow: 0 10rem 8rem rgba(0, 0, 0, 0.3);
   @media only screen and (max-width: 380px) {
@@ -47,6 +48,9 @@ const TopBtns = styled.div`
   flex-wrap: wrap;
   justify-content: flex-end;
   margin-bottom: 1rem;
+  @media only screen and (max-width: 480px) {
+    justify-content: center;
+  }
 `;
 
 const BottomBtns = styled.div`
@@ -64,6 +68,10 @@ const ImageBtn = styled.button`
   margin-left: 1rem;
   display: block;
   color: white;
+`;
+
+const ThumbDiv = styled.div`
+  margin: 1rem auto;
 `;
 
 function WallDetails(props) {
@@ -170,7 +178,7 @@ function WallDetails(props) {
         </TopBtns>
         {isEditing ? (
           <div>
-            <FlexRow>
+            <FlexRow className="editing">
               <Input
                 type={'text'}
                 id={'name'}
@@ -179,7 +187,7 @@ function WallDetails(props) {
                 onChange={handleChange}
               />
             </FlexRow>
-            <FlexRow>
+            <FlexRow className="editing">
               <TextArea
                 type={'textarea'}
                 id={'description'}
@@ -188,7 +196,7 @@ function WallDetails(props) {
                 onChange={handleChange}
               />
             </FlexRow>
-            <FlexRow>
+            <FlexRow className="editing">
               <Input
                 type={'text'}
                 id={'lat'}
@@ -208,10 +216,10 @@ function WallDetails(props) {
                 oldCoords={{ lat: wallData.lat, lng: wallData.lng }}
               />
             </FlexRow>
-            <FlexColumn>
-              <div>
+            <FlexColumn className="editing">
+              <ThumbDiv>
                 <Thumbnail src={editImage} />
-              </div>
+              </ThumbDiv>
               <ImgCont>
                 {project.images.map(img => {
                   return (

@@ -1,12 +1,15 @@
 html {
   margin: 0;
   font-size: 62.5%;
-  --darkBrown: #333333;
-  --lightBrown: #616161;
+  --darkBrown: rgb(51, 51, 51);
+  --middleBrown: rgb(70, 70, 70);
+  --lightBrown: rgb(97, 97, 97);
+  --paleBrown: rgb(147, 147, 147);
   --darkBlue: rgb(36, 52, 67);
   --middleBlue: rgb(57, 95, 120);
-  --lightBlue: rgba(81, 115, 138, 0.92);
-  --offWhite: rgb(226, 226, 226);
+  --lightBlue: rgba(68, 108, 134, 0.918);
+  --white: rgb(255, 255, 255);
+  --offWhite: rgb(215, 215, 215);
   --beige: rgb(201, 195, 195);
   --lightPink: rgb(223, 186, 170);
   --bigBs: 0 10rem 8rem rgba(0, 0, 0, 0.3);
@@ -14,10 +17,11 @@ html {
 }
 
 body {
-  background-color: #c9c3c3;
+  background-color: #214660;
   scrollbar-width: thin;
   scrollbar-color: #395f78 #333333;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 body::-webkit-scrollbar {
@@ -42,6 +46,7 @@ body::-webkit-scrollbar-thumb {
 .app-content {
   margin: 0px;
   margin-top: 80px;
+  width: 100%;
 }
 
 p {
@@ -63,32 +68,6 @@ ul li {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-textarea {
-  scrollbar-width: thin;
-  scrollbar-color: #395f78 #333333;
-}
-
-textarea::-webkit-scrollbar {
-  width: 11px;
-}
-
-textarea::-webkit-scrollbar-track {
-  background: #333333;
-}
-
-textarea::-webkit-scrollbar-thumb {
-  background-color: #395f78;
-  border-radius: 6px;
-  border: 3px solid #333333;
-}
-
-textarea::-webkit-resizer {
-  border: solid 20px;
-  border-color: transparent #787879 #787879 transparent;
-  transform: rotate(45deg);
-  background: #333;
 }
 
 select {

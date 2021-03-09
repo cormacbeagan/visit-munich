@@ -10,6 +10,7 @@ import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from './displayImage';
 import DisplayText from './displayText';
 import styled from 'styled-components';
+import InfoBoxStyles from '../Styles/InfoBoxStyles';
 
 const SectionStyle = styled.section`
   height: 100%;
@@ -20,7 +21,7 @@ const SectionStyle = styled.section`
 function Walks(props) {
   const { projects } = props;
   const [displayData, setDisplayData] = useState({});
-  const [slideIn, setSlideIn] = useState('-350px');
+  const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleDark);
   const boxes = useRef();
 
@@ -28,13 +29,15 @@ function Walks(props) {
     if (id) {
       const data = projects.find(project => project.id === id);
       setDisplayData(data);
-      setSlideIn('0px');
+      setTimeout(() => {
+        setSlideIn(true);
+      });
       boxes.current.focus();
     }
   };
 
   const handleSlideOut = () => {
-    setSlideIn('-350px');
+    setSlideIn(false);
   };
 
   useEffect(() => {
@@ -46,17 +49,21 @@ function Walks(props) {
     }
   }, []);
 
-  const infoBoxes = {
-    left: slideIn,
-    top: '80px',
-    position: 'absolute',
-    zIndex: '80',
-    width: '320px',
-    display: 'block',
-    transitionProperty: 'left',
-    transitionDuration: '400ms',
-    transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
-  };
+  useEffect(() => {
+    const infoBoxes = boxes.current;
+    const handleSlideout = e => {
+      if (!slideIn) {
+        return;
+      }
+      if (!infoBoxes.contains(e.target) && e.target) {
+        setSlideIn(false);
+      }
+    };
+    document.addEventListener('click', handleSlideout);
+    return () => {
+      document.removeEventListener('click', handleSlideout);
+    };
+  }, [slideIn]);
 
   return (
     <SectionStyle>
@@ -71,8 +78,8 @@ function Walks(props) {
           switched={true}
         />
       </div>
-      <div style={infoBoxes}>
-        <div ref={boxes} tabIndex="0">
+      <InfoBoxStyles slideIn={slideIn} ref={boxes} tabIndex="0">
+        <div>
           <Closer onClick={handleSlideOut} />
         </div>
         <BoxWrapper>
@@ -81,7 +88,7 @@ function Walks(props) {
         <BoxWrapper>
           <DisplayText data={displayData} />
         </BoxWrapper>
-      </div>
+      </InfoBoxStyles>
     </SectionStyle>
   );
 }
