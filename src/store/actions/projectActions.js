@@ -15,7 +15,7 @@ export const createProject = project => {
         createdAt: new Date(),
         images: [project.image],
       })
-      .then(() => {
+      .then(data => {
         dispatch({ type: 'CREATE_PROJECT', project });
       })
       .catch(err => {

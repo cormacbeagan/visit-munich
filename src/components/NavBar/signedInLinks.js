@@ -96,7 +96,7 @@ function SignedInLinks(props) {
           <Link onClick={signOut} style={link} to="/">
             Logout
           </Link>
-          <Link style={linkIn} to="/">
+          <Link style={linkIn} to={`/profile/${auth.uid}`}>
             {profile.initials}
           </Link>
         </div>

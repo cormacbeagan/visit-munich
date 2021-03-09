@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,7 +14,8 @@ const CreateForm = styled.form`
   max-width: 60rem;
   background: #333;
   padding: 2rem;
-  h2 {
+  h1 {
+    margin: 1rem 0;
     text-align: center;
     font-size: 24px;
     color: white;
@@ -81,7 +82,7 @@ function CreateWall(props) {
   return (
     <div>
       <CreateForm onSubmit={handleSubmit}>
-        <h2>Create Wall</h2>
+        <h1>Create Wall</h1>
         <div>
           <Input
             type={'text'}

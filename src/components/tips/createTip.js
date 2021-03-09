@@ -66,7 +66,6 @@ function CreateTip(props) {
       return false;
     }
   };
-  console.log(formData);
   return (
     <div>
       <form onSubmit={handleSubmit} style={createDiv}>

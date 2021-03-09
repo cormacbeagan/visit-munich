@@ -4,6 +4,7 @@ import Navbar from './components/NavBar/navBar';
 import Home from './components/home/home';
 import Loading from './components/universal/loading';
 import './styles/app.css';
+import Profile from './components/Profile/Profile';
 const Tips = React.lazy(() => import('./components/tips/tips'));
 const Walks = React.lazy(() => import('./components/walks/walks'));
 const Live = React.lazy(() => import('./components/live/live'));
@@ -38,6 +39,7 @@ function App() {
               <Route path="/editblog/:id" render={() => <EditBlog />} />
               <Route path="/createtip" render={() => <CreateTip />} />
               <Route path="/edittip/:id" render={() => <EditTip />} />
+              <Route path="/profile/:id" render={() => <Profile />} />
             </Suspense>
           </Switch>
         </main>

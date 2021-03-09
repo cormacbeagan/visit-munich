@@ -1,4 +1,5 @@
 const initState = {
+  newId: null,
   projects: [
     {
       id: 1,

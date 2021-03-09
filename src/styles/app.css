@@ -1,6 +1,16 @@
 html {
   margin: 0;
   font-size: 62.5%;
+  --darkBrown: #333333;
+  --lightBrown: #616161;
+  --darkBlue: rgb(36, 52, 67);
+  --middleBlue: rgb(57, 95, 120);
+  --lightBlue: rgba(81, 115, 138, 0.92);
+  --offWhite: rgb(226, 226, 226);
+  --beige: rgb(201, 195, 195);
+  --lightPink: rgb(223, 186, 170);
+  --bigBs: 0 10rem 8rem rgba(0, 0, 0, 0.3);
+  --smallBs: 0 1rem 3rem rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -36,10 +46,12 @@ body::-webkit-scrollbar-thumb {
 
 p {
   font-size: 18px;
+  margin: 0;
 }
 
 h2 {
   margin: 5px 0;
+  font-size: 2.4rem;
 }
 
 h3 {
