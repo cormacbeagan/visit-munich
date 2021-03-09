@@ -1,36 +1,60 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const InputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  max-width: 90rem;
+`;
+
+const InputLabel = styled.label`
+  margin-left: 5px;
+  margin-bottom: -36px;
+  z-index: 1;
+  color: #dfbaaa;
+  font-size: 2rem;
+`;
+
+const InputStyle = styled.input`
+  width: 90%;
+  margin: 5px;
+  margin-top: ${props => props.marg}px;
+  outline: none;
+  line-height: 36px;
+  font-size: 24px;
+  color: #e8e8e8;
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid #787879;
+  transition: all 400ms ease;
+`;
 
 function Input(props) {
   const { onChange, type, value, id, name, required } = props;
-  const input = useRef();
+  const [marg, setMarg] = useState(5);
 
   useEffect(() => {
-    if (value) input.current.style.marginTop = '36px';
-  }, []);
+    if (value) setMarg(36);
+  }, [value]);
 
   const handleChange = e => {
     onChange(id, e.target.value);
   };
 
   const handleFocus = e => {
-    const div = e.target;
-    div.style.marginTop = '36px';
+    setMarg(36);
   };
 
   return (
     <div>
-      <div style={divStyle}>
-        <label
-          style={labelStyle}
-          htmlFor={id}
-          onClick={() => input.current.focus()}
-        >
+      <InputDiv>
+        <InputLabel marg={marg} htmlFor={id}>
           {name}
-        </label>
-        <input
-          ref={input}
-          style={inputStyle}
+        </InputLabel>
+        <InputStyle
+          marg={marg}
           type={type}
           id={id}
           onChange={handleChange}
@@ -39,7 +63,7 @@ function Input(props) {
           required={required}
           autoComplete="off"
         />
-      </div>
+      </InputDiv>
     </div>
   );
 }
@@ -54,31 +78,3 @@ Input.propTypes = {
 };
 
 export default Input;
-
-const divStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '10px',
-  maxWidth: '900px',
-};
-
-const labelStyle = {
-  marginLeft: '5px',
-  marginBottom: '-36px',
-  zIndex: '1',
-  color: '#dfbaaa',
-  fontSize: '20px',
-};
-
-const inputStyle = {
-  margin: '5px',
-  outline: 'none',
-  lineHeight: '36px',
-  fontSize: '24px',
-  color: '#e8e8e8',
-  backgroundColor: 'inherit',
-  border: 'none',
-  borderBottom: '2px solid #787879',
-  transition: 'all 400ms ease',
-  width: '90%',
-};

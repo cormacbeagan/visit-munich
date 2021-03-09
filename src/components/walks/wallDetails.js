@@ -19,8 +19,52 @@ import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
 import GetCoords from '../universal/GetCoords';
+import styled from 'styled-components';
+import FlexRow from '../Styles/FlexRow';
+import FlexColumn from '../Styles/FlexColumn';
+import ImgCont from '../Styles/ImgCont';
 const myId = process.env.REACT_APP_MY_ID;
 let idToPass;
+
+const ContainerStyles = styled.div`
+  margin: 12rem auto 5rem auto;
+  width: 88%;
+  max-width: 100rem;
+  padding: 5%;
+  background: #333333;
+  color: #f3f3f3;
+  box-shadow: 0 10rem 8rem rgba(0, 0, 0, 0.3);
+  @media only screen and (max-width: 380px) {
+    padding: 5% 0;
+    margin: 12rem 0 5rem 0;
+    width: 100%;
+  }
+`;
+
+const TopBtns = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+`;
+
+const BottomBtns = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  .edit-btns-center {
+    text-align: center;
+  }
+`;
+
+const ImageBtn = styled.button`
+  margin-left: 1rem;
+  display: block;
+  color: white;
+`;
 
 function WallDetails(props) {
   const { project, auth, updateProject, deleteImage, deleteProject } = props;
@@ -113,8 +157,8 @@ function WallDetails(props) {
 
   if (project) {
     return (
-      <div style={detailsDiv}>
-        <div style={rightBut}>
+      <ContainerStyles>
+        <TopBtns>
           {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
           <Button
             onClick={() => history.push(`/walks/${idToPass}`)}
@@ -123,10 +167,10 @@ function WallDetails(props) {
           {isEditing && (
             <Button onClick={deleteWall} children={'delete wall'} />
           )}
-        </div>
+        </TopBtns>
         {isEditing ? (
           <div>
-            <div style={row}>
+            <FlexRow>
               <Input
                 type={'text'}
                 id={'name'}
@@ -134,8 +178,8 @@ function WallDetails(props) {
                 value={wallData.name}
                 onChange={handleChange}
               />
-            </div>
-            <div style={row}>
+            </FlexRow>
+            <FlexRow>
               <TextArea
                 type={'textarea'}
                 id={'description'}
@@ -143,8 +187,8 @@ function WallDetails(props) {
                 value={wallData.description}
                 onChange={handleChange}
               />
-            </div>
-            <div style={row}>
+            </FlexRow>
+            <FlexRow>
               <Input
                 type={'text'}
                 id={'lat'}
@@ -159,20 +203,22 @@ function WallDetails(props) {
                 value={wallData.lng}
                 onChange={handleChange}
               />
-              <GetCoords passCoords={handleCoords} />
-            </div>
-            <div style={column}>
+              <GetCoords
+                passCoords={handleCoords}
+                oldCoords={{ lat: wallData.lat, lng: wallData.lng }}
+              />
+            </FlexRow>
+            <FlexColumn>
               <div>
                 <Thumbnail src={editImage} />
               </div>
-              <div style={imageContainer}>
+              <ImgCont>
                 {project.images.map(img => {
                   return (
                     <div
                       key={img}
                       style={{
                         position: 'relative',
-                        zIndex: '0',
                       }}
                     >
                       <Thumbnail src={img} />
@@ -182,37 +228,34 @@ function WallDetails(props) {
                           top: '20px',
                         }}
                       >
-                        <button
-                          onClick={() => handleEditThumbnail(img)}
-                          style={imageBtn}
-                        >
+                        <ImageBtn onClick={() => handleEditThumbnail(img)}>
                           <FaArrowAltCircleUp size={24} />
-                        </button>
-                        <button
+                        </ImageBtn>
+                        <ImageBtn
+                          type="button"
                           onClick={() => handleImageDelete(img)}
-                          style={imageBtn}
                         >
                           <FaTrashAlt size={24} />
-                        </button>
+                        </ImageBtn>
                       </div>
                     </div>
                   );
                 })}
-              </div>
-            </div>
+              </ImgCont>
+            </FlexColumn>
           </div>
         ) : (
           <WallDisplay project={wallData} handleEdit={handleEdit} />
         )}
-        <div style={editContainer}>
+        <BottomBtns>
           <div>
             {isEditing ? (
-              <div style={centerDiv}>
+              <div className="edit-btns-center">
                 <Button onClick={handleReady} children={'Save'} />
                 <Button children={'cancel'} onClick={handleCancel} />
               </div>
             ) : (
-              <div className="" style={centerDiv}>
+              <div className="edit-btns-center">
                 <Button onClick={handleEdit} children={'Edit'} />
               </div>
             )}
@@ -222,8 +265,8 @@ function WallDetails(props) {
             />
           </div>
           {isEditing && <ImageUpload id={id} usage={'wall'} />}
-        </div>
-      </div>
+        </BottomBtns>
+      </ContainerStyles>
     );
   } else {
     return <Loading />;
@@ -259,73 +302,3 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([{ collection: 'projects' }])
 )(WallDetails);
-
-const detailsDiv = {
-  margin: '50px auto',
-  marginTop: '120px',
-  width: '88%',
-  maxWidth: '1000px',
-  padding: window.innerWidth / 16 + 'px',
-  backgroundColor: '#333333',
-  color: '#f3f3f3',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-};
-
-const rightBut = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'flex-end',
-  marginBottom: '10px',
-};
-
-const imageContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'left',
-};
-
-const editContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-};
-
-const centerDiv = {
-  textAlign: 'center',
-};
-
-const imageBtn = {
-  marginLeft: '10px',
-  display: 'block',
-  color: 'white',
-};
-
-const row = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const column = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};

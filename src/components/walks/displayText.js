@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -7,8 +7,36 @@ import { connect } from 'react-redux';
 import Button from '../universal/button';
 import Loading from '../universal/loading';
 import { FiExternalLink } from 'react-icons/fi';
+import styled from 'styled-components';
 dayjs.extend(advancedFormat);
 const myId = process.env.REACT_APP_MY_ID;
+
+const TextDiv = styled.div`
+  margin: 10px;
+  color: #cecbcb;
+  h3 {
+    color: #243443;
+  }
+`;
+
+const TimeDiv = styled.div`
+  position: absolute;
+  bottom: 7rem;
+  right: 2rem;
+  p {
+    margin: 0;
+    color: #243443;
+  }
+  span {
+    color: #cecbcb;
+  }
+`;
+
+const BottomDiv = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+`;
 
 function DisplayText(props) {
   const { data, auth, handleEditMode } = props;
@@ -25,27 +53,28 @@ function DisplayText(props) {
 
   if (data.authorFirstName) {
     return (
-      <div style={boxText}>
-        <h3 style={heading}>{data.name}</h3>
+      <TextDiv>
+        <h3>{data.name}</h3>
         <p>{data.description}</p>
-        <div style={timeStyle}>
+        <TimeDiv>
           {data.updatedAt ? (
-            <p style={highlight}>
+            <p>
               Updated{' '}
-              <span style={lowlight}>
+              <span>
                 {dayjs(data.updatedAt.toDate()).format('ddd Do MMM YYYY')}
               </span>
             </p>
           ) : (
-            <p style={highlight}>
+            <p>
               Created{' '}
-              <span style={lowlight}>
+              <span>
                 {dayjs(data.createdAt.toDate()).format('ddd Do MMM YYYY')}
               </span>
             </p>
           )}
-        </div>
-        <div style={divBottom}>
+        </TimeDiv>
+        <BottomDiv>
+          {/* //todo make a Link component for external links  */}
           <Button
             children={
               <div>
@@ -54,6 +83,7 @@ function DisplayText(props) {
             }
             onClick={() => link.current.click()}
           />
+
           <a
             ref={link}
             href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`}
@@ -63,11 +93,12 @@ function DisplayText(props) {
           >
             google maps
           </a>
+          {/* //todo to get rid of this nonsense */}
           {(auth.uid === myId || auth.uid === data.authorId) && (
             <Button onClick={handleEdit} children={'Edit'} />
           )}
-        </div>
-      </div>
+        </BottomDiv>
+      </TextDiv>
     );
   } else {
     return <Loading />;
@@ -86,33 +117,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(DisplayText);
-
-const boxText = {
-  margin: '10px',
-  color: '#cecbcb',
-};
-
-const heading = {
-  color: '#243443',
-};
-
-const lowlight = {
-  color: '#243443',
-};
-
-const highlight = {
-  margin: '0',
-  color: '#cecbcb',
-};
-
-const divBottom = {
-  position: 'absolute',
-  bottom: '20px',
-  right: '20px',
-};
-
-const timeStyle = {
-  position: 'absolute',
-  bottom: '70px',
-  right: '20px',
-};

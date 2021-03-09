@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { location } from '../universal/mapData';
 import { mapStyleLight } from '../universal/mapData';
 import Button from './button';
 import Map from './map';
 const initState = { lat: 0, lng: 0, set: false, id: 1 };
 
-export default function GetCoords({ passCoords }) {
+export default function GetCoords({ passCoords, oldCoords }) {
   const [showMap, setShowMap] = useState(false);
   const [coords, setCoords] = useState(initState);
+
+  useEffect(() => {
+    if (oldCoords) {
+      setCoords({ lat: oldCoords.lat, lng: oldCoords.lng, set: true, id: 1 });
+    }
+  }, [oldCoords]);
 
   const handleCoords = e => {
     setCoords({ lat: e.lat, lng: e.lng, set: true, id: 1 });
@@ -25,7 +31,7 @@ export default function GetCoords({ passCoords }) {
           setShowMap(true);
         }}
       >
-        set location on Map
+        pick location on Map
       </Button>
       {showMap && (
         <>

@@ -5,52 +5,70 @@ import Thumbnail from '../universal/thumbnail';
 import Loading from '../universal/loading';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayText from './displayText';
+import FlexRow from '../Styles/FlexRow';
+import FlexColumn from '../Styles/FlexColumn';
+import styled from 'styled-components';
+import ImgCont from '../Styles/ImgCont';
 dayjs.extend(advancedFormat);
+
+const InfoBox = styled.div`
+  margin: 1rem;
+  max-width: 24rem;
+  overflow: hidden;
+  flex-grow: 1;
+  p {
+    color: #dfbaaa;
+    font-weight: 600;
+  }
+  span {
+    color: #cecbcb;
+  }
+`;
 
 function WallDisplay({ project, handleEdit }) {
   if (project) {
     return (
       <div>
-        <div style={row}>
+        <FlexRow>
           <BoxWrapper>
             <DisplayText data={project} handleEditMode={handleEdit} />
           </BoxWrapper>
-        </div>
-        <div style={row}>
-          <div style={marg}>
-            <p style={lowlight}>
-              Latitude: <span style={highlight}>{project.lat}</span>
+        </FlexRow>
+        <FlexRow>
+          <InfoBox>
+            <p>
+              Latitude: <br />
+              <span>{project.lat}</span>
             </p>
-            <p style={lowlight}>
-              Longditude: <span style={highlight}>{project.lng}</span>
+            <p>
+              Longitude: <br />
+              <span>{project.lng}</span>
             </p>
-          </div>
-          <div style={marg}>
-            <p style={lowlight}>
+          </InfoBox>
+          <InfoBox>
+            <p>
               Posted by:{' '}
-              <span
-                style={highlight}
-              >{`${project.authorFirstName} ${project.authorLastName}`}</span>
+              <span>{`${project.authorFirstName} ${project.authorLastName}`}</span>
             </p>
-            <p style={lowlight}>
+            <p>
               Posted:{' '}
-              <span style={highlight}>
+              <span>
                 {dayjs(project.createdAt.toDate()).format('ddd Do MMM YYYY')}
               </span>
             </p>
             {project.updatedAt && (
-              <p style={lowlight}>
+              <p>
                 Last updated:{' '}
-                <span style={highlight}>
+                <span>
                   {dayjs(project.updatedAt.toDate()).format('ddd Do MMM YYYY')}
                 </span>
               </p>
             )}
-          </div>
-        </div>
-        <div style={column}>
+          </InfoBox>
+        </FlexRow>
+        <FlexColumn>
           <Thumbnail src={project.image} />
-          <div style={imageContainer}>
+          <ImgCont>
             {project.images.map(img => {
               return (
                 <div key={img}>
@@ -58,8 +76,8 @@ function WallDisplay({ project, handleEdit }) {
                 </div>
               );
             })}
-          </div>
-        </div>
+          </ImgCont>
+        </FlexColumn>
       </div>
     );
   } else {
@@ -73,51 +91,3 @@ WallDisplay.propTypes = {
 };
 
 export default WallDisplay;
-
-const lowlight = {
-  color: '#dfbaaa',
-  fontWeight: '600',
-};
-const highlight = {
-  color: '#cecbcb',
-};
-
-const imageContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'left',
-};
-
-const row = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const column = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const marg = {
-  margin: '10px',
-  maxWidth: '240px',
-  overflow: 'hidden',
-  flexGrow: '1',
-};

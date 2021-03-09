@@ -9,6 +9,13 @@ import Closer from '../universal/closer';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from './displayImage';
 import DisplayText from './displayText';
+import styled from 'styled-components';
+
+const SectionStyle = styled.section`
+  height: 100%;
+  max-height: 1000px;
+  width: 320px;
+`;
 
 function Walks(props) {
   const { projects } = props;
@@ -52,7 +59,7 @@ function Walks(props) {
   };
 
   return (
-    <section style={container}>
+    <SectionStyle>
       <div>
         <Map
           handleInfo={handleInfo}
@@ -75,7 +82,7 @@ function Walks(props) {
           <DisplayText data={displayData} />
         </BoxWrapper>
       </div>
-    </section>
+    </SectionStyle>
   );
 }
 
@@ -93,9 +100,3 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'projects' }])
 )(Walks);
-
-const container = {
-  height: '100%',
-  maxHeight: '1000px',
-  width: '320px',
-};

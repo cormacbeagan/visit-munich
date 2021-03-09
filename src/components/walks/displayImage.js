@@ -1,10 +1,34 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import styled from 'styled-components';
 import Carousel from './carousel';
+
+const ImgButton = styled.button`
+  align-items: center;
+  width: 30rem;
+  height: 30rem;
+  overflow: hidden;
+  background: grey;
+  background-position: center center;
+  background-size: 305px 305px;
+  background-repeat: no-repeat;
+  border-radius: 2rem;
+`;
+
+const ImgStyle = styled.img`
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  transition: all 200ms ease;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.001);
+    opacity: 0.8;
+  }
+`;
 
 function DisplayImage({ data }) {
   const [display, setDisplay] = useState({ display: 'none' });
-  const [hover, setHover] = useState(false);
 
   const handleModal = () => {
     setDisplay({ display: 'block' });
@@ -24,15 +48,9 @@ function DisplayImage({ data }) {
           display={display}
         />
       </div>
-      <button onClick={handleModal} style={imageDiv}>
-        <img
-          onMouseEnter={() => setHover(!hover)}
-          onMouseLeave={() => setHover(!hover)}
-          style={hover ? imageHoverStyle : imageStyle}
-          src={data.image}
-          alt="Wall Thumbnail"
-        />
-      </button>
+      <ImgButton onClick={handleModal}>
+        <ImgStyle src={data.image} alt="Wall Thumbnail" />
+      </ImgButton>
     </div>
   );
 }
@@ -42,31 +60,3 @@ DisplayImage.propTypes = {
 };
 
 export default DisplayImage;
-
-const imageDiv = {
-  alignItems: 'center',
-  width: '300px',
-  height: '300px',
-  overflow: 'hidden',
-  background: 'grey',
-  backgroundPosition: 'center center',
-  backgroundSize: '305px 305px',
-  bagroundRepeat: 'no-repeat',
-  borderRadius: '20px',
-};
-
-const imageStyle = {
-  height: '300px',
-  width: '300px',
-  objectFit: 'cover',
-  transition: 'opacity 0.2s ease',
-};
-
-const imageHoverStyle = {
-  cursor: 'pointer',
-  height: '302px',
-  width: '302px',
-  objectFit: 'cover',
-  opacity: '0.8',
-  transition: 'all 400ms ease',
-};

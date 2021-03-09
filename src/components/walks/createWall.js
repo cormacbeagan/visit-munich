@@ -2,11 +2,24 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import { createProject } from '../../store/actions/projectActions';
 import Button from '../universal/button';
 import GetCoords from '../universal/GetCoords';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
+
+const CreateForm = styled.form`
+  margin: 15rem auto;
+  max-width: 60rem;
+  background: #333;
+  padding: 2rem;
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+  }
+`;
 
 const initialState = {
   name: '',
@@ -67,8 +80,8 @@ function CreateWall(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} style={createDiv}>
-        <h2 style={heading}>Create Wall</h2>
+      <CreateForm onSubmit={handleSubmit}>
+        <h2>Create Wall</h2>
         <div>
           <Input
             type={'text'}
@@ -108,7 +121,7 @@ function CreateWall(props) {
           <Button children={'create'} />
           <Button children={'cancel'} onClick={() => history.push('/walks')} />
         </div>
-      </form>
+      </CreateForm>
     </div>
   );
 }
@@ -131,16 +144,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateWall);
-
-const createDiv = {
-  margin: '150px auto',
-  maxWidth: '600px',
-  background: '#333',
-  padding: '20px',
-};
-
-const heading = {
-  marginLeft: '100px',
-  fontSize: '24px',
-  color: '#333',
-};
