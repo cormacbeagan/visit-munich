@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { createBlog } from '../../store/actions/blogActions';
+import useCreateEntry from '../../hooks/useCreateEntry';
+import { CreateForm, HeadingStyle } from '../Styles/CreateStyles';
 import Button from '../universal/button';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
@@ -14,30 +14,25 @@ const initialState = {
   textInput: '',
   link: '',
   linkText: '',
+  image: '/images/Easy-schlachthof.jpg', // never used!
 };
 
-function CreateBlog(props) {
-  const { createBlog, auth } = props;
-  const [formData, setFormData] = useState(initialState);
+export default function CreateBlog() {
   const history = useHistory();
+  const auth = useSelector(state => state.firebase.auth);
+  const { handleChange, handleSubmit, formData } = useCreateEntry(initialState);
 
   if (auth.uid !== myId) return <Redirect to="/signin" />;
 
-  const handleChange = (id, value) => {
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    createBlog(formData);
-    setFormData(initialState);
-    history.push('/');
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit} style={createDiv}>
-        <h2 style={heading}>Create Homepage Entry</h2>
+      <HeadingStyle>Create Homepage Entry</HeadingStyle>
+      <CreateForm
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit('blogs');
+        }}
+      >
         <div>
           <Input
             type={'text'}
@@ -82,7 +77,7 @@ function CreateBlog(props) {
           <Button children={'create'} />
           <Button children={'cancel'} onClick={() => history.push('/')} />
         </div>
-      </form>
+      </CreateForm>
     </div>
   );
 }
@@ -92,31 +87,4 @@ CreateBlog.propTypes = {
     uid: PropTypes.string,
   }),
   createBlog: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createBlog: blog => dispatch(createBlog(blog)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBlog);
-
-const createDiv = {
-  margin: '150px auto',
-  maxWidth: '600px',
-  background: '#333',
-  padding: '20px',
-};
-
-const heading = {
-  marginLeft: '50px',
-  fontSize: '24px',
-  color: '#333',
 };

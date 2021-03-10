@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { createProject } from '../../store/actions/projectActions';
 import Button from '../universal/button';
 import GetCoords from '../universal/GetCoords';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
 import { CreateForm, HeadingStyle } from '../Styles/CreateStyles';
+import useCreateEntry from '../../hooks/useCreateEntry';
 
 const initialState = {
   name: '',
@@ -18,59 +16,24 @@ const initialState = {
   image: '/images/Easy-schlachthof.jpg',
 };
 
-function CreateWall(props) {
-  const { createProject, auth } = props;
-  const [formData, setFormData] = useState(initialState);
+export default function CreateWall() {
   const history = useHistory();
+  const auth = useSelector(state => state.firebase.auth);
+  const { formData, handleChange, handleSubmit, handleCoords } = useCreateEntry(
+    initialState
+  );
 
   if (!auth.uid) return <Redirect to="/signin" />;
-
-  const handleChange = (id, value) => {
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleCoords = coords => {
-    setFormData(prev => ({
-      ...prev,
-      lat: coords.lat.toString(),
-      lng: coords.lng.toString(),
-    }));
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const check = checkCoords(formData.lat, formData.lng);
-    if (check) {
-      createProject(formData);
-    } else {
-      alert('Invalid Geolocation');
-      return;
-    }
-    setFormData(initialState);
-    history.push(`/profile/${auth.uid}`);
-  };
-
-  const checkCoords = (lat, lng) => {
-    const valLat = parseFloat(lat);
-    const valLng = parseFloat(lng);
-    if (
-      !isNaN(valLat) &&
-      valLat <= 90 &&
-      valLat >= -90 &&
-      !isNaN(valLng) &&
-      valLng <= 180 &&
-      valLng >= -180
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   return (
     <div>
       <HeadingStyle>Create Wall</HeadingStyle>
-      <CreateForm onSubmit={handleSubmit}>
+      <CreateForm
+        onSubmit={e => {
+          e.preventDefault();
+          handleSubmit('projects');
+        }}
+      >
         <div>
           <Input
             type={'text'}
@@ -119,17 +82,3 @@ CreateWall.propTypes = {
   auth: PropTypes.object,
   createProject: PropTypes.func,
 };
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createProject: project => dispatch(createProject(project)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateWall);

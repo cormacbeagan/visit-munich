@@ -1,13 +1,14 @@
-import authReducer from "./authReducer";
-import projectReducer from "./projectReducer";
-import concertReducer from "./concertReducer";
-import weatherReducer from "./weatherReducer";
-import dateReducer from "./dateReducer";
-import blogReducer from "./blogReducer";
-import tipReducer from "./tipReducer";
-import { combineReducers } from "redux";
-import { firestoreReducer } from "redux-firestore";
-import { firebaseReducer } from "react-redux-firebase";
+import authReducer from './authReducer';
+import projectReducer from './projectReducer';
+import concertReducer from './concertReducer';
+import weatherReducer from './weatherReducer';
+import dateReducer from './dateReducer';
+import blogReducer from './blogReducer';
+import tipReducer from './tipReducer';
+import entryReducer from './entryReducer';
+import { combineReducers } from 'redux';
+import { firestoreReducer } from 'redux-firestore';
+import { firebaseReducer } from 'react-redux-firebase';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   dates: dateReducer,
   blogs: blogReducer,
   tips: tipReducer,
+  entries: entryReducer,
 });
 
 export default rootReducer;

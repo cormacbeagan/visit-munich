@@ -1,6 +1,12 @@
 {
-	"prettier.arrowParens": "avoid",
-	"editor.formatOnSave": true,
-	"editor.fontSize": 16,
-	"editor.tabSize": 2
+  "prettier.arrowParens": "avoid",
+  "editor.formatOnSave": true,
+  "editor.fontSize": 16,
+  "editor.tabSize": 2,
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#fff",
+    "titleBar.inactiveForeground": "#ffffffcc",
+    "titleBar.activeBackground": "#214660",
+    "titleBar.inactiveBackground": "#214660"
+  }
 }
