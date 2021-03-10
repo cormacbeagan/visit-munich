@@ -7,6 +7,7 @@ import Button from '../universal/button';
 import GetCoords from '../universal/GetCoords.js';
 import Input from '../universal/input';
 import TextArea from '../universal/textArea';
+import { CreateForm, HeadingStyle } from '../Styles/CreateStyles';
 
 const initialState = {
   name: '',
@@ -47,7 +48,7 @@ function CreateTip(props) {
       return;
     }
     setFormData(initialState);
-    history.push('/tips');
+    history.push(`/profile/${auth.uid}`);
   };
 
   const checkCoords = (lat, lng) => {
@@ -68,8 +69,8 @@ function CreateTip(props) {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit} style={createDiv}>
-        <h2 style={heading}>Create Wall</h2>
+      <HeadingStyle>Create Tip</HeadingStyle>
+      <CreateForm onSubmit={handleSubmit}>
         <div>
           <Input
             type={'text'}
@@ -130,7 +131,7 @@ function CreateTip(props) {
           <Button children={'create'} />
           <Button children={'cancel'} onClick={() => history.push('/tips')} />
         </div>
-      </form>
+      </CreateForm>
     </div>
   );
 }
@@ -153,16 +154,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTip);
-
-const createDiv = {
-  margin: '150px auto',
-  maxWidth: '600px',
-  background: '#333',
-  padding: '20px',
-};
-
-const heading = {
-  marginLeft: '100px',
-  fontSize: '24px',
-  color: '#333',
-};

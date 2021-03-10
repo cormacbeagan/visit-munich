@@ -5,25 +5,14 @@ import Thumbnail from '../universal/thumbnail';
 import Loading from '../universal/loading';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayText from './displayText';
-import FlexRow from '../Styles/FlexRow';
-import FlexColumn from '../Styles/FlexColumn';
-import styled from 'styled-components';
-import ImgCont from '../Styles/ImgCont';
+import {
+  FlexColumn,
+  FlexRow,
+  ImgCont,
+  InfoBox,
+  ThumbDiv,
+} from '../Styles/EditStyles';
 dayjs.extend(advancedFormat);
-
-const InfoBox = styled.div`
-  margin: 1rem;
-  max-width: 24rem;
-  overflow: hidden;
-  flex-grow: 1;
-  p {
-    color: #dfbaaa;
-    font-weight: 600;
-  }
-  span {
-    color: #cecbcb;
-  }
-`;
 
 function WallDisplay({ project, handleEdit }) {
   if (project) {
@@ -34,14 +23,14 @@ function WallDisplay({ project, handleEdit }) {
             <DisplayText data={project} handleEditMode={handleEdit} />
           </BoxWrapper>
         </FlexRow>
-        <FlexRow>
+        <FlexColumn>
           <InfoBox>
             <p>
-              Latitude: <br />
+              Latitude:
               <span>{project.lat}</span>
             </p>
             <p>
-              Longitude: <br />
+              Longitude:
               <span>{project.lng}</span>
             </p>
           </InfoBox>
@@ -65,9 +54,14 @@ function WallDisplay({ project, handleEdit }) {
               </p>
             )}
           </InfoBox>
-        </FlexRow>
+        </FlexColumn>
         <FlexColumn>
-          <Thumbnail src={project.image} />
+          <ThumbDiv>
+            <div>
+              <h2>Teaser</h2>
+            </div>
+            <Thumbnail src={project.image} />
+          </ThumbDiv>
           <ImgCont>
             {project.images.map(img => {
               return (

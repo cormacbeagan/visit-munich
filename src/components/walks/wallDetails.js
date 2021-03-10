@@ -19,60 +19,18 @@ import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
 import GetCoords from '../universal/GetCoords';
-import styled from 'styled-components';
-import FlexRow from '../Styles/FlexRow';
-import FlexColumn from '../Styles/FlexColumn';
-import ImgCont from '../Styles/ImgCont';
+import {
+  ContainerStyles,
+  TopBtns,
+  FlexRow,
+  FlexColumn,
+  ImgCont,
+  ImageBtn,
+  ThumbDiv,
+  BottomBtns,
+} from '../Styles/EditStyles';
 const myId = process.env.REACT_APP_MY_ID;
 let idToPass;
-
-const ContainerStyles = styled.div`
-  margin: 12rem auto 5rem auto;
-  width: 88%;
-  max-width: 100rem;
-  padding: 5%;
-  background: var(--darkBrown);
-  border-radius: 5px;
-  color: #f3f3f3;
-  box-shadow: 0 10rem 8rem rgba(0, 0, 0, 0.3);
-  @media only screen and (max-width: 380px) {
-    padding: 5% 0;
-    margin: 12rem 0 5rem 0;
-    width: 100%;
-  }
-`;
-
-const TopBtns = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
-  @media only screen and (max-width: 480px) {
-    justify-content: center;
-  }
-`;
-
-const BottomBtns = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  .edit-btns-center {
-    text-align: center;
-  }
-`;
-
-const ImageBtn = styled.button`
-  margin-left: 1rem;
-  display: block;
-  color: white;
-`;
-
-const ThumbDiv = styled.div`
-  margin: 1rem auto;
-`;
 
 function WallDetails(props) {
   const { project, auth, updateProject, deleteImage, deleteProject } = props;
@@ -207,7 +165,7 @@ function WallDetails(props) {
               <Input
                 type={'text'}
                 id={'lng'}
-                name={'Descritpion: '}
+                name={'Longitude: '}
                 value={wallData.lng}
                 onChange={handleChange}
               />
@@ -217,7 +175,11 @@ function WallDetails(props) {
               />
             </FlexRow>
             <FlexColumn className="editing">
-              <ThumbDiv>
+              <ThumbDiv className="editing">
+                <div>
+                  <h2>Teaser</h2>
+                  <p>Select a photo below with the arrow.</p>
+                </div>
                 <Thumbnail src={editImage} />
               </ThumbDiv>
               <ImgCont>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ function HomeEntry(props) {
   const link = useRef();
   let button = null;
 
-  if (data.id) {
+  if (data.authorFirstName) {
     if (data.link) {
       const check = data.link.includes('http');
       if (check) {

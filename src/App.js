@@ -22,7 +22,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar />
+        <header>
+          <Navbar />
+        </header>
         <main className="app-content">
           <Switch>
             <Route exact path="/" render={() => <Home />} />

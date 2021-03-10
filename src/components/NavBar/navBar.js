@@ -93,7 +93,7 @@ function NavBar(props) {
     <>
       {smallScreen ? (
         <>
-          <nav className="navbar" style={mobileNavStyle}>
+          <div className="navbar" style={mobileNavStyle}>
             <Link
               aria-label="home"
               style={logo}
@@ -110,7 +110,7 @@ function NavBar(props) {
             >
               <FaBars />
             </button>
-          </nav>
+          </div>
           <>
             <nav
               className="navbar"

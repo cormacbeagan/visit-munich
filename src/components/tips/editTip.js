@@ -19,6 +19,16 @@ import ImageUpload from '../universal/imageUpload';
 import Loading from '../universal/loading';
 import TextArea from '../universal/textArea';
 import GetCoords from '../universal/GetCoords';
+import {
+  ContainerStyles,
+  TopBtns,
+  FlexRow,
+  FlexColumn,
+  ImgCont,
+  ImageBtn,
+  ThumbDiv,
+  BottomBtns,
+} from '../Styles/EditStyles';
 const myId = process.env.REACT_APP_MY_ID;
 
 let idToPass;
@@ -57,6 +67,14 @@ function EditTip(props) {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
+  const handleCoords = coords => {
+    setFormData(prev => ({
+      ...prev,
+      lat: coords.lat.toString(),
+      lng: coords.lng.toString(),
+    }));
+  };
+
   const handleReady = e => {
     const obj = {};
 
@@ -67,14 +85,6 @@ function EditTip(props) {
     }
     setFormData(prev => ({ ...prev, ...obj }));
     uploadUpdate({ ...formData, ...obj });
-  };
-
-  const handleCoords = coords => {
-    setFormData(prev => ({
-      ...prev,
-      lat: coords.lat.toString(),
-      lng: coords.lng.toString(),
-    }));
   };
 
   const uploadUpdate = obj => {
@@ -112,8 +122,8 @@ function EditTip(props) {
 
   if (tip) {
     return (
-      <div className="container" style={detailsDiv}>
-        <div style={rightBut}>
+      <ContainerStyles>
+        <TopBtns>
           {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
           <Button
             onClick={() => history.push(`/tips/${idToPass}`)}
@@ -122,10 +132,10 @@ function EditTip(props) {
           {isEditing && (
             <Button onClick={handleDeleteTip} children={'delete wall'} />
           )}
-        </div>
+        </TopBtns>
         {isEditing ? (
           <div>
-            <div style={row}>
+            <FlexRow className="editing">
               <Input
                 type={'text'}
                 id={'name'}
@@ -142,8 +152,8 @@ function EditTip(props) {
                 value={formData.subtitle}
                 required={true}
               />
-            </div>
-            <div style={row}>
+            </FlexRow>
+            <FlexRow className="editing">
               <TextArea
                 type={'textarea'}
                 id={'textInput'}
@@ -152,8 +162,8 @@ function EditTip(props) {
                 value={formData.textInput}
                 required={true}
               />
-            </div>
-            <div style={row}>
+            </FlexRow>
+            <FlexRow className="editing">
               <Input
                 type={'text'}
                 id={'link'}
@@ -168,8 +178,8 @@ function EditTip(props) {
                 onChange={handleChange}
                 value={formData.linkText}
               />
-            </div>
-            <div style={row}>
+            </FlexRow>
+            <FlexRow className="editing">
               <Input
                 type={'text'}
                 id={'lat'}
@@ -186,18 +196,26 @@ function EditTip(props) {
                 value={formData.lng}
                 required={true}
               />
-              <GetCoords passCoords={handleCoords} />
-            </div>
-            <div style={column}>
-              <Thumbnail src={editImage} />
-              <div style={imageContainer}>
+              <GetCoords
+                passCoords={handleCoords}
+                oldCoords={{ lat: formData.lat, lng: formData.lng }}
+              />
+            </FlexRow>
+            <FlexColumn className="editing">
+              <ThumbDiv className="editing">
+                <div>
+                  <h2>Teaser</h2>
+                  <p>Select a photo below with the arrow.</p>
+                </div>
+                <Thumbnail src={editImage} />
+              </ThumbDiv>
+              <ImgCont>
                 {tip.images.map(img => {
                   return (
                     <div
                       key={img}
                       style={{
                         position: 'relative',
-                        zIndex: '0',
                       }}
                     >
                       <Thumbnail src={img} />
@@ -207,37 +225,31 @@ function EditTip(props) {
                           top: '20px',
                         }}
                       >
-                        <button
-                          onClick={() => handleEditThumbnail(img)}
-                          style={imageBtn}
-                        >
+                        <ImageBtn onClick={() => handleEditThumbnail(img)}>
                           <FaArrowAltCircleUp size={24} />
-                        </button>
-                        <button
-                          onClick={() => handleImageDelete(img)}
-                          style={imageBtn}
-                        >
+                        </ImageBtn>
+                        <ImageBtn onClick={() => handleImageDelete(img)}>
                           <FaTrashAlt size={24} />
-                        </button>
+                        </ImageBtn>
                       </div>
                     </div>
                   );
                 })}
-              </div>
-            </div>
+              </ImgCont>
+            </FlexColumn>
           </div>
         ) : (
           <TipDisplay tip={formData} handleEdit={handleEdit} />
         )}
-        <div style={editContainer}>
+        <BottomBtns>
           <div>
             {isEditing ? (
-              <div style={centerDiv}>
+              <div className="edit-btns-center">
                 <Button onClick={handleReady} children={'Save'} />
                 <Button children={'cancel'} onClick={handleCancel} />
               </div>
             ) : (
-              <div className="" style={centerDiv}>
+              <div className="edit-btns-center">
                 <Button onClick={handleEdit} children={'Edit'} />
               </div>
             )}
@@ -247,8 +259,8 @@ function EditTip(props) {
             />
           </div>
           {isEditing && <ImageUpload id={id} usage={'tip'} />}
-        </div>
-      </div>
+        </BottomBtns>
+      </ContainerStyles>
     );
   } else {
     return <Loading />;
@@ -284,73 +296,3 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([{ collection: 'tips' }])
 )(EditTip);
-
-const detailsDiv = {
-  margin: '50px auto',
-  marginTop: '120px',
-  width: '88%',
-  maxWidth: '1000px',
-  padding: window.innerWidth / 16 + 'px',
-  backgroundColor: '#333333',
-  color: '#f3f3f3',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-};
-
-const rightBut = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'flex-end',
-  marginBottom: '10px',
-};
-
-const imageContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'left',
-};
-
-const editContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-};
-
-const centerDiv = {
-  textAlign: 'center',
-};
-
-const imageBtn = {
-  marginLeft: '10px',
-  display: 'block',
-  color: 'white',
-};
-
-const row = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const column = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};

@@ -5,58 +5,71 @@ import Thumbnail from '../universal/thumbnail';
 import Loading from '../universal/loading';
 import BoxWrapper from '../universal/boxWrapper';
 import HomeEntry from '../home/homeEntry';
+import {
+  FlexColumn,
+  FlexRow,
+  ImgCont,
+  InfoBox,
+  ThumbDiv,
+} from '../Styles/EditStyles';
 dayjs.extend(advancedFormat);
 
 function TipDisplay({ tip, handleEdit }) {
   if (tip) {
+    console.log(tip);
     return (
       <div>
-        <div style={row}>
+        <FlexRow>
           <BoxWrapper>
-            <HomeEntry data={{ ...tip, id: 1 }} handleEditMode={handleEdit} />
+            <HomeEntry data={tip} handleEditMode={handleEdit} />
           </BoxWrapper>
-        </div>
-        <div style={row}>
-          <div style={marg}>
-            <p style={lowlight}>
-              Latitude: <span style={highlight}>{tip.lat}</span>
+        </FlexRow>
+        <FlexColumn>
+          <InfoBox>
+            <p>
+              Latitude: <span>{tip.lat}</span>
             </p>
-            <p style={lowlight}>
-              Longditude: <span style={highlight}>{tip.lng}</span>
+            <p>
+              Longditude: <span>{tip.lng}</span>
             </p>
-            <p style={lowlight}>
-              Link: <span style={highlight}>{tip.link}</span>
+          </InfoBox>
+          <InfoBox>
+            <p>
+              Link: <span>{tip.link}</span>
             </p>
-            <p style={lowlight}>
-              Link Text: <span style={highlight}>{tip.linkText}</span>
+            <p>
+              Link Text: <span>{tip.linkText}</span>
             </p>
-          </div>
-          <div style={marg}>
-            <p style={lowlight}>
+          </InfoBox>
+          <InfoBox>
+            <p>
               Posted by:{' '}
-              <span
-                style={highlight}
-              >{`${tip.authorFirstName} ${tip.authorLastName}`}</span>
+              <span>{`${tip.authorFirstName} ${tip.authorLastName}`}</span>
             </p>
-            <p style={lowlight}>
+            <p>
               Posted:{' '}
-              <span style={highlight}>
+              <span>
                 {dayjs(tip.createdAt.toDate()).format('ddd Do MMM YYYY')}
               </span>
             </p>
             {tip.updatedAt && (
-              <p style={lowlight}>
+              <p>
                 Last updated:{' '}
-                <span style={highlight}>
+                <span>
                   {dayjs(tip.updatedAt.toDate()).format('ddd Do MMM YYYY')}
                 </span>
               </p>
             )}
-          </div>
-        </div>
-        <div style={column}>
-          <Thumbnail src={tip.image} />
-          <div style={imageContainer}>
+          </InfoBox>
+        </FlexColumn>
+        <FlexColumn>
+          <ThumbDiv>
+            <div>
+              <h2>Teaser</h2>
+            </div>
+            <Thumbnail src={tip.image} />
+          </ThumbDiv>
+          <ImgCont>
             {tip.images.map(img => {
               return (
                 <div key={img}>
@@ -64,8 +77,8 @@ function TipDisplay({ tip, handleEdit }) {
                 </div>
               );
             })}
-          </div>
-        </div>
+          </ImgCont>
+        </FlexColumn>
       </div>
     );
   } else {
@@ -79,51 +92,3 @@ TipDisplay.propTypes = {
 };
 
 export default TipDisplay;
-
-const lowlight = {
-  color: '#dfbaaa',
-  fontWeight: '600',
-};
-const highlight = {
-  color: '#cecbcb',
-};
-
-const imageContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'left',
-};
-
-const row = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '800px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const marg = {
-  margin: '10px',
-  maxWidth: '300px',
-  overflow: 'hidden',
-  flexGrow: '1',
-};
-
-const column = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '800px',
-  display: 'flex',
-  flexDirection: 'column',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
