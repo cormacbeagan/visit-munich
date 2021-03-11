@@ -17,6 +17,7 @@ const initialState = {
   lat: '',
   lng: '',
   image: '/images/Easy-schlachthof.jpg',
+  collection: 'tips',
 };
 
 export default function CreateTip() {
@@ -34,7 +35,7 @@ export default function CreateTip() {
       <CreateForm
         onSubmit={e => {
           e.preventDefault();
-          handleSubmit('tips');
+          handleSubmit();
         }}
       >
         <div>
@@ -64,7 +65,7 @@ export default function CreateTip() {
           <Input
             type={'text'}
             id={'link'}
-            name={'Link'}
+            name={'Link URL'}
             onChange={handleChange}
             value={formData.link}
           />
@@ -101,8 +102,3 @@ export default function CreateTip() {
     </div>
   );
 }
-
-CreateTip.propTypes = {
-  auth: PropTypes.object,
-  createTip: PropTypes.func,
-};

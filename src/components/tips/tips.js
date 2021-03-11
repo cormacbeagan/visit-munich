@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import Map from '../universal/map';
 import { location, mapStyleLight } from '../universal/mapData';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import Closer from '../universal/closer';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from '../walks/displayImage';
@@ -18,12 +16,13 @@ const TipsContainer = styled.section`
   width: 32rem;
 `;
 
-function Tips(props) {
-  const { tips } = props;
+export default function Tips() {
   const [displayData, setDisplayData] = useState({});
   const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleLight);
   const boxes = useRef();
+  useFirestoreConnect(['tips']);
+  const tips = useSelector(state => state.firestore.ordered?.tips);
 
   const handleInfo = id => {
     if (id) {
@@ -92,18 +91,3 @@ function Tips(props) {
     </TipsContainer>
   );
 }
-
-Tips.propTypes = {
-  tips: PropTypes.array,
-};
-
-const mapStateToProps = state => {
-  return {
-    tips: state.firestore.ordered.tips || state.tips.tips,
-  };
-};
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: 'tips' }])
-)(Tips);

@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import Map from '../universal/map';
 import { location, mapStyleDark } from '../universal/mapData';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import Closer from '../universal/closer';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from './displayImage';
@@ -18,12 +16,13 @@ const SectionStyle = styled.section`
   width: 320px;
 `;
 
-function Walks(props) {
-  const { projects } = props;
+export default function Walks() {
   const [displayData, setDisplayData] = useState({});
   const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleDark);
   const boxes = useRef();
+  useFirestoreConnect(['projects']);
+  const projects = useSelector(state => state.firestore.ordered?.projects);
 
   const handleInfo = (id, pin) => {
     if (id) {
@@ -92,18 +91,3 @@ function Walks(props) {
     </SectionStyle>
   );
 }
-
-Walks.propTypes = {
-  projects: PropTypes.array,
-};
-
-const mapStateToProps = state => {
-  return {
-    projects: state.firestore.ordered.projects || state.project.projects,
-  };
-};
-
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([{ collection: 'projects' }])
-)(Walks);

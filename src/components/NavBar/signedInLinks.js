@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
 const myId = process.env.REACT_APP_MY_ID;
 
-function SignedInLinks(props) {
-  const { profile, signOut, mobile, menuOpen, auth } = props;
+export default function SignedInLinks(props) {
+  const { profile, mobile, menuOpen } = props;
   const [dropNav, setDropNav] = useState(false);
   const droper = useRef();
   const [hasAccess, setHasAccess] = useState(false);
+  const auth = useSelector(state => state.firebase.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (auth.uid === myId) {
@@ -28,6 +30,11 @@ function SignedInLinks(props) {
     }
     return () => window.removeEventListener('click', handleDropClick);
   });
+
+  const handleSignout = () => {
+    dispatch(signOut());
+  };
+
   const handleDrop = () => {
     dropNav ? setDropNav(false) : setDropNav(true);
   };
@@ -96,7 +103,7 @@ function SignedInLinks(props) {
               </Link>
             </div>
           </nav>
-          <Link onClick={signOut} style={link} to="/">
+          <Link onClick={handleSignout} style={link} to="/">
             Logout
           </Link>
           <Link style={linkIn} to={`/profile/${auth.uid}`}>
@@ -111,22 +118,8 @@ function SignedInLinks(props) {
 SignedInLinks.propTypes = {
   mobile: PropTypes.bool.isRequired,
   profile: PropTypes.object,
-  signOut: PropTypes.func,
+  menuOpen: PropTypes.bool,
 };
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    signOut: () => dispatch(signOut()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);
 
 const navbar = {
   display: 'flex',

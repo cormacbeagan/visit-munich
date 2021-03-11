@@ -22,6 +22,7 @@ function SignedOutLinks(props) {
 
 SignedOutLinks.propTypes = {
   mobile: PropTypes.bool.isRequired,
+  menuOpen: PropTypes.bool,
 };
 
 export default SignedOutLinks;

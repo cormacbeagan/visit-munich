@@ -3,16 +3,17 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase/lib/helpers';
 import { FaBars } from 'react-icons/fa';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 
-function NavBar(props) {
-  const { auth, profile } = props;
+export default function NavBar() {
   const [smallScreen, setSmallScreen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navBars = useRef();
+  const auth = useSelector(state => state.firebase.auth);
+  const profile = useSelector(state => state.firebase.profile);
 
   const links = auth.uid ? (
     <SignedInLinks mobile={smallScreen} menuOpen={menuOpen} profile={profile} />
@@ -180,19 +181,6 @@ function NavBar(props) {
     </>
   );
 }
-
-NavBar.propTypes = {
-  auth: PropTypes.object,
-  profile: PropTypes.object,
-};
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
-  };
-};
-export default connect(mapStateToProps)(NavBar);
 
 const navBarStyle = {
   fontSize: '24px',

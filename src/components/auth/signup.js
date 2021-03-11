@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/actions/authActions';
 import Input from '../universal/input';
@@ -13,9 +12,11 @@ const initialState = {
   lastName: '',
 };
 
-function SignUp(props) {
-  const { auth, signUp, authError } = props;
+export default function SignUp() {
   const [formData, setFormData] = useState(initialState);
+  const auth = useSelector(state => state.firebase.auth);
+  const authError = useSelector(state => state.auth.authError);
+  const dispatch = useDispatch();
 
   if (auth.uid) return <Redirect to="/" />;
 
@@ -25,7 +26,7 @@ function SignUp(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    signUp(formData);
+    dispatch(signUp(formData));
   };
   return (
     <div>
@@ -67,27 +68,6 @@ function SignUp(props) {
     </div>
   );
 }
-
-SignUp.propTypes = {
-  auth: PropTypes.object,
-  authError: PropTypes.any,
-  signUp: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    authError: state.auth.authError,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    signUp: newUser => dispatch(signUp(newUser)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
 const formStyle = {
   margin: '150px auto',

@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Concert from './concert';
 
-function ConcertListings(props) {
-  const { handleBackToMap, concerts, coords } = props;
+export default function ConcertListings(props) {
+  const { handleBackToMap, coords } = props;
+  const concerts = useSelector(state => state.concerts);
   let concertArray;
   if (coords) {
     concertArray = concerts.events.filter(
@@ -38,21 +39,9 @@ function ConcertListings(props) {
 }
 
 ConcertListings.propTypes = {
-  concerts: PropTypes.shape({
-    events: PropTypes.array,
-    venues: PropTypes.array,
-  }),
   coords: PropTypes.any,
   handleBackToMap: PropTypes.func,
 };
-
-const mapStateToProps = state => {
-  return {
-    concerts: state.concerts,
-  };
-};
-
-export default connect(mapStateToProps)(ConcertListings);
 
 const containerStyle = {
   width: '100%',

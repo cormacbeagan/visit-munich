@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Button from '../universal/button';
 import Loading from '../universal/loading';
 import { FiExternalLink } from 'react-icons/fi';
@@ -39,10 +39,11 @@ const BottomDiv = styled.div`
   right: 2rem;
 `;
 
-function DisplayText(props) {
-  const { data, auth, handleEditMode } = props;
+export default function DisplayText(props) {
+  const { data, handleEditMode } = props;
   const history = useHistory();
   const link = useRef();
+  const auth = useSelector(state => state.firebase.auth);
 
   const handleEdit = () => {
     if (history.location.pathname.includes('/wall/')) {
@@ -107,14 +108,6 @@ function DisplayText(props) {
 }
 
 DisplayText.propTypes = {
-  auth: PropTypes.object,
   handleEditMode: PropTypes.func,
+  data: PropTypes.object,
 };
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(DisplayText);

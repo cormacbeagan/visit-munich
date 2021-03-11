@@ -45,20 +45,21 @@ export default function useCreateEntry(initial = {}) {
     }));
   };
 
-  const handleSubmit = collection => {
-    if (collection !== 'blogs') {
+  const handleSubmit = () => {
+    if (formData.collection !== 'blogs') {
       const check = checkCoords(formData.lat, formData.lng);
       if (check) {
-        dispatch(createEntry(formData, collection));
+        dispatch(createEntry(formData, formData.collection));
+        history.push(`/profile/${auth.uid}`);
       } else {
         alert('Invalid Geolocation');
         return;
       }
     } else {
-      dispatch(createEntry(formData, collection));
+      dispatch(createEntry(formData, formData.collection));
+      setFormData(initial);
+      history.push(`/profile/${auth.uid}`);
     }
-    setFormData(initial);
-    history.push(`/profile/${auth.uid}`);
   };
 
   return {

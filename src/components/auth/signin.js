@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { resetPassword, signIn } from '../../store/actions/authActions';
 import Button from '../universal/button';
@@ -11,8 +10,11 @@ const initialState = {
   password: '',
 };
 
-function SignIn(props) {
-  const { signIn, authError, auth, authMsg, resetPassword } = props;
+export default function SignIn() {
+  const auth = useSelector(state => state.firebase.auth);
+  const authError = useSelector(state => state.auth.authError);
+  const authMsg = useSelector(state => state.auth.authMsg);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialState);
   const [resetting, setResetting] = useState(false);
   const [msg, setMsg] = useState('');
@@ -28,7 +30,7 @@ function SignIn(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    signIn(formData);
+    dispatch(signIn(formData));
   };
 
   const handleChange = (type, value) => {
@@ -37,7 +39,7 @@ function SignIn(props) {
 
   const handleReset = () => {
     if (resetting) {
-      resetPassword(formData.email);
+      dispatch(resetPassword(formData.email));
       setFormData(initialState);
     } else {
       setResetting(true);
@@ -92,31 +94,6 @@ function SignIn(props) {
     </div>
   );
 }
-
-SignIn.propTypes = {
-  auth: PropTypes.object,
-  authError: PropTypes.string,
-  authMsg: PropTypes.string,
-  resetPassword: PropTypes.func,
-  signIn: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth,
-    authMsg: state.auth.authMsg,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    signIn: creds => dispatch(signIn(creds)),
-    resetPassword: email => dispatch(resetPassword(email)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 
 const formStyle = {
   margin: '150px auto',

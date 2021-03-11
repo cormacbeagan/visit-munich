@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FiExternalLink } from 'react-icons/fi';
 import Loading from '../universal/loading';
 const myId = process.env.REACT_APP_MY_ID;
 
-function HomeEntry(props) {
-  const { data, auth, url, handleEditMode } = props;
+export default function HomeEntry(props) {
+  const { data, url, handleEditMode } = props;
+  const auth = useSelector(state => state.firebase.auth);
   const history = useHistory();
   const link = useRef();
   let button = null;
@@ -81,19 +82,10 @@ function HomeEntry(props) {
 }
 
 HomeEntry.propTypes = {
-  auth: PropTypes.object,
   data: PropTypes.object,
   handleEditMode: PropTypes.func,
   url: PropTypes.string,
 };
-
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(HomeEntry);
 
 const boxText = {
   margin: '10px',

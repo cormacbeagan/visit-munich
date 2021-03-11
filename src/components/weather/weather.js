@@ -4,12 +4,16 @@ import DateForm from '../universal/dateForm';
 import DisplayWeather from './displayWeather';
 import BoxSlider from '../universal/boxSlider';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { weatherSearch } from '../../store/actions/weatherActions';
 import Loading from '../universal/loading';
 
-function Weather(props) {
-  const { weatherSearch, weather, dates } = props;
+export default function Weather() {
+  const dispatch = useDispatch();
+  const weather = useSelector(state =>
+    state.weather.type ? false : state.weather.weather
+  );
+  const dates = useSelector(state => state.dates);
   const [width, height] = useDimensionSetter();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -17,7 +21,7 @@ function Weather(props) {
 
   useEffect(() => {
     if (dates.dates) {
-      weatherSearch(dates.dates);
+      dispatch(weatherSearch(dates.dates));
     }
   }, []);
 
@@ -40,7 +44,7 @@ function Weather(props) {
       alert('Max 10 days search');
     } else {
       setLoader(true);
-      weatherSearch(dates);
+      dispatch(weatherSearch(dates));
     }
     return;
   };
@@ -76,27 +80,6 @@ function Weather(props) {
     </section>
   );
 }
-
-Weather.propTypes = {
-  dates: PropTypes.object,
-  weather: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  weatherSearch: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    weather: state.weather.type ? false : state.weather.weather,
-    dates: state.dates,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    weatherSearch: dates => dispatch(weatherSearch(dates)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Weather);
 
 const boxDiv = {
   position: 'relative',
