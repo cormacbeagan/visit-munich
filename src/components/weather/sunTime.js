@@ -1,37 +1,35 @@
 import PropTypes from 'prop-types';
 import { WiHorizon, WiHorizonAlt } from 'react-icons/wi';
+import styled from 'styled-components';
 
-function SunTime({ up, down }) {
+const SunStyle = styled.div`
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  p {
+    margin: 5px 0 0 5px;
+  }
+`;
+
+export default function SunTime({ up, down }) {
   return (
-    <div style={sunDiv}>
-      <div style={sunDiv}>
+    <SunStyle>
+      <SunStyle>
         <WiHorizonAlt style={sunStyle} />
-        <p style={sunP}>{up}</p>
-      </div>
-      <div style={sunDiv}>
+        <p>{up}</p>
+      </SunStyle>
+      <SunStyle>
         <WiHorizon style={sunStyle} />
-        <p style={sunP}>{down}</p>
-      </div>
-    </div>
+        <p>{down}</p>
+      </SunStyle>
+    </SunStyle>
   );
 }
 
 SunTime.propTypes = {
   down: PropTypes.string,
   up: PropTypes.string,
-};
-
-export default SunTime;
-
-const sunDiv = {
-  margin: '5px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-};
-
-const sunP = {
-  margin: '5px 0 0 5px',
 };
 
 const sunStyle = {

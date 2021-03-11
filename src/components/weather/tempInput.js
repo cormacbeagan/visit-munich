@@ -1,7 +1,24 @@
 import PropTypes from 'prop-types';
 import { WiCelsius } from 'react-icons/wi';
+import styled from 'styled-components';
 
-function TempInput({ avg, min, max }) {
+const TempDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .temp-inner {
+    margin: 10px;
+  }
+`;
+
+const TempP = styled.p`
+  margin: 2px;
+  color: ${props => props.color};
+  font-size: 18px;
+`;
+
+export default function TempInput({ avg, min, max }) {
+  const pColor = '#bebdc0';
   const tempColor = temp => {
     if (temp < 0) {
       return '#78c1ff';
@@ -19,29 +36,29 @@ function TempInput({ avg, min, max }) {
   };
 
   return (
-    <div style={temps}>
-      <div style={tempBox}>
-        <p style={box}>Min </p>
-        <p style={{ ...box, color: tempColor(min) }}>
+    <TempDiv>
+      <div className="temp-inner">
+        <TempP color={pColor}>Min </TempP>
+        <TempP color={tempColor(min)}>
           {min}
           <WiCelsius style={symbolStyle} />
-        </p>
+        </TempP>
       </div>
-      <div style={tempBox}>
-        <p style={box}>Ø </p>
-        <p style={{ ...box, color: tempColor(avg) }}>
+      <div className="temp-inner">
+        <TempP color={pColor}>Ø </TempP>
+        <TempP color={tempColor(avg)}>
           {avg}
           <WiCelsius style={symbolStyle} />
-        </p>
+        </TempP>
       </div>
-      <div style={tempBox}>
-        <p style={box}>Max </p>
-        <p style={{ ...box, color: tempColor(max) }}>
+      <div className="temp-inner">
+        <TempP color={pColor}>Max </TempP>
+        <TempP color={tempColor(max)}>
           {max}
           <WiCelsius style={symbolStyle} />
-        </p>
+        </TempP>
       </div>
-    </div>
+    </TempDiv>
   );
 }
 
@@ -49,24 +66,6 @@ TempInput.propTypes = {
   avg: PropTypes.number,
   max: PropTypes.number,
   min: PropTypes.number,
-};
-
-export default TempInput;
-
-const box = {
-  margin: '2px',
-  color: '#bebdc0',
-  fontSize: '18px',
-};
-
-const temps = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-};
-
-const tempBox = {
-  margin: '10px',
 };
 
 const symbolStyle = {

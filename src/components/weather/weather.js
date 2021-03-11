@@ -4,20 +4,47 @@ import DateForm from '../universal/dateForm';
 import DisplayWeather from './displayWeather';
 import BoxSlider from '../universal/boxSlider';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { weatherSearch } from '../../store/actions/weatherActions';
 import Loading from '../universal/loading';
+import styled from 'styled-components';
 
-function Weather(props) {
-  const { weatherSearch, weather, dates } = props;
+const WeatherSection = styled.section`
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(/images/thunderstorm.jpg);
+  background-repeat: no-repeat;
+  background-position: 55% 50%;
+  background-size: cover;
+`;
+
+const BoxDiv = styled.div`
+  position: relative;
+  width: 100%;
+  top: ${props => (props.slideIn ? '200px' : '-350px')};
+  display: flex;
+  flex-direction: row;
+  transition: top 500ms cubic-bezier(0.22, 1.68, 0.52, 0.73);
+`;
+
+export default function Weather() {
+  const weather = useSelector(state =>
+    state.weather.type ? false : state.weather.weather
+  );
+  const dates = useSelector(state => state.dates);
+  const dispatch = useDispatch();
   const [width, height] = useDimensionSetter();
   const [data, setData] = useState([]);
+  const [slideIn, setSlideIn] = useState(false);
   const [loader, setLoader] = useState(false);
   const boxes = useRef();
 
   useEffect(() => {
     if (dates.dates) {
-      weatherSearch(dates.dates);
+      dispatch(weatherSearch(dates.dates));
     }
   }, []);
 
@@ -25,13 +52,9 @@ function Weather(props) {
     if (weather) {
       setLoader(false);
       setData(weather);
-      boxes.current.style.top = '200px';
+      setSlideIn(true);
     }
   }, [weather]);
-
-  const handleClose = pix => {
-    boxes.current.style.top = pix;
-  };
 
   const handleDates = dates => {
     const date = new Date(dates.arrival);
@@ -40,28 +63,17 @@ function Weather(props) {
       alert('Max 10 days search');
     } else {
       setLoader(true);
-      weatherSearch(dates);
+      dispatch(weatherSearch(dates));
     }
     return;
   };
 
-  const container = {
-    height: height,
-    width: width,
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    backgroundImage: 'url(/images/thunderstorm.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '55% 50%',
-    backgroundSize: 'cover',
-  };
   return (
-    <section style={container}>
-      <div onClick={() => handleClose('-350px')}>
+    <WeatherSection height={height} width={width}>
+      <div>
         <DateForm handleDates={handleDates} name={'forecast'} />
       </div>
-      <div style={boxDiv} ref={boxes}>
+      <BoxDiv ref={boxes} slideIn={slideIn}>
         <BoxSlider>
           {data.map(item => {
             return (
@@ -71,9 +83,9 @@ function Weather(props) {
             );
           })}
         </BoxSlider>
-      </div>
+      </BoxDiv>
       {loader && <Loading />}
-    </section>
+    </WeatherSection>
   );
 }
 
@@ -81,28 +93,4 @@ Weather.propTypes = {
   dates: PropTypes.object,
   weather: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   weatherSearch: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    weather: state.weather.type ? false : state.weather.weather,
-    dates: state.dates,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    weatherSearch: dates => dispatch(weatherSearch(dates)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Weather);
-
-const boxDiv = {
-  position: 'relative',
-  width: '100%',
-  top: '-350px',
-  display: 'flex',
-  flexDirection: 'row',
-  transition: 'top 500ms cubic-bezier(0.22, 1.68, 0.52, 0.73)',
 };

@@ -1,5 +1,42 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  position: absolute;
+  overflow: hidden;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  transform: rotate(10deg) scale(0.7);
+  background: black;
+`;
+
+const ContDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const MoonFront = styled.div`
+  left: 0;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: ${props => props.color};
+  overflow: hidden;
+`;
+
+const MoonBack = styled.div`
+  top: -25px;
+  left: ${props => props.left}px;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  background: ${props => props.color};
+  overflow: hidden;
+`;
 
 function MoonPhase({ phase }) {
   const [leftBack, setLeftBack] = useState('0');
@@ -25,34 +62,13 @@ function MoonPhase({ phase }) {
     }
   });
 
-  const moonFront = {
-    left: '0',
-    position: 'absolute',
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%',
-    background: frontColor,
-    overflow: 'hidden',
-  };
-
-  const moonBack = {
-    top: '-25px',
-    left: leftBack,
-    position: 'absolute',
-    width: '100px',
-    height: '100px',
-    borderRadius: '100%',
-    background: backColor,
-    overflow: 'hidden',
-  };
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <div style={container}>
-        <div style={moonFront}></div>
-        <div style={moonBack}></div>
-      </div>
-    </div>
+    <ContDiv>
+      <Container>
+        <MoonFront color={frontColor}></MoonFront>
+        <MoonBack color={backColor} left={leftBack}></MoonBack>
+      </Container>
+    </ContDiv>
   );
 }
 
@@ -61,13 +77,3 @@ MoonPhase.propTypes = {
 };
 
 export default MoonPhase;
-
-const container = {
-  position: 'absolute',
-  overflow: 'hidden',
-  borderRadius: '100%',
-  height: '50px',
-  width: '50px',
-  transform: 'rotate(10deg) scale(0.7)',
-  background: 'black',
-};

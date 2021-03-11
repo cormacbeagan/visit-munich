@@ -7,8 +7,15 @@ import {
   TiWeatherSnow,
   TiWeatherWindy,
 } from 'react-icons/ti';
+import styled from 'styled-components';
 
-function WeatherIcon({ icon }) {
+const DivStyle = styled.div`
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+`;
+
+export default function WeatherIcon({ icon }) {
   let symbol;
   switch (icon) {
     case 'partly-cloudy-day':
@@ -33,19 +40,11 @@ function WeatherIcon({ icon }) {
       symbol = <p>Cloudy with a chance of ERRORS</p>;
   }
 
-  return <div style={divStyle}>{symbol}</div>;
+  return <DivStyle>{symbol}</DivStyle>;
 }
 
 WeatherIcon.propTypes = {
   icon: PropTypes.string,
-};
-
-export default WeatherIcon;
-
-const divStyle = {
-  margin: '10px',
-  display: 'flex',
-  justifyContent: 'center',
 };
 
 const iconStyle = {
