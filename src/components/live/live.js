@@ -8,7 +8,7 @@ import ConcertListings from './concertListings';
 import Loading from '../universal/loading';
 import { location } from '../universal/mapData';
 import { mapStyleLight } from '../universal/mapData';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayField from './displayField';
@@ -20,8 +20,11 @@ const initialState = {
   coords: '',
 };
 
-function Live(props) {
-  const { concerts, dates, concertSearch } = props;
+export default function Live() {
+  const boxes = useRef();
+  const dispatch = useDispatch();
+  const concerts = useSelector(state => state.concerts);
+  const dates = useSelector(state => state.dates);
   const [displayData, setDisplayData] = useState(initialState);
   const [slideIn, setSlideIn] = useState('-350');
   const [searching, setSearching] = useState(true);
@@ -32,11 +35,10 @@ function Live(props) {
   const [venueBands, setVenueBands] = useState(null);
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState('');
-  const boxes = useRef();
 
   useEffect(() => {
     if (dates.dates) {
-      concertSearch(dates.dates);
+      dispatch(concertSearch(dates.dates));
     }
   }, []);
 
@@ -72,7 +74,7 @@ function Live(props) {
 
   const handleSearch = dates => {
     setLoader(true);
-    concertSearch(dates);
+    dispatch(concertSearch(dates));
   };
 
   const handleNewSearch = () => {
@@ -193,30 +195,6 @@ function Live(props) {
     </section>
   );
 }
-
-Live.propTypes = {
-  concertSearch: PropTypes.func,
-  concerts: PropTypes.shape({
-    events: PropTypes.array,
-    venues: PropTypes.array,
-  }),
-  dates: PropTypes.object,
-};
-
-const mapStateToProps = state => {
-  return {
-    concerts: state.concerts,
-    dates: state.dates,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    concertSearch: dates => dispatch(concertSearch(dates)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Live);
 
 const liveStyle = {
   position: 'fixed',

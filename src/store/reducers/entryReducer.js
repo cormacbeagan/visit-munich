@@ -14,7 +14,7 @@ const initState = {
   ],
 };
 
-const tipReducer = (state = initState, action) => {
+const entryReducer = (state = initState, action) => {
   switch (action.type) {
     case 'CREATE_ENTRY':
       console.log('created', action.entry);
@@ -52,9 +52,15 @@ const tipReducer = (state = initState, action) => {
     case 'ENTRY_DELETE_ERROR':
       console.log('Entry delete error', action.err);
       return state;
+    case 'RANKING_UPDATE_SUCCESS':
+      console.log('Ranking update success');
+      return state;
+    case 'RANKING_UPDATE_ERROR':
+      console.log('Ranking update error', action.err);
+      return state;
     default:
       return state;
   }
 };
 
-export default tipReducer;
+export default entryReducer;

@@ -15,6 +15,7 @@ const initialState = {
   link: '',
   linkText: '',
   image: '/images/Easy-schlachthof.jpg', // never used!
+  collection: 'blogs',
 };
 
 export default function CreateBlog() {
@@ -30,7 +31,7 @@ export default function CreateBlog() {
       <CreateForm
         onSubmit={e => {
           e.preventDefault();
-          handleSubmit('blogs');
+          handleSubmit();
         }}
       >
         <div>
@@ -81,10 +82,3 @@ export default function CreateBlog() {
     </div>
   );
 }
-
-CreateBlog.propTypes = {
-  auth: PropTypes.shape({
-    uid: PropTypes.string,
-  }),
-  createBlog: PropTypes.func,
-};

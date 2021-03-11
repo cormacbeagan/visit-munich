@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import { setDates } from '../../store/actions/dateActions';
 import { concertSearch } from '../../store/actions/concertActions';
 import { weatherSearch } from '../../store/actions/weatherActions';
@@ -13,15 +12,7 @@ import ScrollBox from './scrollBox';
 import BoxWrapper from '../universal/boxWrapper';
 import HomeEntry from './homeEntry';
 
-function Home(props) {
-  const {
-    setDates,
-    concertSearch,
-    weatherSearch,
-    blogs,
-    concerts,
-    weather,
-  } = props;
+export default function Home() {
   const [width, height] = useDimensionSetter();
   const [slideIn, setSlideIn] = useState(width);
   const [blogArray, setBlogArray] = useState([]);
@@ -29,6 +20,13 @@ function Home(props) {
   const [concertScroll, setConcertScroll] = useState([]);
   const [scrollWidth, setScrollWidth] = useState(0);
   const scrollDiv = useRef();
+  const dispatch = useDispatch();
+  useFirestoreConnect(['blogs']);
+  const blogs = useSelector(state => state.firestore.ordered?.blogs);
+  const weather = useSelector(state =>
+    state.weather.type ? false : state.weather.weather
+  );
+  const concerts = useSelector(state => state.concerts);
 
   useEffect(() => {
     if (blogs) {
@@ -57,9 +55,9 @@ function Home(props) {
   }, [concerts, weather]);
 
   const handleDates = dates => {
-    setDates(dates);
-    concertSearch(dates);
-    weatherSearch(dates);
+    dispatch(setDates(dates));
+    dispatch(concertSearch(dates));
+    dispatch(weatherSearch(dates));
   };
 
   const container = {
@@ -118,40 +116,6 @@ function Home(props) {
     </section>
   );
 }
-
-Home.propTypes = {
-  blogs: PropTypes.array,
-  concertSearch: PropTypes.func,
-  concerts: PropTypes.shape({
-    events: PropTypes.array,
-    venues: PropTypes.array,
-  }),
-  setDates: PropTypes.func,
-  weather: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  weatherSearch: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  return {
-    dates: state.dates,
-    blogs: state.firestore.ordered.blogs || state.blogs.blogs,
-    weather: state.weather.type ? false : state.weather.weather,
-    concerts: state.concerts,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setDates: dates => dispatch(setDates(dates)),
-    concertSearch: dates => dispatch(concertSearch(dates)),
-    weatherSearch: dates => dispatch(weatherSearch(dates)),
-  };
-};
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: 'blogs', orderBy: ['rank'] }])
-)(Home);
 
 const logo = {
   margin: '200px 25px',

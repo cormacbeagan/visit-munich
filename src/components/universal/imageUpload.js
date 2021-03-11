@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
 import imageCompression from 'browser-image-compression';
-import { connect } from 'react-redux';
-import { uploadImage } from '../../store/actions/projectActions';
-import { uploadTipImage } from '../../store/actions/tipActions';
+import { useDispatch } from 'react-redux';
+import { uploadImage } from '../../store/actions/entryActions';
 import { FaFileImport } from 'react-icons/fa';
 import Button from './button';
 
@@ -13,20 +12,16 @@ const compressOptions = {
   useWebWorker: true,
 };
 
-function ImageUpload(props) {
-  const { uploadImage, id, usage, uploadTipImage } = props;
+export default function ImageUpload(props) {
+  const { id, collection } = props;
+  const dispatch = useDispatch();
   const [imageName, setImageName] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const input = useRef();
-
   const handleImageUpload = async e => {
     e.preventDefault();
     const compImage = await imageCompression(imageFile, compressOptions);
-    if (usage === 'wall') {
-      uploadImage(compImage, id);
-    } else if (usage === 'tip') {
-      uploadTipImage(compImage, id);
-    }
+    dispatch(uploadImage(compImage, id, collection));
     input.current.value = null;
     setImageName(null);
     setImageFile(null);
@@ -73,15 +68,6 @@ ImageUpload.propTypes = {
   uploadTipImage: PropTypes.func,
   usage: PropTypes.string,
 };
-
-const mapDispatchToProps = dispatch => {
-  return {
-    uploadImage: (image, id) => dispatch(uploadImage(image, id)),
-    uploadTipImage: (image, id) => dispatch(uploadTipImage(image, id)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ImageUpload);
 
 const divStyle = {
   marginBottom: '20px',

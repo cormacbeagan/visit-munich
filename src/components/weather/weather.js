@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import DateForm from '../universal/dateForm';
 import DisplayWeather from './displayWeather';
@@ -31,11 +30,11 @@ const BoxDiv = styled.div`
 `;
 
 export default function Weather() {
+  const dispatch = useDispatch();
   const weather = useSelector(state =>
     state.weather.type ? false : state.weather.weather
   );
   const dates = useSelector(state => state.dates);
-  const dispatch = useDispatch();
   const [width, height] = useDimensionSetter();
   const [data, setData] = useState([]);
   const [slideIn, setSlideIn] = useState(false);
@@ -88,9 +87,3 @@ export default function Weather() {
     </WeatherSection>
   );
 }
-
-Weather.propTypes = {
-  dates: PropTypes.object,
-  weather: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  weatherSearch: PropTypes.func,
-};

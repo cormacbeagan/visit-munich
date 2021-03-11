@@ -21,7 +21,6 @@ export const weatherSearch = dates => {
     };
     axios(config)
       .then(resp => {
-        console.log(resp.data.remainingCost);
         const dataArray = resp.data.days;
         dispatch({
           type: 'WEATHER_SEARCH_SUCCESS',

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import Button from '../universal/button';
@@ -14,6 +13,7 @@ const initialState = {
   lat: '',
   lng: '',
   image: '/images/Easy-schlachthof.jpg',
+  collection: 'projects',
 };
 
 export default function CreateWall() {
@@ -31,7 +31,7 @@ export default function CreateWall() {
       <CreateForm
         onSubmit={e => {
           e.preventDefault();
-          handleSubmit('projects');
+          handleSubmit();
         }}
       >
         <div>
@@ -77,8 +77,3 @@ export default function CreateWall() {
     </div>
   );
 }
-
-CreateWall.propTypes = {
-  auth: PropTypes.object,
-  createProject: PropTypes.func,
-};

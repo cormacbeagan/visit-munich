@@ -1,52 +1,45 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFirestoreConnect } from 'react-redux-firebase';
 import { Redirect, useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import Input from '../universal/input';
-import {
-  updateBlog,
-  deleteBlog,
-  updateRanking,
-} from '../../store/actions/blogActions';
+import { updateRanking } from '../../store/actions/entryActions';
 import BlogDisplay from './blogDisplay';
 import TextArea from '../universal/textArea';
 import Loading from '../universal/loading';
+import useEdit from '../../hooks/useEdit';
 const myId = process.env.REACT_APP_MY_ID;
 
-let idToPass;
-
-function EditBlog(props) {
-  const {
-    blog,
-    auth,
-    updateBlog,
-    deleteBlog,
-    blogsArray,
-    updateRanking,
-  } = props;
+export default function EditBlog() {
   const history = useHistory();
-  let { id } = useParams();
-  idToPass = id;
-  const [isEditing, setIsEditing] = useState(false);
-  const [blogData, setBlogData] = useState(blog);
+  const auth = useSelector(state => state.firebase.auth);
+  useFirestoreConnect([{ collection: 'blogs' }]); //* orderBy causes bugs - returns double items
+  const blogsArray = useSelector(state => state.firestore.ordered.blogs);
+  const dispatch = useDispatch();
   const [options, setOptions] = useState([]);
   const [titles, setTitles] = useState([]);
 
-  useEffect(() => {
-    if (blog) {
-      setBlogData(blog);
-    }
-  }, [blog]);
+  const {
+    handleDelete,
+    handleCancel,
+    handleReady,
+    handleChange,
+    handleEdit,
+    formData,
+    isEditing,
+    entry,
+    id,
+  } = useEdit('blogs');
 
   useEffect(() => {
     if (blogsArray) {
       let optionsArray = [];
       let orderedTitles = [];
-      blogsArray.forEach((item, index) => {
+      const orderedBlogs = Array.from(blogsArray);
+      orderedBlogs.sort((a, b) => (a.rank < b.rank ? -1 : 1));
+      orderedBlogs.forEach((item, index) => {
         if (item.rank !== 0) {
           optionsArray.push(
             <option key={item.id} value={index}>
@@ -66,50 +59,8 @@ function EditBlog(props) {
       setOptions(optionsArray);
     }
   }, [blogsArray]);
-
+  if (!entry) return <Loading />;
   if (auth.uid !== myId) return <Redirect to="/signin" />;
-
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleChange = (id, value) => {
-    setBlogData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const handleReady = e => {
-    const obj = {};
-    for (let key in blogData) {
-      if (blogData[key] === '') {
-        if (!(key === 'link' || key === 'linkText')) {
-          obj[key] = blog[key];
-        }
-      }
-    }
-    setBlogData(prev => ({ ...prev, ...obj }));
-    uploadUpdate({ ...blogData, ...obj });
-  };
-
-  const uploadUpdate = obj => {
-    updateBlog(obj, id);
-    setIsEditing(!isEditing);
-  };
-
-  const handleCancel = () => {
-    setBlogData(blog);
-    setIsEditing(!isEditing);
-  };
-
-  const blogDelete = () => {
-    const doubleCheck = window.confirm(
-      'Do you really want to delete the whole document?'
-    );
-    if (doubleCheck) {
-      handleRanking(null, blogsArray.length);
-      deleteBlog(id);
-      history.push('/');
-    }
-  };
 
   const handleRanking = (e, rank) => {
     let inputValue;
@@ -119,7 +70,7 @@ function EditBlog(props) {
     } else {
       inputValue = rank;
     }
-    const origPos = blog.rank;
+    const origPos = entry.rank;
     if (origPos === inputValue) return;
 
     if (inputValue > origPos) {
@@ -127,161 +78,137 @@ function EditBlog(props) {
         if (
           blogsArray[i].rank > origPos &&
           blogsArray[i].rank <= inputValue &&
-          blogsArray[i].id !== blog.id
+          blogsArray[i].id !== entry.id
         ) {
-          updateRanking(Number(blogsArray[i].rank - 1), blogsArray[i].id);
+          dispatch(
+            updateRanking(
+              Number(blogsArray[i].rank - 1),
+              blogsArray[i].id,
+              'blogs'
+            )
+          );
         }
       }
-      updateRanking(inputValue, id);
+      dispatch(updateRanking(inputValue, id, 'blogs'));
     } else if (inputValue < origPos) {
       for (let i = 0; i < blogsArray.length; i++) {
         if (
           blogsArray[i].rank < origPos &&
           blogsArray[i].rank >= inputValue &&
-          blogsArray[i].id !== blog.id
+          blogsArray[i].id !== entry.id
         ) {
-          updateRanking(Number(blogsArray[i].rank + 1), blogsArray[i].id);
+          dispatch(
+            updateRanking(
+              Number(blogsArray[i].rank + 1),
+              blogsArray[i].id,
+              'blogs'
+            )
+          );
         }
       }
-      updateRanking(inputValue, id);
+      dispatch(updateRanking(inputValue, id, 'blogs'));
     }
   };
-
-  if (blog) {
-    return (
-      <div style={detailsDiv}>
-        <div style={rightBut}>
-          {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
-          <Button onClick={() => history.push(`/`)} children={'Back to map'} />
-          {isEditing && (
-            <Button onClick={blogDelete} children={'delete blog'} />
-          )}
-        </div>
-        {isEditing ? (
-          <div>
-            <div style={row}>
-              <Input
-                type={'text'}
-                id={'name'}
-                name={'Name: '}
-                value={blogData.name}
-                onChange={handleChange}
-              />
-              <Input
-                type={'text'}
-                id={'subtitle'}
-                name={'Subtitle: '}
-                value={blogData.subtitle}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={row}>
-              <TextArea
-                type={'text'}
-                id={'textInput'}
-                name={'Text: '}
-                value={blogData.textInput}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={row}>
-              <Input
-                type={'text'}
-                id={'link'}
-                name={'Link Url: '}
-                value={blogData.link}
-                onChange={handleChange}
-              />
-              <Input
-                type={'text'}
-                id={'linkText'}
-                name={'Link Text: '}
-                value={blogData.linkText}
-                onChange={handleChange}
-              />
-            </div>
-            <div style={titleDiv}>{titles}</div>
-            <div style={row}>
-              <label style={labelStyle} htmlFor="position">
-                Choose position:{' '}
-              </label>
-              <br />
-              {blog.rank !== 0 && (
-                <select
-                  style={selectStyle}
-                  name="position"
-                  id="rank"
-                  value="Choose"
-                  onChange={handleRanking}
-                >
-                  <option>Reorder</option>
-                  <option>1 is Fixed</option>
-                  {options}
-                </select>
-              )}
-            </div>
-          </div>
-        ) : (
-          <BlogDisplay blog={blogData} handleEdit={handleEdit} />
+  return (
+    <div style={detailsDiv}>
+      <div style={rightBut}>
+        {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
+        <Button onClick={() => history.push(`/`)} children={'Home'} />
+        {isEditing && (
+          <Button
+            onClick={() => {
+              handleRanking(null, blogsArray.length);
+              handleDelete();
+            }}
+            children={'delete blog'}
+          />
         )}
-        <div style={editContainer}>
-          <div>
-            {isEditing ? (
-              <div style={editContainer}>
-                <Button onClick={handleReady} children={'Save'} />
-                <Button children={'cancel'} onClick={handleCancel} />
-              </div>
-            ) : (
-              <div>
-                <Button onClick={handleEdit} children={'Edit'} />
-                <Button
-                  onClick={() => history.push(`/`)}
-                  children={'Back to map'}
-                />
-              </div>
+      </div>
+      {isEditing ? (
+        <div>
+          <div style={row}>
+            <Input
+              type={'text'}
+              id={'name'}
+              name={'Name: '}
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <Input
+              type={'text'}
+              id={'subtitle'}
+              name={'Subtitle: '}
+              value={formData.subtitle}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={row}>
+            <TextArea
+              type={'text'}
+              id={'textInput'}
+              name={'Text: '}
+              value={formData.textInput}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={row}>
+            <Input
+              type={'text'}
+              id={'link'}
+              name={'Link Url: '}
+              value={formData.link}
+              onChange={handleChange}
+            />
+            <Input
+              type={'text'}
+              id={'linkText'}
+              name={'Link Text: '}
+              value={formData.linkText}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={titleDiv}>{titles}</div>
+          <div style={row}>
+            <label style={labelStyle} htmlFor="position">
+              Choose position:{' '}
+            </label>
+            <br />
+            {entry.rank !== 0 && (
+              <select
+                style={selectStyle}
+                name="position"
+                id="rank"
+                value="Choose"
+                onChange={handleRanking}
+              >
+                <option>Reorder</option>
+                <option>1 is Fixed</option>
+                {options}
+              </select>
             )}
           </div>
         </div>
+      ) : (
+        <BlogDisplay blog={formData} handleEdit={handleEdit} />
+      )}
+      <div style={editContainer}>
+        <div>
+          {isEditing ? (
+            <div style={editContainer}>
+              <Button onClick={handleReady} children={'Save'} />
+              <Button children={'cancel'} onClick={handleCancel} />
+            </div>
+          ) : (
+            <div>
+              <Button onClick={handleEdit} children={'Edit'} />
+              <Button onClick={() => history.push(`/`)} children={'Home'} />
+            </div>
+          )}
+        </div>
       </div>
-    );
-  } else {
-    return <Loading />;
-  }
+    </div>
+  );
 }
-
-EditBlog.propTypes = {
-  auth: PropTypes.object,
-  blog: PropTypes.object,
-  blogsArray: PropTypes.array,
-  deleteBlog: PropTypes.func,
-  updateBlog: PropTypes.func,
-  updateRanking: PropTypes.func,
-};
-
-const mapStateToProps = state => {
-  const blogs = state.firestore.data.blogs;
-  const blogsArray = state.firestore.ordered.blogs;
-  const blog = blogs ? blogs[idToPass] : null;
-  return {
-    blog: blog,
-    auth: state.firebase.auth,
-    blogs: blogs,
-    blogsArray: blogsArray,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    updateBlog: (blog, id) => dispatch(updateBlog(blog, id)),
-    deleteBlog: id => dispatch(deleteBlog(id)),
-    updateRanking: (ranking, id) => dispatch(updateRanking(ranking, id)),
-  };
-};
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: 'blogs', orderBy: ['rank'] }])
-)(EditBlog);
 
 const row = {
   background: '#464646',
