@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import Map from '../universal/map';
 import Button from '../universal/button';
@@ -12,6 +11,72 @@ import { useDispatch, useSelector } from 'react-redux';
 import { concertSearch } from '../../store/actions/concertActions';
 import BoxWrapper from '../universal/boxWrapper';
 import DisplayField from './displayField';
+import styled from 'styled-components';
+
+const SearchBar = styled.div`
+  height: 70px;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  z-index: 88;
+  background: var(--middleBlue);
+`;
+
+const BtnDiv = styled.div`
+  text-align: center;
+  padding: 10px;
+  background: var(--middleBlue);
+`;
+
+const MapContainer = styled.div`
+  max-height: 1000px;
+  width: 320px;
+`;
+
+const InfoBoxes = styled.div`
+  margin-left: ${props => (props.slideIn ? '10px' : '-350px')};
+  margin-top: 70px;
+  position: absolute;
+  z-index: 87;
+  height: 300px;
+  width: 320px;
+  display: block;
+  transition: margin-left 400ms cubic-bezier(0.5, 1.71, 0.54, 0.89);
+  @media (max-width: 500px) {
+    margin-top: 150px;
+  }
+`;
+
+const LogoDiv = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 70px;
+  z-index: 86;
+  h4 {
+    color: #f24847;
+    margin: 0;
+    font-weight: bold;
+  }
+`;
+const CloserDiv = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 75px;
+`;
+
+const ErrorDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    z-index: 99;
+    bottom: 200px;
+    color: #ff4444;
+    font-size: 36;
+    font-weight: bold;
+  }
+`;
 
 const initialState = {
   name: '',
@@ -26,7 +91,7 @@ export default function Live() {
   const concerts = useSelector(state => state.concerts);
   const dates = useSelector(state => state.dates);
   const [displayData, setDisplayData] = useState(initialState);
-  const [slideIn, setSlideIn] = useState('-350');
+  const [slideIn, setSlideIn] = useState(false);
   const [searching, setSearching] = useState(true);
   const [mapLocation, setMapLocation] = useState(location);
   const [mapZoom, setMapZoom] = useState(12);
@@ -56,6 +121,22 @@ export default function Live() {
     }
   }, [concerts]);
 
+  useEffect(() => {
+    const infoBoxes = boxes.current;
+    const handleSlideout = e => {
+      if (!slideIn) {
+        return;
+      }
+      if (!infoBoxes.contains(e.target) && e.target) {
+        setSlideIn(false);
+      }
+    };
+    document.addEventListener('click', handleSlideout);
+    return () => {
+      document.removeEventListener('click', handleSlideout);
+    };
+  }, [slideIn]);
+
   const handleInfo = venueId => {
     if (venueId) {
       const venue = concerts.venues.filter(item => item.id === venueId);
@@ -67,7 +148,9 @@ export default function Live() {
       });
       setVenueBands(bands);
       setDisplayData(venue);
-      setSlideIn('-10');
+      setTimeout(() => {
+        setSlideIn(true);
+      });
       boxes.current.focus();
     }
   };
@@ -81,14 +164,14 @@ export default function Live() {
     setMapLocation(location);
     setMapZoom(12);
     setCoords(null);
-    setSlideIn('-350');
+    setSlideIn(false);
     setSearching(true);
     setVenueBands(null);
   };
 
   const handleBackToMap = event => {
     setDisplayMap(!displayMap);
-    setSlideIn('-350');
+    setSlideIn(false);
     setCoords(null);
     setVenueBands(null);
     if (event) {
@@ -103,7 +186,7 @@ export default function Live() {
           uri: event.uri,
         },
       ]);
-      setSlideIn('-10');
+      setSlideIn(true);
     } else {
       setMapLocation(location);
       setMapZoom(12);
@@ -116,40 +199,29 @@ export default function Live() {
   };
 
   const closer = () => {
-    setSlideIn('-350');
+    setSlideIn(false);
   };
-  const infoBoxes = {
-    marginLeft: slideIn + 'px',
-    marginTop: '70px',
-    position: 'absolute',
-    zIndex: '87',
-    height: '300px',
-    width: '320px',
-    display: 'block',
-    transitionProperty: 'margin-left',
-    transitionDuration: '400ms',
-    transitionTimingFunction: 'cubic-bezier(0.5, 1.71, 0.54, 0.89)',
-  };
+
   return (
     <section>
-      <div style={liveStyle}>
+      <SearchBar>
         {concerts.events && !searching ? (
-          <div style={buttonDiv}>
+          <BtnDiv>
             <Button
               children={displayMap ? 'back to map' : 'all concerts'}
               onClick={() => handleBackToMap()}
             />
             <Button children={'new dates'} onClick={handleNewSearch} />
-          </div>
+          </BtnDiv>
         ) : (
           <DateForm handleDates={handleSearch} name={'find concerts'} />
         )}
-      </div>
+      </SearchBar>
       {displayMap ? (
         <ConcertListings coords={coords} handleBackToMap={handleBackToMap} />
       ) : (
         <div>
-          <div style={container}>
+          <MapContainer>
             <div>
               <Map
                 onClick={closer}
@@ -162,10 +234,10 @@ export default function Live() {
                 switched={false}
               />
             </div>
-            <div style={infoBoxes} ref={boxes} tabIndex="0">
-              <div style={bottom}>
+            <InfoBoxes slideIn={slideIn} ref={boxes} tabIndex="0">
+              <CloserDiv>
                 <Closer onClick={closer} />
-              </div>
+              </CloserDiv>
               <BoxWrapper>
                 <DisplayField
                   bands={venueBands}
@@ -173,81 +245,25 @@ export default function Live() {
                   handleVenue={handleVenue}
                 />
               </BoxWrapper>
-            </div>
-          </div>
-          <div style={logoDiv}>
-            <h5 style={logoHeading}>Concerts</h5>
+            </InfoBoxes>
+          </MapContainer>
+          <LogoDiv>
+            <h4>Concerts</h4>
             <img
               src="/images/by-songkick-pink.svg"
               alt="Sonkick Logo"
               height="50px"
               width="140px"
             />
-          </div>
+          </LogoDiv>
         </div>
       )}
       {loader && <Loading />}
       {loader && message && (
-        <div style={center}>
-          <p style={error}>{message}</p>
-        </div>
+        <ErrorDiv>
+          <p>{message}</p>
+        </ErrorDiv>
       )}
     </section>
   );
 }
-
-const liveStyle = {
-  position: 'fixed',
-  top: '70px',
-  left: '0',
-  right: '0',
-  zIndex: '88',
-  backgroundColor: '#395f78',
-  height: '70px',
-};
-
-const container = {
-  maxHeight: '1000px',
-  width: '320px',
-  contain: 'items',
-  display: 'contain',
-};
-
-const buttonDiv = {
-  textAlign: 'center',
-  padding: '10px',
-  backgroundColor: '#395f78',
-};
-
-const logoDiv = {
-  position: 'absolute',
-  bottom: '0px',
-  right: '70px',
-  zIndex: '86',
-};
-
-const logoHeading = {
-  color: '#f24847',
-  margin: '0',
-  fontWeight: 'bold',
-};
-
-const bottom = {
-  position: 'absolute',
-  top: '0px',
-  right: '75px',
-};
-
-const error = {
-  zIndex: '99',
-  bottom: '200px',
-  color: '#ff4444',
-  fontSize: '36px',
-  fontWeight: 'bold',
-};
-
-const center = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};

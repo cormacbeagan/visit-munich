@@ -1,6 +1,23 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import Concert from './concert';
+
+const ContDiv = styled.div`
+  margin-top: 180px;
+  h1 {
+    font-size: 3.5rem;
+    text-align: center;
+    color: var(--white);
+  }
+`;
+const ContainerStyle = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px 0;
+  background: var(--darkBrown);
+`;
 
 export default function ConcertListings(props) {
   const { handleBackToMap, coords } = props;
@@ -20,36 +37,28 @@ export default function ConcertListings(props) {
   };
 
   return (
-    <div style={containerStyle}>
-      <div>
-        {concertArray.map(event => {
-          if (!event) {
-            return null;
-          } else {
-            return (
-              <div key={event.id}>
-                <Concert handleBackToMap={handleBack} data={event} />
-              </div>
-            );
-          }
-        })}
-      </div>
-    </div>
+    <ContDiv>
+      <h1>All concerts for your dates</h1>
+      <ContainerStyle>
+        <div>
+          {concertArray.map(event => {
+            if (!event) {
+              return null;
+            } else {
+              return (
+                <div key={event.id}>
+                  <Concert handleBackToMap={handleBack} data={event} />
+                </div>
+              );
+            }
+          })}
+        </div>
+      </ContainerStyle>
+    </ContDiv>
   );
 }
 
 ConcertListings.propTypes = {
   coords: PropTypes.any,
   handleBackToMap: PropTypes.func,
-};
-
-const containerStyle = {
-  width: '100%',
-  maxWidth: '1000px',
-  margin: '50px auto',
-  marginTop: '200px',
-  padding: '20px 0px',
-  backgroundColor: '#333333',
-  color: '#f3f3f3',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
 };

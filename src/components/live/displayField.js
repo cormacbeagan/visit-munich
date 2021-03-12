@@ -1,7 +1,48 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
+import styled from 'styled-components';
 import Button from '../universal/button';
+
+const BoxText = styled.div`
+  margin: 10px;
+  color: var(--white);
+  h1 {
+    color: var(--darkBlue);
+    font-size: 22px;
+    margin: 8px 0;
+  }
+  p {
+    margin: 0;
+    font-weight: bold;
+    color: var(--lightPink);
+  }
+`;
+
+const LogoStyle = styled.img`
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  top: 60px;
+  right: 30px;
+  cursor: pointer;
+`;
+
+const BandFlex = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  p {
+    color: var(--white);
+  }
+`;
+
+const BottomDiv = styled.div`
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+`;
 
 function DisplayField(props) {
   const { data, handleVenue, bands } = props;
@@ -13,34 +54,26 @@ function DisplayField(props) {
 
   if (displayData) {
     return (
-      <div style={boxText}>
-        <h3 style={boxHeading}>{displayData.name}</h3>
+      <BoxText>
+        <h1>{displayData.name}</h1>
         {bands && (
           <div>
-            <p style={label}>Bands: </p>
-            <div style={bandFlex}>
+            <p>Bands: </p>
+            <BandFlex>
               {bands.map(band => {
-                return (
-                  <p style={bandStyle} key={band}>
-                    {band},
-                  </p>
-                );
+                return <p key={band}>{band},</p>;
               })}
-            </div>
+            </BandFlex>
           </div>
         )}
 
-        <div style={boxDiv}>
+        <div>
           <br />
           <a href={displayData.uri} target="_blank" rel="noreferrer">
-            <img
-              src="/images/sk-badge-pink.png"
-              alt="Sonkick Logo"
-              style={logoStyle}
-            />
-            <p style={{ display: 'none' }}>Songkick website</p>
+            <LogoStyle src="/images/sk-badge-pink.png" alt="" />
+            <p className="accessibly-hidden">Songkick website</p>
           </a>
-          <div style={divBottom}>
+          <BottomDiv>
             <Button
               children={'concerts'}
               onClick={() => handleVenue(displayData.coords)}
@@ -49,22 +82,22 @@ function DisplayField(props) {
               children={
                 <div>
                   directions <FiExternalLink style={{ marginBottom: '-2px' }} />
+                  <a
+                    ref={link}
+                    href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="accessibly-hidden"
+                  >
+                    Google Maps
+                  </a>
                 </div>
               }
               onClick={() => link.current.click()}
             />
-            <a
-              ref={link}
-              href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{ display: 'none' }}
-            >
-              Google Maps
-            </a>
-          </div>
+          </BottomDiv>
         </div>
-      </div>
+      </BoxText>
     );
   } else {
     return null;
@@ -78,53 +111,3 @@ DisplayField.propTypes = {
 };
 
 export default DisplayField;
-
-const boxText = {
-  margin: '10px',
-  color: 'white',
-  contain: 'items',
-};
-
-const boxHeading = {
-  color: '#243443',
-  maxWidth: '220px',
-  fontWeight: 'bold',
-};
-
-const boxDiv = {
-  marginLeft: '-5px',
-};
-
-const logoStyle = {
-  height: '25px',
-  width: '25px',
-  position: 'absolute',
-  top: '50px',
-  right: '30px',
-  cursor: 'pointer',
-};
-
-const divBottom = {
-  position: 'absolute',
-  bottom: '5px',
-  left: '5px',
-};
-
-const label = {
-  margin: '0',
-  color: '#dfbaaa',
-};
-
-const bandFlex = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'left',
-  flexWrap: 'wrap',
-};
-
-const bandStyle = {
-  marginTop: '0',
-  marginRight: '12px',
-  marginBottom: '5px',
-  color: 'white',
-};

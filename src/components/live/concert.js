@@ -5,96 +5,130 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { FiExternalLink } from 'react-icons/fi';
+import styled from 'styled-components';
 dayjs.extend(advancedFormat);
+
+const Container = styled.article`
+  background-color: var(--middleBrown);
+  min-height: 80px;
+  width: 76%;
+  margin: 20px auto;
+  padding: ${props => (props.width < 800 ? '20px' : '40px')};
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  color: var(--white);
+  border-radius: 5px;
+  h2 {
+    margin: 0;
+    color: var(--lightPink);
+  }
+  h3 {
+    color: var(--lightPink);
+  }
+  p {
+    color: var(--lightPink);
+    margin: 2px 0;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  span {
+    color: var(--white);
+  }
+`;
+
+const FlexDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const LogoImg = styled.img`
+  margin: 0 8px;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+`;
+
+const SkButton = styled.img`
+  left: 20px;
+  height: 25px;
+  width: 75px;
+  cursor: pointer;
+`;
+
+const BtnDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const BandDiv = styled.div`
+  margin-left: 10px;
+`;
+
+const LinkStyle = styled.div`
+  color: var(--offWhite);
+  width: 95px;
+  max-height: 18px;
+  overflow: hidden;
+`;
 
 function Concert(props) {
   const { data, handleBackToMap } = props;
   const [hover, setHover] = useState(false);
   const [width, height] = useDimensionSetter();
-  const [padding, setPadding] = useState('40px');
   const link = useRef();
-
-  useEffect(() => {
-    if (width > 800) {
-      setPadding('40px');
-    } else {
-      setPadding('20px');
-    }
-  }, [width]);
 
   const handleBack = () => {
     handleBackToMap(data.id);
   };
-  const containerStyle = {
-    backgroundColor: '#a7a7a733',
-    minHeight: '80px',
-    width: '76%',
-    margin: '20px auto',
-    padding: padding,
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.3)',
-    color: '#e2e2e2',
-  };
 
   return (
-    <article style={containerStyle}>
-      <h2 style={{ ...lowlight, ...noMargin }}>
+    <Container width={width}>
+      <h2>
         {dayjs(data.start.dateTime || data.start.date).format(
           'ddd Do MMM YYYY'
         )}
       </h2>
-      <h3 style={lowlight}>
-        Name:{' '}
-        <span style={highlight}>
-          {data.displayName.replace(/ *\([^)]*\) */g, '')}
-        </span>
+      <h3>
+        Name: <span>{data.displayName.replace(/ *\([^)]*\) */g, '')}</span>
       </h3>
-      <p style={{ ...noMargin, ...lowlight }}>
-        Venue: <span style={highlight}>{data.venue.displayName}</span>
+      <p>
+        Venue: <span>{data.venue.displayName}</span>
       </p>
       {data.status !== 'ok' && (
-        <p style={lowlight}>
-          Status: <span style={highlight}>{data.status}</span>
+        <p>
+          Status: <span>{data.status}</span>
         </p>
       )}
-      <div style={flexDiv}>
-        <p style={{ ...bigP, ...noMargin, ...lowlight }}>Bands: </p>
+      <FlexDiv>
+        <p>Bands: </p>
         {data.performance.map(band => {
           return (
-            <div style={bandDiv} key={band.id}>
-              <div style={flexDiv}>
-                <p
-                  style={{
-                    ...highlight,
-                    ...bigP,
-                    ...noMargin,
-                  }}
-                >
-                  {band.displayName}
+            <BandDiv key={band.id}>
+              <FlexDiv>
+                <p>
+                  <span>{band.displayName}</span>
                 </p>
                 <a href={band.artist.uri} target="_blank" rel="noreferrer">
-                  <img
-                    src="/images/sk-badge-pink.png"
-                    alt="Sonkick Logo"
-                    style={smallLogo}
-                  />
+                  <LogoImg src="/images/sk-badge-pink.png" alt="" />
+                  <p className="accessibly-hidden">
+                    Songkick events details page
+                  </p>
                 </a>
                 <a
                   href={`https://open.spotify.com/search/${band.displayName}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img
-                    src="/images/Spotify_Icon_RGB_Green.png"
-                    alt="Spotify Logo"
-                    style={smallLogo}
-                  />
+                  <LogoImg src="/images/Spotify_Icon_RGB_Green.png" alt="" />
+                  <p className="accessibly-hidden">Spotify artists page</p>
                 </a>
-              </div>
-            </div>
+              </FlexDiv>
+            </BandDiv>
           );
         })}
-      </div>
-      <div style={btnDiv}>
+      </FlexDiv>
+      <BtnDiv>
         <div
           onMouseEnter={() => setHover(true)}
           onMouseOver={() => setHover(true)}
@@ -103,35 +137,31 @@ function Concert(props) {
         >
           <Button
             children={
-              <div style={linkStyle}>
+              <LinkStyle>
                 {!hover ? (
                   <div>
                     Details <FiExternalLink style={{ marginBottom: '-2px' }} />
                   </div>
                 ) : (
-                  <img
-                    src="/images/by-songkick-pink.svg"
-                    alt="Sonkick Logo"
-                    style={skButton}
-                  />
+                  <SkButton src="/images/by-songkick-pink.svg" alt="" />
                 )}
-              </div>
+                <a
+                  href={data.uri}
+                  ref={link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="accessibly-hidden"
+                >
+                  Songkick details page
+                </a>
+              </LinkStyle>
             }
             onClick={() => link.current.click()}
           />
-          <a
-            href={data.uri}
-            ref={link}
-            target="_blank"
-            rel="noreferrer"
-            style={{ display: 'none' }}
-          >
-            Back to map
-          </a>
         </div>
         <Button onClick={handleBack} children={'Back'} />
-      </div>
-    </article>
+      </BtnDiv>
+    </Container>
   );
 }
 
@@ -141,57 +171,3 @@ Concert.propTypes = {
 };
 
 export default Concert;
-
-const highlight = {
-  color: '#cecbcb',
-};
-
-const lowlight = {
-  color: '#dfbaaa',
-  fontWeight: '600',
-};
-
-const noMargin = {
-  margin: '0',
-};
-
-const bigP = {
-  fontSize: '18px',
-};
-
-const flexDiv = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-};
-
-const smallLogo = {
-  margin: '0 8px',
-  cursor: 'pointer',
-  height: '20px',
-  width: '20px',
-};
-
-const skButton = {
-  left: '20px',
-  height: '25px',
-  width: '75px',
-  cursor: 'pointer',
-};
-
-const bandDiv = {
-  marginLeft: '10px',
-};
-
-const btnDiv = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'flex-end',
-};
-
-const linkStyle = {
-  color: '#e2e2e2',
-  width: '95px',
-  maxHeight: '18px',
-  overflow: 'hidden',
-};
