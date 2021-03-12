@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { resetPassword, signIn } from '../../store/actions/authActions';
 import Button from '../universal/button';
 import Input from '../universal/input';
+import { HeadingStyle } from '../Styles/CreateStyles';
+import { ErrorStyle, SignForm } from '../Styles/SignStyles';
 
 const initialState = {
   email: '',
@@ -48,8 +50,8 @@ export default function SignIn() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <h3 style={heading}>Sign In</h3>
+      <HeadingStyle>Sign In</HeadingStyle>
+      <SignForm onSubmit={handleSubmit}>
         <div>
           <Input
             type={'email'}
@@ -68,7 +70,7 @@ export default function SignIn() {
             />
           )}
         </div>
-        <div>
+        <div className="btn-div-sign">
           {!resetting && <Button children={'login'} type={'submit'} />}
           <Button
             type="button"
@@ -86,30 +88,11 @@ export default function SignIn() {
             />
           )}
         </div>
-        <div className="red-text center">
-          {authError ? <p style={errorStyle}>{authError}</p> : null}
-          {msg ? <p style={errorStyle}>{msg}</p> : null}
+        <div>
+          {authError ? <ErrorStyle>{authError}</ErrorStyle> : null}
+          {msg ? <ErrorStyle>{msg}</ErrorStyle> : null}
         </div>
-      </form>
+      </SignForm>
     </div>
   );
 }
-
-const formStyle = {
-  margin: '150px auto',
-  maxWidth: '600px',
-  background: 'var(--offWhite)',
-  padding: '20px',
-  borderRadius: '5px',
-};
-
-const heading = {
-  color: '#333',
-  marginLeft: '90px',
-};
-
-const errorStyle = {
-  color: '#ffacac',
-  fontSize: '20px',
-  textAlign: 'center',
-};

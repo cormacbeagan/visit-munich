@@ -4,6 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/actions/authActions';
 import Input from '../universal/input';
 import Button from '../universal/button';
+import { HeadingStyle } from '../Styles/CreateStyles';
+import { ErrorStyle, SignForm } from '../Styles/SignStyles';
 
 const initialState = {
   email: '',
@@ -30,8 +32,8 @@ export default function SignUp() {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <h3 style={heading}>Sign Up</h3>
+      <HeadingStyle>Sign Up</HeadingStyle>
+      <SignForm onSubmit={handleSubmit}>
         <Input
           type={'text'}
           id={'firstName'}
@@ -60,31 +62,11 @@ export default function SignUp() {
           onChange={handleChange}
           value={formData.password}
         />
-        <Button children={'sign up'} />
-        <div style={{ color: 'red', textAlign: 'center' }}>
-          {authError ? <p style={errorStyle}>{authError}</p> : null}
+        <div className="btn-div-sign">
+          <Button children={'sign up'} />
         </div>
-      </form>
+        <div>{authError ? <ErrorStyle>{authError}</ErrorStyle> : null}</div>
+      </SignForm>
     </div>
   );
 }
-
-const formStyle = {
-  margin: '150px auto',
-  maxWidth: '600px',
-  background: 'var(--offWhite)',
-  padding: '20px',
-  borderRadius: '5px',
-};
-
-const heading = {
-  marginLeft: '100px',
-  fontSize: '24px',
-  color: '#333',
-};
-
-const errorStyle = {
-  color: '#ffacac',
-  fontSize: '20px',
-  textAlign: 'center',
-};

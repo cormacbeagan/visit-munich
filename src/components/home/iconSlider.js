@@ -7,11 +7,58 @@ import {
   TiWeatherSunny,
   TiWeatherShower,
   TiWeatherSnow,
+  TiWeatherWindy,
 } from 'react-icons/ti';
 import TempInput from '../weather/tempInput';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import styled from 'styled-components';
 dayjs.extend(advancedFormat);
+
+const ColumnUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+`;
+
+const EntryRow = styled.div`
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 2px solid var(--darkBlue);
+  position: relative;
+`;
+
+const ConcertEntry = styled.div`
+  margin: 0 25px 5px 0;
+  p {
+    color: var(--white);
+    font-weight: 600;
+  }
+  .venue-p {
+    color: #bebdc0;
+  }
+`;
+
+const WeatherEntry = styled.div`
+  margin: 5px 0;
+  border-bottom: 2px solid var(--darkBlue);
+  p {
+    color: var(--white);
+    font-weight: 600;
+  }
+`;
+
+const LogoImg = styled.img`
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  margin: 15px;
+  position: absolute;
+  right: 0;
+  border-radius: 5px;
+`;
 
 function IconSlider({ data }) {
   const [dataArray, setDataArray] = useState([]);
@@ -36,37 +83,34 @@ function IconSlider({ data }) {
           case 'snow':
             icon = <TiWeatherSnow style={iconStyle} />;
             break;
+          case 'wind':
+            icon = <TiWeatherWindy style={iconStyle} />;
+            break;
           default:
             icon = <p>Cloudy with a chance of ERRORS</p>;
         }
         return (
-          <div style={weatherEntry}>
-            <p style={pStyle}>
-              {dayjs(item.datetime).format('ddd Do MMM YYYY')}
-            </p>
+          <WeatherEntry>
+            <p>{dayjs(item.datetime).format('ddd Do MMM YYYY')}</p>
             {icon}
             <TempInput avg={item.temp} max={item.tempmax} min={item.tempmin} />
-          </div>
+          </WeatherEntry>
         );
       });
       setDataArray(iconArray);
     } else {
       const bandArray = data.map(item => {
         return (
-          <div style={row}>
-            <div style={concertEntry}>
-              <p style={pStyle}>{item.performance[0].artist.displayName}</p>
-              <p style={venueStyle}>{item.venue.displayName}</p>
-            </div>
-
+          <EntryRow>
+            <ConcertEntry>
+              <p>{item.performance[0].artist.displayName}</p>
+              <p className="venue-p">{item.venue.displayName}</p>
+            </ConcertEntry>
+            {/* // todo needs focus state, a is not visible at the moment*/}
             <a href={item.uri} target="_blank" rel="noreferrer">
-              <img
-                src="/images/sk-badge-pink.png"
-                alt="Sonkick Logo"
-                style={logoStyle}
-              />
+              <LogoImg src="/images/sk-badge-pink.png" alt="Sonkick Logo" />
             </a>
-          </div>
+          </EntryRow>
         );
       });
       setDataArray(bandArray);
@@ -74,7 +118,7 @@ function IconSlider({ data }) {
   }, [data]);
 
   return (
-    <ul style={column}>
+    <ColumnUl>
       {dataArray.map(icon => {
         return (
           <li tabIndex="0" key={uniqid()}>
@@ -82,7 +126,7 @@ function IconSlider({ data }) {
           </li>
         );
       })}
-    </ul>
+    </ColumnUl>
   );
 }
 
@@ -90,55 +134,10 @@ IconSlider.propTypes = {
   data: PropTypes.array,
 };
 
-export default IconSlider;
-
 const iconStyle = {
   height: '50px',
   width: '50px',
   color: '#e2e2e2',
 };
 
-const column = {
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '0',
-};
-
-const row = {
-  marginTop: '5px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  borderBottom: '2px solid #243443',
-  postion: 'relative',
-};
-
-const concertEntry = {
-  marginBottom: '5px',
-  marginRight: '25px',
-};
-
-const weatherEntry = {
-  margin: '5px 0',
-  borderBottom: '2px solid #243443',
-};
-
-const pStyle = {
-  margin: '0',
-  color: 'white',
-  fontWeight: '600',
-};
-
-const venueStyle = {
-  margin: '0',
-  color: '#bebdc0',
-};
-
-const logoStyle = {
-  height: '25px',
-  width: '25px',
-  cursor: 'pointer',
-  marginTop: '15px',
-  position: 'absolute',
-  right: '0px',
-};
+export default IconSlider;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFirestoreConnect } from 'react-redux-firebase';
@@ -10,7 +9,52 @@ import BlogDisplay from './blogDisplay';
 import TextArea from '../universal/textArea';
 import Loading from '../universal/loading';
 import useEdit from '../../hooks/useEdit';
+import {
+  BottomBtns,
+  ContainerStyles,
+  FlexRow,
+  TopBtns,
+} from '../Styles/EditStyles';
+import styled from 'styled-components';
 const myId = process.env.REACT_APP_MY_ID;
+
+const OrderTitles = styled.div`
+  height: 60px;
+  width: 80px;
+  padding: 10px;
+  margin: 10px;
+  background: var(--middleBlue);
+  border: 2px solid white;
+  border-radius: 10px;
+`;
+
+const OrderDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const LabelStyle = styled.label`
+  font-size: 22px;
+  margin-left: 5px;
+  padding-top: 5px;
+  color: var(--middleBlue);
+`;
+
+const SelectStyle = styled.select`
+  width: 110px;
+  color: white;
+  background: var(--lightBlue);
+  font-size: 20px;
+  padding: 2px 10px 2px 4px;
+  outline: none;
+  margin: 0 10px;
+  border-radius: 5px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+`;
 
 export default function EditBlog() {
   const history = useHistory();
@@ -48,11 +92,13 @@ export default function EditBlog() {
           );
         }
         orderedTitles.push(
-          <div style={title} key={item.id}>
-            {index + 1}
-            <br />
-            {item.name}
-          </div>
+          <OrderTitles key={item.id}>
+            <p>
+              {index + 1}
+              <br />
+              {item.name}
+            </p>
+          </OrderTitles>
         );
       });
       setTitles(orderedTitles);
@@ -110,8 +156,8 @@ export default function EditBlog() {
     }
   };
   return (
-    <div style={detailsDiv}>
-      <div style={rightBut}>
+    <ContainerStyles>
+      <TopBtns>
         {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
         <Button onClick={() => history.push(`/`)} children={'Home'} />
         {isEditing && (
@@ -123,10 +169,10 @@ export default function EditBlog() {
             children={'delete blog'}
           />
         )}
-      </div>
+      </TopBtns>
       {isEditing ? (
         <div>
-          <div style={row}>
+          <FlexRow className="editing">
             <Input
               type={'text'}
               id={'name'}
@@ -141,8 +187,8 @@ export default function EditBlog() {
               value={formData.subtitle}
               onChange={handleChange}
             />
-          </div>
-          <div style={row}>
+          </FlexRow>
+          <FlexRow className="editing">
             <TextArea
               type={'text'}
               id={'textInput'}
@@ -150,8 +196,8 @@ export default function EditBlog() {
               value={formData.textInput}
               onChange={handleChange}
             />
-          </div>
-          <div style={row}>
+          </FlexRow>
+          <FlexRow className="editing">
             <Input
               type={'text'}
               id={'link'}
@@ -166,16 +212,13 @@ export default function EditBlog() {
               value={formData.linkText}
               onChange={handleChange}
             />
-          </div>
-          <div style={titleDiv}>{titles}</div>
-          <div style={row}>
-            <label style={labelStyle} htmlFor="position">
-              Choose position:{' '}
-            </label>
+          </FlexRow>
+          <OrderDiv>{titles}</OrderDiv>
+          <FlexRow className="editing">
+            <LabelStyle htmlFor="position">Choose position: </LabelStyle>
             <br />
             {entry.rank !== 0 && (
-              <select
-                style={selectStyle}
+              <SelectStyle
                 name="position"
                 id="rank"
                 value="Choose"
@@ -184,103 +227,28 @@ export default function EditBlog() {
                 <option>Reorder</option>
                 <option>1 is Fixed</option>
                 {options}
-              </select>
+              </SelectStyle>
             )}
-          </div>
+          </FlexRow>
         </div>
       ) : (
         <BlogDisplay blog={formData} handleEdit={handleEdit} />
       )}
-      <div style={editContainer}>
+      <BottomBtns>
         <div>
           {isEditing ? (
-            <div style={editContainer}>
+            <div className="edit-btns-center">
               <Button onClick={handleReady} children={'Save'} />
               <Button children={'cancel'} onClick={handleCancel} />
             </div>
           ) : (
-            <div>
+            <div className="edit-btns-center">
               <Button onClick={handleEdit} children={'Edit'} />
               <Button onClick={() => history.push(`/`)} children={'Home'} />
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </BottomBtns>
+    </ContainerStyles>
   );
 }
-
-const row = {
-  background: '#464646',
-  margin: '50px auto',
-  padding: '20px',
-  maxWidth: '650px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-  boxShadow: '0 30px 50px rgba(0, 0, 0, 0.3)',
-  borderRadius: '5px',
-};
-
-const detailsDiv = {
-  margin: '50px auto',
-  marginTop: '120px',
-  width: '88%',
-  maxWidth: '1000px',
-  padding: window.innerWidth / 16 + 'px',
-  backgroundColor: '#333333',
-  color: '#f3f3f3',
-  boxShadow: '0 100px 80px rgba(0, 0, 0, 0.3)',
-};
-
-const rightBut = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'flex-end',
-  marginBottom: '10px',
-};
-
-const editContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-};
-
-const title = {
-  height: '50px',
-  width: '80px',
-  padding: '10px',
-  margin: '10px',
-  background: '#395f78',
-  border: '2px solid white',
-  borderRadius: '10px',
-};
-
-const titleDiv = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'center',
-};
-
-const labelStyle = {
-  fontSize: '22px',
-  marginLeft: '5px',
-  marginBottom: '-36px',
-  zIndex: '1',
-  color: '#dfbaaa',
-};
-
-const selectStyle = {
-  width: '90px',
-  backgroundColor: 'rgb(212, 209, 209)',
-  fontSize: '20px',
-  padding: '5px',
-  outline: 'none',
-  border: 'none',
-  margin: '0 10px',
-};

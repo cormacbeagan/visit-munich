@@ -70,18 +70,6 @@ ul li {
   margin: 0;
 }
 
-select {
-  border-radius: 0.5em;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.home-heading {
-  opacity: 0.3;
-  animation: headingIn 2s forwards;
-}
-
 .accessibly-hidden {
   color: inherit;
   border: 0;
@@ -92,36 +80,4 @@ select {
   overflow: hidden;
   padding: 0;
   position: absolute;
-}
-
-@media only screen and (max-width: 420px) {
-  .home-heading {
-    font-size: 56px;
-  }
-
-  textarea {
-    width: 240px !important;
-  }
-}
-
-@media only screen and (max-width: 380px) {
-  .home-heading {
-    font-size: 45px;
-  }
-}
-
-@media only screen and (max-height: 600px) {
-  .home-heading {
-    display: none;
-  }
-}
-
-@keyframes headingIn {
-  from {
-    opacity: 0.3;
-  }
-
-  to {
-    opacity: 1;
-  }
 }

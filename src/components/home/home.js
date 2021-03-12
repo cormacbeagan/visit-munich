@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useRef } from 'react';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +10,13 @@ import BoxSlider from '../universal/boxSlider';
 import ScrollBox from './scrollBox';
 import BoxWrapper from '../universal/boxWrapper';
 import HomeEntry from './homeEntry';
+import {
+  Container,
+  BoxCont,
+  ScrollBoxStyle,
+  LogoDiv,
+  BoxDiv,
+} from '../Styles/HomeStyles';
 
 export default function Home() {
   const [width, height] = useDimensionSetter();
@@ -30,7 +36,9 @@ export default function Home() {
 
   useEffect(() => {
     if (blogs) {
-      setBlogArray(blogs);
+      const orderedBlogs = Array.from(blogs);
+      orderedBlogs.sort((a, b) => (a.rank < b.rank ? -1 : 1));
+      setBlogArray(orderedBlogs);
     }
   }, [blogs]);
   useEffect(() => {
@@ -60,49 +68,19 @@ export default function Home() {
     dispatch(weatherSearch(dates));
   };
 
-  const container = {
-    height: height,
-    width: width,
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    overflow: 'hidden',
-    backgroundImage: 'url(/images/munich-hills.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '20% 80%',
-    backgroundSize: 'cover',
-  };
-
-  const boxContainer = {
-    position: 'absolute',
-    width: '100%',
-    left: slideIn,
-    bottom: '0px',
-    display: 'flex',
-    flexDirection: 'row',
-    transition: 'left 3s ease',
-  };
-
-  const scrollBoxStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: scrollWidth + 'px',
-    transition: 'all 500ms cubic-bezier(0.77, 2.05, 0.72, 0.75)',
-  };
-
   return (
-    <section style={container}>
+    <Container height={height} width={width}>
       <DateForm name={'pick your dates'} handleDates={handleDates} />
-      <div style={logo}>
-        <h1 className="home-heading">Visit Munich</h1>
-      </div>
-      <div style={boxContainer}>
+      <LogoDiv>
+        <h1>Visit Munich</h1>
+      </LogoDiv>
+      <BoxCont slideIn={slideIn}>
         <BoxSlider>
-          <div style={boxDiv}>
-            <div style={scrollBoxStyle} ref={scrollDiv}>
+          <BoxDiv>
+            <ScrollBoxStyle scrollWidth={scrollWidth} ref={scrollDiv}>
               {concertScroll[0] && <ScrollBox data={concertScroll} />}
               {weatherScroll[0] && <ScrollBox data={weatherScroll} />}
-            </div>
+            </ScrollBoxStyle>
             {blogArray.map(blog => {
               return (
                 <BoxWrapper key={blog.id}>
@@ -110,21 +88,9 @@ export default function Home() {
                 </BoxWrapper>
               );
             })}
-          </div>
+          </BoxDiv>
         </BoxSlider>
-      </div>
-    </section>
+      </BoxCont>
+    </Container>
   );
 }
-
-const logo = {
-  margin: '200px 25px',
-  fontSize: '36px',
-  color: 'white',
-};
-
-const boxDiv = {
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'row',
-};

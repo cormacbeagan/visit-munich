@@ -5,7 +5,29 @@ import Button from '../universal/button';
 import { useSelector } from 'react-redux';
 import { FiExternalLink } from 'react-icons/fi';
 import Loading from '../universal/loading';
+import styled from 'styled-components';
 const myId = process.env.REACT_APP_MY_ID;
+
+const BoxText = styled.div`
+  margin: 10px;
+  color: var(--white);
+  h2 {
+    color: var(--darkBlue);
+    max-width: 220px;
+  }
+  h3 {
+    color: var(--lightPink);
+    max-width: 220px;
+  }
+`;
+
+const BottomBtns = styled.div`
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  flex-direction: row;
+`;
 
 export default function HomeEntry(props) {
   const { data, url, handleEditMode } = props;
@@ -60,21 +82,17 @@ export default function HomeEntry(props) {
       }
     };
     return (
-      <div style={boxText}>
-        <h2 style={boxHeading}>{data.name}</h2>
-        <h3 style={boxSubHeading}>{data.subtitle}</h3>
-        <div style={boxDiv}>
-          <div style={{ marginLeft: '-5px' }}>
-            <p style={label}>{data.textInput}</p>
-          </div>
-          <div style={divBottom}>
-            {button}
-            {(auth.uid === myId || auth.uid === data.authorId) && (
-              <Button onClick={handleEdit} children={'Edit'} />
-            )}
-          </div>
-        </div>
-      </div>
+      <BoxText>
+        <h2>{data.name}</h2>
+        <h3>{data.subtitle}</h3>
+        <p>{data.textInput}</p>
+        <BottomBtns>
+          {button}
+          {(auth.uid === myId || auth.uid === data.authorId) && (
+            <Button onClick={handleEdit} children={'Edit'} />
+          )}
+        </BottomBtns>
+      </BoxText>
     );
   } else {
     return <Loading />;
@@ -85,37 +103,4 @@ HomeEntry.propTypes = {
   data: PropTypes.object,
   handleEditMode: PropTypes.func,
   url: PropTypes.string,
-};
-
-const boxText = {
-  margin: '10px',
-  color: '#ffffff',
-  contain: 'items',
-};
-
-const boxHeading = {
-  color: '#243443',
-  maxWidth: '220px',
-};
-
-const boxSubHeading = {
-  color: '#dfbaaa',
-  maxWidth: '220px',
-};
-
-const boxDiv = {
-  marginLeft: '5px',
-};
-
-const divBottom = {
-  position: 'absolute',
-  bottom: '15px',
-  right: '15px',
-  display: 'flex',
-  flexDirection: 'row',
-};
-
-const label = {
-  margin: '0',
-  color: 'white',
 };

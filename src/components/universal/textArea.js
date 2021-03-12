@@ -54,6 +54,9 @@ const TextAreaStyle = styled.textarea`
     /* Firefox 19+ */
     color: var(--white);
   }
+  @media only screen and (max-width: 420px) {
+    width: 240px !important;
+  }
 `;
 
 function TextArea(props) {

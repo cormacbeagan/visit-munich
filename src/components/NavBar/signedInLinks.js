@@ -73,7 +73,7 @@ export default function SignedInLinks(props) {
             Profile
           </Link>
           <Link
-            onClick={signOut}
+            onClick={handleSignout}
             style={linkMob}
             to="/"
             aria-hidden={menuOpen ? false : true}

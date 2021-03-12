@@ -17,7 +17,7 @@ const CloserDiv = styled.div`
 const XCloser = styled.div`
   position: absolute;
   top: -18.5px;
-  left: -18.5px;
+  left: 18.5px;
   width: 50px;
   height: 50px;
   border-bottom: 4px solid #eadcdc;

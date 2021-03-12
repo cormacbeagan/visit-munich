@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SignedInLinks from './signedInLinks';
 import SignedOutLinks from './signedOutLinks';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase/lib/helpers';
 import { FaBars } from 'react-icons/fa';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
