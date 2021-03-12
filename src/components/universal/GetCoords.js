@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { location } from '../universal/mapData';
 import { mapStyleLight } from '../universal/mapData';
 import Button from './button';
 import Map from './map';
 const initState = { lat: 0, lng: 0, set: false, id: 1 };
 
+const ButtonsDiv = styled.div`
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  z-index: 100;
+`;
 export default function GetCoords({ passCoords, oldCoords }) {
   const [showMap, setShowMap] = useState(false);
   const [coords, setCoords] = useState(initState);
@@ -44,14 +51,7 @@ export default function GetCoords({ passCoords, oldCoords }) {
             getCoords={handleCoords}
             handleInfo={a => console.log(a)}
           />
-          <div
-            style={{
-              position: 'fixed',
-              top: '100px',
-              right: '50px',
-              zIndex: '100',
-            }}
-          >
+          <ButtonsDiv>
             {coords.set && (
               <Button type="button" onClick={handlePass}>
                 Set Coords
@@ -66,7 +66,7 @@ export default function GetCoords({ passCoords, oldCoords }) {
             >
               Back
             </Button>
-          </div>
+          </ButtonsDiv>
         </>
       )}
     </div>

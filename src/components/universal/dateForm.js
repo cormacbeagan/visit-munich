@@ -2,10 +2,32 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import DatePicker from '../universal/datePicker';
 import Button from '../universal/button';
-import { useDimensionSetter } from '../../hooks/useDimensionSetter';
+import styled from 'styled-components';
+
+const OuterDiv = styled.div`
+  width: 100%;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 88;
+  min-height: 60px;
+  height: auto;
+  background: var(--middleBlue);
+`;
+
+const DateCont = styled.div`
+  max-width: 800px;
+  margin: 5px auto;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`;
 
 function DateForm({ handleDates, name }) {
-  const [width, height] = useDimensionSetter();
   const [preselected, setPreselected] = useState();
   const [dates, setDates] = useState({
     arrival: '',
@@ -41,21 +63,10 @@ function DateForm({ handleDates, name }) {
     handleDates(dates);
   };
 
-  const divStyle = {
-    width: width,
-    position: 'fixed',
-    top: '60px',
-    left: '0',
-    right: '0',
-    zIndex: '88',
-    backgroundColor: '#395f78',
-    minHeight: '60px',
-  };
-
   return (
     <div>
-      <div style={divStyle}>
-        <div style={formStyle}>
+      <OuterDiv>
+        <DateCont>
           <div style={{ marginTop: '10px' }}>
             <DatePicker
               onChange={onChangeOne}
@@ -74,8 +85,8 @@ function DateForm({ handleDates, name }) {
           <div style={{ marginTop: '10px' }}>
             <Button children={name} onClick={handleSubmit} />
           </div>
-        </div>
-      </div>
+        </DateCont>
+      </OuterDiv>
     </div>
   );
 }
@@ -86,13 +97,3 @@ DateForm.propTypes = {
 };
 
 export default DateForm;
-
-const formStyle = {
-  maxWidth: '800px',
-  margin: '5px auto',
-  marginTop: '20px',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around',
-  flexWrap: 'wrap',
-};

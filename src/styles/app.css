@@ -82,6 +82,18 @@ select {
   animation: headingIn 2s forwards;
 }
 
+.accessibly-hidden {
+  color: inherit;
+  border: 0;
+  clip: rect(0000);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
 @media only screen and (max-width: 420px) {
   .home-heading {
     font-size: 56px;

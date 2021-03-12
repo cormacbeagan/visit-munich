@@ -6,11 +6,28 @@ import LocationPin from './locationPin';
 import Switch from './switch';
 import { mapStyleDark, mapStyleLight } from './mapData';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
+import styled from 'styled-components';
 const googleToken = process.env.REACT_APP_GOOGLE_KEY;
 const middle = {
   lat: 48.1372,
   lng: 11.576044,
 };
+
+const ButtonDiv = styled.div`
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  z-index: 99;
+`;
+
+const MapCont = styled.div`
+  height: ${props => props.height - 80}px;
+  width: ${props => props.width}px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+`;
 
 function Map(props) {
   const {
@@ -43,21 +60,12 @@ function Map(props) {
     }
   };
 
-  const mapContainer = {
-    height: height - 80 + 'px',
-    width: width + 'px',
-    position: 'fixed',
-    left: '0',
-    bottom: '0',
-    zIndex: '1',
-  };
-
   return (
     <div>
-      <div style={mapContainer}>
-        <div style={buttonStyle}>
+      <MapCont height={height} width={width}>
+        <ButtonDiv>
           <Switch onClick={handleStyle} switched={switched} />
-        </div>
+        </ButtonDiv>
         <GoogleMapReact
           center={location}
           bootstrapURLKeys={{ key: googleToken }}
@@ -91,7 +99,7 @@ function Map(props) {
             );
           })}
         </GoogleMapReact>
-      </div>
+      </MapCont>
     </div>
   );
 }
@@ -110,10 +118,3 @@ Map.propTypes = {
 };
 
 export default Map;
-
-const buttonStyle = {
-  position: 'absolute',
-  bottom: '50px',
-  left: '10px',
-  zIndex: '99',
-};

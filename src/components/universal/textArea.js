@@ -2,14 +2,6 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import styled from 'styled-components';
 
-const divStyle = {
-  margin: '20px auto',
-  display: 'flex',
-  flexDirection: 'column',
-  marginBottom: '10px',
-  maxWidth: '280px',
-};
-
 const TextContainer = styled.div`
   margin: 2rem auto;
   display: flex;
@@ -65,7 +57,7 @@ const TextAreaStyle = styled.textarea`
 `;
 
 function TextArea(props) {
-  const { onChange, type, value, id, name, required } = props;
+  const { onChange, type, value, id, required } = props;
   const input = useRef();
 
   const handleChange = e => {

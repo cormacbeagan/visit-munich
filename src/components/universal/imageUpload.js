@@ -5,12 +5,38 @@ import { useDispatch } from 'react-redux';
 import { uploadImage } from '../../store/actions/entryActions';
 import { FaFileImport } from 'react-icons/fa';
 import Button from './button';
+import styled from 'styled-components';
 
 const compressOptions = {
   maxSizeMB: 1.5,
   maxWidthOrHeight: 2120,
   useWebWorker: true,
 };
+
+const UploadDiv = styled.div`
+  margin-bottom: 20px;
+  h4 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  p {
+    margin: 5px 10px;
+    color: #d65f3d;
+  }
+`;
+
+const FileDiv = styled.div`
+  max-height: 75px;
+  label {
+    display: inline;
+    margin: 0 20px;
+    cursor: pointer;
+    color: #616161;
+  }
+  input {
+    display: none;
+  }
+`;
 
 export default function ImageUpload(props) {
   const { id, collection } = props;
@@ -35,30 +61,29 @@ export default function ImageUpload(props) {
   };
 
   return (
-    <div style={divStyle}>
-      <h4 style={heading}>Upload Image: </h4>
+    <UploadDiv>
+      <h4>Upload Image: </h4>
       <form onSubmit={handleImageUpload}>
-        <div style={fileDiv}>
-          <div style={uploadDiv}>
-            <label htmlFor="file" style={uploadLogo}>
+        <FileDiv>
+          <div>
+            <label htmlFor="file" tabIndex="0">
               <input
-                style={noDisp}
                 ref={input}
                 onChange={handleImageFileSelect}
                 type="file"
                 accept="image/*,.pdf"
                 id="file"
               />
+              {/* //todo needs a keydown listener */}
               <FaFileImport size={32} onClick={() => setImageName(null)} />
+              <p className="accessibly-hidden">Upload an image</p>
             </label>
           </div>
-          {imageFile && <p style={highlight}>{imageName}</p>}
-        </div>
-        <div className="input-field">
-          {imageFile && <Button children={'Upload Image'} />}
-        </div>
+          {imageFile && <p>{imageName}</p>}
+        </FileDiv>
+        <div>{imageFile && <Button children={'Upload Image'} />}</div>
       </form>
-    </div>
+    </UploadDiv>
   );
 }
 
@@ -67,35 +92,4 @@ ImageUpload.propTypes = {
   uploadImage: PropTypes.func,
   uploadTipImage: PropTypes.func,
   usage: PropTypes.string,
-};
-
-const divStyle = {
-  marginBottom: '20px',
-};
-
-const heading = {
-  fontSize: '18px',
-  margin: '10px 0px',
-};
-
-const highlight = {
-  color: '#d65f3d',
-};
-
-const fileDiv = {
-  maxHeight: '75px',
-};
-
-const uploadDiv = {
-  display: 'inline',
-  margin: '0px 10px',
-};
-
-const uploadLogo = {
-  cursor: 'pointer',
-  color: '#616161',
-};
-
-const noDisp = {
-  display: 'none',
 };

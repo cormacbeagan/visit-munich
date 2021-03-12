@@ -18,18 +18,6 @@ const BoxStyles = styled.article`
   }
 `;
 
-const displayDiv = {
-  position: 'relative',
-  height: '300px',
-  width: '300px',
-  minWidth: '300px',
-  margin: '10px',
-  backgroundColor: 'var(--lightBlue)',
-  borderRadius: '20px',
-  border: '3px solid #395f78',
-  boxShadow: '0 0 40px rgba(0, 0, 0, 0.3)',
-};
-
 function BoxWrapper({ children }) {
   return <BoxStyles tabIndex="0">{children}</BoxStyles>;
 }
