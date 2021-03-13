@@ -3,7 +3,63 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../store/actions/authActions';
+import styled from 'styled-components';
 const myId = process.env.REACT_APP_MY_ID;
+
+const ProfileLink = styled.div`
+  margin-top: 24px;
+  #profile {
+    padding: 12px !important;
+    height: 42px;
+    border-radius: 100%;
+    font-size: 24px;
+    text-decoration: none;
+    background: #f9cd25;
+    color: var(--darkBrown);
+    font-weight: bold;
+    transition: all 200ms ease;
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      background: var(--lightPink);
+    }
+  }
+`;
+
+const DropCont = styled.div`
+  position: relative;
+`;
+
+const Pointer = styled.div`
+  position: absolute;
+  left: 80px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border: solid 10px var(--darkBrown);
+  border-color: transparent transparent var(--darkBrown) transparent;
+  transform: rotate(45deg) translateY(-50%);
+  background: var(--darkBrown);
+`;
+
+const DropDiv = styled.ul`
+  display: ${props => (props.dropNav ? 'flex' : 'none')};
+  flex-direction: column;
+  position: absolute;
+  padding: 12px 0;
+  top: 60px;
+  left: -160px;
+  width: 200px;
+  background: var(--darkBrown);
+  border-radius: 10px;
+  li {
+    list-style-type: none;
+    padding: 12px;
+  }
+  a {
+    padding: 0px 24px;
+  }
+`;
 
 export default function SignedInLinks(props) {
   const { profile, mobile, menuOpen } = props;
@@ -42,74 +98,56 @@ export default function SignedInLinks(props) {
   return (
     <>
       {mobile && (
-        <div
-          aria-hidden={menuOpen ? false : true}
-          style={menuOpen ? mobileNavBar : { display: 'none' }}
-        >
+        <>
           {hasAccess && (
-            <Link
-              style={linkMob}
-              to="/createblog"
-              aria-hidden={menuOpen ? false : true}
-            >
+            <Link to="/createblog" aria-hidden={menuOpen ? false : true}>
               Create Blog
             </Link>
           )}
-          <Link
-            style={linkMob}
-            to="/createtip"
-            aria-hidden={menuOpen ? false : true}
-          >
+          <Link to="/createtip" aria-hidden={menuOpen ? false : true}>
             Create Tip
           </Link>
-          <Link
-            style={linkMob}
-            to="/createwall"
-            aria-hidden={menuOpen ? false : true}
-          >
+          <Link to="/createwall" aria-hidden={menuOpen ? false : true}>
             Create Wall
           </Link>
-          <Link style={linkMob} to={`/profile/${auth.uid}`}>
-            Profile
-          </Link>
+          <Link to={`/profile/${auth.uid}`}>Profile</Link>
           <Link
             onClick={handleSignout}
-            style={linkMob}
             to="/"
             aria-hidden={menuOpen ? false : true}
           >
             Logout
           </Link>
-        </div>
+        </>
       )}
       {!mobile && (
-        <div style={navbar}>
-          <button style={link} ref={droper} onClick={handleDrop}>
+        <>
+          <button ref={droper} onClick={handleDrop}>
             Create
           </button>
-          <nav style={dropContainer} onClick={handleDrop}>
-            <div style={dropNav ? createOpen : createClose}>
-              <div style={pointer}></div>
+          <DropCont onClick={handleDrop}>
+            <DropDiv dropNav={dropNav}>
+              <Pointer />
               {hasAccess && (
-                <Link style={link} to="/createblog">
-                  Create Blog
-                </Link>
+                <li>
+                  <Link to="/createblog">Create Blog</Link>
+                </li>
               )}
-              <Link style={link} to="/createtip">
-                Create Tip
-              </Link>
-              <Link style={link} to="/createwall">
-                Create Wall
-              </Link>
-            </div>
-          </nav>
-          <Link onClick={handleSignout} style={link} to="/">
+              <li>
+                <Link to="/createtip">Create Tip</Link>
+              </li>
+              <li>
+                <Link to="/createwall">Create Wall</Link>
+              </li>
+            </DropDiv>
+          </DropCont>
+          <Link onClick={handleSignout} to="/">
             Logout
           </Link>
-          <Link style={linkIn} to={`/profile/${auth.uid}`}>
-            {profile.initials}
-          </Link>
-        </div>
+          <ProfileLink id="profile">
+            <Link to={`/profile/${auth.uid}`}>{profile.initials}</Link>
+          </ProfileLink>
+        </>
       )}
     </>
   );
@@ -119,77 +157,4 @@ SignedInLinks.propTypes = {
   mobile: PropTypes.bool.isRequired,
   profile: PropTypes.object,
   menuOpen: PropTypes.bool,
-};
-
-const navbar = {
-  display: 'flex',
-  flexDirection: 'row',
-  backgroundColor: '#333',
-};
-
-const mobileNavBar = {
-  width: '100%',
-  backgroundColor: '#333333',
-  display: 'flex',
-  flexDirection: 'column',
-  textAlign: 'right',
-};
-
-const link = {
-  cursor: 'pointer',
-  color: '#e2e2e2',
-  textDecoration: 'none',
-  fontSize: '24px',
-  padding: '1em',
-};
-
-const linkMob = {
-  cursor: 'pointer',
-  color: '#e2e2e2',
-  textDecoration: 'none',
-  fontSize: '24px',
-  padding: '1em',
-  borderBottom: '2px solid #63849a94',
-};
-
-const linkIn = {
-  marginTop: '14px',
-  padding: '12px',
-  height: '24px',
-  borderRadius: '100%',
-  fontSize: '20px',
-  textDecoration: 'none',
-  background: '#f9cd25',
-  color: '#333333',
-  fontWeight: 'bold',
-};
-
-const dropContainer = {
-  position: 'relative',
-};
-
-const createClose = {
-  display: 'none',
-};
-
-const createOpen = {
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'absolute',
-  top: '85px',
-  left: '-150px',
-  width: '200px',
-  background: '#333333',
-  borderRadius: '10px',
-};
-
-const pointer = {
-  position: 'absolute',
-  left: '70px',
-  width: '0px',
-  height: '0px',
-  border: 'solid 10px #333333',
-  borderColor: 'transparent transparent #333333 transparent',
-  transform: 'rotate(45deg) translateY(-50%)',
-  background: '#333',
 };

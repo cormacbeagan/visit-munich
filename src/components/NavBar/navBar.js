@@ -6,6 +6,101 @@ import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase/lib/helpers';
 import { FaBars } from 'react-icons/fa';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
+import styled from 'styled-components';
+
+const MobNavCont = styled.div`
+  width: ${props => props.width}px;
+  height: 80px;
+  font-size: 24px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--darkBrown);
+  z-index: 89;
+  border-bottom: 3px solid #395f78;
+`;
+
+const MobileLinks = styled.nav`
+  width: 100%;
+  min-width: 220px;
+  max-width: 270px;
+  height: auto;
+  max-height: ${props => props.height - 80}px;
+  position: fixed;
+  top: 80px;
+  right: ${props => (props.slideIn ? '0' : '-300px')};
+  background: var(--darkBrown);
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 24px;
+  z-index: 99;
+  overflow-y: auto;
+  border-left: 2px solid #395f78;
+  opacity: ${props => (props.slideIn ? '1' : '0')};
+  transform: ${props => (props.slideIn ? 'scale(1)' : 'scale(0.75)')};
+  a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 24px;
+    padding: 24px;
+    border-bottom: 2px solid var(--middleBlue);
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Logo = styled.div`
+  a {
+    float: left;
+    margin: 20px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 34px;
+    font-weight: bold;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const Bars = styled.button`
+  width: 50px;
+  height: 50px;
+  margin: 10px 20px 10px 10px;
+  float: right;
+  cursor: pointer;
+  color: var(--offWhite);
+  font-size: 50px;
+`;
+
+const NavBarStyles = styled.nav`
+  font-size: 24px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: var(--darkBrown);
+  z-index: 89;
+  border-bottom: 4px solid #395f78;
+  a,
+  button {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 24px;
+    padding: 24px;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+`;
 
 export default function NavBar() {
   const [smallScreen, setSmallScreen] = useState(false);
@@ -41,80 +136,28 @@ export default function NavBar() {
     };
   }, [smallScreen]);
 
-  const mobileNavStyle = {
-    width: width,
-    height: '80px',
-    fontSize: '24px',
-    position: 'fixed',
-    left: '0',
-    top: '0',
-    backgroundColor: '#333333',
-    zIndex: '89',
-    borderBottom: '3px solid #395f78',
-  };
-
-  const linksClosed = {
-    width: '100%',
-    position: 'fixed',
-    top: '80px',
-    right: '-300px',
-    backgroundColor: '#333333',
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'right',
-    paddingRight: '10px',
-    fontSize: '24px',
-    zIndex: '99',
-    opacity: '0',
-    transform: 'scale(0.75)',
-    transition: 'all 400ms cubic-bezier(0.29,-0.15, 0.02, 1.02)',
-  };
-
-  const mobileLinks = {
-    minWidth: '220px',
-    height: 'auto',
-    maxWidth: '270px',
-    overflowY: 'auto',
-    position: 'fixed',
-    top: '80px',
-    right: '0px',
-    backgroundColor: '#333333',
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'right',
-    paddingRight: '10px',
-    fontSize: '24px',
-    zIndex: '99',
-    borderLeft: '2px solid #395f78',
-    transform: 'scale(1)',
-    transition: 'all 300ms cubic-bezier(0.65, 0.89, 0.8, 1.15)',
-  };
   return (
     <>
       {smallScreen ? (
         <>
-          <div className="navbar" style={mobileNavStyle}>
-            <Link
-              aria-label="home"
-              style={logo}
-              to="/"
-              onClick={() => setMenuOpen(false)}
-            >
-              Visit Munich
-            </Link>
-            <button
+          <MobNavCont width={width}>
+            <Logo>
+              <Link aria-label="home" to="/" onClick={() => setMenuOpen(false)}>
+                Visit Munich
+              </Link>
+            </Logo>
+            <Bars
               ref={navBars}
               aria-label="open navigation menu"
               onClick={() => setMenuOpen(!menuOpen)}
-              style={bars}
             >
               <FaBars />
-            </button>
-          </div>
+            </Bars>
+          </MobNavCont>
           <>
-            <nav
-              className="navbar"
-              style={menuOpen ? mobileLinks : linksClosed}
+            <MobileLinks
+              slideIn={menuOpen}
+              height={height}
               onClick={() => setMenuOpen(false)}
             >
               <div
@@ -124,107 +167,33 @@ export default function NavBar() {
                     : { display: 'none' }
                 }
               >
-                <Link
-                  style={linkMob}
-                  to="/tips"
-                  aria-hidden={menuOpen ? false : true}
-                >
+                <Link to="/tips" aria-hidden={menuOpen ? false : true}>
                   Tips
                 </Link>
-                <Link
-                  style={linkMob}
-                  to="/live"
-                  aria-hidden={menuOpen ? false : true}
-                >
+                <Link to="/live" aria-hidden={menuOpen ? false : true}>
                   Live Music
                 </Link>
-                <Link
-                  style={linkMob}
-                  to="/weather"
-                  aria-hidden={menuOpen ? false : true}
-                >
+                <Link to="/weather" aria-hidden={menuOpen ? false : true}>
                   Weather
                 </Link>
-                <Link
-                  style={linkMob}
-                  to="/walks"
-                  aria-hidden={menuOpen ? false : true}
-                >
+                <Link to="/walks" aria-hidden={menuOpen ? false : true}>
                   Graffiti
                 </Link>
                 {isLoaded(auth) && links}
               </div>
-            </nav>
+            </MobileLinks>
           </>
         </>
       ) : (
-        <nav className="navbar" style={navBarStyle}>
-          <Link style={link} to="/">
-            Home
-          </Link>
-          <Link style={link} to="/tips">
-            Tips
-          </Link>
-          <Link style={link} to="/live">
-            Live Music
-          </Link>
-          <Link style={link} to="/weather">
-            Weather
-          </Link>
-          <Link style={link} to="/walks">
-            Graffiti
-          </Link>
+        <NavBarStyles>
+          <Link to="/">Home</Link>
+          <Link to="/tips">Tips</Link>
+          <Link to="/live">Live Music</Link>
+          <Link to="/weather">Weather</Link>
+          <Link to="/walks">Graffiti</Link>
           {isLoaded(auth) && links}
-        </nav>
+        </NavBarStyles>
       )}
     </>
   );
 }
-
-const navBarStyle = {
-  fontSize: '24px',
-  position: 'fixed',
-  left: '0',
-  top: '0',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'row',
-  backgroundColor: '#333333',
-  zIndex: '89',
-  borderBottom: '4px solid #395f78',
-};
-
-const link = {
-  color: '#e2e2e2',
-  textDecoration: 'none',
-  fontSize: '1.0em',
-  padding: '1em',
-};
-
-const linkMob = {
-  color: '#e2e2e2',
-  textDecoration: 'none',
-  fontSize: '1.0em',
-  padding: '1em',
-  borderBottom: '2px solid #63849a94',
-};
-
-const logo = {
-  float: 'left',
-  margin: '20px',
-  color: '#e2e2e2',
-  textDecoration: 'none',
-  fontSize: '34px',
-  fontWeight: 'bold',
-};
-
-const bars = {
-  width: '50px',
-  height: '50px',
-  margin: '10px',
-  marginRight: '20px',
-  float: 'right',
-  cursor: 'pointer',
-  color: '#e2e2e2',
-  fontSize: '50px',
-};
