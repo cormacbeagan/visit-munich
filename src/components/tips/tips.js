@@ -8,7 +8,8 @@ import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from '../walks/displayImage';
 import HomeEntry from '../home/homeEntry';
 import styled from 'styled-components';
-import InfoBoxStyles from '../Styles/InfoBoxStyles';
+import { InfoBoxStyles, ImgButton } from '../Styles/InfoBoxStyles';
+import Carousel from '../walks/carousel';
 
 const TipsContainer = styled.section`
   height: 100%;
@@ -23,6 +24,16 @@ export default function Tips() {
   const boxes = useRef();
   useFirestoreConnect(['tips']);
   const tips = useSelector(state => state.firestore.ordered?.tips);
+
+  const [display, setDisplay] = useState(false);
+
+  const handleModal = () => {
+    setDisplay(true);
+  };
+
+  const closeModal = () => {
+    setDisplay(false);
+  };
 
   const handleInfo = id => {
     if (id) {
@@ -82,12 +93,20 @@ export default function Tips() {
           <Closer onClick={handleSlideOut} />
         </div>
         <BoxWrapper>
-          <DisplayImage data={displayData} />
+          <ImgButton onClick={handleModal}>
+            <DisplayImage data={displayData} />
+          </ImgButton>
         </BoxWrapper>
         <BoxWrapper>
           <HomeEntry type={'text'} data={displayData} url={'/tips'} />
         </BoxWrapper>
       </InfoBoxStyles>
+      <Carousel
+        id={displayData.id}
+        closeModal={closeModal}
+        data={displayData}
+        display={display}
+      />
     </TipsContainer>
   );
 }

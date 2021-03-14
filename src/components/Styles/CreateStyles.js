@@ -8,7 +8,7 @@ const CreateForm = styled.form`
   border-radius: 5px;
   box-shadow: var(--smallBs);
   @media only screen and (max-width: 480px) {
-    padding: 1rem 0.5rem;
+    padding: 2rem 0.5rem;
     width: 95%;
     margin: 0 auto 2rem auto;
     box-sizing: border-box;

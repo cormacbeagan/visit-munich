@@ -15,6 +15,7 @@ html {
   --lightPink: rgb(223, 186, 170);
   --bigBs: 0 10rem 8rem rgba(0, 0, 0, 0.3);
   --smallBs: 0 1rem 3rem rgba(0, 0, 0, 0.2);
+  --hgBs: inset 0 0 5px 8px rgb(47, 169, 191);
 }
 
 body {
@@ -39,9 +40,9 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid #333333;
 }
 
-*:focus {
+:focus {
   outline: none;
-  box-shadow: inset 0 0 8px rgba(35, 179, 184, 0.678) !important;
+  /* box-shadow: inset 0 0 8px rgba(35, 179, 184, 0.678) !important; */
 }
 
 .app-content {

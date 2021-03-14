@@ -8,7 +8,8 @@ import BoxWrapper from '../universal/boxWrapper';
 import DisplayImage from './displayImage';
 import DisplayText from './displayText';
 import styled from 'styled-components';
-import InfoBoxStyles from '../Styles/InfoBoxStyles';
+import { InfoBoxStyles, ImgButton } from '../Styles/InfoBoxStyles';
+import Carousel from './carousel';
 
 const SectionStyle = styled.section`
   height: 100%;
@@ -23,6 +24,16 @@ export default function Walks() {
   const boxes = useRef();
   useFirestoreConnect(['projects']);
   const projects = useSelector(state => state.firestore.ordered?.projects);
+
+  const [display, setDisplay] = useState(false);
+
+  const handleModal = () => {
+    setDisplay(true);
+  };
+
+  const closeModal = () => {
+    setDisplay(false);
+  };
 
   const handleInfo = (id, pin) => {
     if (id) {
@@ -82,12 +93,20 @@ export default function Walks() {
           <Closer onClick={handleSlideOut} />
         </div>
         <BoxWrapper>
-          <DisplayImage data={displayData} />
+          <ImgButton onClick={handleModal}>
+            <DisplayImage data={displayData} handleModal={handleModal} />
+          </ImgButton>
         </BoxWrapper>
         <BoxWrapper>
           <DisplayText data={displayData} />
         </BoxWrapper>
       </InfoBoxStyles>
+      <Carousel
+        id={displayData.id}
+        closeModal={closeModal}
+        data={displayData}
+        display={display}
+      />
     </SectionStyle>
   );
 }

@@ -10,8 +10,9 @@ const ButtonsDiv = styled.div`
   position: fixed;
   top: 100px;
   right: 50px;
-  z-index: 100;
+  z-index: 90;
 `;
+
 export default function GetCoords({ passCoords, oldCoords }) {
   const [showMap, setShowMap] = useState(false);
   const [coords, setCoords] = useState(initState);
@@ -41,7 +42,7 @@ export default function GetCoords({ passCoords, oldCoords }) {
         pick location on Map
       </Button>
       {showMap && (
-        <>
+        <div>
           <Map
             projects={[coords]}
             location={location}
@@ -67,7 +68,7 @@ export default function GetCoords({ passCoords, oldCoords }) {
               Back
             </Button>
           </ButtonsDiv>
-        </>
+        </div>
       )}
     </div>
   );

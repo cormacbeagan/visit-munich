@@ -76,6 +76,10 @@ const Bars = styled.button`
   cursor: pointer;
   color: var(--offWhite);
   font-size: 50px;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 5px 4px rgb(51, 238, 255, 0.6);
+  }
 `;
 
 const NavBarStyles = styled.nav`

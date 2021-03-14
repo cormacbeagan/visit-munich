@@ -12,6 +12,10 @@ const CloserDiv = styled.div`
   box-shadow: 0 0 5px 8px rgba(0, 0, 0, 0.2);
   transform: scale(0.65);
   z-index: 1;
+  &:focus,
+  &:hover {
+    box-shadow: var(--hgBs);
+  }
 `;
 
 const XCloser = styled.div`

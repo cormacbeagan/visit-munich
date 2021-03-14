@@ -50,10 +50,12 @@ const InfoBoxes = styled.div`
     margin-top: 150px;
   }
   @media only screen and (max-width: 480px) {
+    left: ${props => (props.slideIn ? '-20px' : '-350px')};
+    bottom: 40px;
     transform: scale(0.95);
   }
   @media only screen and (max-width: 380px) {
-    margin-top: 90px;
+    bottom: 0px;
     transform: scale(0.7);
     left: ${props => (props.slideIn ? '-50px' : '-350px')};
   }
