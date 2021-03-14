@@ -195,7 +195,7 @@ export default function NavBar() {
         <NavBarStyles>
           <Link to="/">Home</Link>
           <Link to="/tips">Tips</Link>
-          <Link to="/live">Live Music</Link>
+          <Link to="/live">Live</Link>
           <Link to="/weather">Weather</Link>
           <Link to="/walks">Graffiti</Link>
           {isLoaded(auth) && links}
