@@ -3,8 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 import Closer from '../universal/closer';
 import '../../styles/carousel.css';
+import styled from 'styled-components';
 
 let imageArray = [];
+
+const CarouselDiv = styled.div`
+  display: ${props => (props.open ? 'block' : 'none')};
+`;
 
 function Slide(props) {
   const { image, isCurrent, label, click } = props;
@@ -57,6 +62,18 @@ function Carousel(props) {
     }
     return () => clearTimeout(timeout);
   });
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (!display) return;
+      if (e.key === 'ArrowRight' || e.keyCode === 39) handleForward();
+      if (e.key === 'ArrowLeft' || e.keyCode === 37) handleBack();
+      if (e.key === '  ' || e.keyCode === 32) handleClick();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  });
 
   const handleClick = () => {
     setIsPlaying(!isPlaying);
@@ -80,49 +97,51 @@ function Carousel(props) {
   };
 
   return (
-    <div className="carousel-container" style={display}>
-      <div className="closer" onClick={handleCloser}>
-        <Closer onClick={handleCloser} />
-      </div>
-      <div ref={ref} className="">
-        {imageArray.map(item => {
-          return (
-            <Slide
-              key={item.index}
-              image={item.image}
-              label={`image-${item.index}`}
-              isCurrent={item.index === currentIndex}
-              click={handleForward}
+    <CarouselDiv open={display}>
+      <div className="carousel-container">
+        <div className="closer" onClick={handleCloser}>
+          <Closer onClick={handleCloser} />
+        </div>
+        <div ref={ref}>
+          {imageArray.map(item => {
+            return (
+              <Slide
+                key={item.index}
+                image={item.image}
+                label={`image-${item.index}`}
+                isCurrent={item.index === currentIndex}
+                click={handleForward}
+              />
+            );
+          })}
+        </div>
+        <Controls>
+          {isPlaying ? (
+            <ControlButton
+              onClick={handleClick}
+              aria-label="Pause"
+              children={<FaPause />}
             />
-          );
-        })}
+          ) : (
+            <ControlButton
+              onClick={handleClick}
+              aria-label="Play"
+              children={<FaPlay />}
+            />
+          )}
+          <ControlButton
+            onClick={handleBack}
+            aria-label="Forward"
+            children={<FaBackward />}
+          />
+          <ControlButton
+            onClick={handleForward}
+            aria-label="Backward"
+            children={<FaForward />}
+          />
+        </Controls>
       </div>
-      <Controls>
-        {isPlaying ? (
-          <ControlButton
-            onClick={handleClick}
-            aria-label="Pause"
-            children={<FaPause />}
-          />
-        ) : (
-          <ControlButton
-            onClick={handleClick}
-            aria-label="Play"
-            children={<FaPlay />}
-          />
-        )}
-        <ControlButton
-          onClick={handleBack}
-          aria-label="Forward"
-          children={<FaBackward />}
-        />
-        <ControlButton
-          onClick={handleForward}
-          aria-label="Backward"
-          children={<FaForward />}
-        />
-      </Controls>
-    </div>
+    </CarouselDiv>
   );
 }
 
@@ -131,7 +150,7 @@ Carousel.propTypes = {
   data: PropTypes.shape({
     images: PropTypes.array,
   }),
-  display: PropTypes.object,
+  display: PropTypes.bool,
 };
 
 export default Carousel;
