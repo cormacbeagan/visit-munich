@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Redirect, useHistory } from 'react-router-dom';
 import { FaTrashAlt, FaArrowAltCircleUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';

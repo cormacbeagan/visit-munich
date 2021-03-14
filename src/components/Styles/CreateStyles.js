@@ -10,7 +10,7 @@ const CreateForm = styled.form`
   @media only screen and (max-width: 480px) {
     padding: 1rem 0.5rem;
     width: 95%;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
     box-sizing: border-box;
   }
 `;
