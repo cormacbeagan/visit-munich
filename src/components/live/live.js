@@ -43,8 +43,19 @@ const InfoBoxes = styled.div`
   width: 320px;
   display: block;
   transition: margin-left 400ms cubic-bezier(0.5, 1.71, 0.54, 0.89);
+  &:focus {
+    box-shadow: none;
+  }
   @media (max-width: 500px) {
     margin-top: 150px;
+  }
+  @media only screen and (max-width: 480px) {
+    transform: scale(0.95);
+  }
+  @media only screen and (max-width: 380px) {
+    margin-top: 90px;
+    transform: scale(0.7);
+    left: ${props => (props.slideIn ? '-50px' : '-350px')};
   }
 `;
 

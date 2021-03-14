@@ -202,6 +202,9 @@ function DatePicker(props) {
   };
 
   const onDateClick = day => {
+    setTimeout(() => {
+      setShowDatePicker(false);
+    });
     setDateStamp(prev => ({ ...prev, selectedDay: day.timestamp }));
     setDateToInput(day.timestamp);
     if (onChange) {
