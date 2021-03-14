@@ -171,11 +171,14 @@ export default function NavBar() {
                     : { display: 'none' }
                 }
               >
+                <Link to="/" aria-hidden={menuOpen ? false : true}>
+                  Home
+                </Link>{' '}
                 <Link to="/tips" aria-hidden={menuOpen ? false : true}>
                   Tips
                 </Link>
                 <Link to="/live" aria-hidden={menuOpen ? false : true}>
-                  Live Music
+                  Live
                 </Link>
                 <Link to="/weather" aria-hidden={menuOpen ? false : true}>
                   Weather
