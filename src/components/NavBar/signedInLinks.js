@@ -14,7 +14,7 @@ const ProfileLink = styled.div`
     font-size: 24px;
     text-decoration: none;
     background: #f9cd25;
-    color: var(--darkBrown);
+    color: var(--darkBrown) !important;
     font-weight: bold;
     transition: all 200ms ease;
     &:hover,

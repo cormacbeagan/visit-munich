@@ -10,7 +10,7 @@ const ButtonsDiv = styled.div`
   position: fixed;
   top: 100px;
   right: 50px;
-  z-index: 90;
+  z-index: 99;
 `;
 
 export default function GetCoords({ passCoords, oldCoords }) {

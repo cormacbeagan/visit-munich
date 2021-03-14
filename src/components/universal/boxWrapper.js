@@ -10,8 +10,7 @@ const BoxStyles = styled.article`
   border-radius: 2rem;
   border: 3px solid var(--middleBlue);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-  &:focus,
-  &:hover {
+  &:focus {
     box-shadow: var(--hgBs);
   }
   @media only screen and (max-width: 480px) {
