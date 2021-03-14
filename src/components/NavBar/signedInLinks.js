@@ -21,7 +21,7 @@ const ProfileLink = styled.div`
     &:focus {
       text-decoration: none;
       background: var(--backBlue);
-      color: var(--white);
+      color: var(--white) !important;
     }
   }
 `;
