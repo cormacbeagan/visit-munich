@@ -8,6 +8,7 @@ html {
   --darkBlue: rgb(36, 52, 67);
   --middleBlue: rgb(57, 95, 120);
   --lightBlue: rgba(68, 108, 134, 0.918);
+  --backBlue: rgb(33, 70, 96);
   --white: rgb(255, 255, 255);
   --offWhite: rgb(215, 215, 215);
   --beige: rgb(201, 195, 195);
@@ -17,7 +18,7 @@ html {
 }
 
 body {
-  background-color: #214660;
+  background-color: rgb(33, 70, 96);
   scrollbar-width: thin;
   scrollbar-color: #395f78 #333333;
   font-family: Arial, Helvetica, sans-serif;

@@ -8,9 +8,8 @@ const myId = process.env.REACT_APP_MY_ID;
 
 const ProfileLink = styled.div`
   margin-top: 24px;
-  #profile {
-    padding: 12px !important;
-    height: 42px;
+  a {
+    padding: 14px 12px !important;
     border-radius: 100%;
     font-size: 24px;
     text-decoration: none;
@@ -21,7 +20,8 @@ const ProfileLink = styled.div`
     &:hover,
     &:focus {
       text-decoration: none;
-      background: var(--lightPink);
+      background: var(--backBlue);
+      color: var(--white);
     }
   }
 `;
