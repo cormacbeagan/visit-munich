@@ -79,6 +79,7 @@ const CloserDiv = styled.div`
 `;
 
 const ErrorDiv = styled.div`
+  margin-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +87,7 @@ const ErrorDiv = styled.div`
     z-index: 99;
     bottom: 200px;
     color: #ff4444;
-    font-size: 36;
+    font-size: 36px;
     font-weight: bold;
   }
 `;

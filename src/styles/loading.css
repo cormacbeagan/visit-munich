@@ -4,27 +4,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #476073; 
-    opacity: 0.9;
+    background: var(--backBlue); 
+    opacity: 0.8;
     transition: opacity 1s ease;
     z-index: 80;
 }
 
 .heading-container {
     position: relative;
-    margin: 200px auto;
+    margin: 300px auto;
     width: 200px;
 }  
 
 .loading-header {
-    color: #d4cfcf;
-}
-
-.check-btn-white-checking {
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    background-color: #0e4aa531;
+  font-size: 48px;
+  color: #d4cfcf;
 }
 
 .loading-header:after {

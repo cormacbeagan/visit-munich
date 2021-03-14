@@ -6,6 +6,7 @@ import Button from '../universal/button';
 import Input from '../universal/input';
 import { HeadingStyle } from '../Styles/CreateStyles';
 import { ErrorStyle, SignForm } from '../Styles/SignStyles';
+import Loading from '../universal/loading';
 
 const initialState = {
   email: '',
@@ -20,19 +21,32 @@ export default function SignIn() {
   const [formData, setFormData] = useState(initialState);
   const [resetting, setResetting] = useState(false);
   const [msg, setMsg] = useState('');
+  const [loader, setLoader] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    setMsg(authMsg);
-    setTimeout(() => {
-      setMsg('');
-    }, 2000);
-  }, [authMsg]);
+    if (authError) {
+      setLoader(false);
+      setErrorMsg(authError);
+      setTimeout(() => {
+        setErrorMsg('');
+      }, 2000);
+    }
+    if (authMsg) {
+      setLoader(false);
+      setMsg(authMsg);
+      setTimeout(() => {
+        setMsg('');
+      }, 2000);
+    }
+  }, [authMsg, authError]);
 
   if (auth.uid) return <Redirect to="/" />;
 
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(signIn(formData));
+    setLoader(true);
   };
 
   const handleChange = (type, value) => {
@@ -43,6 +57,7 @@ export default function SignIn() {
     if (resetting) {
       dispatch(resetPassword(formData.email));
       setFormData(initialState);
+      setLoader(true);
     } else {
       setResetting(true);
     }
@@ -89,8 +104,9 @@ export default function SignIn() {
           )}
         </div>
         <div>
-          {authError ? <ErrorStyle>{authError}</ErrorStyle> : null}
+          {errorMsg ? <ErrorStyle>{errorMsg}</ErrorStyle> : null}
           {msg ? <ErrorStyle>{msg}</ErrorStyle> : null}
+          {loader && <Loading />}
         </div>
       </SignForm>
     </div>
