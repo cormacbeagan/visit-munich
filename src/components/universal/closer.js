@@ -39,18 +39,8 @@ const YCloser = styled.div`
 `;
 
 const Closer = React.forwardRef(({ onClick }, ref) => {
-  // const handleKeyDown = e => {
-  //   if (e.keyCode === 13) onClick();
-  // };
-
   return (
-    <CloserButton
-      ref={ref}
-      onClick={onClick}
-      aria-label="closer"
-      tabIndex="0"
-      // onKeyDown={handleKeyDown}
-    >
+    <CloserButton ref={ref} onClick={onClick} aria-label="closer" tabIndex="0">
       <XCloser></XCloser>
       <YCloser></YCloser>
     </CloserButton>

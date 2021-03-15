@@ -102,10 +102,6 @@ function IconSlider({ data }) {
               <p>{item.performance[0].artist.displayName}</p>
               <p className="venue-p">{item.venue.displayName}</p>
             </ConcertEntry>
-            {/* // todo needs focus state, a is not visible at the moment
-            <a href={item.uri} target="_blank" rel="noreferrer">
-              <LogoImg src="/images/sk-badge-pink.png" alt="Sonkick Logo" />
-            </a> */}
             <LogoLink href={item.uri}>
               <img src="/images/sk-badge-pink.png" alt="" />
               <p className="accessibly-hidden">

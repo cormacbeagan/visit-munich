@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { useSelector } from 'react-redux';
 import Button from '../universal/button';
 import Loading from '../universal/loading';
-import { FiExternalLink } from 'react-icons/fi';
 import styled from 'styled-components';
+import ExtLink from '../universal/ExtLink';
 dayjs.extend(advancedFormat);
 const myId = process.env.REACT_APP_MY_ID;
 
@@ -42,7 +41,6 @@ const BottomDiv = styled.div`
 export default function DisplayText(props) {
   const { data, handleEditMode } = props;
   const history = useHistory();
-  const link = useRef();
   const auth = useSelector(state => state.firebase.auth);
 
   const handleEdit = () => {
@@ -76,26 +74,11 @@ export default function DisplayText(props) {
           )}
         </TimeDiv>
         <BottomDiv>
-          {/* //todo make a Link component for external links  */}
-          <Button
-            children={
-              <div>
-                directions <FiExternalLink style={{ marginBottom: '-2px' }} />
-              </div>
-            }
-            onClick={() => link.current.click()}
-          />
-
-          <a
-            ref={link}
+          <ExtLink
             href={`https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`}
-            target="_blank"
-            rel="noreferrer"
-            style={{ display: 'none' }}
           >
-            google maps
-          </a>
-          {/* //todo to get rid of this nonsense */}
+            directions
+          </ExtLink>
           {(auth.uid === myId || auth.uid === data.authorId) && (
             <Button onClick={handleEdit} children={'Edit'} />
           )}

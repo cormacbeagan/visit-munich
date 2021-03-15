@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import Button from '../universal/button';
 import { useDimensionSetter } from '../../hooks/useDimensionSetter';
-import { FiExternalLink } from 'react-icons/fi';
 import styled from 'styled-components';
+import LogoLink from '../universal/LogoLink';
+import ExtLink from '../universal/ExtLink';
 dayjs.extend(advancedFormat);
 
 const Container = styled.article`
@@ -41,21 +41,16 @@ const FlexDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const LogoImg = styled.img`
-  margin: 0 8px;
-  cursor: pointer;
-  height: 20px;
-  width: 20px;
-`;
-
-const SkButton = styled.img`
-  left: 20px;
+const SkLogo = styled.img`
+  position: absolute;
+  right: 20px;
+  bottom: -30px;
   height: 25px;
   width: 75px;
-  cursor: pointer;
 `;
 
 const BtnDiv = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -65,18 +60,9 @@ const BandDiv = styled.div`
   margin-left: 10px;
 `;
 
-const LinkStyle = styled.div`
-  color: var(--offWhite);
-  width: 95px;
-  max-height: 18px;
-  overflow: hidden;
-`;
-
 function Concert(props) {
   const { data, handleBackToMap } = props;
-  const [hover, setHover] = useState(false);
   const [width, height] = useDimensionSetter();
-  const link = useRef();
 
   const handleBack = () => {
     handleBackToMap(data.id);
@@ -109,57 +95,28 @@ function Concert(props) {
                 <p>
                   <span>{band.displayName}</span>
                 </p>
-                <a href={band.artist.uri} target="_blank" rel="noreferrer">
-                  <LogoImg src="/images/sk-badge-pink.png" alt="" />
+                <LogoLink href={band.artist.uri} size={25}>
+                  <img src="/images/sk-badge-pink.png" alt="" />
                   <p className="accessibly-hidden">
                     Songkick events details page
                   </p>
-                </a>
-                <a
+                </LogoLink>
+                <LogoLink
                   href={`https://open.spotify.com/search/${band.displayName}`}
-                  target="_blank"
-                  rel="noreferrer"
+                  size={25}
                 >
-                  <LogoImg src="/images/Spotify_Icon_RGB_Green.png" alt="" />
+                  <img src="/images/Spotify_Icon_RGB_Green.png" alt="" />
                   <p className="accessibly-hidden">Spotify artists page</p>
-                </a>
+                </LogoLink>
               </FlexDiv>
             </BandDiv>
           );
         })}
       </FlexDiv>
       <BtnDiv>
-        <div
-          onMouseEnter={() => setHover(true)}
-          onMouseOver={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          onMouseOut={() => setHover(false)}
-        >
-          <Button
-            children={
-              <LinkStyle>
-                {!hover ? (
-                  <div>
-                    Details <FiExternalLink style={{ marginBottom: '-2px' }} />
-                  </div>
-                ) : (
-                  <SkButton src="/images/by-songkick-pink.svg" alt="" />
-                )}
-                <a
-                  href={data.uri}
-                  ref={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="accessibly-hidden"
-                >
-                  Songkick details page
-                </a>
-              </LinkStyle>
-            }
-            onClick={() => link.current.click()}
-          />
-        </div>
         <Button onClick={handleBack} children={'Back'} />
+        <ExtLink href={data.uri}>Details</ExtLink>
+        <SkLogo src="/images/by-songkick-pink.svg" alt="" />
       </BtnDiv>
     </Container>
   );

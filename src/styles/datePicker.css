@@ -307,3 +307,5 @@ input[type='date']::-webkit-input-placeholder {
 .c-day-container.highlight-green .cdc-day span {
     background: #395f78;
 }
+
+/* Based on the work of Rinas Musthafa (https://medium.com/swlh/build-a-date-picker-in-15mins-using-javascript-react-from-scratch-f6932c77db09) - note that there are accessibility issues with my design. */

@@ -76,7 +76,7 @@ const LogoDiv = styled.div`
 const CloserDiv = styled.div`
   position: absolute;
   top: 5px;
-  right: 75px;
+  right: 60px;
 `;
 
 const ErrorDiv = styled.div`

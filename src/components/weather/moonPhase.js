@@ -60,7 +60,7 @@ function MoonPhase({ phase }) {
       const move = phase * 100 - 150;
       setLeftBack(move);
     }
-  });
+  }, [phase]);
 
   return (
     <ContDiv>

@@ -1,17 +1,15 @@
 import React from 'react';
-import { FiArrowUpLeft, FiArrowUpRight, FiExternalLink } from 'react-icons/fi';
 import styled from 'styled-components';
 import '../../styles/button.css';
 
 const LogoLinkStyles = styled.a`
-  margin: 8px 10px 0 0;
+  display: block;
+  margin: 5px 8px;
   position: relative;
-  justify-self: flex-end;
-  height: 30px;
-  width: 30px;
+  width: ${props => (props.size ? props.size : '30')}px;
+  height: ${props => (props.size ? props.size : '30')}px;
   cursor: pointer;
-  border-radius: 100%;
-  flex-grow: 0;
+  border-radius: 50%;
   &:hover,
   &:focus {
     top: 0px;
@@ -23,22 +21,23 @@ const LogoLinkStyles = styled.a`
     left: 1px;
   }
   img {
-    height: 30px;
-    width: 30px;
+    width: ${props => (props.size ? props.size : '30')}px;
+    height: ${props => (props.size ? props.size : '30')}px;
   }
 `;
 
-const ArrowStyle = styled.div`
-  position: absolute;
-  left: 35px;
-  top: -10px;
-`;
 const LogoLink = React.forwardRef((props, ref) => {
-  const { children, href } = props;
+  const { children, href, size } = props;
 
   return (
-    <LogoLinkStyles ref={ref} href={href} target="_blank" rel="noreferrer">
-      <>{children}</>
+    <LogoLinkStyles
+      ref={ref}
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      size={size}
+    >
+      {children}
     </LogoLinkStyles>
   );
 });

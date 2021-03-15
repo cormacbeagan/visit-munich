@@ -19,7 +19,7 @@ const ProfileLink = styled.div`
     transition: all 200ms ease;
     &:hover,
     &:focus {
-      text-decoration: none;
+      text-decoration: none !important;
       background: var(--backBlue);
       color: var(--white) !important;
     }

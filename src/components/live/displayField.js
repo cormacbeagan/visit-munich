@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
-import { FiExternalLink } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../universal/button';
+import ExtLink from '../universal/ExtLink';
+import LogoLink from '../universal/LogoLink';
 
 const BoxText = styled.div`
   margin: 10px;
+  max-width: 220px;
   color: var(--white);
   h1 {
     color: var(--lightPink);
     font-size: 22px;
     margin: 8px 0;
-    max-width: 220px;
     word-break: break-word;
   }
 
@@ -22,13 +23,10 @@ const BoxText = styled.div`
   }
 `;
 
-const LogoStyle = styled.img`
-  height: 25px;
-  width: 25px;
+const LogoDiv = styled.div`
   position: absolute;
   top: 60px;
-  right: 30px;
-  cursor: pointer;
+  right: 10px;
 `;
 
 const BandFlex = styled.div`
@@ -50,7 +48,6 @@ const BottomDiv = styled.div`
 function DisplayField(props) {
   const { data, handleVenue, bands } = props;
   const [displayData, setDisplayData] = useState();
-  const link = useRef();
   useEffect(() => {
     setDisplayData(data[0]);
   }, [data]);
@@ -69,35 +66,25 @@ function DisplayField(props) {
             </BandFlex>
           </div>
         )}
-
         <div>
-          <br />
-          <a href={displayData.uri} target="_blank" rel="noreferrer">
-            <LogoStyle src="/images/sk-badge-pink.png" alt="" />
-            <p className="accessibly-hidden">Songkick website</p>
-          </a>
+          <LogoDiv>
+            <LogoLink href={displayData.uri} size={30}>
+              <img src="/images/sk-badge-pink.png" alt="" />
+              <p className="accessibly-hidden">
+                Songkick website venue details
+              </p>
+            </LogoLink>
+          </LogoDiv>
           <BottomDiv>
             <Button
               children={'concerts'}
               onClick={() => handleVenue(displayData.coords, displayData.name)}
             />
-            <Button
-              children={
-                <div>
-                  directions <FiExternalLink style={{ marginBottom: '-2px' }} />
-                  <a
-                    ref={link}
-                    href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="accessibly-hidden"
-                  >
-                    Google Maps
-                  </a>
-                </div>
-              }
-              onClick={() => link.current.click()}
-            />
+            <ExtLink
+              href={`https://www.google.com/maps/search/?api=1&query=${displayData.lat},${displayData.lng}`}
+            >
+              directions
+            </ExtLink>
           </BottomDiv>
         </div>
       </BoxText>
