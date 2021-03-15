@@ -80,6 +80,9 @@ const BottomBtns = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  .bot-btns-inner {
+    text-align: right;
+  }
   .edit-btns-center {
     text-align: center;
   }
@@ -89,6 +92,10 @@ const ImageBtn = styled.button`
   margin-left: 1rem;
   display: block;
   color: white;
+  &:hover,
+  &:focus {
+    color: var(--hgGreen);
+  }
 `;
 
 const ThumbDiv = styled.div`
@@ -121,6 +128,11 @@ const InfoBox = styled.div`
   }
   span {
     color: #cecbcb;
+  }
+  @media (max-width: 640px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 `;
 

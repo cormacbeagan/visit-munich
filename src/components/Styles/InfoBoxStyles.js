@@ -25,6 +25,9 @@ const ImgButton = styled.button`
   background-size: 305px 305px;
   background-repeat: no-repeat;
   border-radius: 2rem;
+  &:focus {
+    box-shadow: var(--hgOutBs);
+  }
 `;
 
 export { InfoBoxStyles, ImgButton };

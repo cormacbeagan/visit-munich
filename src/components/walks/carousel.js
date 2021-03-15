@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 import Closer from '../universal/closer';
 import '../../styles/carousel.css';
@@ -33,11 +33,11 @@ function ControlButton(props) {
   return <button className="controlButton" {...props} />;
 }
 
-function Carousel(props) {
+const Carousel = React.forwardRef((props, ref) => {
   const { display, closeModal, data } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const ref = useRef();
+  const closerBack = useRef();
 
   useEffect(() => {
     let counter = 0;
@@ -67,7 +67,6 @@ function Carousel(props) {
       if (!display) return;
       if (e.key === 'ArrowRight' || e.keyCode === 39) handleForward();
       if (e.key === 'ArrowLeft' || e.keyCode === 37) handleBack();
-      if (e.key === '  ' || e.keyCode === 32) handleClick();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -88,32 +87,22 @@ function Carousel(props) {
   };
 
   const handleCloser = () => {
-    ref.current.className = 'slideOut';
+    closerBack.current.className = 'slideOut';
     setTimeout(() => {
       closeModal();
       setCurrentIndex(0);
-      ref.current.className = '';
+      closerBack.current.className = '';
     }, 300);
   };
 
   return (
     <CarouselDiv open={display}>
-      <div className="carousel-container">
+      <div
+        className="carousel-container"
+        aria-hidden={display ? 'false' : 'true'}
+      >
         <div className="closer" onClick={handleCloser}>
-          <Closer onClick={handleCloser} />
-        </div>
-        <div ref={ref}>
-          {imageArray.map(item => {
-            return (
-              <Slide
-                key={item.index}
-                image={item.image}
-                label={`image-${item.index}`}
-                isCurrent={item.index === currentIndex}
-                click={handleForward}
-              />
-            );
-          })}
+          <Closer onClick={handleCloser} ref={ref} />
         </div>
         <Controls>
           {isPlaying ? (
@@ -140,10 +129,23 @@ function Carousel(props) {
             children={<FaForward />}
           />
         </Controls>
+        <div ref={closerBack}>
+          {imageArray.map(item => {
+            return (
+              <Slide
+                key={item.index}
+                image={item.image}
+                label={`image-${item.index}`}
+                isCurrent={item.index === currentIndex}
+                click={handleForward}
+              />
+            );
+          })}
+        </div>
       </div>
     </CarouselDiv>
   );
-}
+});
 
 Carousel.propTypes = {
   closeModal: PropTypes.func,

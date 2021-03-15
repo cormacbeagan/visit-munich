@@ -21,7 +21,11 @@ export default function Walks() {
   const [displayData, setDisplayData] = useState({});
   const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleDark);
+  const [pin, setPin] = useState();
   const boxes = useRef();
+  const closer = useRef();
+  const map = useRef();
+  const modal = useRef();
   useFirestoreConnect(['projects']);
   const projects = useSelector(state => state.firestore.ordered?.projects);
 
@@ -29,25 +33,36 @@ export default function Walks() {
 
   const handleModal = () => {
     setDisplay(true);
+    setTimeout(() => {
+      modal.current.focus();
+    });
   };
 
   const closeModal = () => {
     setDisplay(false);
+    closer.current.focus();
   };
 
-  const handleInfo = (id, pin) => {
+  const handleInfo = (id, pinRef) => {
+    if (pinRef) {
+      setPin(pinRef);
+    } else {
+      setPin(map.current);
+    }
     if (id) {
       const data = projects.find(project => project.id === id);
       setDisplayData(data);
       setTimeout(() => {
         setSlideIn(true);
       });
-      boxes.current.focus();
+      setTimeout(() => {
+        closer.current.focus();
+      });
     }
   };
-
   const handleSlideOut = () => {
     setSlideIn(false);
+    pin.focus();
   };
 
   useEffect(() => {
@@ -61,40 +76,39 @@ export default function Walks() {
 
   useEffect(() => {
     const infoBoxes = boxes.current;
-    const handleSlideout = e => {
+    const handleSliding = e => {
+      if (display) return;
       if (!slideIn) {
         return;
       }
       if (!infoBoxes.contains(e.target) && e.target) {
-        setSlideIn(false);
+        handleSlideOut();
       }
     };
-    document.addEventListener('click', handleSlideout);
+    document.addEventListener('click', handleSliding);
     return () => {
-      document.removeEventListener('click', handleSlideout);
+      document.removeEventListener('click', handleSliding);
     };
-  }, [slideIn]);
+  }, [slideIn, display]);
 
   return (
-    <SectionStyle>
-      <div>
-        <Map
-          handleInfo={handleInfo}
-          location={location}
-          zoomLevel={12}
-          projects={projects}
-          mapStyle={mapState}
-          color={'#b81b16'}
-          switched={true}
-        />
-      </div>
-      <InfoBoxStyles slideIn={slideIn} ref={boxes} tabIndex="0">
-        <div>
-          <Closer onClick={handleSlideOut} />
-        </div>
+    <SectionStyle aria-hidden={display ? 'true' : 'false'}>
+      <Map
+        ref={map}
+        handleInfo={handleInfo}
+        location={location}
+        zoomLevel={12}
+        projects={projects}
+        mapStyle={mapState}
+        color={'#b81b16'}
+        switched={true}
+      />
+      <InfoBoxStyles slideIn={slideIn} ref={boxes}>
         <BoxWrapper>
+          <Closer onClick={handleSlideOut} ref={closer} />
           <ImgButton onClick={handleModal}>
             <DisplayImage data={displayData} handleModal={handleModal} />
+            <p className="accessibly-hidden">Open the image gallery pop up</p>
           </ImgButton>
         </BoxWrapper>
         <BoxWrapper>
@@ -102,6 +116,7 @@ export default function Walks() {
         </BoxWrapper>
       </InfoBoxStyles>
       <Carousel
+        ref={modal}
         id={displayData.id}
         closeModal={closeModal}
         data={displayData}

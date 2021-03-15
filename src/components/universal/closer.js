@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
 
-const CloserDiv = styled.div`
+const CloserButton = styled.button`
   cursor: pointer;
   position: absolute;
   width: 50px;
   height: 50px;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 5px 8px rgba(0, 0, 0, 0.2);
   transform: scale(0.65);
@@ -37,23 +38,24 @@ const YCloser = styled.div`
   transform: rotate(-45deg);
 `;
 
-function Closer({ onClick }) {
-  const handleKeyDown = e => {
-    if (e.keyCode === 13) onClick();
-  };
+const Closer = React.forwardRef(({ onClick }, ref) => {
+  // const handleKeyDown = e => {
+  //   if (e.keyCode === 13) onClick();
+  // };
 
   return (
-    <CloserDiv
+    <CloserButton
+      ref={ref}
       onClick={onClick}
       aria-label="closer"
       tabIndex="0"
-      onKeyDown={handleKeyDown}
+      // onKeyDown={handleKeyDown}
     >
       <XCloser></XCloser>
       <YCloser></YCloser>
-    </CloserDiv>
+    </CloserButton>
   );
-}
+});
 
 Closer.propTypes = {
   onClick: PropTypes.func,

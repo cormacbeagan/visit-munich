@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GiMineralHeart } from 'react-icons/gi';
 import styled from 'styled-components';
 
@@ -17,12 +17,14 @@ const PinDiv = styled.div`
   }
 `;
 
-const LocationPin = props => {
+function LocationPin(props) {
   const { text, zoom, handleInfo, id, color } = props;
   const [pinSize, setPinSize] = useState(24);
+  const pin = useRef();
+
   const handleClick = e => {
     e.preventDefault();
-    handleInfo(id);
+    handleInfo(id, pin.current);
   };
 
   // increase pin size on zoom
@@ -31,7 +33,7 @@ const LocationPin = props => {
   }, [zoom]);
 
   const handleKeyDown = e => {
-    if (e.keyCode === 13) handleInfo(id);
+    if (e.keyCode === 13) handleInfo(id, pin.current);
   };
 
   const pinIcon = {
@@ -47,6 +49,7 @@ const LocationPin = props => {
       tabIndex="0"
       id={`locationPin-${text}`}
       onKeyDown={handleKeyDown}
+      ref={pin}
     >
       <GiMineralHeart
         onTouchEnd={handleClick}
@@ -56,7 +59,7 @@ const LocationPin = props => {
       />
     </PinDiv>
   );
-};
+}
 
 LocationPin.propTypes = {
   color: PropTypes.string,

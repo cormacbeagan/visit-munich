@@ -32,6 +32,9 @@ const FileDiv = styled.div`
     margin: 0 20px;
     cursor: pointer;
     color: #616161;
+    &:focus {
+      color: var(--hgGreen);
+    }
   }
   input {
     display: none;
@@ -44,6 +47,7 @@ export default function ImageUpload(props) {
   const [imageName, setImageName] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const input = useRef();
+
   const handleImageUpload = async e => {
     e.preventDefault();
     const compImage = await imageCompression(imageFile, compressOptions);
@@ -60,13 +64,19 @@ export default function ImageUpload(props) {
     }
   };
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      input.current.click();
+    }
+  };
+
   return (
     <UploadDiv>
       <h4>Upload Image: </h4>
       <form onSubmit={handleImageUpload}>
         <FileDiv>
           <div>
-            <label htmlFor="file" tabIndex="0">
+            <label htmlFor="file" tabIndex="0" onKeyDown={handleKeyDown}>
               <input
                 ref={input}
                 onChange={handleImageFileSelect}
@@ -74,7 +84,6 @@ export default function ImageUpload(props) {
                 accept="image/*,.pdf"
                 id="file"
               />
-              {/* //todo needs a keydown listener */}
               <FaFileImport size={32} onClick={() => setImageName(null)} />
               <p className="accessibly-hidden">Upload an image</p>
             </label>

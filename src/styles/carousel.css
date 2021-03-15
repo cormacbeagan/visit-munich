@@ -136,7 +136,8 @@ button.controlButton:active {
 }
 
 button.controlButton:focus {
-  background-color: transparent !important;
+  background-color: transparent;
+  color: var(--hgGreen)
 }
 
 @media only screen and (max-width: 700px) {

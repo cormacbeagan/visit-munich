@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const InputDiv = styled.div`
@@ -36,7 +36,7 @@ const InputStyle = styled.input`
   }
 `;
 
-function Input(props) {
+const Input = React.forwardRef((props, ref) => {
   const { onChange, type, value, id, name, required } = props;
   const [marg, setMarg] = useState(5);
 
@@ -59,6 +59,7 @@ function Input(props) {
           {name}
         </InputLabel>
         <InputStyle
+          ref={ref}
           marg={marg}
           type={type}
           id={id}
@@ -71,7 +72,7 @@ function Input(props) {
       </InputDiv>
     </div>
   );
-}
+});
 
 Input.propTypes = {
   id: PropTypes.string,

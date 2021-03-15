@@ -20,12 +20,14 @@ import {
   BottomBtns,
 } from '../Styles/EditStyles';
 import useEdit from '../../hooks/useEdit';
+import { useEffect, useRef } from 'react';
 const myId = process.env.REACT_APP_MY_ID;
 
 export default function WallDetails() {
   const history = useHistory();
   const auth = useSelector(state => state.firebase.auth);
-
+  const input = useRef(null);
+  const topEdit = useRef(null);
   const {
     handleDelete,
     handleCancel,
@@ -42,6 +44,14 @@ export default function WallDetails() {
     id,
   } = useEdit('projects');
 
+  useEffect(() => {
+    if (isEditing) {
+      input.current.focus();
+    } else {
+      topEdit.current.focus();
+    }
+  }, [isEditing]);
+
   if (!entry) return <Loading />;
   if (!auth.uid) return <Redirect to="/signin" />;
   if (!(auth.uid === myId || auth.uid === entry?.authorId)) {
@@ -53,6 +63,7 @@ export default function WallDetails() {
         {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
         <Button
           onClick={() => history.push(`/walks/${id}`)}
+          ref={topEdit}
           children={'Back to Map'}
         />
         {isEditing && (
@@ -63,6 +74,7 @@ export default function WallDetails() {
         <div>
           <FlexRow className="editing">
             <Input
+              ref={input}
               type={'text'}
               id={'name'}
               name={'Name: '}
@@ -146,7 +158,8 @@ export default function WallDetails() {
         <WallDisplay project={entry} handleEdit={handleEdit} />
       )}
       <BottomBtns>
-        <div>
+        {isEditing && <ImageUpload id={id} collection={'projects'} />}
+        <div className="bot-btns-inner">
           {isEditing ? (
             <div className="edit-btns-center">
               <Button onClick={handleReady} children={'Save'} />
@@ -162,7 +175,6 @@ export default function WallDetails() {
             children={'Back to Map'}
           />
         </div>
-        {isEditing && <ImageUpload id={id} collection={'projects'} />}
       </BottomBtns>
     </ContainerStyles>
   );

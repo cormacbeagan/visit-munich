@@ -27,7 +27,7 @@ function Switch(props) {
   };
 
   return (
-    <label className="switch" aria-label="dark mode button" tabIndex="0">
+    <label className="switch" aria-label="dark mode button">
       <input type="checkbox" onChange={handleChange} ref={checkBox} />
       <span className="slider round"></span>
     </label>

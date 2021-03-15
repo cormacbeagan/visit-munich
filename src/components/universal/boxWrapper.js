@@ -17,7 +17,7 @@ const BoxStyles = styled.article`
     margin: 1rem 10px;
   }
   @media only screen and (max-width: 350px) {
-    /* transform: scale(0.95); */
+    transform: scale(0.95);
   }
 `;
 

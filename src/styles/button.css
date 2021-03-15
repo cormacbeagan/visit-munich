@@ -86,6 +86,7 @@ button.btn-universal:visited {
   transition: 0.4s;
 }
 
+
 .slider:before {
   position: absolute;
   content: '';
@@ -103,7 +104,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #4dd5ea;
+  box-shadow:  var(--hgOutBs);
 }
 
 input:checked + .slider:before {

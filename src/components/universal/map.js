@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin';
@@ -29,7 +29,7 @@ const MapCont = styled.div`
   z-index: 1;
 `;
 
-function Map(props) {
+const Map = React.forwardRef((props, ref) => {
   const {
     location,
     zoomLevel,
@@ -62,7 +62,7 @@ function Map(props) {
 
   return (
     <div>
-      <MapCont height={height} width={width}>
+      <MapCont height={height} width={width} ref={ref} tabIndex="0">
         <ButtonDiv>
           <Switch onClick={handleStyle} switched={switched} />
         </ButtonDiv>
@@ -102,7 +102,7 @@ function Map(props) {
       </MapCont>
     </div>
   );
-}
+});
 
 Map.propTypes = {
   color: PropTypes.string,
