@@ -8,14 +8,17 @@ const BoxText = styled.div`
   margin: 10px;
   color: var(--white);
   h1 {
-    color: var(--darkBlue);
+    color: var(--lightPink);
     font-size: 22px;
     margin: 8px 0;
+    max-width: 220px;
+    word-break: break-word;
   }
+
   p {
     margin: 0;
     font-weight: bold;
-    color: var(--lightPink);
+    color: var(--darkBlue);
   }
 `;
 
@@ -76,7 +79,7 @@ function DisplayField(props) {
           <BottomDiv>
             <Button
               children={'concerts'}
-              onClick={() => handleVenue(displayData.coords)}
+              onClick={() => handleVenue(displayData.coords, displayData.name)}
             />
             <Button
               children={

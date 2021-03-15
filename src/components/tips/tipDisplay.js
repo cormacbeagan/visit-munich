@@ -16,7 +16,6 @@ dayjs.extend(advancedFormat);
 
 function TipDisplay({ tip, handleEdit }) {
   if (tip) {
-    console.log(tip);
     return (
       <div>
         <FlexRow>

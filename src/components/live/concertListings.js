@@ -20,7 +20,7 @@ const ContainerStyle = styled.div`
 `;
 
 export default function ConcertListings(props) {
-  const { handleBackToMap, coords } = props;
+  const { handleBackToMap, coords, venue } = props;
   const concerts = useSelector(state => state.concerts);
   let concertArray;
   if (coords) {
@@ -38,7 +38,11 @@ export default function ConcertListings(props) {
 
   return (
     <ContDiv>
-      <h1>All concerts for your dates</h1>
+      {venue ? (
+        <h1>All concerts for {venue}</h1>
+      ) : (
+        <h1>All concerts for your dates</h1>
+      )}
       <ContainerStyle>
         <div>
           {concertArray.map(event => {

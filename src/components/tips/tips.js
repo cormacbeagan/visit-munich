@@ -21,7 +21,11 @@ export default function Tips() {
   const [displayData, setDisplayData] = useState({});
   const [slideIn, setSlideIn] = useState(false);
   const [mapState, setMapState] = useState(mapStyleLight);
+  const [pin, setPin] = useState();
   const boxes = useRef();
+  const closer = useRef();
+  const map = useRef();
+  const modal = useRef();
   useFirestoreConnect(['tips']);
   const tips = useSelector(state => state.firestore.ordered?.tips);
 
@@ -29,25 +33,39 @@ export default function Tips() {
 
   const handleModal = () => {
     setDisplay(true);
+    setTimeout(() => {
+      modal.current.focus();
+    });
   };
 
   const closeModal = () => {
     setDisplay(false);
+    setTimeout(() => {
+      closer.current.focus();
+    });
   };
 
-  const handleInfo = id => {
+  const handleInfo = (id, pinRef) => {
+    if (pinRef) {
+      setPin(pinRef);
+    } else {
+      setPin(map.current);
+    }
     if (id) {
       const data = tips.find(project => project.id === id);
       setDisplayData(data);
       setTimeout(() => {
         setSlideIn(true);
       });
-      boxes.current.focus();
+      setTimeout(() => {
+        closer.current.focus();
+      });
     }
   };
 
   const handleSlideOut = () => {
     setSlideIn(false);
+    pin.focus();
   };
 
   useEffect(() => {
@@ -62,6 +80,7 @@ export default function Tips() {
   useEffect(() => {
     const infoBoxes = boxes.current;
     const handleSlideout = e => {
+      if (display) return;
       if (!slideIn) {
         return;
       }
@@ -73,12 +92,13 @@ export default function Tips() {
     return () => {
       document.removeEventListener('click', handleSlideout);
     };
-  }, [slideIn]);
+  }, [slideIn, display]);
 
   return (
     <TipsContainer>
       <div>
         <Map
+          ref={map}
           handleInfo={handleInfo}
           location={location}
           zoomLevel={12}
@@ -88,13 +108,12 @@ export default function Tips() {
           switched={false}
         />
       </div>
-      <InfoBoxStyles slideIn={slideIn} ref={boxes} tabIndex="0">
-        <div>
-          <Closer onClick={handleSlideOut} />
-        </div>
+      <InfoBoxStyles slideIn={slideIn} ref={boxes}>
         <BoxWrapper>
+          <Closer onClick={handleSlideOut} ref={closer} />
           <ImgButton onClick={handleModal}>
             <DisplayImage data={displayData} />
+            <p className="accessibly-hidden">Open the image gallery pop up</p>
           </ImgButton>
         </BoxWrapper>
         <BoxWrapper>
@@ -102,6 +121,7 @@ export default function Tips() {
         </BoxWrapper>
       </InfoBoxStyles>
       <Carousel
+        ref={modal}
         id={displayData.id}
         closeModal={closeModal}
         data={displayData}

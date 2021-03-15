@@ -14,6 +14,9 @@ const WeatherContainer = styled.article`
     ${props => props.top},
     ${props => props.bottom}
   );
+  &:focus {
+    box-shadow: var(--hgOutBs);
+  }
 `;
 
 export default function DisplayWeather({ data }) {

@@ -20,11 +20,14 @@ import {
   BottomBtns,
 } from '../Styles/EditStyles';
 import useEdit from '../../hooks/useEdit';
+import { useEffect, useRef } from 'react';
 const myId = process.env.REACT_APP_MY_ID;
 
 export default function EditTip() {
   const history = useHistory();
   const auth = useSelector(state => state.firebase.auth);
+  const input = useRef(null);
+  const topEdit = useRef(null);
 
   const {
     handleDelete,
@@ -42,6 +45,14 @@ export default function EditTip() {
     id,
   } = useEdit('tips');
 
+  useEffect(() => {
+    if (isEditing) {
+      input.current.focus();
+    } else {
+      topEdit.current.focus();
+    }
+  }, [isEditing]);
+
   if (!entry) return <Loading />;
   if (!auth.uid) return <Redirect to="/signin" />;
   if (!(auth.uid === myId || auth.uid === entry?.authorId))
@@ -53,6 +64,7 @@ export default function EditTip() {
         {!isEditing && <Button onClick={handleEdit} children={'Edit'} />}
         <Button
           onClick={() => history.push(`/tips/${id}`)}
+          ref={topEdit}
           children={'Back to Map'}
         />
         {isEditing && (
@@ -63,6 +75,7 @@ export default function EditTip() {
         <div>
           <FlexRow className="editing">
             <Input
+              ref={input}
               type={'text'}
               id={'name'}
               name={'Name'}
@@ -167,6 +180,7 @@ export default function EditTip() {
         <TipDisplay tip={entry} handleEdit={handleEdit} />
       )}
       <BottomBtns>
+        {isEditing && <ImageUpload id={id} collection={'tips'} />}
         <div>
           {isEditing ? (
             <div className="edit-btns-center">
@@ -183,7 +197,6 @@ export default function EditTip() {
             children={'Back to Map'}
           />
         </div>
-        {isEditing && <ImageUpload id={id} collection={'tips'} />}
       </BottomBtns>
     </ContainerStyles>
   );

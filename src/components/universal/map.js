@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import uniqid from 'uniqid';
 import GoogleMapReact from 'google-map-react';
 import LocationPin from './locationPin';
@@ -43,6 +43,7 @@ const Map = React.forwardRef((props, ref) => {
   const [width, height] = useDimensionSetter();
   const [zoom, setZoom] = useState();
   const [styles, setStyles] = useState();
+  const goMap = useRef();
 
   const handleZoomChange = e => {
     setZoom(e.zoom);
@@ -67,6 +68,7 @@ const Map = React.forwardRef((props, ref) => {
           <Switch onClick={handleStyle} switched={switched} />
         </ButtonDiv>
         <GoogleMapReact
+          ref={goMap}
           center={location}
           bootstrapURLKeys={{ key: googleToken }}
           defaultCenter={middle}

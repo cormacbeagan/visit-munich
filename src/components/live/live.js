@@ -35,14 +35,15 @@ const MapContainer = styled.div`
 `;
 
 const InfoBoxes = styled.div`
+  display: block;
+  visibility: ${props => (props.slideIn ? 'visible' : 'hidden')};
   margin-left: ${props => (props.slideIn ? '10px' : '-350px')};
   margin-top: 70px;
   position: absolute;
   z-index: 87;
   height: 300px;
   width: 320px;
-  display: block;
-  transition: margin-left 400ms cubic-bezier(0.5, 1.71, 0.54, 0.89);
+  transition: margin-left 600ms cubic-bezier(0.5, 1.71, 0.54, 0.89);
   &:focus {
     box-shadow: none;
   }
@@ -100,7 +101,6 @@ const initialState = {
 };
 
 export default function Live() {
-  const boxes = useRef();
   const dispatch = useDispatch();
   const concerts = useSelector(state => state.concerts);
   const dates = useSelector(state => state.dates);
@@ -114,6 +114,11 @@ export default function Live() {
   const [venueBands, setVenueBands] = useState(null);
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState('');
+  const [venue, setVenue] = useState(initialState);
+  const [pin, setPin] = useState();
+  const boxes = useRef();
+  const map = useRef();
+  const closer = useRef();
 
   useEffect(() => {
     if (dates.dates) {
@@ -151,7 +156,12 @@ export default function Live() {
     };
   }, [slideIn]);
 
-  const handleInfo = venueId => {
+  const handleInfo = (venueId, pinRef) => {
+    if (pinRef) {
+      setPin(pinRef);
+    } else {
+      setPin(map.current);
+    }
     if (venueId) {
       const venue = concerts.venues.filter(item => item.id === venueId);
       let bands = [];
@@ -164,8 +174,8 @@ export default function Live() {
       setDisplayData(venue);
       setTimeout(() => {
         setSlideIn(true);
+        closer.current.focus();
       });
-      boxes.current.focus();
     }
   };
 
@@ -186,8 +196,12 @@ export default function Live() {
   const handleBackToMap = event => {
     setDisplayMap(!displayMap);
     setSlideIn(false);
+    setVenue('');
     setCoords(null);
     setVenueBands(null);
+    setTimeout(() => {
+      setPin(map.current);
+    });
     if (event) {
       setMapLocation({ lat: event.venue.lat, lng: event.venue.lng });
       setMapZoom(17);
@@ -200,20 +214,30 @@ export default function Live() {
           uri: event.uri,
         },
       ]);
-      setSlideIn(true);
+      setTimeout(() => {
+        setSlideIn(true);
+        closer.current.focus();
+      });
     } else {
       setMapLocation(location);
       setMapZoom(12);
+      map.current.focus();
     }
   };
 
-  const handleVenue = coords => {
+  const handleVenue = (coords, venue) => {
     setDisplayMap(!displayMap);
+    setVenue(venue);
     setCoords(coords);
   };
 
-  const closer = () => {
+  const handleCloser = () => {
     setSlideIn(false);
+    setMapZoom(12);
+    setMapLocation(location);
+    setTimeout(() => {
+      pin.focus();
+    });
   };
 
   return (
@@ -232,12 +256,17 @@ export default function Live() {
         )}
       </SearchBar>
       {displayMap ? (
-        <ConcertListings coords={coords} handleBackToMap={handleBackToMap} />
+        <ConcertListings
+          coords={coords}
+          handleBackToMap={handleBackToMap}
+          venue={venue}
+        />
       ) : (
         <div>
           <MapContainer>
             <div>
               <Map
+                ref={map}
                 onClick={closer}
                 handleInfo={handleInfo}
                 location={mapLocation}
@@ -250,7 +279,7 @@ export default function Live() {
             </div>
             <InfoBoxes slideIn={slideIn} ref={boxes} tabIndex="0">
               <CloserDiv>
-                <Closer onClick={closer} />
+                <Closer onClick={handleCloser} ref={closer} />
               </CloserDiv>
               <BoxWrapper>
                 <DisplayField

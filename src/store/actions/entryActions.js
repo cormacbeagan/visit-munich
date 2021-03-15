@@ -45,7 +45,6 @@ export const uploadImage = (image, id, collection) => {
     const project = firestore.collection(collection).doc(id);
     const imageUniqId = uniqid(image.name + '-', `-${collection}`);
     const uploadTask = storage.ref(`images/${imageUniqId}`).put(image);
-    console.log(project);
     uploadTask.on(
       'state_changed',
       snapshot => {},
@@ -58,7 +57,6 @@ export const uploadImage = (image, id, collection) => {
           .child(imageUniqId)
           .getDownloadURL()
           .then(url => {
-            console.log(url);
             project.update({
               images: firebase.firestore.FieldValue.arrayUnion(url),
             });

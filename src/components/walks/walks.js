@@ -40,7 +40,9 @@ export default function Walks() {
 
   const closeModal = () => {
     setDisplay(false);
-    closer.current.focus();
+    setTimeout(() => {
+      closer.current.focus();
+    });
   };
 
   const handleInfo = (id, pinRef) => {
