@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../universal/button';
 import { useSelector } from 'react-redux';
-import { FiExternalLink } from 'react-icons/fi';
 import Loading from '../universal/loading';
 import styled from 'styled-components';
+import ExtLink from '../universal/ExtLink';
 const myId = process.env.REACT_APP_MY_ID;
 
 const BoxText = styled.div`
@@ -33,35 +32,13 @@ export default function HomeEntry(props) {
   const { data, url, handleEditMode } = props;
   const auth = useSelector(state => state.firebase.auth);
   const history = useHistory();
-  const link = useRef();
   let button = null;
 
   if (data.authorFirstName) {
     if (data.link) {
       const check = data.link.includes('http');
       if (check) {
-        button = (
-          <div>
-            <Button
-              children={
-                <div>
-                  {data.linkText}{' '}
-                  <FiExternalLink style={{ marginBottom: '-2px' }} />
-                </div>
-              }
-              onClick={() => link.current.click()}
-            />
-            <a
-              href={data.link}
-              ref={link}
-              rel="noreferrer"
-              style={{ display: 'none' }}
-              target="_blank"
-            >
-              {data.linkText}
-            </a>
-          </div>
-        );
+        button = <ExtLink href={data.link}>{data.linkText}</ExtLink>;
       } else {
         button = (
           <Button

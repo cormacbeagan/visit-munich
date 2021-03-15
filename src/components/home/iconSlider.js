@@ -13,6 +13,7 @@ import TempInput from '../weather/tempInput';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import styled from 'styled-components';
+import LogoLink from '../universal/LogoLink';
 dayjs.extend(advancedFormat);
 
 const ColumnUl = styled.ul`
@@ -22,6 +23,7 @@ const ColumnUl = styled.ul`
 `;
 
 const EntryRow = styled.div`
+  max-width: 250px;
   margin-top: 5px;
   display: flex;
   flex-direction: row;
@@ -42,22 +44,16 @@ const ConcertEntry = styled.div`
 `;
 
 const WeatherEntry = styled.div`
-  margin: 5px 0;
+  margin: 0px 0;
+  padding: 5px 0;
   border-bottom: 2px solid var(--darkBlue);
   p {
     color: var(--white);
     font-weight: 600;
   }
-`;
-
-const LogoImg = styled.img`
-  height: 25px;
-  width: 25px;
-  cursor: pointer;
-  margin: 15px;
-  position: absolute;
-  right: 0;
-  border-radius: 5px;
+  &:focus {
+    box-shadow: var(--hgBs);
+  }
 `;
 
 function IconSlider({ data }) {
@@ -90,7 +86,7 @@ function IconSlider({ data }) {
             icon = <p>Cloudy with a chance of ERRORS</p>;
         }
         return (
-          <WeatherEntry>
+          <WeatherEntry tabIndex="0">
             <p>{dayjs(item.datetime).format('ddd Do MMM YYYY')}</p>
             {icon}
             <TempInput avg={item.temp} max={item.tempmax} min={item.tempmin} />
@@ -106,10 +102,16 @@ function IconSlider({ data }) {
               <p>{item.performance[0].artist.displayName}</p>
               <p className="venue-p">{item.venue.displayName}</p>
             </ConcertEntry>
-            {/* // todo needs focus state, a is not visible at the moment*/}
+            {/* // todo needs focus state, a is not visible at the moment
             <a href={item.uri} target="_blank" rel="noreferrer">
               <LogoImg src="/images/sk-badge-pink.png" alt="Sonkick Logo" />
-            </a>
+            </a> */}
+            <LogoLink href={item.uri}>
+              <img src="/images/sk-badge-pink.png" alt="" />
+              <p className="accessibly-hidden">
+                Songkick website concert entry
+              </p>
+            </LogoLink>
           </EntryRow>
         );
       });
@@ -120,11 +122,7 @@ function IconSlider({ data }) {
   return (
     <ColumnUl>
       {dataArray.map(icon => {
-        return (
-          <li tabIndex="0" key={uniqid()}>
-            {icon}
-          </li>
-        );
+        return <li key={uniqid()}>{icon}</li>;
       })}
     </ColumnUl>
   );

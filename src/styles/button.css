@@ -17,7 +17,7 @@ a {
 }
 
 .btn-universal {
-  contain: items;
+  position: relative;
   height: 38px;
   cursor: pointer;
   margin: 5px;
@@ -30,6 +30,7 @@ a {
   font-weight: 400;
   border-radius: 4px;
   box-shadow: 10px 8px 40px rgba(0, 0, 0, 0.3);
+  transition: background-color 400ms ease;
 }
 
 button.btn-universal:hover {
@@ -37,7 +38,6 @@ button.btn-universal:hover {
   top: 0px;
   left: 0px;
   background-color: #61616194;
-  transition: background-color 200ms ease;
 }
 
 button.btn-universal:active {
@@ -48,13 +48,7 @@ button.btn-universal:active {
 
 button.btn-universal:focus {
   background-color: #777c84;
-  transition: all 400ms ease;
-}
-
-button.btn-universal:visited {
-  opacity: 0.5;
-  transition: all 500ms ease;
-}
+  }
 
 /* switch */
 
