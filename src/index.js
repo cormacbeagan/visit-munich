@@ -20,13 +20,19 @@ import fbConfig from './config/fbConfig';
 import firebase from 'firebase/app';
 import { useSelector } from 'react-redux';
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reduxFirestore(fbConfig)
-  )
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+  reduxFirestore(fbConfig)
 );
+
+const store = createStore(rootReducer, enhancer);
 
 const profileProps = {
   userProfile: 'users',
