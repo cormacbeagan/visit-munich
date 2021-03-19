@@ -6,7 +6,10 @@ function SignedOutLinks(props) {
 
   return (
     <>
-      <Link to="/signin" aria-hidden={mobile && menuOpen ? false : true}>
+      <Link
+        to="/signin"
+        aria-hidden={mobile ? (mobile && menuOpen ? false : true) : false}
+      >
         Sign In
       </Link>
       <Link to="/signup">Sign Up</Link>
