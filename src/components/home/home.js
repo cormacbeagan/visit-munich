@@ -18,6 +18,9 @@ import {
   BoxDiv,
 } from '../Styles/HomeStyles';
 
+import pdfData from './summaryData.json';
+import generatePDF from 'trauma-report-pdf-mac';
+
 export default function Home() {
   const [width, height] = useDimensionSetter();
   const [slideIn, setSlideIn] = useState(width);
@@ -68,10 +71,62 @@ export default function Home() {
     dispatch(weatherSearch(dates));
   };
 
+  //* pdf generation
+  const download = useRef();
+  const pdfGen = async () => {
+    const resp = await fetch('http://localhost:8080/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pdfData),
+    });
+    console.log(resp);
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    download.current.href = url;
+  };
+
+  const inPdfGen = async () => {
+    const resp = generatePDF(pdfData, true);
+    console.log(resp);
+    const blob = new Blob([resp], { type: 'application/pdf' });
+    console.log(blob);
+    const url = URL.createObjectURL(blob);
+    download.current.href = url;
+  };
+
   return (
     <Container height={height} width={width}>
       <DateForm name={'pick your dates'} handleDates={handleDates} />
       <LogoDiv>
+        {/* //* pdf generation */}
+        <button
+          style={{ background: 'white', margin: '50px', padding: '10px' }}
+          onClick={pdfGen}
+        >
+          PDF
+        </button>
+        <button
+          style={{ background: 'white', margin: '50px', padding: '10px' }}
+          onClick={inPdfGen}
+        >
+          PDF In
+        </button>
+        <a
+          ref={download}
+          href=""
+          target="_blank"
+          // download
+          style={{
+            background: 'white',
+            fontSize: '16px',
+            color: 'black',
+            padding: '10px',
+          }}
+        >
+          Download
+        </a>
+        {/* //* pdf generation */}
+
         <h1>Visit Munich</h1>
       </LogoDiv>
       <BoxCont slideIn={slideIn}>
