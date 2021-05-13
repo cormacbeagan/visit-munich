@@ -65,8 +65,8 @@
   "outcome": "Morgue",
   "structuredData": {
     "patient": {
-      "firstName": "Jane",
-      "surname": "Doe",
+      "firstName": "Mac",
+      "surname": "Beagan",
       "sex": "Female",
       "dateOfBirth": "1988-01-13T00:00:00.000Z",
       "age": "33",

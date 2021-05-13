@@ -74,9 +74,27 @@ export default function Home() {
   //* pdf generation
   const download = useRef();
   const pdfGen = async () => {
-    const resp = await fetch('http://localhost:8080/', {
+    const resp = await fetch(
+      'https://nesturastraumapdfgeneratordev.azurewebsites.net',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pdfData),
+      }
+    );
+    console.log(resp);
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    download.current.href = url;
+  };
+  const pdfGenLocal = async () => {
+    const resp = await fetch('http://localhost:8080', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(pdfData),
     });
     console.log(resp);
@@ -110,6 +128,12 @@ export default function Home() {
           onClick={inPdfGen}
         >
           PDF In
+        </button>
+        <button
+          style={{ background: 'white', margin: '50px', padding: '10px' }}
+          onClick={pdfGenLocal}
+        >
+          PDF Local
         </button>
         <a
           ref={download}
