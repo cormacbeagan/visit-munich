@@ -74,8 +74,9 @@ export default function Home() {
   //* pdf generation
   const download = useRef();
   const pdfGen = async () => {
+    console.time('pdfGen');
     const resp = await fetch(
-      'https://nesturastraumapdfgeneratordev.azurewebsites.net',
+      'https://nesturastraumapdfgeneratordev.azurewebsites.net/sdfg',
       {
         method: 'POST',
         headers: {
@@ -85,12 +86,23 @@ export default function Home() {
       }
     );
     console.log(resp);
-    const blob = await resp.blob();
-    const url = URL.createObjectURL(blob);
-    download.current.href = url;
+    if (resp.status === 400) {
+      const response = await resp.json();
+      console.log(response);
+      alert('Error: ' + response.error);
+    } else if (resp.status > 401) {
+      console.log(resp.statusText);
+      alert(`Status: ${resp.status} ${resp.statusText}`);
+    } else {
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      download.current.href = url;
+    }
+    console.timeEnd('pdfGen');
   };
+
   const pdfGenLocal = async () => {
-    const resp = await fetch('http://localhost:8080', {
+    const resp = await fetch('http://localhost:8080/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,9 +110,18 @@ export default function Home() {
       body: JSON.stringify(pdfData),
     });
     console.log(resp);
-    const blob = await resp.blob();
-    const url = URL.createObjectURL(blob);
-    download.current.href = url;
+    if (resp.status === 400) {
+      const response = await resp.json();
+      console.log(response);
+      alert('Error: ' + response.error);
+    } else if (resp.status > 401) {
+      console.log(resp.statusText);
+      alert(`Status: ${resp.status} ${resp.statusText}`);
+    } else {
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      download.current.href = url;
+    }
   };
 
   const inPdfGen = async () => {
