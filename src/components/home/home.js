@@ -76,7 +76,7 @@ export default function Home() {
   const pdfGen = async () => {
     console.time('pdfGen');
     const resp = await fetch(
-      'https://nesturastraumapdfgeneratordev.azurewebsites.net/sdfg',
+      'https://nesturastraumapdfgeneratordev.azurewebsites.net/',
       {
         method: 'POST',
         headers: {
