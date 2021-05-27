@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux';
-import { useFirestoreConnect } from 'react-redux-firebase';
-import styled from 'styled-components';
-import HomeEntry from '../home/homeEntry';
-import BoxWrapper from '../universal/boxWrapper';
-import Loading from '../universal/loading';
-import DisplayText from '../walks/displayText';
+import { useSelector } from "react-redux";
+import { useFirestoreConnect } from "react-redux-firebase";
+import styled from "styled-components";
+import HomeEntry from "../home/homeEntry";
+import BoxWrapper from "../universal/boxWrapper";
+import Loading from "../universal/loading";
+import DisplayText from "../walks/displayText";
 
-const ProfileContainer = styled.div`
+export const ProfileContainer = styled.div`
   margin: 2rem auto;
   display: grid;
   grid-template-rows: auto auto auto;
@@ -21,7 +21,7 @@ const ProfileContainer = styled.div`
   }
 `;
 
-const InfoCard = styled.div`
+export const InfoCard = styled.div`
   margin: auto;
   padding: 1rem 2rem;
   width: 90%;
@@ -70,9 +70,9 @@ const BoxDiv = styled.div`
 export default function Profile() {
   const auth = useSelector(state => state.firebase.auth);
   useFirestoreConnect([
-    { collection: 'blogs', where: [['authorId', '==', auth.uid]] },
-    { collection: 'projects', where: [['authorId', '==', auth.uid]] },
-    { collection: 'tips', where: [['authorId', '==', auth.uid]] },
+    { collection: "blogs", where: [["authorId", "==", auth.uid]] },
+    { collection: "projects", where: [["authorId", "==", auth.uid]] },
+    { collection: "tips", where: [["authorId", "==", auth.uid]] },
   ]);
   const blogs = useSelector(state => state.firestore.ordered.blogs);
   const projects = useSelector(state => state.firestore.ordered.projects);
@@ -90,7 +90,7 @@ export default function Profile() {
             </h2>
             <p>These are your Visit Munich contributions</p>
             <p>
-              You have made {tips?.length + projects?.length + blogs?.length}{' '}
+              You have made {tips?.length + projects?.length + blogs?.length}{" "}
               entries, don't forget to keep them updated.
             </p>
           </InfoCard>
@@ -105,7 +105,7 @@ export default function Profile() {
                 <BoxDiv>
                   {tips.map(item => (
                     <BoxWrapper key={item.id}>
-                      <HomeEntry data={item} url={'/tips'} />
+                      <HomeEntry data={item} url={"/tips"} />
                     </BoxWrapper>
                   ))}
                 </BoxDiv>
@@ -138,7 +138,7 @@ export default function Profile() {
                 <BoxDiv>
                   {blogs.map(item => (
                     <BoxWrapper key={item.id}>
-                      <HomeEntry data={item} url={'/editblog'} />
+                      <HomeEntry data={item} url={"/editblog"} />
                     </BoxWrapper>
                   ))}
                 </BoxDiv>

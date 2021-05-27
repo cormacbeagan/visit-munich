@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import SignedInLinks from './signedInLinks';
-import SignedOutLinks from './signedOutLinks';
-import { useSelector } from 'react-redux';
-import { isLoaded } from 'react-redux-firebase/lib/helpers';
-import { FaBars } from 'react-icons/fa';
-import { useDimensionSetter } from '../../hooks/useDimensionSetter';
-import styled from 'styled-components';
+import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import SignedInLinks from "./signedInLinks";
+import SignedOutLinks from "./signedOutLinks";
+import { useSelector } from "react-redux";
+import { isLoaded } from "react-redux-firebase/lib/helpers";
+import { FaBars } from "react-icons/fa";
+import { useDimensionSetter } from "../../hooks/useDimensionSetter";
+import styled from "styled-components";
 
 const MobNavCont = styled.div`
   width: ${props => props.width}px;
@@ -28,7 +28,7 @@ const MobileLinks = styled.nav`
   max-height: ${props => props.height - 80}px;
   position: fixed;
   top: 80px;
-  right: ${props => (props.slideIn ? '0' : '-300px')};
+  right: ${props => (props.slideIn ? "0" : "-300px")};
   background: var(--darkBrown);
   display: flex;
   flex-direction: column;
@@ -38,8 +38,8 @@ const MobileLinks = styled.nav`
   z-index: 99;
   overflow-y: auto;
   border-left: 2px solid #395f78;
-  opacity: ${props => (props.slideIn ? '1' : '0')};
-  transform: ${props => (props.slideIn ? 'scale(1)' : 'scale(0.75)')};
+  opacity: ${props => (props.slideIn ? "1" : "0")};
+  transform: ${props => (props.slideIn ? "scale(1)" : "scale(0.75)")};
   a {
     color: var(--white);
     text-decoration: none;
@@ -134,9 +134,9 @@ export default function NavBar() {
     const handleMenuOpen = e => {
       if (!bars.contains(e.target)) setMenuOpen(false);
     };
-    document.addEventListener('click', handleMenuOpen);
+    document.addEventListener("click", handleMenuOpen);
     return () => {
-      document.removeEventListener('click', handleMenuOpen);
+      document.removeEventListener("click", handleMenuOpen);
     };
   }, [smallScreen]);
 
@@ -167,13 +167,13 @@ export default function NavBar() {
               <div
                 style={
                   menuOpen
-                    ? { display: 'flex', flexDirection: 'column' }
-                    : { display: 'none' }
+                    ? { display: "flex", flexDirection: "column" }
+                    : { display: "none" }
                 }
               >
                 <Link to="/" aria-hidden={menuOpen ? false : true}>
                   Home
-                </Link>{' '}
+                </Link>{" "}
                 <Link to="/tips" aria-hidden={menuOpen ? false : true}>
                   Tips
                 </Link>
@@ -185,6 +185,9 @@ export default function NavBar() {
                 </Link>
                 <Link to="/walks" aria-hidden={menuOpen ? false : true}>
                   Graffiti
+                </Link>
+                <Link to="/about" aria-hidden={menuOpen ? false : true}>
+                  Legal
                 </Link>
                 {isLoaded(auth) && links}
               </div>
@@ -198,6 +201,7 @@ export default function NavBar() {
           <Link to="/live">Live</Link>
           <Link to="/weather">Weather</Link>
           <Link to="/walks">Graffiti</Link>
+          <Link to="/about">Legal</Link>
           {isLoaded(auth) && links}
         </NavBarStyles>
       )}
