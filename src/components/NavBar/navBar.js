@@ -177,9 +177,9 @@ export default function NavBar() {
                 <Link to="/tips" aria-hidden={menuOpen ? false : true}>
                   Tips
                 </Link>
-                <Link to="/live" aria-hidden={menuOpen ? false : true}>
+                {/* <Link to="/live" aria-hidden={menuOpen ? false : true}>
                   Live
-                </Link>
+                </Link> */}
                 <Link to="/weather" aria-hidden={menuOpen ? false : true}>
                   Weather
                 </Link>
@@ -195,7 +195,7 @@ export default function NavBar() {
         <NavBarStyles>
           <Link to="/">Home</Link>
           <Link to="/tips">Tips</Link>
-          <Link to="/live">Live</Link>
+          {/* <Link to="/live">Live</Link> */}
           <Link to="/weather">Weather</Link>
           <Link to="/walks">Graffiti</Link>
           {isLoaded(auth) && links}
