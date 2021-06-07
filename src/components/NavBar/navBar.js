@@ -186,9 +186,6 @@ export default function NavBar() {
                 <Link to="/walks" aria-hidden={menuOpen ? false : true}>
                   Graffiti
                 </Link>
-                <Link to="/about" aria-hidden={menuOpen ? false : true}>
-                  Legal
-                </Link>
                 {isLoaded(auth) && links}
               </div>
             </MobileLinks>
@@ -201,7 +198,6 @@ export default function NavBar() {
           <Link to="/live">Live</Link>
           <Link to="/weather">Weather</Link>
           <Link to="/walks">Graffiti</Link>
-          <Link to="/about">Legal</Link>
           {isLoaded(auth) && links}
         </NavBarStyles>
       )}

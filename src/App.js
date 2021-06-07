@@ -5,6 +5,7 @@ import Home from "./components/home/home";
 import Loading from "./components/universal/loading";
 import "./styles/app.css";
 import Profile from "./components/Profile/Profile";
+import Footer from "./components/footer/footer";
 const Tips = React.lazy(() => import("./components/tips/tips"));
 const Walks = React.lazy(() => import("./components/walks/walks"));
 const Live = React.lazy(() => import("./components/live/live"));
@@ -46,6 +47,7 @@ function App() {
               <Route path="/about" render={() => <About />} />
             </Suspense>
           </Switch>
+          <Footer />ſ
         </main>
       </div>
     </Router>
